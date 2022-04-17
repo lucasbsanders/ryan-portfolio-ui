@@ -21,10 +21,10 @@ jobs:
       run: npm install
 
     - name: Run tests
-      run: npm run test:headless
+      run: npm run test
 
     - name: Build
-      run: npm run build:prod
+      run: npm run build
 
     - name: Deploy
       if: success()
