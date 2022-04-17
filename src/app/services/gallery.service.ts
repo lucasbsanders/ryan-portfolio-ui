@@ -13,10 +13,9 @@ export class GalleryService {
   private _collections: CollectionGroup[] = [];
 
   constructor() {
+    this._collections = exampleCollectionList;
     if (environment.production) {
       // Get collections from HTTP
-    } else {
-      this._collections = exampleCollectionList;
     }
   }
 
