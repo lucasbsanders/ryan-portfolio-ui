@@ -1,0 +1,12 @@
+<app-title [locations]="[{title: collection.title}]" [isSticky]="false"></app-title>
+
+<div class="container center-align" *ngFor="let displayItem of collection.displayItems">
+  <app-image-tile *ngIf="displayItem.type===1" [imageData]="displayItem" (itemClick)="focusOnItem(displayItem)">
+    <button class="btn btn-primary btn-lg btn-block" routerLink="/details/{{displayItem.id}}" [queryParams]="{collection: collection.title}">
+      See details
+    </button>
+  </app-image-tile>
+</div>
+
+<app-image-fullscreen [focusItemObservable]="focusItemObservable">
+</app-image-fullscreen>

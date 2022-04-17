@@ -1,0 +1,8 @@
+<app-title [locations]="location"></app-title>
+
+<div class="container text-center">
+  <h4 *ngIf="displayItem.title">{{displayItem.title}}</h4>
+  <p *ngIf="displayItem.author">by {{displayItem.author}}</p>
+  <img [src]="displayItem.url">
+  <p *ngFor="let comment of displayItem.comments">{{comment}}</p>
+</div>
