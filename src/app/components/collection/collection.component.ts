@@ -12,7 +12,7 @@ import { GalleryService } from 'src/app/services/gallery.service';
 })
 export class CollectionComponent implements OnInit {
 
-  public collection = new CollectionGroup();
+  public collection: CollectionGroup = <CollectionGroup>{};
   public focusItemSubject = new Subject<DisplayItem>();
   public focusItemObservable = this.focusItemSubject.asObservable();
 

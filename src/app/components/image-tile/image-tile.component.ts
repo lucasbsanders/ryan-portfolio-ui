@@ -8,7 +8,7 @@ import { DisplayItem } from '../../shared/models/DisplayItem';
 })
 export class ImageTileComponent {
 
-  @Input() imageData = new DisplayItem();
+  @Input() imageData: DisplayItem = <DisplayItem>{};
   @Output() itemClick = new EventEmitter<void>();
 
   constructor() { }

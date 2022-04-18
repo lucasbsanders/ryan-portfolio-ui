@@ -12,7 +12,7 @@ export class ImageFullscreenComponent implements OnInit {
   @Input() focusItemObservable = new Observable<DisplayItem>();
 
   public displayStyle = "none";
-  public displayItem = new DisplayItem();
+  public displayItem: DisplayItem = <DisplayItem>{};
 
   constructor() { }
 

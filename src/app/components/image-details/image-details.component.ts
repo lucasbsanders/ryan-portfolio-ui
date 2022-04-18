@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { GalleryService } from 'src/app/services/gallery.service';
 import { DisplayItem } from 'src/app/shared/models/DisplayItem';
-import { ILocationLink } from 'src/app/shared/models/ILocationLink';
+import { ILocationLink } from 'src/app/shared/models/LocationLink';
 
 @Component({
   selector: 'app-image-details',
@@ -12,7 +12,7 @@ import { ILocationLink } from 'src/app/shared/models/ILocationLink';
 })
 export class ImageDetailsComponent implements OnInit {
 
-  public displayItem = new DisplayItem();
+  public displayItem: DisplayItem = <DisplayItem>{};
   public collectionName = '';
   public location: ILocationLink[] = [];
 

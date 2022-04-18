@@ -28,7 +28,7 @@ export class GalleryService {
   }
 
   public getItemById(itemId: Guid): DisplayItem {
-    let returnItem = new DisplayItem();
+    let returnItem: DisplayItem = <DisplayItem>{};
     this._collections.forEach((collection) => {
       const foundItem = collection.displayItems.find(displayItem => displayItem.id.equals(itemId));
       if (foundItem) returnItem = foundItem;
