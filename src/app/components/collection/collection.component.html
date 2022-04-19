@@ -1,15 +1,9 @@
 <app-title [locations]="[{title: collection.title}]" [isSticky]="false"></app-title>
 
-<div class="container">
+<div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-2 border my-2 mx-3 bg-primary d-table align-middle " *ngFor="let displayItem of collection.displayItems">
-        <div>
-          <div style="position: absolute">
-            <h3>{{displayItem.title}}</h3>
-            <p *ngIf="displayItem.author">{{displayItem.author}}</p>
-          </div>
-          <img class="img img-responsive full-width" routerLink="/details/{{displayItem.id}}" [src]="displayItem.url">
-        </div>
+    <div class="thumbnail border my-2 mx-3 p-0 bg-primary align-middle" *ngFor="let displayItem of collection.displayItems">
+      <img routerLink="/details/{{displayItem.id}}" [src]="displayItem.url">
     </div>
   </div>
 </div>
