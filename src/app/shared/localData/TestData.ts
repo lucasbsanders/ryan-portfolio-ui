@@ -17,11 +17,7 @@ export const exampleDisplayItemList: DisplayItem[] = [
     comments: ['More like, belongs in the trash'],
     type: ItemType.Image,
   },
-  <DisplayItem>{
-    id: Guid.parse("2994d115-cf4a-88b2-a707-7e3b43892688"),
-    url: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/359cf213-96fb-4fa5-9bc1-30b3f5252ca0/d806iij-1c6c114b-6f99-45b9-810f-70888122cb81.png/v1/fill/w_775,h_1031,q_75,strp/bold_and_brash_by_berni11-d806iij.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sIm9iaiI6W1t7InBhdGgiOiIvZi8zNTljZjIxMy05NmZiLTRmYTUtOWJjMS0zMGIzZjUyNTJjYTAvZDgwNmlpai0xYzZjMTE0Yi02Zjk5LTQ1YjktODEwZi03MDg4ODEyMmNiODEucG5nIiwid2lkdGgiOiI8PTc3NSIsImhlaWdodCI6Ijw9MTAzMSJ9XV19.xzd69wd3RDzkXh3lju6m5lhdl2AFQnZgzrEhzJ1IJ8Y',
-    type: ItemType.Image,
-  },
+  
   <DisplayItem>{
     id: Guid.parse("8e2e352e-6dfb-96e0-d2b7-0ed7557ac99d"),
     url: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.equestrianempire.com%2Fwp-content%2Fuploads%2F2015%2F04%2Fhorseshark.jpg&f=1&nofb=1',
@@ -38,6 +34,11 @@ export const exampleDisplayItemList: DisplayItem[] = [
   <DisplayItem>{
     id: Guid.parse("c0059b29-1327-0d4d-346e-53a5011b154a"),
     url: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fgetwallpapers.com%2Fwallpaper%2Ffull%2Fa%2Fb%2F1%2F395329.jpg&f=1&nofb=1',
+    type: ItemType.Image,
+  },
+  <DisplayItem>{
+    id: Guid.parse("2994d115-cf4a-88b2-a707-7e3b43892688"),
+    url: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/359cf213-96fb-4fa5-9bc1-30b3f5252ca0/d806iij-1c6c114b-6f99-45b9-810f-70888122cb81.png/v1/fill/w_775,h_1031,q_75,strp/bold_and_brash_by_berni11-d806iij.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sIm9iaiI6W1t7InBhdGgiOiIvZi8zNTljZjIxMy05NmZiLTRmYTUtOWJjMS0zMGIzZjUyNTJjYTAvZDgwNmlpai0xYzZjMTE0Yi02Zjk5LTQ1YjktODEwZi03MDg4ODEyMmNiODEucG5nIiwid2lkdGgiOiI8PTc3NSIsImhlaWdodCI6Ijw9MTAzMSJ9XV19.xzd69wd3RDzkXh3lju6m5lhdl2AFQnZgzrEhzJ1IJ8Y',
     type: ItemType.Image,
   },
 ];

@@ -13,8 +13,7 @@ import { GalleryService } from 'src/app/services/gallery.service';
 export class CollectionComponent implements OnInit {
 
   public collection: CollectionGroup = <CollectionGroup>{};
-  public focusItemSubject = new Subject<DisplayItem>();
-  public focusItemObservable = this.focusItemSubject.asObservable();
+  
 
   constructor(
     private galleryService: GalleryService,
@@ -28,10 +27,6 @@ export class CollectionComponent implements OnInit {
         this.collection = this.galleryService.getCollectionByName(collectionName);
       }
     });
-  }
-
-  public focusOnItem(focusItem: DisplayItem): void {
-    this.focusItemSubject.next(focusItem);
   }
 
 }

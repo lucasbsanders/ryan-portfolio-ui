@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Guid } from 'guid-typescript';
+import { Subject } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery.service';
 import { DisplayItem } from 'src/app/shared/models/DisplayItem';
 import { ILocationLink } from 'src/app/shared/models/LocationLink';
@@ -15,6 +16,8 @@ export class ImageDetailsComponent implements OnInit {
   public displayItem: DisplayItem = <DisplayItem>{};
   public collectionName = '';
   public location: ILocationLink[] = [];
+  public focusItemSubject = new Subject<DisplayItem>();
+  public focusItemObservable = this.focusItemSubject.asObservable();
 
   constructor(
     protected galleryService: GalleryService,
@@ -49,6 +52,10 @@ export class ImageDetailsComponent implements OnInit {
         });
       }
     });
+  }
+
+  public focusOnItem(focusItem: DisplayItem): void {
+    this.focusItemSubject.next(focusItem);
   }
 
 }

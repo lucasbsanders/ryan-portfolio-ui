@@ -8,13 +8,7 @@ import { DisplayItem } from '../../shared/models/DisplayItem';
 })
 export class ImageTileComponent {
 
-  @Input() imageData: DisplayItem = <DisplayItem>{};
-  @Output() itemClick = new EventEmitter<void>();
-
   constructor() { }
 
-  public focusOnItem(): void {
-    this.itemClick.next();
-  }
 
 }

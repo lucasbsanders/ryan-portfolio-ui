@@ -1,6 +1,0 @@
-<div class="image-card">
-  <h4 *ngIf="imageData.title">{{imageData.title}}</h4>
-  <img [src]="imageData.url" (click)="focusOnItem()">
-  <p *ngIf="imageData.author">{{imageData.author}}</p>
-  <ng-content></ng-content>
-</div>
