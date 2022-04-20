@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GalleryService } from 'src/app/services/gallery.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-home',
@@ -12,10 +13,12 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private galleryService: GalleryService,
+    private navbarService: NavbarService,
   ) { }
 
   ngOnInit(): void {
     this.collections = this.galleryService.getAllCollectionNames();
+    this.navbarService.locations = [];
   }
 
 }

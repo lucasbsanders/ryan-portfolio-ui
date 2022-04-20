@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 import { DisplayItem } from 'src/app/shared/models/DisplayItem';
-import { ILocationLink } from 'src/app/shared/models/LocationLink';
 
 @Component({
   selector: 'app-image-details',
@@ -14,14 +14,13 @@ import { ILocationLink } from 'src/app/shared/models/LocationLink';
 export class ImageDetailsComponent implements OnInit {
 
   public displayItem: DisplayItem = <DisplayItem>{};
-  public collectionName = '';
-  public location: ILocationLink[] = [];
   public focusItemSubject = new Subject<DisplayItem>();
   public focusItemObservable = this.focusItemSubject.asObservable();
 
   constructor(
-    protected galleryService: GalleryService,
-    private _route: ActivatedRoute,
+    private galleryService: GalleryService,
+    private navbarService: NavbarService,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -29,27 +28,20 @@ export class ImageDetailsComponent implements OnInit {
   }
 
   private extractRouteInfo(): void {
-    this._route.paramMap.subscribe((paramMap) => {
+    this.navbarService.isSticky = true;
+    this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (paramMap.has('id')) {
         const itemId = Guid.parse(<string>paramMap.get('id'));
         this.displayItem = this.galleryService.getItemById(itemId);
 
-        this.location.push({
-          title: !this.displayItem.title
-            ? itemId.toString().slice(0, 6) + '...'
-            : this.displayItem.title,
-          link: 'details/' + itemId.toString(),
-        });
-      }
-    });
-
-    this._route.queryParamMap.subscribe((queryParamMap) => {
-      if (queryParamMap.has('collection')) {
-        this.collectionName = <string>queryParamMap.get('collection');
-
-        this.location.unshift({
-          title: this.collectionName,
-        });
+        if (!this.navbarService.endLink.includes('details')) {
+          this.navbarService.locations.push({
+            title: !this.displayItem.title
+              ? itemId.toString().slice(0, 8) + '...'
+              : this.displayItem.title,
+            link: 'details/' + itemId.toString()
+          });
+        }
       }
     });
   }
