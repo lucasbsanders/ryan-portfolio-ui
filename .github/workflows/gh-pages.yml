@@ -26,13 +26,6 @@ jobs:
     - name: Build
       run: npm run build
 
-    - uses: actions/checkout@master
-    - name: copy file
-      uses: canastro/copy-file-action@master
-      with:
-        source: "dist/lucasbsanders.github.io/index.html"
-        target: "dist/lucasbsanders.github.io/404.html"
-
     - name: Deploy
       if: success()
       uses: peaceiris/actions-gh-pages@v3
@@ -40,3 +33,9 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: dist/lucasbsanders.github.io
         enable_jekyll: true
+
+    - name: copy file
+      uses: canastro/copy-file-action@master
+      with:
+        source: "dist/lucasbsanders.github.io/index.html"
+        target: "dist/lucasbsanders.github.io/404.html"
