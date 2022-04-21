@@ -25,12 +25,19 @@ p {
   justify-content: center;
   align-items: center;
   cursor: crosshair;
+  object-fit: cover;
+  position: relative;
 }
 
 .image-container img.square {
-  object-fit: cover;
+  z-index: 1;
 }
 
 .image-container img.preview {
-  object-fit: contain;
+  z-index: 9;
+}
+
+canvas {
+  height: $square-size;
+  width: $square-size;
 }

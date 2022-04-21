@@ -8,11 +8,16 @@ import { CollectionGroup } from 'src/app/shared/models/CollectionGroup';
 
 const imageShrinkTrigger = trigger('squarePreview', [
   state('square', style({
-    transform: 'scale(1)'
+    //transform: 'scale(1)',
+    //objectFit: 'cover'
   })),
   
   state('preview', style({
-    transform: 'scale(1.2)'
+    transform: 'scale(1.2)',
+    //objectFit: 'contain',
+    //padding: 0,
+    backgroundColor: 'rgba(245, 245, 245, 0.65)',
+
   })),
   
   transition('square <=> preview', [
