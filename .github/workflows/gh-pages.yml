@@ -35,7 +35,7 @@ jobs:
         enable_jekyll: true
 
     - name: copy file
-      uses: canastro/copy-file-action@master
+      uses: canastro/copy-file-action@gh-pages
       with:
         source: "dist/lucasbsanders.github.io/index.html"
         target: "dist/lucasbsanders.github.io/404.html"
