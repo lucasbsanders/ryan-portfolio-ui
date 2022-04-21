@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { CollectionGroup } from 'src/app/shared/models/CollectionGroup';
-import { DisplayItem } from 'src/app/shared/models/DisplayItem';
+import { Guid } from 'guid-typescript';
+import { switchMap } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery.service';
+import { NavbarService } from 'src/app/services/navbar.service';
+import { CollectionGroup } from 'src/app/shared/models/CollectionGroup';
 
 @Component({
   selector: 'app-slideshow',
@@ -12,26 +13,40 @@ import { GalleryService } from 'src/app/services/gallery.service';
 })
 export class CollectionComponent implements OnInit {
 
-  public collection = new CollectionGroup();
-  public focusItemSubject = new Subject<DisplayItem>();
-  public focusItemObservable = this.focusItemSubject.asObservable();
+  public collection: CollectionGroup = <CollectionGroup>{};
+  public mouseOverId: Guid = Guid.createEmpty();
 
   constructor(
     private galleryService: GalleryService,
-    private _route: ActivatedRoute
+    private navbarService: NavbarService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this._route.paramMap.subscribe((paramMap) => {
-      if (paramMap.has('collection')) {
+    this.navbarService.locations = [];
+
+    this.activatedRoute.paramMap.pipe(
+      switchMap(paramMap => {
         const collectionName = <string>paramMap.get('collection');
-        this.collection = this.galleryService.getCollectionByName(collectionName);
-      }
+        return this.galleryService.getCollectionByName(collectionName);
+      })
+    ).subscribe(collection => {
+      this.collection = collection;
+      this.setNavbarLocations(this.collection.title);
     });
   }
 
-  public focusOnItem(focusItem: DisplayItem): void {
-    this.focusItemSubject.next(focusItem);
+  private setNavbarLocations(title: string) {
+    this.navbarService.isSticky = false;
+    this.navbarService.locations = [{title: title, link: title}];
+  }
+
+  mouseOver(id: Guid, event: any) {
+    this.mouseOverId = id;
+  }
+
+  mouseOut(id: Guid) {
+    this.mouseOverId = Guid.createEmpty();
   }
 
 }

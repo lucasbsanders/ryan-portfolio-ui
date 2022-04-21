@@ -1,7 +1,14 @@
-
-<app-title></app-title>
 <div class="container">
-  <div *ngFor="let collection of collections">
-    <a routerLink="/{{collection}}">{{collection}}</a>
+  <div class="row">
+    <div *ngFor="let collection of collections" class="col-3">
+      <div class="card" [routerLink]="['/' + collection.title]">
+        <img [src]="getRandomImage(collection)" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{collection.title}}</h5>
+          <p class="card-text">{{collection.displayItems.length}} items</p>
+        </div>
+      </div>
+    </div>
   </div>
+  <!-- <canvas #canvas width="500" height="500"></canvas> -->
 </div>

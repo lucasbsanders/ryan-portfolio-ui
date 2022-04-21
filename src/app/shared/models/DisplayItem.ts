@@ -7,13 +7,11 @@ export enum ItemType {
   Video,
 }
 
-export class DisplayItem {
-  id: Guid = Guid.createEmpty();
-  url: string = ''
-  author: string = '';
-  title: string = '';
-  comments: string[] = [];
-  type: ItemType = ItemType.Unknown;
-
-  public constructor() { }
+export interface DisplayItem {
+  id: Guid;
+  url: string;
+  author: string;
+  title: string;
+  comments: string[];
+  type: ItemType;
 }

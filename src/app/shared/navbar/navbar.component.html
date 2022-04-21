@@ -1,0 +1,11 @@
+<nav id="navbar" class="navbar navbar-dark bg-dark mb-5">
+  <div class="container">
+    <span class="navbar-brand">
+      <a routerLink="/">Artist Lastname Portfolio</a>
+      <span *ngFor="let loc of locations">
+        <span class="mx-2 d-inline-block">></span>
+        <a routerLink="/{{loc.link}}">{{loc.title}}</a>
+      </span>
+    </span>
+  </div>
+</nav>
