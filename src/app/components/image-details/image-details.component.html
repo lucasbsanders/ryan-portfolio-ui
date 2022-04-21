@@ -5,5 +5,5 @@
   <p *ngFor="let comment of displayItem.comments">{{comment}}</p>
 </div>
 
-<app-image-fullscreen [focusItemObservable]="focusItemObservable">
+<app-image-fullscreen [displayItem]="displayItem" [focusItemObservable]="focusItemObservable">
 </app-image-fullscreen>

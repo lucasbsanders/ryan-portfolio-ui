@@ -8,7 +8,7 @@ import { CollectionComponent } from './components/collection/collection.componen
 import { HomeComponent } from './components/home/home.component';
 import { ImageDetailsComponent } from './components/image-details/image-details.component';
 import { ImageFullscreenComponent } from './components/image-fullscreen/image-fullscreen.component';
-import { ImageTileComponent } from './components/image-tile/image-tile.component';
+import { ImageSquareComponent } from './components/image-square/image-square.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 
@@ -17,10 +17,10 @@ import { SharedModule } from './shared/shared.module';
     AppComponent,
     NavbarComponent,
     CollectionComponent,
-    ImageTileComponent,
     HomeComponent,
     ImageFullscreenComponent,
     ImageDetailsComponent,
+    ImageSquareComponent
   ],
   imports: [
     BrowserModule,

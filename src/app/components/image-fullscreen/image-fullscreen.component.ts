@@ -10,21 +10,26 @@ import { DisplayItem } from 'src/app/shared/models/DisplayItem';
 export class ImageFullscreenComponent implements OnInit {
 
   @Input() focusItemObservable = new Observable<DisplayItem>();
+  @Input() displayItem: DisplayItem = <DisplayItem>{};
+  public isDisplayed = false;
+  //public displayItem: DisplayItem = <DisplayItem>{};
 
-  public displayStyle = "none";
-  public displayItem: DisplayItem = <DisplayItem>{};
+  public get displayStyle(): string {
+    return this.isDisplayed ? 'block' : 'none';
+  }
 
   constructor() { }
 
   ngOnInit(): void {
+    document.body.style.overflowY = this.isDisplayed ? 'hidden' : 'auto';
     this.focusItemObservable.subscribe(displayItem => {
-      this.displayItem = displayItem;
+      // this.displayItem = displayItem;
       this.viewFullscreen(true);
-    })
+    });
   }
 
   public viewFullscreen(isOpen: boolean): void {
-    this.displayStyle = isOpen ? 'block' : 'none';
+    this.isDisplayed = isOpen;
     document.body.style.overflowY = isOpen ? 'hidden' : 'auto';
   }
 

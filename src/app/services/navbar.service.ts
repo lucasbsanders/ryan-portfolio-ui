@@ -16,5 +16,4 @@ export class NavbarService {
 
   constructor() { }
 
-  
 }

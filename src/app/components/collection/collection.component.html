@@ -1,18 +1,10 @@
 <div class="container">
   <div class="row justify-content-center">
-    <ng-container *ngFor="let displayItem of collection.displayItems">
-      <div class="thumbnail-size my-2 mx-3 p-0"
-        [routerLink]="['/details/' + displayItem.id, {gallery:collection.title}]"
-        (mouseover)="mouseOver(displayItem.id, $event)" (mouseout)="mouseOut(displayItem.id)">
-        <div class="thumbnail-size image-container">
-          <img [@squarePreview]="displayItem.id===mouseOverId ? 'preview' : 'square'" [class]="displayItem.id===mouseOverId ? 'preview' : 'square'" [src]="displayItem.url">
-        </div>
-        
-        <!-- <div *ngIf="displayItem.id===mouseOverId && (displayItem.title || displayItem.author)" class="overlay-box">
-          <h4>{{displayItem.title}}</h4>
-          <p>{{displayItem.author}}</p>
-        </div> -->
-      </div>
-    </ng-container>
+    <div class="thumbnail-size my-2 mx-3 p-0" *ngFor="let displayItem of collection.displayItems"
+      [routerLink]="['/details/' + displayItem.id, {gallery:collection.title}]"
+      (mouseover)="mouseOver(displayItem.id, $event)" (mouseout)="mouseOut(displayItem.id)">
+      <app-image-square [displayItem]="displayItem" [mouseOverId]="mouseOverId">
+      </app-image-square>
+    </div>
   </div>
 </div>
