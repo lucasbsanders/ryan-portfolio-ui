@@ -35,8 +35,10 @@ jobs:
         enable_jekyll: true
 
     - uses: actions/checkout@master
+      with:
+        ref: 'gh-pages'
     - name: copy file
       uses: canastro/copy-file-action@master
       with:
-        source: "dist/lucasbsanders.github.io/index.html"
-        target: "dist/lucasbsanders.github.io/404.html"
+        source: "index.html"
+        target: "404.html"
