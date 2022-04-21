@@ -34,7 +34,7 @@ jobs:
         publish_dir: dist/lucasbsanders.github.io
         enable_jekyll: true
 
-    - uses: canastro/copy-file-action@master
+    - uses: actions/checkout@gh-pages
     - name: copy file
       uses: canastro/copy-file-action@master
       with:
