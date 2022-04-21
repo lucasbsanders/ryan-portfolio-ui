@@ -3,7 +3,7 @@ name: GitHub Pages
 on:
   push:
     branches:
-    - main
+    - pipeline_update
 
 jobs:
   deploy:
@@ -25,6 +25,13 @@ jobs:
 
     - name: Build
       run: npm run build
+
+    - uses: actions/checkout@gh-pages
+    - name: copy file
+      uses: canastro/copy-file-action@gh-pages
+      with:
+        source: "dist/lucasbsanders.github.io/index.html"
+        target: "dist/lucasbsanders.github.io/404.html"
 
     - name: Deploy
       if: success()
