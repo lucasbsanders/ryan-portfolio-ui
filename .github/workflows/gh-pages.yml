@@ -29,16 +29,10 @@ jobs:
     - name: Deploy
       if: success()
       uses: peaceiris/actions-gh-pages@v3
+      ACTIONS_RUNNER_HOOK_JOB_STARTED: copy dist/lucasbsanders.github.io/index.html dist/lucasbsanders.github.io/404.html
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: dist/lucasbsanders.github.io
         enable_jekyll: true
 
-    - uses: actions/checkout@master
-      with:
-        ref: 'gh-pages'
-    - name: copy file
-      uses: canastro/copy-file-action@master
-      with:
-        source: "index.html"
-        target: "404.html"
+    
