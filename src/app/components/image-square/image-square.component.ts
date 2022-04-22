@@ -20,7 +20,7 @@ const squarePreviewTrigger = trigger('squarePreview', [
 
   state('preview',
     style({
-      transform: 'scale(1.3)',
+      transform: 'scale(1.25)',
       objectFit: 'contain',
       zIndex: 9,
       //opacity: 0,

@@ -9,7 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ImageDetailsComponent } from './components/image-details/image-details.component';
 import { ImageFullscreenComponent } from './components/image-fullscreen/image-fullscreen.component';
 import { ImageSquareComponent } from './components/image-square/image-square.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
