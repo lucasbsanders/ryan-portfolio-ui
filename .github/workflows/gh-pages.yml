@@ -22,18 +22,12 @@ jobs:
 
     # - name: Run tests
     #   run: npm run test
-    
+
     - name: Build
       run: npm run build
 
     - name: Copy index.html to 404.html
       run: cp dist/lucasbsanders.github.io/index.html dist/lucasbsanders.github.io/404.html
-
-    - name: Print index.html
-      run: cat dist/lucasbsanders.github.io/index.html
-
-    - name: Print 404.html
-      run: cat dist/lucasbsanders.github.io/404.html
 
     - name: Deploy
       if: success()
@@ -42,5 +36,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: dist/lucasbsanders.github.io
         enable_jekyll: true
-
-    
