@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { ILocationLink } from '../models/LocationLink';
+import { ILocationLink } from 'src/app/shared/models/LocationLink';
 
 @Component({
   selector: 'app-navbar',
