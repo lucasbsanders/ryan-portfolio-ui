@@ -10,6 +10,7 @@ import { ImageDetailsComponent } from './components/image-details/image-details.
 import { ImageFullscreenComponent } from './components/image-fullscreen/image-fullscreen.component';
 import { ImageSquareComponent } from './components/image-square/image-square.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { Page404Component } from './shared/404';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SharedModule } from './shared/shared.module';
     HomeComponent,
     ImageFullscreenComponent,
     ImageDetailsComponent,
-    ImageSquareComponent
+    ImageSquareComponent,
+    Page404Component,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { switchMap } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery.service';
@@ -19,7 +19,8 @@ export class CollectionComponent implements OnInit {
   constructor(
     private galleryService: GalleryService,
     private navbarService: NavbarService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -31,8 +32,11 @@ export class CollectionComponent implements OnInit {
         return this.galleryService.getCollectionByName(collectionName);
       })
     ).subscribe(collection => {
-      this.collection = collection;
-      this.setNavbarLocations(this.collection.title);
+      if (!collection) this.router.navigate(['error']);
+      else {
+        this.collection = collection;
+        this.setNavbarLocations(this.collection.title);
+      }
     });
   }
 
