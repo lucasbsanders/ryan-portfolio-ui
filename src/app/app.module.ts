@@ -11,6 +11,7 @@ import { ImageFullscreenComponent } from './components/image-fullscreen/image-fu
 import { ImageSquareComponent } from './components/image-square/image-square.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { Page404Component } from './shared/404';
+import { EnterViewPortDirective } from './shared/enter-view-port.directive';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { SharedModule } from './shared/shared.module';
     ImageDetailsComponent,
     ImageSquareComponent,
     Page404Component,
+    EnterViewPortDirective,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { ILocationLink } from 'src/app/shared/models/LocationLink';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -8,6 +9,10 @@ import { ILocationLink } from 'src/app/shared/models/LocationLink';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
+  public get env(): string {
+    return environment.production ? '' : ' (local)';
+  }
 
   private contactLink = <ILocationLink>{
     title: 'Contact',
