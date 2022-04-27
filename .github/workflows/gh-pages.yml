@@ -24,7 +24,7 @@ jobs:
     #   run: npm run test
 
     - name: Build
-      run: npm run build
+      run: npm run build_prod
 
     - name: Copy index.html to 404.html
       run: cp dist/ryan-portfolio-ui/index.html dist/ryan-portfolio-ui/404.html
