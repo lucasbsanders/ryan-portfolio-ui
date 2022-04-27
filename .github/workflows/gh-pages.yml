@@ -34,5 +34,5 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: dist/lucasbsanders.github.io
+        publish_dir: dist/ryan-portfolio-ui
         enable_jekyll: true
