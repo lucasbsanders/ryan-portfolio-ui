@@ -1,11 +1,40 @@
-<nav id="navbar" class="navbar navbar-dark bg-dark mb-5">
-  <div class="container" style="justify-content: left;">
-    <span class="navbar-brand">
-      <a routerLink="/">Artist Lastname Portfolio</a>
-    </span>
-    <div *ngFor="let loc of locations" class="d-inline-block">
-      <span class="mx-2 d-inline-block">></span>
-      <a routerLink="/{{loc.link}}">{{loc.title}}</a>
+<nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Artist Lastname Portfolio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown"
+      aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav">
+        <ng-container *ngFor="let location of locations">
+          <ng-container [ngTemplateOutlet]="location.dropdownLinks ? dropdown : simpleLink"
+            [ngTemplateOutletContext]="{location:location}">
+          </ng-container>
+        </ng-container>
+
+        <ng-template #simpleLink let-location="location">
+          <li class="nav-item">
+            <a class="nav-link" href="#" [routerLink]="location.link">{{location.title}}</a>
+          </li>
+        </ng-template>
+
+        <ng-template #dropdown let-location="location">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              {{location.title}}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+              <li *ngFor="let subLocation of location.dropdownLinks">
+                <a class="dropdown-item" href="#" [routerLink]="subLocation.link">{{subLocation.title}}</a>
+              </li>
+            </ul>
+          </li>
+        </ng-template>
+
+      </ul>
     </div>
   </div>
-</nav>
+</nav> <!-- navbar -->

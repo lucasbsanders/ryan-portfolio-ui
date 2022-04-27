@@ -1,10 +1,17 @@
 <div class="container">
-  <div class="row justify-content-center">
+  <div class="row">
+    <div *ngFor="let displayItem of collection.displayItems" class="col-8 mx-auto">
+      <img [@smallPop]="imgRatio.get(displayItem.id)" class="mb-4 mx-auto" [src]="displayItem.url"
+        (load)="imageLoad(displayItem.id)" enterViewPort (visibilityChange)="setVisible($event, displayItem.id)" (ratioChange)="setRatio($event, displayItem.id)"/>
+    </div>
+  </div>
+
+  <!-- <div class="row justify-content-center">
     <div class="thumbnail-size my-2 mx-3 p-0" *ngFor="let displayItem of collection.displayItems"
       [routerLink]="['/details/' + displayItem.id, {gallery:collection.title}]"
       (mouseover)="mouseOver(displayItem.id, $event)" (mouseout)="mouseOut(displayItem.id)">
       <app-image-square [displayItem]="displayItem" [mouseOverId]="mouseOverId">
       </app-image-square>
     </div>
-  </div>
+  </div> -->
 </div>

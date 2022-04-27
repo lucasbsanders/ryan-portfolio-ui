@@ -11,8 +11,6 @@ import { CollectionGroup } from 'src/app/shared/models/CollectionGroup';
 export class HomeComponent implements OnInit {
 
   public collections: CollectionGroup[] = [];
-  // @ViewChild('canvas', { static: true }) canvas: ElementRef<HTMLCanvasElement> | undefined;
-  // public context: CanvasRenderingContext2D | null | undefined;
 
   constructor(
     private galleryService: GalleryService,
@@ -24,16 +22,13 @@ export class HomeComponent implements OnInit {
 
     this.galleryService.getAllCollections().subscribe(collections => {
       this.collections = collections;
+      this.collections.forEach(collection => {
+        collection.displayImage = this.getRandomImage(collection);
+      })
     });
-    
-    // this.context = this.canvas?.nativeElement.getContext('2d');
-    // if (this.context) {
-    //   this.context.fillStyle = 'red';
-    //   this.context.fillRect(5, 5, 100, 100);
-    // }
   }
 
-  public getRandomImage(collection: CollectionGroup): string {
+  private getRandomImage(collection: CollectionGroup): string {
     if (collection.displayItems && collection.displayItems.length > 0) {
       return collection.displayItems[Math.floor(Math.random() * this.collections.length)].url;
     } else return '';

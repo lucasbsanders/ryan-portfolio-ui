@@ -2,7 +2,7 @@
   <div class="row">
     <div *ngFor="let collection of collections" class="col-md-3">
       <div class="card" [routerLink]="['/' + collection.title]">
-        <img [src]="getRandomImage(collection)" class="card-img-top" alt="...">
+        <img [src]="collection.displayImage" class="card-img-top" alt="...">
         <div class="card-body text-center">
           <h5 class="card-title">{{collection.title}}</h5>
           <p class="card-text">{{collection.displayItems.length}} items</p>
@@ -10,5 +10,4 @@
       </div>
     </div>
   </div>
-  <!-- <canvas #canvas width="500" height="500"></canvas> -->
 </div>
