@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
+import { navbarBrandLinks } from 'src/app/shared/localData/ImageData';
 import { ILocationLink } from 'src/app/shared/models/LocationLink';
 import { environment } from 'src/environments/environment';
 
@@ -38,12 +39,18 @@ export class NavbarComponent implements OnInit {
     return this.navbarService.isSticky;
   }
 
+  navbarLinks: any;
+  navLinkSelection: string = 'dark';
+
   constructor(private navbarService: NavbarService) { }
 
   ngOnInit(): void {
     if (this.isSticky) {
       document.getElementById('navbar')?.classList.add("sticky-top");
     }
+    this.navbarLinks = navbarBrandLinks;
   }
+
+
 
 }

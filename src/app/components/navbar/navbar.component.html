@@ -1,6 +1,11 @@
 <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
   <div class="container">
-    <a class="navbar-brand" routerLink="/">Artist Lastname Portfolio {{env}}</a>
+    <a class="navbar-brand" routerLink="/">
+      <img src="http://drive.google.com/uc?export=view&id=1oBaZB24eo_70jOm4w_0aGJVTqAS78sZC" >
+    </a>
+    <a class="navbar-brand" routerLink="/" (mouseover)="navLinkSelection='light'" (mouseout)="navLinkSelection='dark'">
+      <img [src]="navbarLinks[navLinkSelection]" alt="RFP" height="80">
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown"
       aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,6 +13,9 @@
 
     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
       <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#" >{{env}}</a>
+        </li>
         <ng-container *ngFor="let location of locations">
           <ng-container [ngTemplateOutlet]="location.dropdownLinks ? dropdown : simpleLink"
             [ngTemplateOutletContext]="{location:location}">
