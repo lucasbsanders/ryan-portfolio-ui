@@ -44,7 +44,6 @@ export class ImageDetailsComponent implements OnInit {
   }
 
   private setNavbarLocations(title: string, id: string) {
-    this.navbarService.isSticky = true;
     if (!this.navbarService.endLink.includes('details')) {
       if (this.navbarService.locations.length == 0 && this.galleryName !== '') {
         this.navbarService.locations.push({

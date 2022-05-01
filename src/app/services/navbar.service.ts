@@ -6,7 +6,16 @@ import { ILocationLink } from '../shared/models/LocationLink';
 })
 export class NavbarService {
   public locations: ILocationLink[] = [];
-  public isSticky: boolean = true;
+  private _menuOpen: boolean = true;
+
+  public get menuOpen(): boolean {
+    return this._menuOpen;
+  }
+
+  public set menuOpen(isOpen: boolean) {
+    if (isOpen) document.getElementById('navbar')?.classList.add("sticky-top");
+    this._menuOpen = isOpen;
+  }
 
   public get endLink(): string {
     const arrLength = this.locations.length;

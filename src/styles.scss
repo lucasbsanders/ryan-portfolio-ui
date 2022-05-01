@@ -3,3 +3,39 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 @import "~font-awesome/scss/font-awesome";
+
+@font-face {
+  font-family: "Fugaz";
+  src: local("Fugaz"), url(./assets/Fugaz_One/FugazOne-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"), url(./assets/Montserrat/Montserrat-VariableFont_wght.ttf) format("truetype");
+}
+
+.fugaz {
+  font-family: "Fugaz", Arial, sans-serif;
+}
+
+.montserrat,
+a {
+  font-family: "Montserrat", Arial, sans-serif;
+}
+
+a {
+  font-size: large;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:checked {
+  color: white;
+  text-decoration: none;
+}
+
+.background-fade {
+  background-color: rgba(0, 0, 0, 0.75);
+}

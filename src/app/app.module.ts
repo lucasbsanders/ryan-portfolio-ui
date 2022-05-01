@@ -13,6 +13,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { Page404Component } from './shared/404';
 import { EnterViewPortDirective } from './shared/enter-view-port.directive';
 import { SharedModule } from './shared/shared.module';
+import { FullscreenMenuComponent } from './components/fullscreen-menu/fullscreen-menu.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { SharedModule } from './shared/shared.module';
     ImageSquareComponent,
     Page404Component,
     EnterViewPortDirective,
+    FullscreenMenuComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

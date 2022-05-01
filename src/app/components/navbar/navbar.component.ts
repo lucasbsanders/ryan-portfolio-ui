@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { navbarBrandLinks } from 'src/app/shared/localData/ImageData';
+import { navbarResources } from 'src/app/shared/localData/ImageData';
 import { ILocationLink } from 'src/app/shared/models/LocationLink';
 import { environment } from 'src/environments/environment';
 
@@ -10,6 +10,17 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
+  get menuOpen(): boolean {
+    return this.navbarService.menuOpen;
+  }
+
+  clickMenuButton(): void {
+    const temp = this.navbarLinks.dark;
+    this.navbarLinks.dark = this.navbarLinks.light;
+    this.navbarLinks.light = temp;
+    this.navbarService.menuOpen = !this.navbarService.menuOpen;
+  }
 
   public get env(): string {
     return environment.production ? '' : ' (local)';
@@ -35,20 +46,13 @@ export class NavbarComponent implements OnInit {
     return locations;
   }
 
-  public get isSticky(): boolean {
-    return this.navbarService.isSticky;
-  }
-
   navbarLinks: any;
   navLinkSelection: string = 'dark';
 
   constructor(private navbarService: NavbarService) { }
 
   ngOnInit(): void {
-    if (this.isSticky) {
-      document.getElementById('navbar')?.classList.add("sticky-top");
-    }
-    this.navbarLinks = navbarBrandLinks;
+    this.navbarLinks = navbarResources;
   }
 
 

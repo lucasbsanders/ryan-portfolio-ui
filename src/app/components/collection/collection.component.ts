@@ -75,7 +75,6 @@ export class CollectionComponent implements OnInit {
   }
 
   private setNavbarLocations(title: string) {
-    this.navbarService.isSticky = false;
     this.navbarService.locations = [{title: title, link: title}];
   }
 
