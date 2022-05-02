@@ -1,45 +1,43 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CollectionComponent } from './components/collection/collection.component';
-import { HomeComponent } from './components/home/home.component';
-import { ImageDetailsComponent } from './components/image-details/image-details.component';
-import { ImageFullscreenComponent } from './components/image-fullscreen/image-fullscreen.component';
-import { ImageSquareComponent } from './components/image-square/image-square.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { Page404Component } from './shared/404';
+import { AboutMeComponent } from './components/about-me/about-me.component';
+import { CapabilitiesComponent } from './components/capabilities/capabilities.component';
+import { CollectionComponent } from './components/Decomissioned/collection/collection.component';
+import { HomeComponent } from './components/Decomissioned/home/home.component';
+import { IllustratedBooksComponent } from './components/illustrated-books/illustrated-books.component';
+import { ImageDetailsComponent } from './components/Decomissioned/image-details/image-details.component';
+import { ImageFullscreenComponent } from './components/Decomissioned/image-fullscreen/image-fullscreen.component';
+import { ImageSquareComponent } from './components/Decomissioned/image-square/image-square.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { EnterViewPortDirective } from './shared/enter-view-port.directive';
 import { SharedModule } from './shared/shared.module';
-import { FullscreenMenuComponent } from './components/fullscreen-menu/fullscreen-menu.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { PortfolioComponent } from './components/portfolio/portfolio.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     CollectionComponent,
     HomeComponent,
     ImageFullscreenComponent,
     ImageDetailsComponent,
     ImageSquareComponent,
-    Page404Component,
     EnterViewPortDirective,
-    FullscreenMenuComponent,
-    FooterComponent,
     PortfolioComponent,
+    AboutMeComponent,
+    ProjectDetailsComponent,
+    IllustratedBooksComponent,
+    CapabilitiesComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
-    NgbModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

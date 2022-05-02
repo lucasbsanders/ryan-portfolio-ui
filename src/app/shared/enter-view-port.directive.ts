@@ -1,7 +1,13 @@
-import { Directive, ElementRef, EventEmitter, Host, Output } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  Host,
+  Output,
+} from '@angular/core';
 
 @Directive({
-  selector: '[enterViewPort]'
+  selector: '[enterViewPort]',
 })
 export class EnterViewPortDirective {
   @Output() visibilityChange: EventEmitter<string> = new EventEmitter<string>();
@@ -12,12 +18,14 @@ export class EnterViewPortDirective {
   constructor(@Host() private _elementRef: ElementRef) {}
 
   ngAfterViewInit(): void {
-    const navHeight = <number>document.querySelector(".navbar")?.clientHeight * -1;
+    // for use with a sticky-top header
+    const navHeight =
+      <number>document.querySelector('.navbar')?.clientHeight * -1;
 
     const options = {
       root: null,
       rootMargin: `${navHeight}px 0px 0px 0px`,
-      threshold: [0, 0.1, 0.2, 0.3]
+      threshold: [0, 0.1, 0.2, 0.3],
     };
 
     this._observer = new IntersectionObserver(this._callback, options);
@@ -30,21 +38,10 @@ export class EnterViewPortDirective {
   }
 
   private _callback = (entries: any[], observer: any) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       this.ratioChange.emit(entry.intersectionRatio);
-/*
-      if (entry.isIntersecting) {
-        this.ratioChange.emit(entry.intersectionRatio);
-      }*/
-      // Each entry describes an intersection change for one observed
-      // target element:
-      //   entry.boundingClientRect
       //   entry.intersectionRatio
-      //   entry.intersectionRect
       //   entry.isIntersecting
-      //   entry.rootBounds
-      //   entry.target
-      //   entry.time
     });
   };
 }

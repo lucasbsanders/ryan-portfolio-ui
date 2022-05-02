@@ -2,7 +2,6 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
-@import "~font-awesome/scss/font-awesome";
 
 @font-face {
   font-family: "Fugaz";
@@ -11,20 +10,27 @@
 
 @font-face {
   font-family: "Montserrat";
-  src: local("Montserrat"), url(./assets/Montserrat/Montserrat-VariableFont_wght.ttf) format("truetype");
+  src: local("Montserrat"), url(./assets/Montserrat/Montserrat-Regular.ttf) format("truetype");
 }
 
 @font-face {
   font-family: "Montserrat-Bold";
-  src: local("Montserrat"), url(./assets/Montserrat/static/Montserrat-Bold.ttf) format("truetype");
+  src: local("Montserrat"), url(./assets/Montserrat/Montserrat-Bold.ttf) format("truetype");
 }
 
-.fugaz {
+.fugaz,
+h1 {
   font-family: "Fugaz", Arial, sans-serif;
 }
 
-.montserrat {
+.montserrat,
+p {
   font-family: "Montserrat", Arial, sans-serif;
+}
+
+.montserrat-bold {
+  font-family: "Montserrat-Bold", Arial, sans-serif;
+  font-weight: bold;
 }
 
 .background-fade {

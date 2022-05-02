@@ -1,6 +1,6 @@
 import { Guid } from "guid-typescript";
-import { CollectionGroup } from "../models/CollectionGroup";
-import { DisplayItem, ItemType } from "../models/DisplayItem";
+import { CollectionGroup } from "../../models/CollectionGroup";
+import { DisplayItem, ItemType } from "../../models/DisplayItem";
 
 export const exampleDisplayItemList: DisplayItem[] = [
   <DisplayItem>{

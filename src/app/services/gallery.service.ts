@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { CollectionGroup } from '../shared/models/CollectionGroup';
-import { exampleCollectionList } from '../shared/localData/TestData';
+import { CollectionGroup } from '../models/CollectionGroup';
+import { exampleCollectionList } from '../shared/LocalData/TestData';
 import { Guid } from 'guid-typescript';
-import { DisplayItem } from '../shared/models/DisplayItem';
+import { DisplayItem } from '../models/DisplayItem';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
