@@ -11,6 +11,8 @@ export class FullscreenMenuComponent implements OnInit {
     return this.navbarService.menuOpen;
   }
 
+  videoReelUrl = 'https://duckduckgo.com';
+
   constructor(private navbarService: NavbarService) { }
 
   ngOnInit(): void {

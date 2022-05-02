@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { ILocationLink } from '../shared/models/LocationLink';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NavbarService {
+export class NavbarService implements OnInit {
   public locations: ILocationLink[] = [];
-  private _menuOpen: boolean = true;
+  private _menuOpen: boolean = false;
 
   public get menuOpen(): boolean {
     return this._menuOpen;
@@ -14,6 +14,7 @@ export class NavbarService {
 
   public set menuOpen(isOpen: boolean) {
     if (isOpen) document.getElementById('navbar')?.classList.add("sticky-top");
+    else document.getElementById('navbar')?.classList.remove("sticky-top");
     this._menuOpen = isOpen;
   }
 
@@ -24,5 +25,9 @@ export class NavbarService {
   }
 
   constructor() { }
+
+  ngOnInit(): void {
+    this.menuOpen = false;
+  }
 
 }

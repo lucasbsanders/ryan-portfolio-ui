@@ -15,6 +15,7 @@ import { EnterViewPortDirective } from './shared/enter-view-port.directive';
 import { SharedModule } from './shared/shared.module';
 import { FullscreenMenuComponent } from './components/fullscreen-menu/fullscreen-menu.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FooterComponent } from './components/footer/footer.component';
     EnterViewPortDirective,
     FullscreenMenuComponent,
     FooterComponent,
+    PortfolioComponent,
   ],
   imports: [
     BrowserModule,

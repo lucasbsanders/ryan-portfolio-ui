@@ -14,26 +14,17 @@
   src: local("Montserrat"), url(./assets/Montserrat/Montserrat-VariableFont_wght.ttf) format("truetype");
 }
 
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: local("Montserrat"), url(./assets/Montserrat/static/Montserrat-Bold.ttf) format("truetype");
+}
+
 .fugaz {
   font-family: "Fugaz", Arial, sans-serif;
 }
 
-.montserrat,
-a {
+.montserrat {
   font-family: "Montserrat", Arial, sans-serif;
-}
-
-a {
-  font-size: large;
-}
-
-a,
-a:link,
-a:visited,
-a:hover,
-a:checked {
-  color: white;
-  text-decoration: none;
 }
 
 .background-fade {
