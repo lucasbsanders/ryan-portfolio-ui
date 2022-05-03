@@ -1,4 +1,4 @@
-import { Video, VideoNode } from "src/app/models/video";
+import { Video, VideoNode } from "src/app/models/Video";
 import { resources, videoProcess } from "./BrandData";
 import { Guid } from "guid-typescript";
 

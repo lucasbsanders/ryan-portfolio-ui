@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { resources } from 'src/app/shared/LocalData/BrandData';
-import { environment } from 'src/environments/environment';
 
 enum Brand {
   primary = 'primary',
