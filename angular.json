@@ -7,7 +7,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gallery": {
+    "ryan-portfolio-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -79,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "gallery:build:production"
+              "browserTarget": "ryan-portfolio-ui:build:production"
             },
             "development": {
-              "browserTarget": "gallery:build:development"
+              "browserTarget": "ryan-portfolio-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -90,7 +90,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gallery:build"
+            "browserTarget": "ryan-portfolio-ui:build"
           }
         },
         "test": {
@@ -123,5 +123,5 @@
       }
     }
   },
-  "defaultProject": "gallery"
+  "defaultProject": "ryan-portfolio-ui"
 }
