@@ -1,6 +1,7 @@
-import { Video, VideoNode } from "src/app/models/Video";
-import { resources, videoProcess } from "./BrandData";
 import { Guid } from "guid-typescript";
+import { Video, VideoNode } from "src/app/models/Video";
+
+const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
 const ids = [
   Guid.parse("1f008265-0060-90c2-9886-db413743450c"),
@@ -29,9 +30,11 @@ const buildVideoList = function () {
       id: ids[i],
       html: testVideos[i],
       title: 'Title',
-      storyPieces: videoProcess,
-      client: resources.primary,
-      preview: resources.secondary,
+      storyPieces: [text],
+      process: [['assets/RyanFennessey_logo_black.svg', text],
+        ['assets/RyanFennessey_logo_white.svg', text]],
+      client: 'assets/RyanFennessey_logo_black.svg',
+      preview: 'assets/RyanFennessey_logo_black.svg',
     };
     nodeList.push(node);
     if (i < testVideos.length)

@@ -4,12 +4,12 @@
   </div>
   <img [src]="software" [alt]="software|filename">
 
-  <div class="row mx-5">
+  <div *ngIf="servicesText|splitText:2 as parts" class="row mx-5">
     <div class="col">
-      <p>{{servicesText[0]}}</p>
+      <p>{{parts[0]}}</p>
     </div>
     <div class="col">
-      <p>{{servicesText[1]}}</p>
+      <p>{{parts[1]}}</p>
     </div>
   </div>
 

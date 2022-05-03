@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { resources } from 'src/app/shared/LocalData/BrandData';
+import { ResourcePathsService } from 'src/app/services/resource-paths.service';
 
 enum Brand {
   primary = 'primary',
@@ -12,20 +12,17 @@ enum Brand {
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
-  brandLinks: any;
+  brandLinks = this.resources.getConstUrls();
   brandSelection = Brand.primary;
 
   get menuOpen(): boolean {
     return this.navbarService.menuOpen;
   }
 
-  constructor(private navbarService: NavbarService) { }
-
-  ngOnInit(): void {
-    this.brandLinks = resources;
-  }
+  constructor(private navbarService: NavbarService,
+    private resources: ResourcePathsService) { }
 
   public switchBrand() {
     this.brandSelection = this.brandSelection == Brand.primary ? Brand.secondary : Brand.primary;

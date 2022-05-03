@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
-import { brandIconsShort } from 'src/app/shared/LocalData/BrandData';
+import { ResourcePathsService } from 'src/app/services/resource-paths.service';
 import { videoPreviews } from 'src/app/shared/LocalData/VideoData';
 
 @Component({
@@ -12,9 +12,10 @@ import { videoPreviews } from 'src/app/shared/LocalData/VideoData';
 export class PortfolioComponent  {
 
   videos: any[] = videoPreviews;
-  brands: string[] = brandIconsShort;
+  brands = this.resources.getBrandIcons();
 
-  constructor(private router: Router) { }
+  constructor(private resources: ResourcePathsService,
+    private router: Router) { }
 
   parseBrandName(brandPath: string): string {
     return brandPath.substring(brandPath.lastIndexOf('/') + 1, brandPath.indexOf('.'));

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { book1, booksText } from 'src/app/shared/LocalData/BrandData';
+import { ResourcePathsService } from 'src/app/services/resource-paths.service';
 
 @Component({
   selector: 'app-illustrated-books',
@@ -7,11 +7,11 @@ import { book1, booksText } from 'src/app/shared/LocalData/BrandData';
   styleUrls: ['./illustrated-books.component.scss'],
 })
 export class IllustratedBooksComponent implements AfterViewInit {
-  booksText = booksText;
+  
+  booksText = this.resources.booksDescription();
+  books = this.resources.getBooks();
 
-  books = [book1, book1];
-
-  constructor() {}
+  constructor(private resources: ResourcePathsService) {}
 
   ngAfterViewInit(): void {
     for (var i = 0; i < this.books.length; i++) {

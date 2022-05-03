@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { resources } from 'src/app/shared/LocalData/BrandData';
+import { ResourcePathsService } from 'src/app/services/resource-paths.service';
 
 @Component({
   selector: 'app-fullscreen-menu',
@@ -16,13 +16,14 @@ export class FullscreenMenuComponent {
     {title: 'Illustrated Books', path: '/books'},
   ];
 
-  videoReelUrl = resources.videoReelUrl;
+  videoReelUrl = this.resources.getConstUrls().videoReelUrl;
 
   get menuOpen(): boolean {
     return this.navbarService.menuOpen;
   }
 
-  constructor(private navbarService: NavbarService) { }
+  constructor(private navbarService: NavbarService,
+    private resources: ResourcePathsService) { }
 
   close(): void {
     this.navbarService.menuOpen = false;

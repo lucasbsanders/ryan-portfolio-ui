@@ -8,6 +8,7 @@ import { Page404Component } from './404';
 import { RowSplitPipe } from './row-double.pipe';
 import { HtmlsanitizePipe } from './htmlsanitize.pipe';
 import { FilenamePipe } from './filename.pipe';
+import { SplitTextPipe } from './split-text.pipe';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FilenamePipe } from './filename.pipe';
     RowSplitPipe,
     HtmlsanitizePipe,
     FilenamePipe,
+    SplitTextPipe,
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { FilenamePipe } from './filename.pipe';
   providers: [
     RowSplitPipe,
     HtmlsanitizePipe,
-    FilenamePipe
+    FilenamePipe,
+    SplitTextPipe
   ],
   exports: [
     NavbarComponent,
@@ -35,7 +38,8 @@ import { FilenamePipe } from './filename.pipe';
     Page404Component,
     RowSplitPipe,
     HtmlsanitizePipe,
-    FilenamePipe
+    FilenamePipe,
+    SplitTextPipe
   ]
 })
 export class SharedModule { }
