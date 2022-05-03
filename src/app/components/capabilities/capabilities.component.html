@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row my-5">
+    <h1>services and capabilities</h1>
+  </div>
+  <img [src]="software" [alt]="software|filename">
+
+  <div class="row mx-5">
+    <div class="col">
+      <p>{{servicesText[0]}}</p>
+    </div>
+    <div class="col">
+      <p>{{servicesText[1]}}</p>
+    </div>
+  </div>
+
+  <div class="row my-5">
+    <h1>2022 video reel</h1>
+  </div>
+  <div [innerHTML]="videoHtml|htmlsanitize"></div>
+  
+  <div class="row my-5">
+    <h1>software</h1>
+  </div>
+  <img [src]="software" [alt]="software|filename">
+</div>

@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CollectionComponent } from './components/collection/collection.component';
-import { HomeComponent } from './components/home/home.component';
-import { ImageDetailsComponent } from './components/image-details/image-details.component';
+import { AboutMeComponent } from './components/about-me/about-me.component';
+import { CapabilitiesComponent } from './components/capabilities/capabilities.component';
+import { IllustratedBooksComponent } from './components/illustrated-books/illustrated-books.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { Page404Component } from './shared/404';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'details/:id', component: ImageDetailsComponent },
+  { path: '', component: PortfolioComponent },
+  { path: 'details/:id', component: ProjectDetailsComponent },
+  { path: 'services', component: CapabilitiesComponent },
+  { path: 'about', component: AboutMeComponent },
+  { path: 'books', component: IllustratedBooksComponent },
   { path: 'error', component: Page404Component },
-  { path: ':collection', component: CollectionComponent },
 ];
 
 @NgModule({

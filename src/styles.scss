@@ -2,4 +2,37 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
-@import "~font-awesome/scss/font-awesome";
+
+@font-face {
+  font-family: "Fugaz";
+  src: local("Fugaz"), url(./assets/Fugaz_One/FugazOne-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"), url(./assets/Montserrat/Montserrat-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: local("Montserrat"), url(./assets/Montserrat/Montserrat-Bold.ttf) format("truetype");
+}
+
+.fugaz,
+h1 {
+  font-family: "Fugaz", Arial, sans-serif;
+}
+
+.montserrat,
+p {
+  font-family: "Montserrat", Arial, sans-serif;
+}
+
+.montserrat-bold {
+  font-family: "Montserrat-Bold", Arial, sans-serif;
+  font-weight: bold;
+}
+
+.background-fade {
+  background-color: rgba(0, 0, 0, 0.75);
+}

@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row mx-5 my-5">
+    <h1>illustrated books</h1>
+  </div>
+  <div class="row mx-5">
+    <div class="col">
+      <p>{{booksText[0]}}</p>
+    </div>
+    <div class="col">
+      <p>{{booksText[1]}}</p>
+    </div>
+  </div>
+
+  <ng-container *ngFor="let book of books; let bk = index">
+    <div class="row my-5">
+      <h1>title of book {{bk}}</h1>
+    </div>
+    <div [id]="'book'+bk" class="carousel carousel-dark slide my-5 position-relative" data-bs-interval="false"
+      data-ride="carousel">
+      <div class="carousel-indicators position-absolute top-100 mb-0">
+        <button *ngFor="let page of book; let pg = index" type="btn" [id]="'book'+bk+'btn'+pg"
+          [attr.data-bs-target]="'#book'+bk" [attr.data-bs-slide-to]="pg" [attr.aria-label]="'Slide '+(pg+1)"></button>
+      </div>
+      <div class="carousel-inner">
+        <div *ngFor="let page of book; let pg = index" class="carousel-item" [id]="'book'+bk+'page'+pg">
+          <img class="d-block w-100" [src]="page" [alt]="page|filename">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#book'+bk" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon position-absolute start-0" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#book'+bk" data-bs-slide="next">
+        <span class="carousel-control-next-icon position-absolute end-0" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </ng-container>
+</div>

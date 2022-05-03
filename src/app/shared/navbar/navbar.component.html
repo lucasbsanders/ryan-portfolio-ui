@@ -1,0 +1,24 @@
+<nav id="navbar" class="navbar {{menuOpen ? 'background-fade' : ''}}">
+  <div class="container">
+    <div class="row w-100">
+      <div class="col">
+      </div>
+      <div class="col text-center">
+        <a class="navbar-brand" routerLink="/" (mouseover)="switchBrand()"
+          (mouseout)="switchBrand()">
+          <img [src]="brandLinks[brandSelection]" alt="[Ryan Fennessey]" [height]="100">
+        </a>
+      </div>
+      <div class="col align-self-center">
+        <div class="float-end">
+          <input type="checkbox" id="navbar-menu" [checked]="menuOpen" (change)="clickMenuButton()">
+          <label id="navbar-menu-icon" for="navbar-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
