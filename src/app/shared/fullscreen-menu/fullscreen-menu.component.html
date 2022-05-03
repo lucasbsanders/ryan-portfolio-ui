@@ -1,4 +1,4 @@
-<div *ngIf="menuOpen" class="fullscreen-menu position-fixed background-fade pt-4">
+<div *ngIf="menuOpen" class="fullscreen-menu position-fixed background-fade pt-4 w-100 h-100">
   <div class="container">
     <div *ngFor="let route of appRoutes" class="text-center mb-3">
       <a [routerLink]="route.path" (click)="close()">{{route.title}}</a>

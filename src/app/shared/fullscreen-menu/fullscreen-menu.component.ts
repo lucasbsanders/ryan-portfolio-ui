@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { brandResources } from 'src/app/shared/LocalData/BrandData';
+import { resources } from 'src/app/shared/LocalData/BrandData';
 
 @Component({
   selector: 'app-fullscreen-menu',
@@ -16,7 +16,7 @@ export class FullscreenMenuComponent implements OnInit {
     {title: 'Illustrated Books', path: '/books'},
   ];
 
-  videoReelUrl = brandResources.videoReelUrl;
+  videoReelUrl = resources.videoReelUrl;
 
   get menuOpen(): boolean {
     return this.navbarService.menuOpen;

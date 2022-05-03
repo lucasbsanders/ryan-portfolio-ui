@@ -8,6 +8,10 @@ a, p {
   text-decoration: none;
 }
 
+a:hover {
+  color: lightgray;
+}
+
 ul {
   list-style-type: none;
   margin: 0;

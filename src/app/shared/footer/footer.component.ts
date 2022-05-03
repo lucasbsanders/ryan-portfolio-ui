@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { brandResources } from 'src/app/shared/LocalData/BrandData';
+import { resources } from 'src/app/shared/LocalData/BrandData';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FooterComponent implements OnInit {
 
-  brandResources = brandResources;
+  resources = resources;
 
   get env(): string {
     return environment.production ? '' : '[NON-PROD]';

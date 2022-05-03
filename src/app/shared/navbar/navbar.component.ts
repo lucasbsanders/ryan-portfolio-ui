@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { brandResources } from 'src/app/shared/LocalData/BrandData';
+import { resources } from 'src/app/shared/LocalData/BrandData';
 import { environment } from 'src/environments/environment';
 
 enum Brand {
@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
   constructor(private navbarService: NavbarService) { }
 
   ngOnInit(): void {
-    this.brandLinks = brandResources;
+    this.brandLinks = resources;
   }
 
   public switchBrand() {

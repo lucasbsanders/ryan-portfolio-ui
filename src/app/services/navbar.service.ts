@@ -17,7 +17,7 @@ export class NavbarService {
     else {
       document.getElementById('navbar-parent')?.classList.remove("sticky-top");
     }
-    document.body.style.overflowY = isOpen ? 'hidden' : 'auto';
+    //document.body.style.overflowY = isOpen ? 'hidden' : 'auto';
     this._menuOpen = isOpen;
   }
 
