@@ -3,7 +3,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [],
+    "paths": {"BrandData": ["src/app/shared/LocalData/BrandData"]},
   },
   "files": [
     "src/main.ts",
