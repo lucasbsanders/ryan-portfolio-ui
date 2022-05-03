@@ -8,10 +8,8 @@
   "files": [
     "src/main.ts",
     "src/polyfills.ts",
-    "src/app/shared/LocalData/BrandData.ts",
-    "src/app/shared/LocalData/VideoData.ts",
   ],
   "include": [
-    "src/**/*.d.ts"
+    "src/**/*.ts"
   ]
 }
