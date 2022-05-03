@@ -22,8 +22,8 @@ const testVideos = [
 ];
 
 const buildVideoList = function () {
-  const root = <VideoNode>{};
-  var node = root;
+  var node = <VideoNode>{};
+  const nodeList = [];
   for (var i = 0; i < testVideos.length; i++) {
     node.video = <Video>{
       id: ids[i],
@@ -33,21 +33,18 @@ const buildVideoList = function () {
       client: resources.primary,
       preview: resources.secondary,
     };
-    node.next = <VideoNode>{};
+    nodeList.push(node);
+    if (i < testVideos.length)
+      node.next = <VideoNode>{};
     node = node.next;
   }
 
-  return root;
+  return nodeList;
 }
 
-const buildVideoPreviews = function () {
-  const videoPreviews = [];
-  for (var i = 0; i < testVideos.length; i++) {
-    videoPreviews.push({id: ids[i], preview: resources.secondary})
-  }
+const videoNodeList: VideoNode[] = buildVideoList();
 
-  return videoPreviews;
-}
-
-export const videos: VideoNode = buildVideoList();
-export const videoPreviews: any[] = buildVideoPreviews();
+export const videos: VideoNode = videoNodeList[0];
+export const videoPreviews: any[] = videoNodeList.map(videoNode => {
+  return {id: videoNode.video?.id, preview: videoNode.video?.preview};
+});
