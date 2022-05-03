@@ -3,12 +3,13 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": [],
-    "paths": {"BrandData": ["src/app/shared/LocalData/BrandData"]},
+    "types": []
   },
   "files": [
     "src/main.ts",
-    "src/polyfills.ts"
+    "src/polyfills.ts",
+    "src/app/shared/LocalData/BrandData.ts",
+    "src/app/shared/LocalData/VideoData.ts",
   ],
   "include": [
     "src/**/*.d.ts"

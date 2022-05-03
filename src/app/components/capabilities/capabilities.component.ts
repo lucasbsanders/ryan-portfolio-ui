@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { resources, servicesText } from 'src/app/shared/LocalData/BrandData';
 import { videos } from 'src/app/shared/LocalData/VideoData';
 
@@ -7,15 +7,12 @@ import { videos } from 'src/app/shared/LocalData/VideoData';
   templateUrl: './capabilities.component.html',
   styleUrls: ['./capabilities.component.scss']
 })
-export class CapabilitiesComponent implements OnInit {
+export class CapabilitiesComponent {
 
   videoHtml = <string>videos.video?.html;
   software = resources.primary;
   servicesText = servicesText;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

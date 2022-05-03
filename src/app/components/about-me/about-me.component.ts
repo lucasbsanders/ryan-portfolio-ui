@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { aboutMe, resources } from 'src/app/shared/LocalData/BrandData';
 
 @Component({
@@ -6,14 +6,11 @@ import { aboutMe, resources } from 'src/app/shared/LocalData/BrandData';
   templateUrl: './about-me.component.html',
   styleUrls: ['./about-me.component.scss']
 })
-export class AboutMeComponent implements OnInit {
+export class AboutMeComponent {
 
   selfImg = resources.primary;
   aboutMeText = aboutMe;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { resources } from 'src/app/shared/LocalData/BrandData';
 
@@ -7,7 +7,7 @@ import { resources } from 'src/app/shared/LocalData/BrandData';
   templateUrl: './fullscreen-menu.component.html',
   styleUrls: ['./fullscreen-menu.component.scss']
 })
-export class FullscreenMenuComponent implements OnInit {
+export class FullscreenMenuComponent {
 
   appRoutes = [
     {title: 'Services', path: '/services'},
@@ -23,9 +23,6 @@ export class FullscreenMenuComponent implements OnInit {
   }
 
   constructor(private navbarService: NavbarService) { }
-
-  ngOnInit(): void {
-  }
 
   close(): void {
     this.navbarService.menuOpen = false;

@@ -1,15 +1,17 @@
 import {
+  AfterViewInit,
   Directive,
   ElementRef,
   EventEmitter,
   Host,
+  OnDestroy,
   Output,
 } from '@angular/core';
 
 @Directive({
-  selector: '[enterViewPort]',
+  selector: '[appEnterViewPort]',
 })
-export class EnterViewPortDirective {
+export class EnterViewPortDirective implements AfterViewInit, OnDestroy {
 
   @Output() becomesVisible: EventEmitter<void> = new EventEmitter<void>();
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { resources } from 'src/app/shared/LocalData/BrandData';
 import { environment } from 'src/environments/environment';
 
@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
   resources = resources;
 
@@ -16,8 +16,5 @@ export class FooterComponent implements OnInit {
   }
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
