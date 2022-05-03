@@ -8,13 +8,16 @@ import { ResourcePathsService } from 'src/app/services/resource-paths.service';
 })
 export class IllustratedBooksComponent implements AfterViewInit {
   
-  booksText = this.resources.booksDescription();
-  books = this.resources.getBooks();
+  booksDescription: string;
+  booksAsImg: string[][];
 
-  constructor(private resources: ResourcePathsService) {}
+  constructor(private resources: ResourcePathsService) {
+    this.booksDescription = this.resources.booksDescription();
+    this.booksAsImg = this.resources.getBooks();
+  }
 
   ngAfterViewInit(): void {
-    for (var i = 0; i < this.books.length; i++) {
+    for (var i = 0; i < this.booksAsImg.length; i++) {
       document.getElementById('book'+i+'btn0')?.classList.add('active');
       document.getElementById('book'+i+'page0')?.classList.add('active');
     }

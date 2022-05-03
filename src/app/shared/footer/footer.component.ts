@@ -9,12 +9,14 @@ import { environment } from 'src/environments/environment';
 })
 export class FooterComponent {
 
-  links = this.resources.getConstUrls();
+  links: any;
 
-  get env(): string {
-    return environment.production ? '' : '[NON-PROD]';
+  get envString(): string {
+    return environment.production ? '' : ' [NON-PROD]';
   }
 
-  constructor(private resources: ResourcePathsService) { }
+  constructor(private resources: ResourcePathsService) {
+    this.links = this.resources.getConstUrls();
+  }
 
 }

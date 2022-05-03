@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { ResourcePathsService } from 'src/app/services/resource-paths.service';
-import { videoPreviews } from 'src/app/shared/LocalData/VideoData';
+import { VideoDataService } from 'src/app/services/video-data.service';
 
 @Component({
   selector: 'app-portfolio',
@@ -11,11 +11,15 @@ import { videoPreviews } from 'src/app/shared/LocalData/VideoData';
 })
 export class PortfolioComponent  {
 
-  videos: any[] = videoPreviews;
-  brands = this.resources.getBrandIcons();
+  videoPreviews: any[];
+  brandsAsImg: string[];
 
   constructor(private resources: ResourcePathsService,
-    private router: Router) { }
+    private videoService: VideoDataService,
+    private router: Router) {
+      this.videoPreviews = this.videoService.getAllVideoPreviews();
+      this.brandsAsImg = this.resources.getBrandIcons();
+    }
 
   parseBrandName(brandPath: string): string {
     return brandPath.substring(brandPath.lastIndexOf('/') + 1, brandPath.indexOf('.'));

@@ -57,7 +57,3 @@ export class ResourcePathsService {
     return text + ' ' + text;
   }
 }
-
-export const servicesText = [text, text];
-export const booksText = [text, text];
-export const videoProcess = [text, text];

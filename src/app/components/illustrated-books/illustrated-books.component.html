@@ -2,16 +2,16 @@
   <div class="row mx-5 my-5">
     <h1>illustrated books</h1>
   </div>
-  <div *ngIf="booksText|splitText:2 as parts" class="row mx-5">
+  <div *ngIf="booksDescription|splitText:2 as booksText" class="row mx-5">
     <div class="col">
-      <p>{{parts[0]}}</p>
+      <p>{{booksText[0]}}</p>
     </div>
     <div class="col">
-      <p>{{parts[1]}}</p>
+      <p>{{booksText[1]}}</p>
     </div>
   </div>
 
-  <ng-container *ngFor="let book of books; let bk = index">
+  <ng-container *ngFor="let book of booksAsImg; let bk = index">
     <div class="row my-5">
       <h1>title of book {{bk}}</h1>
     </div>

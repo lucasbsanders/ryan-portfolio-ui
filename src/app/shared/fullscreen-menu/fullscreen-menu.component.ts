@@ -9,6 +9,8 @@ import { ResourcePathsService } from 'src/app/services/resource-paths.service';
 })
 export class FullscreenMenuComponent {
 
+  videoReelUrl: string;
+
   appRoutes = [
     {title: 'Services', path: '/services'},
     {title: 'Portfolio', path: '/'},
@@ -16,14 +18,14 @@ export class FullscreenMenuComponent {
     {title: 'Illustrated Books', path: '/books'},
   ];
 
-  videoReelUrl = this.resources.getConstUrls().videoReelUrl;
-
   get menuOpen(): boolean {
     return this.navbarService.menuOpen;
   }
 
   constructor(private navbarService: NavbarService,
-    private resources: ResourcePathsService) { }
+    private resources: ResourcePathsService) {
+      this.videoReelUrl = this.resources.getConstUrls().videoReelUrl;
+    }
 
   close(): void {
     this.navbarService.menuOpen = false;

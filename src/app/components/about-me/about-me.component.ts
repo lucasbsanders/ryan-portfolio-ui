@@ -8,9 +8,12 @@ import { ResourcePathsService } from 'src/app/services/resource-paths.service';
 })
 export class AboutMeComponent {
 
-  selfImg = this.resources.getConstUrls().primary;
-  aboutMeText = this.resources.aboutMeDescription();
+  selfImg: string;
+  aboutMeText: string;
 
-  constructor(private resources: ResourcePathsService) { }
+  constructor(private resources: ResourcePathsService) {
+    this.selfImg = this.resources.getConstUrls().primary;
+    this.aboutMeText = this.resources.aboutMeDescription();
+  }
 
 }

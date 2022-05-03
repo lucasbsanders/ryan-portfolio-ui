@@ -1,14 +1,13 @@
 <div class="container">
   <h1 class="my-5">portfolio</h1>
-  <div *ngFor="let videoRow of videos|rowSplit:2" class="row mb-4">
+  <div *ngFor="let videoRow of videoPreviews|rowSplit:2" class="row mb-4">
     <div *ngFor="let video of videoRow" class="col text-center">
       <!-- <div [innerHTML]="video|htmlsanitize"></div> -->
-      <!-- <button type="button" class="btn btn-link mt-2">More Details</button> -->
       <img [src]="video.preview" (click)="goToVideo(video.id)">
     </div>
   </div>
   <h1 class="my-5">brands I've worked with</h1>
-  <div *ngFor="let brandRow of brands|rowSplit:3" class="row mb-4">
+  <div *ngFor="let brandRow of brandsAsImg|rowSplit:3" class="row mb-4">
     <div *ngFor="let brand of brandRow" class="col text-center">
       <img [src]="brand" [alt]="brand|filename">
     </div>

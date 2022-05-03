@@ -14,7 +14,7 @@ enum Brand {
 })
 export class NavbarComponent {
 
-  brandLinks = this.resources.getConstUrls();
+  brandLinks: any;
   brandSelection = Brand.primary;
 
   get menuOpen(): boolean {
@@ -22,7 +22,9 @@ export class NavbarComponent {
   }
 
   constructor(private navbarService: NavbarService,
-    private resources: ResourcePathsService) { }
+    private resources: ResourcePathsService) {
+      this.brandLinks = this.resources.getConstUrls();
+    }
 
   public switchBrand() {
     this.brandSelection = this.brandSelection == Brand.primary ? Brand.secondary : Brand.primary;

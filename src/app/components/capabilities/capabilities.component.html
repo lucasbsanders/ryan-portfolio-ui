@@ -2,24 +2,24 @@
   <div class="row my-5">
     <h1>services and capabilities</h1>
   </div>
-  <img [src]="software" [alt]="software|filename">
+  <img [src]="softwareImg" [alt]="softwareImg|filename">
 
-  <div *ngIf="servicesText|splitText:2 as parts" class="row mx-5">
+  <div *ngIf="servicesText|splitText:2 as servicesParts" class="row mx-5">
     <div class="col">
-      <p>{{parts[0]}}</p>
+      <p>{{servicesParts[0]}}</p>
     </div>
     <div class="col">
-      <p>{{parts[1]}}</p>
+      <p>{{servicesParts[1]}}</p>
     </div>
   </div>
 
   <div class="row my-5">
     <h1>2022 video reel</h1>
   </div>
-  <div [innerHTML]="videoHtml|htmlsanitize"></div>
+  <div [innerHTML]="videoReelHtml|htmlsanitize"></div>
   
   <div class="row my-5">
     <h1>software</h1>
   </div>
-  <img [src]="software" [alt]="software|filename">
+  <img [src]="softwareImg" [alt]="softwareImg|filename">
 </div>
