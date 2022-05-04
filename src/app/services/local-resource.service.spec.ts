@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ResourcePathsService } from './resource-paths.service';
+import { LocalResourceService } from './local-resource.service';
 
-describe('ResourcePathsService', () => {
-  let service: ResourcePathsService;
+describe('LocalResourceService', () => {
+  let service: LocalResourceService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ResourcePathsService);
+    service = TestBed.inject(LocalResourceService);
   });
 
   it('should be created', () => {

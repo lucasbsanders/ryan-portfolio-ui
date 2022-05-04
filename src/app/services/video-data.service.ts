@@ -41,7 +41,11 @@ export class VideoDataService {
 
   getAllVideoPreviews(): any[] {
     return this.videoNodeList.map((videoNode) => {
-      return { id: videoNode.video?.id, preview: videoNode.video?.preview };
+      return { 
+        id: videoNode.video?.id,
+        title: videoNode.video?.title,
+        preview: videoNode.video?.preview
+      };
     });
   }
 
@@ -52,7 +56,7 @@ export class VideoDataService {
       node.video = <Video>{
         id: ids[i],
         html: testVideos[i],
-        title: 'Title',
+        title: 'A Really Really Long Title',
         storyPieces: [text],
         process: [
           ['assets/RyanFennessey_logo_black.svg', text],

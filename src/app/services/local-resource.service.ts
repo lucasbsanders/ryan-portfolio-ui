@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
@@ -18,7 +19,7 @@ const iconList = [
 @Injectable({
   providedIn: 'root'
 })
-export class ResourcePathsService {
+export class LocalResourceService {
 
   constructor() { }
 
@@ -34,11 +35,27 @@ export class ResourcePathsService {
   }
 
   getBrandIcons(): string[] {
-    return iconList.slice(0, 6);
+    return [
+      'assets/BrandLogos/Microsoft.svg',
+      'assets/BrandLogos/Amazon.svg',
+      'assets/BrandLogos/Starbucks.svg',
+      'assets/BrandLogos/Google.svg',
+      'assets/BrandLogos/Ericsson.svg',
+      'assets/BrandLogos/Meta.svg',
+    ]
+  }
+
+  getHeadshot(): string {
+    return this.generateS3Url(['static', 'headshot.png']);
+  }
+
+  private generateS3Url(pathPieces: string[]) {
+    pathPieces.unshift(environment.s3BaseUrl);
+    return pathPieces.join('/');
   }
 
   getBooks(): string[][] {
-    return [iconList, iconList];
+    return [iconList, iconList, iconList];
   }
 
   aboutMeDescription(): string {

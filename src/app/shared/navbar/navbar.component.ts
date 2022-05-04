@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { ResourcePathsService } from 'src/app/services/resource-paths.service';
+import { LocalResourceService } from 'src/app/services/local-resource.service';
 
 enum Brand {
   primary = 'primary',
@@ -27,12 +27,17 @@ export class NavbarComponent {
   }
 
   constructor(private navbarService: NavbarService,
-    private resources: ResourcePathsService) {
-      this.brandLinks = this.resources.getConstUrls();
+    private resourceService: LocalResourceService) {
+      this.brandLinks = this.resourceService.getConstUrls();
     }
 
   public mouseOverBrand(mouseIn: boolean) {
     this.mouseIn = mouseIn;
+  }
+
+  public clickBrand(): void {
+    this.mouseOverBrand(true);
+    this.navbarService.menuOpen = false;
   }
 
   public clickMenuButton(): void {

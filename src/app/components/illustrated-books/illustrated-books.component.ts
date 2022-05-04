@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { ResourcePathsService } from 'src/app/services/resource-paths.service';
+import { LocalResourceService } from 'src/app/services/local-resource.service';
 
 @Component({
   selector: 'app-illustrated-books',
@@ -11,9 +11,9 @@ export class IllustratedBooksComponent implements AfterViewInit {
   booksDescription: string;
   booksAsImg: string[][];
 
-  constructor(private resources: ResourcePathsService) {
-    this.booksDescription = this.resources.booksDescription();
-    this.booksAsImg = this.resources.getBooks();
+  constructor(private resourceService: LocalResourceService) {
+    this.booksDescription = this.resourceService.booksDescription();
+    this.booksAsImg = this.resourceService.getBooks();
   }
 
   ngAfterViewInit(): void {

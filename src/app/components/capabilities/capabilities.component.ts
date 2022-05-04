@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ResourcePathsService } from 'src/app/services/resource-paths.service';
+import { LocalResourceService } from 'src/app/services/local-resource.service';
 import { VideoDataService } from 'src/app/services/video-data.service';
 
 @Component({
@@ -13,11 +13,11 @@ export class CapabilitiesComponent {
   softwareImg: string;
   servicesText: string;
 
-  constructor(private resources: ResourcePathsService,
+  constructor(private resourceService: LocalResourceService,
     private videoService: VideoDataService) {
       this.videoReelHtml = this.videoService.getVideoReelHtml();
-      this.softwareImg = this.resources.getConstUrls().primary;
-      this.servicesText = this.resources.servicesDescription();
+      this.softwareImg = this.resourceService.getConstUrls().primary;
+      this.servicesText = this.resourceService.servicesDescription();
     }
 
 }

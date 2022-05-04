@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ResourcePathsService } from 'src/app/services/resource-paths.service';
+import { LocalResourceService } from 'src/app/services/local-resource.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,11 +12,11 @@ export class FooterComponent {
   links: any;
 
   get envString(): string {
-    return environment.production ? '' : ' [NON-PROD]';
+    return environment.production ? '' : '[NonProd]';
   }
 
-  constructor(private resources: ResourcePathsService) {
-    this.links = this.resources.getConstUrls();
+  constructor(private resourceService: LocalResourceService) {
+    this.links = this.resourceService.getConstUrls();
   }
 
 }
