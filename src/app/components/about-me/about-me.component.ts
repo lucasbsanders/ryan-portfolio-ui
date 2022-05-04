@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ResourcePathsService } from 'src/app/services/resource-paths.service';
+import { LocalResourceService } from 'src/app/services/local-resource.service';
 
 @Component({
   selector: 'app-about-me',
@@ -11,9 +11,9 @@ export class AboutMeComponent {
   selfImg: string;
   aboutMeText: string;
 
-  constructor(private resources: ResourcePathsService) {
-    this.selfImg = this.resources.getConstUrls().primary;
-    this.aboutMeText = this.resources.aboutMeDescription();
+  constructor(private resourceService: LocalResourceService) {
+    this.selfImg = this.resourceService.getHeadshot();
+    this.aboutMeText = this.resourceService.aboutMeDescription();
   }
 
 }

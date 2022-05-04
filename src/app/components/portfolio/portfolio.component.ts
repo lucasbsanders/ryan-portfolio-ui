@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
-import { ResourcePathsService } from 'src/app/services/resource-paths.service';
+import { LocalResourceService } from 'src/app/services/local-resource.service';
 import { VideoDataService } from 'src/app/services/video-data.service';
 
 @Component({
@@ -11,14 +11,16 @@ import { VideoDataService } from 'src/app/services/video-data.service';
 })
 export class PortfolioComponent  {
 
+  Guid = Guid;
   videoPreviews: any[];
   brandsAsImg: string[];
+  mouseOverId = Guid.createEmpty();
 
-  constructor(private resources: ResourcePathsService,
+  constructor(private resourceService: LocalResourceService,
     private videoService: VideoDataService,
     private router: Router) {
       this.videoPreviews = this.videoService.getAllVideoPreviews();
-      this.brandsAsImg = this.resources.getBrandIcons();
+      this.brandsAsImg = this.resourceService.getBrandIcons();
     }
 
   parseBrandName(brandPath: string): string {

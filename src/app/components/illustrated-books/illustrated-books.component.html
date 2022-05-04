@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="row mx-md-5 my-5">
+  <div class="row my-5">
     <h1>illustrated books</h1>
   </div>
-  <div *ngIf="booksDescription|splitText:2 as booksText" class="row mx-md-5">
+  <div *ngIf="booksDescription|splitText:2 as booksText" class="row mx-md-5 my-5">
     <div class="col-12 col-md-6">
       <p>{{booksText[0]}}</p>
     </div>
@@ -13,7 +13,7 @@
 
   <ng-container *ngFor="let book of booksAsImg; let bk = index">
     <div class="row my-5">
-      <h1>title of book {{bk}}</h1>
+      <h1>title of book {{bk + 1}}</h1>
     </div>
     <div [id]="'book'+bk" class="carousel carousel-dark slide my-5 position-relative" data-bs-interval="false"
       data-ride="carousel">
