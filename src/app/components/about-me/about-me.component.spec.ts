@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FilenamePipe } from 'src/app/shared/filename.pipe';
 
 import { AboutMeComponent } from './about-me.component';
 
@@ -8,7 +9,7 @@ describe('AboutMeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AboutMeComponent ]
+      declarations: [ AboutMeComponent, FilenamePipe ]
     })
     .compileComponents();
   });

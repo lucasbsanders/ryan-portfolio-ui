@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FilenamePipe } from 'src/app/shared/filename.pipe';
+import { HtmlSanitizePipe } from 'src/app/shared/html-sanitize.pipe';
+import { SplitTextPipe } from 'src/app/shared/split-text.pipe';
 
 import { CapabilitiesComponent } from './capabilities.component';
 
@@ -8,7 +11,7 @@ describe('CapabilitiesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CapabilitiesComponent ]
+      declarations: [ CapabilitiesComponent, FilenamePipe, SplitTextPipe, HtmlSanitizePipe ]
     })
     .compileComponents();
   });

@@ -1,16 +1,16 @@
 <nav id="navbar" class="navbar {{menuOpen ? 'background-fade' : ''}}">
   <div class="container">
-    <div class="row w-100">
-      <div class="col">
+    <div class="row">
+      <div class="col-0 col-sm-4">
       </div>
-      <div class="col text-center">
-        <a class="navbar-brand" routerLink="/" (mouseover)="switchBrand()"
-          (mouseout)="switchBrand()">
+      <div class="col-12 col-sm-4 text-center">
+        <a class="navbar-brand" routerLink="/" (mouseover)="mouseOverBrand(true)"
+          (mouseout)="mouseOverBrand(false)">
           <img [src]="brandLinks[brandSelection]" alt="[Ryan Fennessey]" [height]="100">
         </a>
       </div>
-      <div class="col align-self-center">
-        <div class="float-end">
+      <div class="col-12 col-sm-4 align-self-center">
+        <div class="float-sm-end text-center">
           <input type="checkbox" id="navbar-menu" [checked]="menuOpen" (change)="clickMenuButton()">
           <label id="navbar-menu-icon" for="navbar-menu">
             <span></span>

@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
+import { FilenamePipe } from 'src/app/shared/filename.pipe';
+import { RowSplitPipe } from 'src/app/shared/row-double.pipe';
 import { PortfolioComponent } from './portfolio.component';
 
 describe('PortfolioComponent', () => {
@@ -8,9 +10,9 @@ describe('PortfolioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PortfolioComponent ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      declarations: [PortfolioComponent, RowSplitPipe, FilenamePipe],
+    }).compileComponents();
   });
 
   beforeEach(() => {

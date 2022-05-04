@@ -14,8 +14,13 @@ enum Brand {
 })
 export class NavbarComponent {
 
+  Brand = Brand;
   brandLinks: any;
-  brandSelection = Brand.primary;
+  mouseIn = false;
+
+  get brandSelection(): Brand {
+    return (this.mouseIn === this.menuOpen) ? Brand.primary : Brand.secondary;
+  }
 
   get menuOpen(): boolean {
     return this.navbarService.menuOpen;
@@ -26,12 +31,12 @@ export class NavbarComponent {
       this.brandLinks = this.resources.getConstUrls();
     }
 
-  public switchBrand() {
-    this.brandSelection = this.brandSelection == Brand.primary ? Brand.secondary : Brand.primary;
+  public mouseOverBrand(mouseIn: boolean) {
+    this.mouseIn = mouseIn;
   }
 
   public clickMenuButton(): void {
-    this.switchBrand();
+    this.mouseOverBrand(false);
     this.navbarService.menuOpen = !this.navbarService.menuOpen;
   }
 

@@ -6,7 +6,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { Page404Component } from './404';
 import { RowSplitPipe } from './row-double.pipe';
-import { HtmlsanitizePipe } from './htmlsanitize.pipe';
+import { HtmlSanitizePipe } from './html-sanitize.pipe';
 import { FilenamePipe } from './filename.pipe';
 import { SplitTextPipe } from './split-text.pipe';
 
@@ -17,7 +17,7 @@ import { SplitTextPipe } from './split-text.pipe';
     FullscreenMenuComponent,
     Page404Component,
     RowSplitPipe,
-    HtmlsanitizePipe,
+    HtmlSanitizePipe,
     FilenamePipe,
     SplitTextPipe,
   ],
@@ -27,7 +27,7 @@ import { SplitTextPipe } from './split-text.pipe';
   ],
   providers: [
     RowSplitPipe,
-    HtmlsanitizePipe,
+    HtmlSanitizePipe,
     FilenamePipe,
     SplitTextPipe
   ],
@@ -37,7 +37,7 @@ import { SplitTextPipe } from './split-text.pipe';
     FullscreenMenuComponent,
     Page404Component,
     RowSplitPipe,
-    HtmlsanitizePipe,
+    HtmlSanitizePipe,
     FilenamePipe,
     SplitTextPipe
   ]

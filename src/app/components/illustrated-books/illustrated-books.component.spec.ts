@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FilenamePipe } from 'src/app/shared/filename.pipe';
+import { SplitTextPipe } from 'src/app/shared/split-text.pipe';
 
 import { IllustratedBooksComponent } from './illustrated-books.component';
 
@@ -8,7 +10,7 @@ describe('IllustratedBooksComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IllustratedBooksComponent ]
+      declarations: [ IllustratedBooksComponent, FilenamePipe, SplitTextPipe ]
     })
     .compileComponents();
   });
