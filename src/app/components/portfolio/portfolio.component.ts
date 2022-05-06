@@ -31,4 +31,8 @@ export class PortfolioComponent  {
     this.router.navigate(['details/' + id.toString()]);
   }
 
+  offsetClass(index: number, length: number) {
+    return (index + 1) === length && (index + 1) % 2 == 1 ? 'offset-md-3' : 'offset-md-0';
+  }
+
 }

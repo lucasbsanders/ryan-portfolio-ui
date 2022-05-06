@@ -1,16 +1,17 @@
 <div class="container">
   <h1 class="my-5">portfolio</h1>
   <div class="row my-5 portfolioSection">
-    <div *ngFor="let video of videoPreviews"
-      class="col-10 offset-1 offset-sm-0 col-sm-6 position-relative align-self-center"
-      (mouseenter)="mouseOverId=video.id" (mouseleave)="mouseOverId=Guid.createEmpty()">
-      <!-- <div [innerHTML]="video|htmlsanitize"></div> -->
-      <img [src]="video.preview" (click)="goToVideo(video.id)">
-      <p *ngIf="mouseOverId===video.id"
-        class="position-absolute top-50 start-50 translate-middle py-2 px-3 text-center montserrat-bold overlayText">
-        {{video.title}}
-      </p>
-    </div>
+    <ng-container *ngFor="let video of videoPreviews; index as index">
+      <div
+        class="col-10 col-md-6 offset-1 {{offsetClass(index, videoPreviews.length)}} position-relative align-self-center"
+        (mouseenter)="mouseOverId=video.id" (mouseleave)="mouseOverId=Guid.createEmpty()">
+        <img [src]="video.preview" [alt]="video.preview|filename" (click)="goToVideo(video.id)">
+        <p *ngIf="mouseOverId===video.id"
+          class="position-absolute top-50 start-50 translate-middle py-2 px-3 text-center montserrat-bold overlayText">
+          {{video.title}}
+        </p>
+      </div>
+    </ng-container>
   </div>
   <h1 class="my-5">brands I've worked with</h1>
   <div class="row my-5">

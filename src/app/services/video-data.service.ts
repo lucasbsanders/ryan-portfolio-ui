@@ -22,6 +22,7 @@ const testVideos = [
   '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/237823870?h=c47ddc92ae&color=ffffff" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>',
   '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/672680672?h=1b547c1751&title=0&byline=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>',
   '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/283927789?h=fecd8dddf8" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>',
+  '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/283927789?h=fecd8dddf8" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>',
 ];
 
 @Injectable({
@@ -29,47 +30,61 @@ const testVideos = [
 })
 export class VideoDataService {
 
-  private videoNodeList: VideoNode[];
+  private videoNodeList: VideoNode[] = [];
+  private videoById: Map<string, VideoNode> = new Map();
 
   constructor() {
-    this.videoNodeList = this.buildVideoList();
+    this.buildVideoContainers();
+    for (let node of this.videoNodeList) {
+      console.log(node.video.id.toString());
+      console.log(this.getVideoNodeById(node.video.id.toString()));
+    }
   }
 
   getVideoReelHtml(): string {
-    return <string>this.videoNodeList[0].video?.html;
+    return <string>this.videoNodeList[0].video.html;
   }
 
   getAllVideoPreviews(): any[] {
-    return this.videoNodeList.map((videoNode) => {
+    return this.videoNodeList
+    .sort((a, b) => a.video.sortOrder - b.video.sortOrder )
+    .map((videoNode) => {
       return { 
-        id: videoNode.video?.id,
-        title: videoNode.video?.title,
-        preview: videoNode.video?.preview
+        id: videoNode.video.id,
+        title: videoNode.video.title,
+        preview: videoNode.video.preview
       };
     });
   }
 
-  private buildVideoList(): VideoNode[] {
+  getVideoNodeById(id: string): VideoNode {
+    return <VideoNode>this.videoById.get(id);
+  }
+
+  private buildVideoContainers(): void {
     var node = <VideoNode>{};
-    const nodeList = [];
     for (var i = 0; i < testVideos.length; i++) {
       node.video = <Video>{
         id: ids[i],
         html: testVideos[i],
         title: 'A Really Really Long Title',
+        sortOrder: i,
+        client: 'assets/RyanFennessey_logo_black.svg',
+        preview: 'assets/RyanFennessey_logo_black.svg',
         storyPieces: [text],
         process: [
           ['assets/RyanFennessey_logo_black.svg', text],
           ['assets/RyanFennessey_logo_white.svg', text],
         ],
-        client: 'assets/RyanFennessey_logo_black.svg',
-        preview: 'assets/RyanFennessey_logo_black.svg',
       };
-      nodeList.push(node);
-      if (i < testVideos.length) node.next = <VideoNode>{};
-      node = node.next;
+      this.videoNodeList.push(node);
+      this.videoById.set(node.video.id.toString(), node);
+      if ((i +  1) < testVideos.length) {
+        node.next = <VideoNode>{
+          previous: node,
+        };
+        node = node.next;
+      }
     }
-
-    return nodeList;
   }
 }
