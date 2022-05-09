@@ -1,6 +1,11 @@
 export const environment = {
   production: false,
-  s3BaseUrl: 'https://ryan-portfolio-bucket.s3.us-east-2.amazonaws.com',
+  s3: {
+    region: 'us-east-2',
+    identityPoolId: '',
+    baseUrl: 'https://s3.us-east-2.amazonaws.com',
+    bucketName: 'ryan-portfolio-bucket',
+  }
 };
 
 /*

@@ -35,10 +35,10 @@ export class VideoDataService {
 
   constructor() {
     this.buildVideoContainers();
-    for (let node of this.videoNodeList) {
-      console.log(node.video.id.toString());
-      console.log(this.getVideoNodeById(node.video.id.toString()));
-    }
+    // for (let node of this.videoNodeList) {
+    //   console.log(node.video.id.toString());
+    //   console.log(this.getVideoNodeById(node.video.id.toString()));
+    // }
   }
 
   getVideoReelHtml(): string {

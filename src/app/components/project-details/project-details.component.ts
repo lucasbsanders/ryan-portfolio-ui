@@ -21,9 +21,6 @@ export class ProjectDetailsComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       const id = <string>paramMap.get('id');
       this.videoNode = this.videoService.getVideoNodeById(id);
-      console.log('project details');
-      console.log(id);
-      console.log(this.videoNode);
     });
   }
 }

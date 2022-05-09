@@ -13,19 +13,15 @@ export class PortfolioComponent  {
 
   Guid = Guid;
   videoPreviews: any[];
-  brandsAsImg: string[];
+  brandsAsImg: string[] = [];
   mouseOverId = Guid.createEmpty();
 
   constructor(private resourceService: LocalResourceService,
     private videoService: VideoDataService,
     private router: Router) {
       this.videoPreviews = this.videoService.getAllVideoPreviews();
-      this.brandsAsImg = this.resourceService.getBrandIcons();
+      this.resourceService.getBrandIcons().subscribe(iconUrls => this.brandsAsImg = iconUrls);
     }
-
-  parseBrandName(brandPath: string): string {
-    return brandPath.substring(brandPath.lastIndexOf('/') + 1, brandPath.indexOf('.'));
-  }
 
   goToVideo(id: Guid) {
     this.router.navigate(['details/' + id.toString()]);

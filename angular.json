@@ -39,7 +39,8 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "https://sdk.amazonaws.com/js/aws-sdk-2.1130.0.min.js"
             ]
           },
           "configurations": {

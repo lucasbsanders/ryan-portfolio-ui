@@ -39,6 +39,7 @@ testem.log
 src/assets/images
 src/assets/s3
 src/assets/dynamoDB
+.aws
 
 # System files
 .DS_Store

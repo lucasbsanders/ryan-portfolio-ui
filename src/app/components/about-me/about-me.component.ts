@@ -8,11 +8,11 @@ import { LocalResourceService } from 'src/app/services/local-resource.service';
 })
 export class AboutMeComponent {
 
-  selfImg: string;
+  selfImg: string = '';
   aboutMeText: string;
 
   constructor(private resourceService: LocalResourceService) {
-    this.selfImg = this.resourceService.getHeadshot();
+    this.resourceService.getHeadshot().subscribe(headshotUrl => this.selfImg = headshotUrl);
     this.aboutMeText = this.resourceService.aboutMeDescription();
   }
 
