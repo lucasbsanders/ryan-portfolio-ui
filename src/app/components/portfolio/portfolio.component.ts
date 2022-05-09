@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { LocalResourceService } from 'src/app/services/local-resource.service';
+import { ProjectService } from 'src/app/services/project.service';
 import { VideoDataService } from 'src/app/services/video-data.service';
 
 @Component({
@@ -12,15 +13,26 @@ import { VideoDataService } from 'src/app/services/video-data.service';
 export class PortfolioComponent  {
 
   Guid = Guid;
-  videoPreviews: any[];
+  videoPreviews: any[] = [];
+  videoPreviews2: any[] = [];
   brandsAsImg: string[] = [];
-  mouseOverId = Guid.createEmpty();
+  mouseOverId = '';
+  portfolioLoading = true;
+  brandsLoading = true;
 
   constructor(private resourceService: LocalResourceService,
     private videoService: VideoDataService,
+    private projectService: ProjectService,
     private router: Router) {
-      this.videoPreviews = this.videoService.getAllVideoPreviews();
-      this.resourceService.getBrandIcons().subscribe(iconUrls => this.brandsAsImg = iconUrls);
+      //this.videoPreviews = this.videoService.getAllVideoPreviews();
+      this.resourceService.getBrandIcons().subscribe(iconUrls => {
+        this.brandsAsImg = iconUrls;
+        this.brandsLoading = false;
+      });
+      this.projectService.getProjectPreviews().subscribe(previews => {
+        this.videoPreviews = previews;
+        this.portfolioLoading = false;
+      });
     }
 
   goToVideo(id: Guid) {

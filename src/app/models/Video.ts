@@ -1,7 +1,7 @@
 import { Guid } from "guid-typescript";
 
 export interface Video {
-  id: Guid;
+  id: string;
   html: string;
   title: string;
   sortOrder: number;

@@ -1,22 +1,27 @@
 <div class="container">
-  <h1 class="my-5">portfolio</h1>
-  <div class="row my-5 portfolioSection">
-    <ng-container *ngFor="let video of videoPreviews; index as index">
-      <div
-        class="col-10 col-md-6 offset-1 {{offsetClass(index, videoPreviews.length)}} position-relative align-self-center"
-        (mouseenter)="mouseOverId=video.id" (mouseleave)="mouseOverId=Guid.createEmpty()">
-        <img [src]="video.preview" [alt]="video.preview|filename" (click)="goToVideo(video.id)">
-        <p *ngIf="mouseOverId===video.id"
-          class="position-absolute top-50 start-50 translate-middle py-2 px-3 text-center montserrat-bold overlayText">
-          {{video.title}}
-        </p>
-      </div>
-    </ng-container>
-  </div>
-  <h1 class="my-5">brands I'm familiar with</h1>
-  <div class="row my-5">
-    <div *ngFor="let brand of brandsAsImg" class="col-6 col-sm-4">
-      <img [src]="brand" [alt]="brand|filename">
+  <h1 class="mt-2 mb-5">portfolio</h1>
+  <div *ngIf="portfolioLoading" class="w-100 text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading Portfolio...</span>
     </div>
   </div>
+  <div class="row my-5 portfolioSection overflow-hidden">
+    <div *ngFor="let video of videoPreviews; index as index"
+      class="col-10 col-md-6 offset-1 {{offsetClass(index, videoPreviews.length)}} g-4 position-relative align-self-center"
+      (mouseenter)="mouseOverId=video.title" (mouseleave)="mouseOverId=''" (click)="goToVideo(video.title)">
+      <img class="w-100" [src]="video.url" [alt]="video.url|filename">
+      <p *ngIf="mouseOverId===video.title"
+        class="position-absolute top-50 start-50 translate-middle py-2 px-3 text-center montserrat-bold overlayText">
+        {{video.title}}
+      </p>
+    </div>
+  </div>
+  <ng-container *ngIf="!brandsLoading">
+    <h1 class="my-5">brands I'm familiar with</h1>
+    <div class="row my-5">
+      <div *ngFor="let brand of brandsAsImg" class="col-6 col-sm-4">
+        <img [src]="brand" [alt]="brand|filename">
+      </div>
+    </div>
+  </ng-container>
 </div>

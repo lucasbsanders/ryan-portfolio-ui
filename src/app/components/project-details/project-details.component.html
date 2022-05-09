@@ -1,4 +1,4 @@
-<div class="container">
-  <h1 class="my-5">{{videoNode.video.title}}</h1>
+<div *ngIf="videoNode.video" class="container">
+  <h1 class="mt-2 mb-5">{{videoNode.video.title}}</h1>
   <div [innerHTML]="videoNode.video.html|htmlsanitize"></div>
 </div>

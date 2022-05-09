@@ -23,7 +23,9 @@ const iconList = [
   providedIn: 'root',
 })
 export class LocalResourceService {
-  constructor(private awsService: AwsConnectService) {}
+  constructor(private awsService: AwsConnectService) {
+    console.log('Starting Local Resource Service');
+  }
 
   getConstUrls(): any {
     return {
@@ -38,33 +40,25 @@ export class LocalResourceService {
 
   getBrandIcons(): Observable<string[]> {
     const brandAlbum = 'static';
-    return this.awsService.listObjectsInAlbum(brandAlbum)
+    return this.awsService.listObjectsInFolder(brandAlbum)
       .pipe(
         map((results) => {
-          console.log(results);
           return results
-          .filter((result: string) => result.indexOf('Company logos/') > -1)
-          .map((result: string) => this.generateS3Url([environment.s3.bucketName, result]))
+            .filter((result: string) => result.indexOf('Company logos/') > -1)
         })
       );
   }
 
   getHeadshot(): Observable<string> {
     const headshotAlbum = 'static';
-    return this.awsService.listObjectsInAlbum(headshotAlbum).pipe(
+    return this.awsService.listObjectsInFolder(headshotAlbum).pipe(
       map((results) => {
         const img = results.find(
           (item: string) => item.toLowerCase().indexOf('headshot') > -1
         );
-        return img ? this.generateS3Url([environment.s3.bucketName, img]) : '';
+        return img ? img : '';
       })
     );
-  }
-
-  private generateS3Url(pathPieces: string[]) {
-    pathPieces.unshift(environment.s3.baseUrl);
-    console.log(pathPieces.join('/'));
-    return pathPieces.join('/');
   }
 
   getBooks(): string[][] {

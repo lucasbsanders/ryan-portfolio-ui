@@ -10,8 +10,12 @@ import { VideoDataService } from 'src/app/services/video-data.service';
   styleUrls: ['./project-details.component.scss'],
 })
 export class ProjectDetailsComponent implements OnInit {
-  public videoNode: VideoNode = <VideoNode>{};
+  private _videoNode: VideoNode = <VideoNode>{};
+  private _id = '';
 
+  get videoNode(): VideoNode {
+    return this._videoNode = this.videoService.getVideoNodeById(this._id);
+  }
   constructor(
     private videoService: VideoDataService,
     private activatedRoute: ActivatedRoute
@@ -19,8 +23,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
-      const id = <string>paramMap.get('id');
-      this.videoNode = this.videoService.getVideoNodeById(id);
+      this._id = <string>paramMap.get('id');
     });
   }
 }

@@ -7,5 +7,5 @@ import { AwsConnectService } from './services/aws-connect.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private awsService: AwsConnectService) {}
+  constructor() {}
 }

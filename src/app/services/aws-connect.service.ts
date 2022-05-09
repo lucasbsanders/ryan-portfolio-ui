@@ -11,6 +11,7 @@ export class AwsConnectService {
   s3;
 
   constructor() {
+    console.log('Starting AWS Connect Service');
     AWS.config.region = environment.s3.region;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
       IdentityPoolId: environment.s3.identityPoolId,
@@ -22,7 +23,7 @@ export class AwsConnectService {
     });
   }
 
-  listAlbums(): Observable<string[]> {
+  listDynamicFolders(): Observable<string[]> {
     const params = {
       Bucket: environment.s3.bucketName,
       Delimiter: '/',
@@ -35,20 +36,20 @@ export class AwsConnectService {
         const error = data.$response.error;
         if (error) throw { message: error.message };
         else {
-          var albums: string[] = [];
+          var folders: string[] = [];
           if (data.CommonPrefixes) {
-            albums = data.CommonPrefixes.map(prefix => {
+            folders = data.CommonPrefixes.map(prefix => {
               if (prefix.Prefix) return prefix.Prefix.replace('/', '');
               else return '';
-            }).filter(albumName => albumName !== 'static' && albumName !== '');
+            }).filter(folderName => folderName !== 'static' && folderName !== '');
           }
-          return albums;
+          return folders;
         }
       })
     );
   }
 
-  listObjectsInAlbum(albumName: string): Observable<any> {
+  listObjectsInFolder(albumName: string): Observable<string[]> {
     var params = {
       Bucket: environment.s3.bucketName,
       Prefix: albumName,
@@ -58,14 +59,13 @@ export class AwsConnectService {
 
     return from(requestPromise).pipe(
       map(data => {
-        console.log(data);
         const error = data.$response.error;
         if (error) throw { message: error.message };
         else {
           var objects: string[] = [];
           if (data.Contents) {
             objects = data.Contents.map(content => {
-              if (content.Key) return content.Key;
+              if (content.Key) return this.generateS3Url(content.Key);
               else return '';
             }).filter(contentKey => contentKey !== '');
           }
@@ -74,4 +74,38 @@ export class AwsConnectService {
       })
     );
   }
+
+  findObjectsMatchingPattern(pattern: string): Observable<any[]> {
+    const params = {
+      Bucket: environment.s3.bucketName,
+    };
+
+    const requestPromise = this.s3.listObjectsV2(params).promise();
+
+    return from(requestPromise).pipe(
+      map(data => {
+        const error = data.$response.error;
+        if (error) throw { message: error.message };
+        else {
+          var contentWithFolderName: any[] = [];
+          if (data.Contents) {
+            contentWithFolderName = data.Contents
+            .filter(content => content.Key && content.Key.toLocaleLowerCase().indexOf(pattern) > -1)
+            .map(content => {
+              return {
+                url: this.generateS3Url(content.Key),
+                title: content.Key?.substring(0, content.Key.indexOf('/'))
+              }
+            });
+          }
+          return contentWithFolderName;
+        }
+      })
+    );
+  }
+
+  private generateS3Url(key: string | undefined) {
+    return [environment.s3.baseUrl, environment.s3.bucketName, key].join('/');
+  }
+
 }
