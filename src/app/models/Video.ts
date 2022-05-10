@@ -1,5 +1,3 @@
-import { Guid } from "guid-typescript";
-
 export interface Video {
   id: string;
   html: string;

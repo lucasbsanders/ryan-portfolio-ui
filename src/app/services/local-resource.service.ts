@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { map, Observable, of } from 'rxjs';
 import { AwsConnectService } from './aws-connect.service';
 
 const text =
@@ -29,8 +28,8 @@ export class LocalResourceService {
 
   getConstUrls(): any {
     return {
-      primary: 'assets/RyanFennessey_logo_black.svg',
-      secondary: 'assets/RyanFennessey_logo_white.svg',
+      primary: 'assets/siteLogos/RyanFennessey_logo_black.svg',
+      secondary: 'assets/siteLogos/RyanFennessey_logo_white.svg',
       resume: 'https://duckduckgo.com/',
       linkedin: 'https://duckduckgo.com/',
       email: 'mailto:xfennessey@gmail.com',
@@ -50,12 +49,19 @@ export class LocalResourceService {
   }
 
   getHeadshot(): Observable<string> {
+    const headshot = sessionStorage.getItem('headshot');
+    if (headshot !== null) {
+      console.log('getting headshot from session');
+      return of(headshot);
+    }
+
     const headshotAlbum = 'static';
     return this.awsService.listObjectsInFolder(headshotAlbum).pipe(
       map((results) => {
         const img = results.find(
           (item: string) => item.toLowerCase().indexOf('headshot') > -1
         );
+        if(img) sessionStorage.setItem('headshot', img);
         return img ? img : '';
       })
     );

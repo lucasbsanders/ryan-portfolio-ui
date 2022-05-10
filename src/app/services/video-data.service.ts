@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Guid } from 'guid-typescript';
-import { VideoNode, Video } from '../models/Video';
+import { Video, VideoNode } from '../models/Video';
 import { AwsConnectService } from './aws-connect.service';
 
 const text =
@@ -40,6 +39,8 @@ export class VideoDataService {
     this.awsService.listDynamicFolders().subscribe(folders => {
       this.buildVideoContainers(folders);
     });
+
+    
     // for (let node of this.videoNodeList) {
     //   console.log(node.video.id.toString());
     //   console.log(this.getVideoNodeById(node.video.id.toString()));
@@ -83,7 +84,6 @@ export class VideoDataService {
         ],
       };
       this.videoNodeList.push(node);
-      console.log('setting ' + ids[i] + ' to ' + node.video.title)
       this.videoById.set(ids[i], node);
       if ((i +  1) < testVideos.length) {
         node.next = <VideoNode>{

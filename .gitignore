@@ -36,10 +36,9 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
-src/assets/images
 src/assets/s3
 src/assets/dynamoDB
-.aws
+src/assets/ryan-portfolio-bucket
 .env
 
 # System files
