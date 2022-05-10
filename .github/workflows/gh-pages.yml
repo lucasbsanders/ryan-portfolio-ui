@@ -20,6 +20,10 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Set secret values
+      env: 
+        AWS_POOL_ID: ${{ secrets.AWS_POOL_ID }}
+
     # - name: Run tests
     #   run: npm run test
 
