@@ -55,3 +55,6 @@ import 'zone.js';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+//https://stackoverflow.com/questions/54349858/angular-7-uncaught-referenceerror-global-is-not-defined-when-adding-package
+ (window as any).global = window;

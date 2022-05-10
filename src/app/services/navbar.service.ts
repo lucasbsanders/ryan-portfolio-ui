@@ -11,17 +11,19 @@ export class NavbarService {
   }
 
   public set menuOpen(isOpen: boolean) {
-    if (isOpen) {
-      document.getElementById('navbar-parent')?.classList.add("sticky-top");
-    }
-    else {
-      document.getElementById('navbar-parent')?.classList.remove("sticky-top");
-    }
+    // if (isOpen) {
+    //   document.getElementById('navbar-parent')?.classList.add("sticky-top");
+    // }
+    // else {
+    //   document.getElementById('navbar-parent')?.classList.remove("sticky-top");
+    // }
     //document.body.style.overflowY = isOpen ? 'hidden' : 'auto';
     this._menuOpen = isOpen;
   }
 
-  constructor() { }
+  constructor() {
+    console.log('Starting Navbar Service');
+  }
 
 
 }

@@ -37,6 +37,10 @@ yarn-error.log
 testem.log
 /typings
 src/assets/images
+src/assets/s3
+src/assets/dynamoDB
+.aws
+.env
 
 # System files
 .DS_Store
