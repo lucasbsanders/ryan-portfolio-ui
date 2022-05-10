@@ -20,14 +20,14 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Set secret values
-      env: 
-        AWS_POOL_ID: ${{ secrets.AWS_POOL_ID }}
-
     # - name: Run tests
+    #   env:
+    #     AWS_POOL_ID: ${{ secrets.AWS_POOL_ID }}
     #   run: npm run test
 
-    - name: Build
+    - name: Build with secrets
+      env:
+        AWS_POOL_ID: ${{ secrets.AWS_POOL_ID }}
       run: npm run build
 
     - name: Copy index.html to 404.html
