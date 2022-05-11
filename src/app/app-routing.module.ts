@@ -5,7 +5,7 @@ import { CapabilitiesComponent } from './components/capabilities/capabilities.co
 import { IllustratedBooksComponent } from './components/illustrated-books/illustrated-books.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
-import { Page404Component } from './shared/404';
+import { PageNotFoundComponent } from './shared/PageNotFound';
 
 const routes: Routes = [
   { path: '', component: PortfolioComponent },
@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'services', component: CapabilitiesComponent },
   { path: 'about', component: AboutMeComponent },
   { path: 'books', component: IllustratedBooksComponent },
-  { path: 'error', component: Page404Component },
+  { path: 'error', component: PageNotFoundComponent },
 ];
 
 @NgModule({

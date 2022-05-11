@@ -5,11 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class NavbarService {
   private _menuOpen: boolean = false;
-
   public get menuOpen(): boolean {
     return this._menuOpen;
   }
-
   public set menuOpen(isOpen: boolean) {
     // if (isOpen) {
     //   document.getElementById('navbar-parent')?.classList.add("sticky-top");
@@ -21,9 +19,9 @@ export class NavbarService {
     this._menuOpen = isOpen;
   }
 
-  constructor() {
-    console.log('Starting Navbar Service');
-  }
+  isAtTop: boolean = true;
+
+  constructor() {}
 
 
 }

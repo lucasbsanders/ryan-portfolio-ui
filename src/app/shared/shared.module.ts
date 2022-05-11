@@ -4,18 +4,18 @@ import { FooterComponent } from './footer/footer.component';
 import { FullscreenMenuComponent } from './fullscreen-menu/fullscreen-menu.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
-import { Page404Component } from './404';
-import { RowSplitPipe } from './row-double.pipe';
-import { HtmlSanitizePipe } from './html-sanitize.pipe';
-import { FilenamePipe } from './filename.pipe';
-import { SplitTextPipe } from './split-text.pipe';
+import { PageNotFoundComponent } from './PageNotFound';
+import { RowSplitPipe } from './pipes/row-double.pipe';
+import { HtmlSanitizePipe } from './pipes/html-sanitize.pipe';
+import { FilenamePipe } from './pipes/filename.pipe';
+import { SplitTextPipe } from './pipes/split-text.pipe';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     FooterComponent,
     FullscreenMenuComponent,
-    Page404Component,
+    PageNotFoundComponent,
     RowSplitPipe,
     HtmlSanitizePipe,
     FilenamePipe,
@@ -35,7 +35,7 @@ import { SplitTextPipe } from './split-text.pipe';
     NavbarComponent,
     FooterComponent,
     FullscreenMenuComponent,
-    Page404Component,
+    PageNotFoundComponent,
     RowSplitPipe,
     HtmlSanitizePipe,
     FilenamePipe,

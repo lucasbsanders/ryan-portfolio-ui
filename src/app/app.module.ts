@@ -8,7 +8,7 @@ import { CapabilitiesComponent } from './components/capabilities/capabilities.co
 import { IllustratedBooksComponent } from './components/illustrated-books/illustrated-books.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
-import { EnterViewPortDirective } from './shared/enter-view-port.directive';
+import { EnterViewPortDirective } from './shared/directives/enter-view-port.directive';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({

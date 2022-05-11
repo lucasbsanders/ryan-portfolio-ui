@@ -1,3 +1,4 @@
+import { isIdentifier } from '@angular/compiler';
 import {
   AfterViewInit,
   Directive,
@@ -13,7 +14,7 @@ import {
 })
 export class EnterViewPortDirective implements AfterViewInit, OnDestroy {
 
-  @Output() becomesVisible: EventEmitter<void> = new EventEmitter<void>();
+  @Output() isAtTop: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private _observer: IntersectionObserver | undefined;
 
@@ -23,7 +24,7 @@ export class EnterViewPortDirective implements AfterViewInit, OnDestroy {
 
     const options = {
       root: null,
-      rootMargin: '0px',
+      rootMargin: '-30px',
       threshold: 0,
     };
 
@@ -38,8 +39,7 @@ export class EnterViewPortDirective implements AfterViewInit, OnDestroy {
 
   private _callback = (entries: any[], observer: any) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting)
-        this.becomesVisible.emit();
+      this.isAtTop.emit(entry.isIntersecting);
     });
   };
 }

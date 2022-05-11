@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as AWS from 'aws-sdk';
+import { CognitoIdentityCredentials, config as AWSConfig } from 'aws-sdk';
 import * as S3 from 'aws-sdk/clients/s3';
 import * as DynamoDb from 'aws-sdk/clients/dynamodb';
 import { from, map, Observable } from 'rxjs';
@@ -15,11 +15,11 @@ export class AwsConnectService {
   constructor() {
     console.log('Starting AWS Connect Service');
 
-    AWS.config.region = environment.aws.defaultRegion;
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    AWSConfig.region = environment.aws.defaultRegion;
+    AWSConfig.credentials = new CognitoIdentityCredentials({
       IdentityPoolId: environment.aws.identityPoolId,
     });
-    AWS.config.apiVersions = {
+    AWSConfig.apiVersions = {
       dynamodb: '2012-08-10',
       s3: '2006-03-01',
     };

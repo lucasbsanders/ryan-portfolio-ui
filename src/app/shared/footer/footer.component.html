@@ -1,17 +1,17 @@
 <div class="footer mt-5 pt-3 pb-4">
   <div class="container">
     <div class="row">
-      <div class="col order-2 order-sm-1 text-center">
+      <div class="col order-2 order-sm-1">
         <div class="row"><a [href]="links.resume">Resume</a></div>
         <div class="row"><a [href]="links.linkedin">LinkedIn</a></div>
         <div class="row"><a [href]="links.email">xfennessey@gmail.com</a></div>
       </div>
       <div class="col order-1 order-sm-2 text-center">
-        <img [src]="links.secondary" alt="[Ryan Fennessey]" [height]="80">
+        <img [src]="links.icon" alt="[Ryan Fennessey]" [height]="80">
       </div>
-      <div class="col order-3 text-center align-self-center">
-        <p class="m-0">©2022</p>
-        <p *ngIf="envString.length>0" class="m-0">{{envString}}</p>
+      <div class="col order-3 align-self-center">
+        <p class="m-0 float-end">©2022</p>
+        <p *ngIf="envString.length>0" class="m-0 float-end">{{envString}}</p>
       </div>
     </div>
   </div>

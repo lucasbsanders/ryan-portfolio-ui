@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AwsConnectService } from './services/aws-connect.service';
+import { NavbarService } from './services/navbar.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,11 @@ import { AwsConnectService } from './services/aws-connect.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+
+  constructor(private navbarService: NavbarService) {}
+
+  isScrollTop(isAtTop: any): void {
+    this.navbarService.isAtTop = isAtTop;
+  }
+
 }

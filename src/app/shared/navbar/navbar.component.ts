@@ -26,6 +26,10 @@ export class NavbarComponent {
     return this.navbarService.menuOpen;
   }
 
+  get isAtTop(): boolean {
+    return this.navbarService.isAtTop;
+  }
+
   constructor(private navbarService: NavbarService,
     private resourceService: LocalResourceService) {
       this.brandLinks = this.resourceService.getConstUrls();

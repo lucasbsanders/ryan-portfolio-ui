@@ -5,7 +5,8 @@
   <div class="row portfolioSection overflow-hidden">
     <div *ngFor="let video of videoPreviews; index as index"
       class="d-flex col-10 col-md-6 offset-1 {{offsetClass(index, videoPreviews.length)}} g-4 position-relative">
-      <img class="w-100" [src]="video.url" [alt]="video.url|filename" (mouseenter)="mouseOverId=video.title">
+      <img class="w-100" [src]="video.url" [alt]="video.url|filename" (mouseenter)="mouseOverId=video.title"
+        (click)="goToVideo(video.title)">
       <div class="position-absolute top-0 left-0 pe-4 w-100 h-100" [hidden]="mouseOverId!==video.title"
         (click)="goToVideo(video.title)">
         <div class="w-100 h-100 overlayBox" (mouseleave)="mouseOverId=''">
@@ -18,7 +19,7 @@
   </div>
 
   <ng-container *ngIf="!brandsLoading; else spinner">
-    <h1>brands I'm familiar with</h1>
+    <h1>brands I know</h1>
     <div class="row">
       <div *ngFor="let brand of brandsAsImg" class="col-6 col-sm-4 g-5 mt-2">
         <img class="w-100" [src]="brand" [alt]="brand|filename">

@@ -2,12 +2,17 @@
   display: block;
 }
 
-.brandCol {
-  height: 100px;
-}
-
 .background-regular {
   background-color: white;
+}
+
+$nav-transition-time: .2s;
+
+.brandCol {
+  -webkit-transition: height $nav-transition-time;
+  -moz-transition: height $nav-transition-time ;
+  -o-transition: height $nav-transition-time ;
+  transition: height $nav-transition-time ;
 }
 
 // https://w3codepen.com/howto-html-css-hamburger-menu-icon/
@@ -24,19 +29,21 @@ input[type="checkbox"] {
   display: block;
   position: relative;
   left: 0px;
-  height: 6px;
-  width: 44px;
+  height: 4px;
+  width: 30px;
   border-radius: 2px;
-  margin: 6px;
+  margin: 4px;
   background: black;
 }
 
+$translate-down: -11.5px;
+
 #navbar-menu:checked~#navbar-menu-icon span:nth-child(1) {
   background: white;
-  -webkit-transform: rotate(135deg) translate(0px, -17px);
-  -moz-transform: rotate(135deg) translate(0px, -17px);
-  -o-transform: rotate(135deg) translate(0px, -17px);
-  transform: rotate(135deg) translate(0px, -17px);
+  -webkit-transform: rotate(135deg) translate(0px, $translate-down);
+  -moz-transform: rotate(135deg) translate(0px, $translate-down);
+  -o-transform: rotate(135deg) translate(0px, $translate-down);
+  transform: rotate(135deg) translate(0px, $translate-down);
 }
 
 #navbar-menu:checked~#navbar-menu-icon span:nth-child(2) {
@@ -45,15 +52,17 @@ input[type="checkbox"] {
   left: -25px;
 }
 
+$translate-up: -1 * $translate-down;
+
 #navbar-menu:checked~#navbar-menu-icon span:nth-child(3) {
   background: white;
-  -webkit-transform: rotate(-135deg) translate(0px, 17px);
-  -moz-transform: rotate(-135deg) translate(0px, 17px);
-  -o-transform: rotate(-135deg) translate(0px, 17px);
-  transform: rotate(-135deg) translate(0px, 17px);
+  -webkit-transform: rotate(-135deg) translate(0px, $translate-up);
+  -moz-transform: rotate(-135deg) translate(0px, $translate-up);
+  -o-transform: rotate(-135deg) translate(0px, $translate-up);
+  transform: rotate(-135deg) translate(0px, $translate-up);
 }
 
-$transition-time: .25s;
+$transition-time: .2s;
 
 #navbar-menu-icon span {
   -webkit-transition: $transition-time ease-in-out;

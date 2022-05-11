@@ -27,9 +27,10 @@ if (!existsSync(envDirectory)) {
   mkdirSync(envDirectory);
 }
 
-//creates the `environment.prod.ts` and `environment.ts` file if it does not exist
-writeFileUsingFS('./src/environments/environment.prod.ts', '');
-writeFileUsingFS('./src/environments/environment.ts', '');
+//creates the `environment.prod.ts` or `environment.ts` file if it does not exist
+isProduction ?
+  writeFileUsingFS('./src/environments/environment.prod.ts', '') :
+  writeFileUsingFS('./src/environments/environment.ts', '');
 
 
 // Checks whether command line argument of `prod` was provided signifying production mode
