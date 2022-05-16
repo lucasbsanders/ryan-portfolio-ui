@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { VideoDataService } from './video-data.service';
+import { PageReadService } from './page-read.service';
 
-describe('VideoDataService', () => {
-  let service: VideoDataService;
+describe('PageReadService', () => {
+  let service: PageReadService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(VideoDataService);
+    service = TestBed.inject(PageReadService);
   });
 
   it('should be created', () => {

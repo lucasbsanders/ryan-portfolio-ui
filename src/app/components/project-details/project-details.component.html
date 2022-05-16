@@ -1,4 +1,15 @@
-<div *ngIf="videoNode.video" class="container">
-  <h1 class="mt-2 mb-5">{{videoNode.video.title}}</h1>
-  <div [innerHTML]="videoNode.video.html|htmlsanitize"></div>
+<div *ngIf="video" class="container">
+  <h1 class="mt-2 mb-5">{{video.title}}</h1>
+  <div [innerHTML]="video.html|htmlsanitize"></div>
+  <div class="row">
+    <p>{{text}}</p>
+  </div>
+  <div class="row">
+    <div class="col">
+      <input type="text" class="me-4" (change)="changeText($event)">
+      <button type="btn" class="btn btn-secondary" (click)="saveText()">
+        Save
+      </button>
+    </div>
+  </div>
 </div>

@@ -6,16 +6,16 @@ const text =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
 const iconList = [
-  'assets/RyanFennessey_logo_black.svg',
-  'assets/RyanFennessey_logo_white.svg',
-  'assets/RyanFennessey_logo_black.svg',
-  'assets/RyanFennessey_logo_white.svg',
-  'assets/RyanFennessey_logo_black.svg',
-  'assets/RyanFennessey_logo_white.svg',
-  'assets/RyanFennessey_logo_black.svg',
-  'assets/RyanFennessey_logo_white.svg',
-  'assets/RyanFennessey_logo_black.svg',
-  'assets/RyanFennessey_logo_white.svg',
+  'assets/siteLogos/RyanFennessey_logo_black.svg',
+  'assets/siteLogos/RyanFennessey_logo_white.svg',
+  'assets/siteLogos/RyanFennessey_logo_black.svg',
+  'assets/siteLogos/RyanFennessey_logo_white.svg',
+  'assets/siteLogos/RyanFennessey_logo_black.svg',
+  'assets/siteLogos/RyanFennessey_logo_white.svg',
+  'assets/siteLogos/RyanFennessey_logo_black.svg',
+  'assets/siteLogos/RyanFennessey_logo_white.svg',
+  'assets/siteLogos/RyanFennessey_logo_black.svg',
+  'assets/siteLogos/RyanFennessey_logo_white.svg',
 ];
 
 @Injectable({
@@ -59,11 +59,9 @@ export class LocalResourceService {
     const headshotAlbum = 'static';
     return this.awsService.listObjectsInFolder(headshotAlbum).pipe(
       map((results) => {
-        const img = results.find(
+        return <string>results.find(
           (item: string) => item.toLowerCase().indexOf('headshot') > -1
         );
-        if(img) sessionStorage.setItem('headshot', img);
-        return img ? img : '';
       })
     );
   }

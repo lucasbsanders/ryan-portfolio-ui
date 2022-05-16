@@ -19,7 +19,7 @@ export class NavbarComponent {
   mouseIn = false;
 
   get brandSelection(): Brand {
-    return (this.mouseIn === this.menuOpen) ? Brand.primary : Brand.secondary;
+    return !this.menuOpen ? Brand.primary : Brand.secondary;
   }
 
   get menuOpen(): boolean {

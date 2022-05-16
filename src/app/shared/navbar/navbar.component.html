@@ -1,18 +1,26 @@
 <nav id="navbar" class="navbar" [ngClass]="{'background-fade': menuOpen, 'background-regular': !menuOpen}">
   <div class="container">
     <div class="row">
-      <div class="col-4">
+      <div class="col-sm-4 align-self-center" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop}">
+        <div class="float-sm-start text-center">
+          <a class="navLink" routerLink="/"
+            [ngStyle]="{'color': menuOpen ? 'white' : 'black', 'border-color': menuOpen ? 'white' : 'black'}">
+            Home
+          </a>
+        </div>
+
       </div>
-      <div class="col-4 position-relative brandCol" [ngStyle]="{'height.px': isAtTop ? 100 : 50}">
+      <div class="col-sm-4 position-relative brandCol" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop}"
+        [ngStyle]="{'height.px': isAtTop ? 100 : 60}">
         <a class="navbar-brand position-absolute top-50 start-50 translate-middle h-100" routerLink="/"
-          (mouseover)="mouseOverBrand(true)" (mouseout)="mouseOverBrand(false)" (click)="clickBrand()">
+          (mouseover)="mouseOverBrand(true)" (mouseout)="mouseOverBrand(false)" (mousedown)="clickBrand()">
           <img class="h-100" [src]="brandLinks[brandSelection]" alt="[Ryan Fennessey]">
         </a>
       </div>
-      <div class="col-4 align-self-center">
+      <div class="col-sm-4 align-self-center" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop}">
         <div class="float-sm-end text-center">
-          <input type="checkbox" id="navbar-menu" [checked]="menuOpen" (change)="clickMenuButton()">
-          <label id="navbar-menu-icon" for="navbar-menu">
+          <input type="checkbox" id="navbar-menu" [checked]="menuOpen" disabled>
+          <label id="navbar-menu-icon" for="navbar-menu" (mousedown)="clickMenuButton()">
             <span></span>
             <span></span>
             <span></span>

@@ -1,21 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FilenamePipe } from 'src/app/shared/filename.pipe';
 
-import { AboutMeComponent } from './about-me.component';
+import { PageDisplayComponent } from './page-display.component';
 
-describe('AboutMeComponent', () => {
-  let component: AboutMeComponent;
-  let fixture: ComponentFixture<AboutMeComponent>;
+describe('PageDisplayComponent', () => {
+  let component: PageDisplayComponent;
+  let fixture: ComponentFixture<PageDisplayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AboutMeComponent, FilenamePipe ]
+      declarations: [ PageDisplayComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AboutMeComponent);
+    fixture = TestBed.createComponent(PageDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

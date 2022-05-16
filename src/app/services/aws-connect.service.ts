@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CognitoIdentityCredentials, config as AWSConfig } from 'aws-sdk';
 import * as S3 from 'aws-sdk/clients/s3';
 import * as DynamoDb from 'aws-sdk/clients/dynamodb';
-import { from, map, Observable } from 'rxjs';
+import { from, map, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -43,6 +43,35 @@ export class AwsConnectService {
       if (data.Item) console.log(data.Item['aboutMe'].S);
     });
   }
+
+  //// DynamoDB methods
+
+  putAboutMeText(txt: string) {
+    
+  }
+
+  getAboutMeText(): Observable<string> {
+    const params = {
+      Key: {
+        title: { S: 'static' },
+      },
+      TableName: 'ryan-portfolio-dynamodb',
+    };
+
+    return from(this.dynamo.getItem(params).promise())
+    .pipe(
+      map((data) => {
+        const error = data.$response.error;
+        if (error) throw { message: error.message };
+
+        console.log(data);
+        return data.Item && data.Item['aboutMe'].S ? data.Item['aboutMe'].S : '';
+      })
+    );
+  }
+
+
+  //// S3 bucket methods
 
   listDynamicFolders(): Observable<string[]> {
     const params = {
@@ -88,7 +117,7 @@ export class AwsConnectService {
           var objects: string[] = [];
           if (data.Contents) {
             objects = data.Contents.map((content) => {
-              if (content.Key) return this.generateS3Url(content.Key);
+              if (content.Key) return content.Key;
               else return '';
             }).filter((contentKey) => contentKey !== '');
           }
@@ -118,7 +147,7 @@ export class AwsConnectService {
                 content.Key.toLocaleLowerCase().indexOf(pattern) > -1
             ).map((content) => {
               return {
-                url: this.generateS3Url(content.Key),
+                url: content.Key,
                 title: content.Key?.substring(0, content.Key.indexOf('/')),
               };
             });
@@ -127,9 +156,5 @@ export class AwsConnectService {
         }
       })
     );
-  }
-
-  private generateS3Url(key: string | undefined) {
-    return [environment.s3.baseUrl, environment.s3.bucketName, key].join('/');
   }
 }

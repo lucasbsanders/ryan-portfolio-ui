@@ -9,6 +9,7 @@ import { RowSplitPipe } from './pipes/row-double.pipe';
 import { HtmlSanitizePipe } from './pipes/html-sanitize.pipe';
 import { FilenamePipe } from './pipes/filename.pipe';
 import { SplitTextPipe } from './pipes/split-text.pipe';
+import { KeyToS3Pipe } from './pipes/key-to-s3.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SplitTextPipe } from './pipes/split-text.pipe';
     HtmlSanitizePipe,
     FilenamePipe,
     SplitTextPipe,
+    KeyToS3Pipe,
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,8 @@ import { SplitTextPipe } from './pipes/split-text.pipe';
     RowSplitPipe,
     HtmlSanitizePipe,
     FilenamePipe,
-    SplitTextPipe
+    SplitTextPipe,
+    KeyToS3Pipe
   ],
   exports: [
     NavbarComponent,
@@ -39,7 +42,8 @@ import { SplitTextPipe } from './pipes/split-text.pipe';
     RowSplitPipe,
     HtmlSanitizePipe,
     FilenamePipe,
-    SplitTextPipe
+    SplitTextPipe,
+    KeyToS3Pipe
   ]
 })
 export class SharedModule { }
