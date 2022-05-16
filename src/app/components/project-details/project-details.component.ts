@@ -28,8 +28,9 @@ export class ProjectDetailsComponent implements OnInit {
       this._id = <string>paramMap.get('id');
     });
 
-    this.awsService.getDisplayObj().subscribe((data: any) => {
+    this.awsService.getDynamoObjectByKey('title', 'display').subscribe((data: any) => {
       this.display = data;
+      console.log(data);
       this.dInput = JSON.parse(JSON.stringify(data));
     });
   }
@@ -43,7 +44,9 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   save() {
-    this.awsService.putDisplayObj(this.dInput).subscribe(data => {
+    this.awsService.putDynamoObjectByKey(this.dInput, 'title', 'display').subscribe(data => {
+      console.log('save');
+      console.log(data);
       this.display = data;
     });
   }

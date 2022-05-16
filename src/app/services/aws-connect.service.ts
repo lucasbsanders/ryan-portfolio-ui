@@ -31,136 +31,119 @@ export class AwsConnectService {
     });
   }
 
+
+
+  ////
   //// DynamoDB methods
+  ////
 
-  putAboutMeText(txt: string): Observable<string> {
+  getDynamoObjectByKey(dynamoKeyName: any, dynamoKey: string): Observable<any> {
     const params = {
       Key: {
-        title: { S: 'static' },
-      },
-      TableName: 'ryan-portfolio-dynamodb',
-
-      ExpressionAttributeNames: {
-        '#T': 'aboutMe',
-      },
-      ExpressionAttributeValues: {
-        ':t': { S: txt },
-      },
-      UpdateExpression: "SET #T = :t",
-      ReturnValues: "ALL_NEW",
-    };
-
-    return from(this.dynamo.updateItem(params).promise())
-    .pipe(
-      map(data => {
-        const error = data.$response.error;
-        if (error) throw { message: error.message };
-
-        return data.Attributes && data.Attributes['aboutMe'].S ?
-          data.Attributes['aboutMe'].S : '';
-      })
-    );
-  }
-
-  putDisplayObj(obj: any): Observable<any> {
-    console.log('put object');
-    console.log(obj);
-
-    const expressionAttrNames: Record<string, string> = {};
-    const expressionAttrVals: Record<string, any> = {};
-    var updateExp: string = 'SET ';
-
-    Object.keys(obj).forEach((key: string, index: number) => {
-      var val: any = {};
-      if (typeof obj[key] === 'string') val.S = obj[key];
-      else if (typeof obj[key] === 'number') val.N = obj[key].toString();
-      
-      expressionAttrNames[('#' + key)] = key;
-      expressionAttrVals[(':' + key)] = val;
-      updateExp += `#${key} = :${key}`;
-      if (index < Object.keys(obj).length - 1) updateExp += ', ';
-    });
-    console.log(expressionAttrNames);
-    console.log(expressionAttrVals);
-    console.log(updateExp);
-
-    const params = {
-      Key: {
-        title: { S: 'display' },
-      },
-      TableName: 'ryan-portfolio-dynamodb',
-
-      ExpressionAttributeNames: expressionAttrNames,
-      ExpressionAttributeValues: expressionAttrVals,
-      UpdateExpression: updateExp,
-      ReturnValues: "ALL_NEW",
-    };
-
-    //return of({ Text: obj.Text, Num: obj.Num });
-    return from(this.dynamo.updateItem(params).promise())
-    .pipe(
-      map(data => {
-        const error = data.$response.error;
-        if (error) throw { message: error.message };
-        console.log(data);
-        return {
-          Text: data.Attributes && data.Attributes['Text'].S ?
-            data.Attributes['Text'].S : '',
-          Num: data.Attributes && data.Attributes['Num'].N ?
-            parseInt(data.Attributes['Num'].N) : 0,
-        };
-      })
-    );
-  }
-
-  getDisplayObj(): Observable<any> {
-    const params = {
-      Key: {
-        title: { S: 'display' },
+        [dynamoKeyName]: this.createTypedObj(dynamoKey),
       },
       TableName: 'ryan-portfolio-dynamodb',
     };
 
     // return of({ Text: '', Num: 0 });
 
-    return from(this.dynamo.getItem(params).promise())
-    .pipe(
+    return from(this.dynamo.getItem(params).promise()).pipe(
       map((data) => {
         const error = data.$response.error;
         if (error) throw { message: error.message };
-        console.log(data);
-        return {
-          Text: data.Item && data.Item['Text'].S ?
-            data.Item['Text'].S : '',
-          Num: data.Item && data.Item['Num'].N ?
-            parseInt(data.Item['Num'].N) : 0,
-        };
+
+        return this.parseAttributes(data.Item);
       })
     );
   }
 
-  getAboutMeText(): Observable<string> {
+  putDynamoObjectByKey(obj: any, dynamoKeyName: any, dynamoKey: any): Observable<any> {
+    const expressionAttrNames: Record<string, string> = {};
+    const expressionAttrVals: Record<string, any> = {};
+    var updateExp: string = 'SET ';
+
+    Object.keys(obj).forEach((key: string) => {
+      if (dynamoKeyName.localeCompare(key) !== 0) {
+        expressionAttrNames['#' + key] = key;
+        expressionAttrVals[':' + key] = this.createTypedObj(obj[key]);
+        updateExp += `#${key} = :${key}, `;
+      }
+    });
+
+    console.log(expressionAttrNames);
+    console.log(expressionAttrVals);
+    console.log(updateExp.slice(0, -2));
+
     const params = {
       Key: {
-        title: { S: 'static' },
+        [dynamoKeyName]: this.createTypedObj(dynamoKey),
       },
       TableName: 'ryan-portfolio-dynamodb',
+
+      ExpressionAttributeNames: expressionAttrNames,
+      ExpressionAttributeValues: expressionAttrVals,
+      UpdateExpression: updateExp.slice(0, -2),
+      ReturnValues: 'ALL_NEW',
     };
 
-    return from(this.dynamo.getItem(params).promise())
-    .pipe(
+    //return of({ Text: obj.Text, Num: obj.Num });
+    return from(this.dynamo.updateItem(params).promise()).pipe(
       map((data) => {
         const error = data.$response.error;
         if (error) throw { message: error.message };
 
-        return data.Item && data.Item['aboutMe'].S ?
-          data.Item['aboutMe'].S : '';
+        return this.parseAttributes(data.Attributes);
       })
     );
   }
 
+  private parseAttributes(attributes: any): any {
+    const returnValue: Record<string, any> = {};
 
+    if (attributes) {
+      Object.keys(attributes).forEach((key: string) => {
+        returnValue[key] = this.parseTypedObj(attributes[key]);
+      });
+    }
+
+    return returnValue;
+  }
+
+  private parseTypedObj(obj: any): any {
+    switch (Object.keys(obj)[0]) {
+      case 'S':
+        return obj.S;
+      case 'N':
+        return parseInt(obj.N);
+      default:
+        return obj.S;
+    }
+  }
+
+  private createTypedObj(value: any): any {
+    var typedObj: any = {};
+    switch (typeof value) {
+      case 'number':
+        console.log('number ' + value);
+        if (Number.isNaN(value)) typedObj.N = '0';
+        else typedObj.N = value.toString();
+        break;
+      case 'string':
+        console.log('string ' + value);
+        typedObj.S = value;
+        break;
+      default:
+        typedObj.S = value;
+        break;
+    }
+    return typedObj;
+  }
+
+
+
+  ////
   //// S3 bucket methods
+  ////
 
   listDynamicFolders(): Observable<string[]> {
     const params = {

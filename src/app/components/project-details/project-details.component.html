@@ -12,10 +12,10 @@
   </div>
   <div class="row">
     <div class="col">
-      <input type="text" class="me-4" (input)="changeText($event)">
+      <input type="text" class="me-4" [value]="dInput.Text" (input)="changeText($event)">
     </div>
     <div class="col">
-      <input type="number" class="me-4" (input)="changeNum($event)">
+      <input type="number" class="me-4" [value]="dInput.Num" (input)="changeNum($event)">
       <button type="btn" class="btn btn-secondary" (click)="save()">
         Save
       </button>
