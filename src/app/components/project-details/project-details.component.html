@@ -2,12 +2,21 @@
   <h1 class="mt-2 mb-5">{{video.title}}</h1>
   <div [innerHTML]="video.html|htmlsanitize"></div>
   <div class="row">
-    <p>{{text}}</p>
+    <div class="col">
+      <p>{{display.Text}}</p>
+    </div>
+    <div class="col">
+      <p>{{display.Num}}</p>
+    </div>
+    
   </div>
   <div class="row">
     <div class="col">
-      <input type="text" class="me-4" (change)="changeText($event)">
-      <button type="btn" class="btn btn-secondary" (click)="saveText()">
+      <input type="text" class="me-4" (input)="changeText($event)">
+    </div>
+    <div class="col">
+      <input type="number" class="me-4" (input)="changeNum($event)">
+      <button type="btn" class="btn btn-secondary" (click)="save()">
         Save
       </button>
     </div>

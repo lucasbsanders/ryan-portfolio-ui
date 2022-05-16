@@ -10,10 +10,11 @@ import { AwsConnectService } from 'src/app/services/aws-connect.service';
 export class ProjectDetailsComponent implements OnInit {
 
   get video(): any {
-    return {title: this._id, html: '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/237823870?h=c47ddc92ae&color=ffffff" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="fullscreen; picture-in-picture"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>'}
+    return {title: this._id, html: '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/237823870?h=c47ddc92ae&color=ffffff" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="fullscreen"></iframe></div>'}
   }
 
-  text: string = '';
+  display: any = {};
+  dInput: any = { Text: '', Num: 0 };
 
   private _id = '';
 
@@ -27,16 +28,24 @@ export class ProjectDetailsComponent implements OnInit {
       this._id = <string>paramMap.get('id');
     });
 
-    this.awsService.getAboutMeText().subscribe(text => this.text = text);
+    this.awsService.getDisplayObj().subscribe((data: any) => {
+      this.display = data;
+      this.dInput = JSON.parse(JSON.stringify(data));
+    });
   }
 
   changeText(event: any) {
-    console.log(event);
-    this.text = event.target.value;
+    this.dInput.Text = event.target.value;
   }
 
-  saveText() {
-    this.awsService.putAboutMeText(this.text);
+  changeNum(event: any) {
+    this.dInput.Num = parseInt(event.target.value);
+  }
+
+  save() {
+    this.awsService.putDisplayObj(this.dInput).subscribe(data => {
+      this.display = data;
+    });
   }
 
 }

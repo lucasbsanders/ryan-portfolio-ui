@@ -38,17 +38,18 @@ export class PageDisplayComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       this._route = <string>paramMap.get('path');
-      console.log(this._route);
       this._page = {};
+
       setTimeout( () => {
         this._page = this.pageService.getPageByRoute(this._route);
-        console.log(this._page);
         this._page.tiles.sort((a: any, b: any) => {
           return a.order - b.order;
         });
+
         setTimeout( () => {
           this.activateSlideshows();
         }, 1000);
+
       }, 1000);
     });
   }

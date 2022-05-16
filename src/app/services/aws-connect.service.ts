@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CognitoIdentityCredentials, config as AWSConfig } from 'aws-sdk';
-import * as S3 from 'aws-sdk/clients/s3';
 import * as DynamoDb from 'aws-sdk/clients/dynamodb';
-import { from, map, Observable, tap } from 'rxjs';
+import * as S3 from 'aws-sdk/clients/s3';
+import { from, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,8 +13,6 @@ export class AwsConnectService {
   dynamo;
 
   constructor() {
-    console.log('Starting AWS Connect Service');
-
     AWSConfig.region = environment.aws.defaultRegion;
     AWSConfig.credentials = new CognitoIdentityCredentials({
       IdentityPoolId: environment.aws.identityPoolId,
@@ -31,23 +29,114 @@ export class AwsConnectService {
     this.dynamo = new DynamoDb({
       region: environment.dynamoDb.region,
     });
+  }
 
+  //// DynamoDB methods
+
+  putAboutMeText(txt: string): Observable<string> {
     const params = {
       Key: {
         title: { S: 'static' },
       },
       TableName: 'ryan-portfolio-dynamodb',
+
+      ExpressionAttributeNames: {
+        '#T': 'aboutMe',
+      },
+      ExpressionAttributeValues: {
+        ':t': { S: txt },
+      },
+      UpdateExpression: "SET #T = :t",
+      ReturnValues: "ALL_NEW",
     };
 
-    from(this.dynamo.getItem(params).promise()).subscribe((data) => {
-      if (data.Item) console.log(data.Item['aboutMe'].S);
-    });
+    return from(this.dynamo.updateItem(params).promise())
+    .pipe(
+      map(data => {
+        const error = data.$response.error;
+        if (error) throw { message: error.message };
+
+        return data.Attributes && data.Attributes['aboutMe'].S ?
+          data.Attributes['aboutMe'].S : '';
+      })
+    );
   }
 
-  //// DynamoDB methods
+  putDisplayObj(obj: any): Observable<any> {
+    console.log('put object');
+    console.log(obj);
 
-  putAboutMeText(txt: string) {
-    
+    const expressionAttrNames: Record<string, string> = {};
+    const expressionAttrVals: Record<string, any> = {};
+    var updateExp: string = 'SET ';
+
+    Object.keys(obj).forEach((key: string, index: number) => {
+      var val: any = {};
+      if (typeof obj[key] === 'string') val.S = obj[key];
+      else if (typeof obj[key] === 'number') val.N = obj[key].toString();
+      
+      expressionAttrNames[('#' + key)] = key;
+      expressionAttrVals[(':' + key)] = val;
+      updateExp += `#${key} = :${key}`;
+      if (index < Object.keys(obj).length - 1) updateExp += ', ';
+    });
+    console.log(expressionAttrNames);
+    console.log(expressionAttrVals);
+    console.log(updateExp);
+
+    const params = {
+      Key: {
+        title: { S: 'display' },
+      },
+      TableName: 'ryan-portfolio-dynamodb',
+
+      ExpressionAttributeNames: expressionAttrNames,
+      ExpressionAttributeValues: expressionAttrVals,
+      UpdateExpression: updateExp,
+      ReturnValues: "ALL_NEW",
+    };
+
+    //return of({ Text: obj.Text, Num: obj.Num });
+    return from(this.dynamo.updateItem(params).promise())
+    .pipe(
+      map(data => {
+        const error = data.$response.error;
+        if (error) throw { message: error.message };
+        console.log(data);
+        return {
+          Text: data.Attributes && data.Attributes['Text'].S ?
+            data.Attributes['Text'].S : '',
+          Num: data.Attributes && data.Attributes['Num'].N ?
+            parseInt(data.Attributes['Num'].N) : 0,
+        };
+      })
+    );
+  }
+
+  getDisplayObj(): Observable<any> {
+    const params = {
+      Key: {
+        title: { S: 'display' },
+      },
+      TableName: 'ryan-portfolio-dynamodb',
+    };
+
+    // return of({ Text: '', Num: 0 });
+
+    return from(this.dynamo.getItem(params).promise())
+    .pipe(
+      map((data) => {
+        const error = data.$response.error;
+        if (error) throw { message: error.message };
+        console.log(data);
+        return {
+          Text: data.Item && data.Item['Text'].S ?
+            data.Item['Text'].S : '',
+          Num: data.Item && data.Item['Num'].N ?
+            parseInt(data.Item['Num'].N) : 0,
+        };
+      })
+    );
   }
 
   getAboutMeText(): Observable<string> {
@@ -64,8 +153,8 @@ export class AwsConnectService {
         const error = data.$response.error;
         if (error) throw { message: error.message };
 
-        console.log(data);
-        return data.Item && data.Item['aboutMe'].S ? data.Item['aboutMe'].S : '';
+        return data.Item && data.Item['aboutMe'].S ?
+          data.Item['aboutMe'].S : '';
       })
     );
   }
