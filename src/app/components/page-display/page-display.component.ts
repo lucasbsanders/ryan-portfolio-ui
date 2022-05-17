@@ -19,6 +19,7 @@ export class PageDisplayComponent implements AfterViewInit, OnInit {
   TileType = TileType;
   mouseOverId = '';
   colAdj = 0; // global column adjust for mobile
+  pageNotFound = false;
 
   private _page: any = {};
   private _route: string = '';
@@ -39,17 +40,21 @@ export class PageDisplayComponent implements AfterViewInit, OnInit {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       this._route = <string>paramMap.get('path');
       this._page = {};
+      this.pageNotFound = false;
+      this.onResize({target: { innerWidth: window.innerWidth }});
 
       setTimeout( () => {
         this._page = this.pageService.getPageByRoute(this._route);
-        this._page.tiles.sort((a: any, b: any) => {
-          return a.order - b.order;
-        });
-
-        setTimeout( () => {
-          this.activateSlideshows();
-        }, 1000);
-
+        if (!this._page) this.pageNotFound = true;
+        else {
+          this._page.tiles.sort((a: any, b: any) => {
+            return a.order - b.order;
+          });
+  
+          setTimeout( () => {
+            this.activateSlideshows();
+          }, 1000);
+        }
       }, 1000);
     });
   }

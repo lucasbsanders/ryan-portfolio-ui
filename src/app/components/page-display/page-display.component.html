@@ -128,11 +128,15 @@
 </ng-container>
 
 <ng-template #spinner>
-  <div class="row my-5">
+  <div *ngIf="!pageNotFound; else pnf" class="row my-5">
     <div class="col-12 text-center">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading Portfolio...</span>
       </div>
     </div>
   </div>
+</ng-template>
+
+<ng-template #pnf>
+  <app-page-not-found></app-page-not-found>
 </ng-template>

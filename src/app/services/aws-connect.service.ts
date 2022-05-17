@@ -109,33 +109,79 @@ export class AwsConnectService {
     return returnValue;
   }
 
-  private parseTypedObj(obj: any): any {
-    switch (Object.keys(obj)[0]) {
+  parseTypedObj(typedObj: any): any {
+    switch (Object.keys(typedObj)[0]) {
+      case 'BOOL':
+        return typedObj.BOOL;
       case 'S':
-        return obj.S;
+        return typedObj.S;
+      case 'SS':
+        return typedObj.SS;
       case 'N':
-        return parseInt(obj.N);
+        return parseInt(typedObj.N);
+      case 'NS':
+        return typedObj.NS.map((v: any) => parseInt(v));
+      case 'L':
+        return typedObj.L.map((v: any) => this.parseTypedObj(v));
+      case 'M':
+        const obj: Record<string, any> = {};
+        Object.keys(typedObj.M).forEach(key => obj[key] = this.parseTypedObj(typedObj.M[key]))
+        return obj;
       default:
-        return obj.S;
+        return JSON.parse(typedObj.S);
     }
   }
 
-  private createTypedObj(value: any): any {
+  createTypedObj(value: any): any {
     var typedObj: any = {};
+    console.log('creating typed object of:');
+    console.log(value);
+
     switch (typeof value) {
+      case 'boolean':
+        typedObj.BOOL = value;
+        break;
       case 'number':
-        console.log('number ' + value);
         if (Number.isNaN(value)) typedObj.N = '0';
         else typedObj.N = value.toString();
         break;
       case 'string':
-        console.log('string ' + value);
         typedObj.S = value;
+        break;
+      case 'object':
+        if (value && Array.isArray(value)) {
+          if (value.length > 0) {
+            switch (typeof value[0]) {
+              case 'number':
+                typedObj.NS = value.map(v => v.toString());
+                break;
+              case 'string':
+                typedObj.SS = value;
+                break;
+              case 'object':
+                typedObj.L = value.map(v => this.createTypedObj(v));
+                break;
+            }
+          } else {
+            typedObj.L = [];
+          }
+        } else {
+          const obj: Record<string, any> = {};
+          Object.keys(value).forEach(key => obj[key] = this.createTypedObj(value[key]))
+          typedObj.M = obj;
+        }
         break;
       default:
-        typedObj.S = value;
+        typedObj.S = JSON.stringify(value);
         break;
     }
+
+    console.log('final value:');
+    console.log(typedObj);
+    console.log('parsing returned obj:');
+    console.log(this.parseTypedObj(typedObj));
+    console.log(' ');
+
     return typedObj;
   }
 

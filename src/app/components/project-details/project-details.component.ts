@@ -30,7 +30,6 @@ export class ProjectDetailsComponent implements OnInit {
 
     this.awsService.getDynamoObjectByKey('title', 'display').subscribe((data: any) => {
       this.display = data;
-      console.log(data);
       this.dInput = JSON.parse(JSON.stringify(data));
     });
   }
@@ -45,8 +44,6 @@ export class ProjectDetailsComponent implements OnInit {
 
   save() {
     this.awsService.putDynamoObjectByKey(this.dInput, 'title', 'display').subscribe(data => {
-      console.log('save');
-      console.log(data);
       this.display = data;
     });
   }
