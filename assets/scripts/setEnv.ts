@@ -17,6 +17,7 @@ function writeFileUsingFS(targetPath, environmentFileContent) {
     }
     if (environmentFileContent !== '') {
       console.log(`wrote variables to ${targetPath}`);
+      console.log(`parsed env variable: ${!process.env.S3_BUCKET_NAME ? 'FAILED' : 'SUCCESS'}`);
     }
   });
 }
