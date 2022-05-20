@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LocalResourceService } from './local-resource.service';
+import { PageReadService } from './page-read.service';
 
-describe('LocalResourceService', () => {
-  let service: LocalResourceService;
+describe('PageReadService', () => {
+  let service: PageReadService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(LocalResourceService);
+    service = TestBed.inject(PageReadService);
   });
 
   it('should be created', () => {

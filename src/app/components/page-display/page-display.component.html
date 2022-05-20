@@ -1,0 +1,49 @@
+<ng-container *ngIf="Tiles.length > 0; else spinner">
+  <div *ngFor="let tile of Tiles" [ngSwitch]="tile.type" (window:resize)="onResize($event)">
+
+    <div *ngSwitchCase="TileType.Title" class="container text-center text-sm-start my-3">
+      <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
+        <div class="col">
+          <h1 class="px-2 px-sm-0">{{tile.text}}</h1>
+        </div>
+      </div>
+    </div>
+
+    <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
+    </app-text-display>
+
+    <app-image-grid *ngSwitchCase="TileType.ImageGrid" [tile]="tile">
+    </app-image-grid>
+
+    <app-slideshow *ngSwitchCase="TileType.Slideshow" [tile]="tile">
+    </app-slideshow>
+
+    <div *ngSwitchCase="TileType.VimeoVid" class="container spaceBelow">
+      <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
+        <div class="col">
+          <div [innerHTML]="tile.text|htmlsanitize"></div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngSwitchDefault class="container my-2">
+      <ng-container *ngIf="true; then spinner">
+      </ng-container>
+    </div>
+
+  </div>
+</ng-container>
+
+<ng-template #spinner>
+  <div *ngIf="!pageNotFound; else pnf" class="row my-5">
+    <div class="col-12 text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading Portfolio...</span>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #pnf>
+  <app-page-not-found></app-page-not-found>
+</ng-template>

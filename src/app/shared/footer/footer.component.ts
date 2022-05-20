@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LocalResourceService } from 'src/app/services/local-resource.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,8 +15,12 @@ export class FooterComponent {
     return environment.production ? '' : '[NonProd]';
   }
 
-  constructor(private resourceService: LocalResourceService) {
-    this.links = this.resourceService.getConstUrls();
+  get smallIcon(): string {
+    return environment.icons.small;
+  }
+
+  constructor(private navService: NavbarService) {
+      this.navService.getFooterData().subscribe(data => this.links = data);
   }
 
 }

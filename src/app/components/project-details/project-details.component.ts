@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { VideoNode } from 'src/app/models/Video';
-import { VideoDataService } from 'src/app/services/video-data.service';
 
 @Component({
   selector: 'app-project-details',
@@ -9,16 +7,16 @@ import { VideoDataService } from 'src/app/services/video-data.service';
   styleUrls: ['./project-details.component.scss'],
 })
 export class ProjectDetailsComponent implements OnInit {
-  private _videoNode: VideoNode = <VideoNode>{};
+  get video(): any {
+    return {
+      title: this._id,
+      html: '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/237823870?h=c47ddc92ae&color=ffffff" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="fullscreen"></iframe></div>',
+    };
+  }
+
   private _id = '';
 
-  get videoNode(): VideoNode {
-    return this._videoNode = this.videoService.getVideoNodeById(this._id);
-  }
-  constructor(
-    private videoService: VideoDataService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramMap) => {

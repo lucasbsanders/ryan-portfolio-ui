@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CognitoIdentityCredentials, config as AWSConfig } from 'aws-sdk';
-import * as S3 from 'aws-sdk/clients/s3';
 import * as DynamoDb from 'aws-sdk/clients/dynamodb';
+import * as S3 from 'aws-sdk/clients/s3';
 import { from, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -13,8 +13,6 @@ export class AwsConnectService {
   dynamo;
 
   constructor() {
-    console.log('Starting AWS Connect Service');
-
     AWSConfig.region = environment.aws.defaultRegion;
     AWSConfig.credentials = new CognitoIdentityCredentials({
       IdentityPoolId: environment.aws.identityPoolId,
@@ -31,18 +29,159 @@ export class AwsConnectService {
     this.dynamo = new DynamoDb({
       region: environment.dynamoDb.region,
     });
+  }
+
+
+
+  ////
+  //// DynamoDB methods
+  ////
+
+  getDynamoObjectByKey(dynamoKeyName: string, dynamoKey: any, table: string): Observable<any> {
+    const params = {
+      Key: {
+        [dynamoKeyName]: this.createTypedObj(dynamoKey),
+      },
+      TableName: table,
+    };
+
+    // return of({ Text: '', Num: 0 });
+
+    return from(this.dynamo.getItem(params).promise()).pipe(
+      map((data) => {
+        const error = data.$response.error;
+        if (error) throw { message: error.message };
+
+        return this.parseAttributes(data.Item);
+      })
+    );
+  }
+
+  putDynamoObjectByKey(obj: any, dynamoKeyName: string, dynamoKey: any, table: string): Observable<any> {
+    const expressionAttrNames: Record<string, string> = {};
+    const expressionAttrVals: Record<string, any> = {};
+    var updateExp: string = 'SET ';
+
+    Object.keys(obj).forEach((key: string) => {
+      if (dynamoKeyName.localeCompare(key) !== 0) {
+        expressionAttrNames['#' + key] = key;
+        expressionAttrVals[':' + key] = this.createTypedObj(obj[key]);
+        updateExp += `#${key} = :${key}, `;
+      }
+    });
+
+    console.log(expressionAttrNames);
+    console.log(expressionAttrVals);
+    console.log(updateExp.slice(0, -2));
 
     const params = {
       Key: {
-        title: { S: 'static' },
+        [dynamoKeyName]: this.createTypedObj(dynamoKey),
       },
-      TableName: 'ryan-portfolio-dynamodb',
+      TableName: table,
+
+      ExpressionAttributeNames: expressionAttrNames,
+      ExpressionAttributeValues: expressionAttrVals,
+      UpdateExpression: updateExp.slice(0, -2),
+      ReturnValues: 'ALL_NEW',
     };
 
-    from(this.dynamo.getItem(params).promise()).subscribe((data) => {
-      if (data.Item) console.log(data.Item['aboutMe'].S);
-    });
+    //return of({ Text: obj.Text, Num: obj.Num });
+    return from(this.dynamo.updateItem(params).promise()).pipe(
+      map((data) => {
+        const error = data.$response.error;
+        if (error) throw { message: error.message };
+
+        return this.parseAttributes(data.Attributes);
+      })
+    );
   }
+
+  private parseAttributes(attributes: any): any {
+    const returnValue: Record<string, any> = {};
+
+    if (attributes) {
+      Object.keys(attributes).forEach((key: string) => {
+        returnValue[key] = this.parseTypedObj(attributes[key]);
+      });
+    }
+
+    return returnValue;
+  }
+
+  parseTypedObj(typedObj: any): any {
+    switch (Object.keys(typedObj)[0]) {
+      case 'BOOL':
+        return typedObj.BOOL;
+      case 'S':
+        return typedObj.S;
+      case 'SS':
+        return typedObj.SS;
+      case 'N':
+        return parseInt(typedObj.N);
+      case 'NS':
+        return typedObj.NS.map((v: any) => parseInt(v));
+      case 'L':
+        return typedObj.L.map((v: any) => this.parseTypedObj(v));
+      case 'M':
+        const obj: Record<string, any> = {};
+        Object.keys(typedObj.M).forEach(key => obj[key] = this.parseTypedObj(typedObj.M[key]))
+        return obj;
+      default:
+        return JSON.parse(typedObj.S);
+    }
+  }
+
+  createTypedObj(value: any): any {
+    var typedObj: any = {};
+
+    switch (typeof value) {
+      case 'boolean':
+        typedObj.BOOL = value;
+        break;
+      case 'number':
+        if (Number.isNaN(value)) typedObj.N = '0';
+        else typedObj.N = value.toString();
+        break;
+      case 'string':
+        typedObj.S = value;
+        break;
+      case 'object':
+        if (value && Array.isArray(value)) {
+          if (value.length > 0) {
+            switch (typeof value[0]) {
+              case 'number':
+                typedObj.NS = value.map(v => v.toString());
+                break;
+              case 'string':
+                typedObj.SS = value;
+                break;
+              case 'object':
+                typedObj.L = value.map(v => this.createTypedObj(v));
+                break;
+            }
+          } else {
+            typedObj.L = [];
+          }
+        } else {
+          const obj: Record<string, any> = {};
+          Object.keys(value).forEach(key => obj[key] = this.createTypedObj(value[key]))
+          typedObj.M = obj;
+        }
+        break;
+      default:
+        typedObj.S = JSON.stringify(value);
+        break;
+    }
+
+    return typedObj;
+  }
+
+
+
+  ////
+  //// S3 bucket methods
+  ////
 
   listDynamicFolders(): Observable<string[]> {
     const params = {
@@ -88,7 +227,7 @@ export class AwsConnectService {
           var objects: string[] = [];
           if (data.Contents) {
             objects = data.Contents.map((content) => {
-              if (content.Key) return this.generateS3Url(content.Key);
+              if (content.Key) return content.Key;
               else return '';
             }).filter((contentKey) => contentKey !== '');
           }
@@ -118,7 +257,7 @@ export class AwsConnectService {
                 content.Key.toLocaleLowerCase().indexOf(pattern) > -1
             ).map((content) => {
               return {
-                url: this.generateS3Url(content.Key),
+                url: content.Key,
                 title: content.Key?.substring(0, content.Key.indexOf('/')),
               };
             });
@@ -127,9 +266,5 @@ export class AwsConnectService {
         }
       })
     );
-  }
-
-  private generateS3Url(key: string | undefined) {
-    return [environment.s3.baseUrl, environment.s3.bucketName, key].join('/');
   }
 }

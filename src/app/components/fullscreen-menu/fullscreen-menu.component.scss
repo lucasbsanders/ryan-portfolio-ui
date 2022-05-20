@@ -3,12 +3,14 @@
 }
 
 a {
-  font-family: "Montserrat-Bold", Arial, sans-serif;
-  color: lightgrey;
+  color: lightgray;
   text-decoration: none;
   font-size: xx-large;
+  cursor: pointer;
 }
 
 a:hover {
   color: white;
+  border: 2px solid lightgray;
+  border-radius: 5px;
 }

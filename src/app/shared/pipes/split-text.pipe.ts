@@ -6,6 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SplitTextPipe implements PipeTransform {
 
   transform(text: string, numPieces: number): string[] {
+    if (numPieces <= 1) return [text];
     const parts: string[] = [];
     const approxLength = text.length / numPieces;
 
