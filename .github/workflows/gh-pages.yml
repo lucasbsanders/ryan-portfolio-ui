@@ -27,7 +27,9 @@ jobs:
 
     - name: Build with secrets
       env:
-        AWS_POOL_ID: ${{ secrets.AWS_POOL_ID }}
+        API_BASE_URL: ${{ secrets.API_BASE_URL }}
+        S3_BASE_URL: ${{ secrets.S3_BASE_URL }}
+        S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
       run: npm run build
 
     - name: Copy index.html to 404.html
