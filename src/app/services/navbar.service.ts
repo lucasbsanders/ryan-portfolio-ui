@@ -21,7 +21,17 @@ export class NavbarService {
 
   isAtTop: boolean = true;
 
+  colAdj = 0; // global column adjust for mobile
+
   constructor() {}
+
+  onResize(width: number) {
+    if (width < 576) {
+      this.colAdj = -1;
+    } else {
+      this.colAdj = 0;
+    }
+  }
 
 
 }

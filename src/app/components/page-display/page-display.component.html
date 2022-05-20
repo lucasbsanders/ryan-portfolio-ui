@@ -1,115 +1,22 @@
-<ng-container *ngIf="tiles.length > 0; else spinner">
-  <div *ngFor="let tile of tiles" [ngSwitch]="tile.type" (window:resize)="onResize($event)">
-    <ng-container *ngSwitchCase="TileType.Title">
-      <div class="container text-center text-sm-start my-3">
-        <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
-          <div class="col">
-            <h1 class="px-2 px-sm-0">{{tile.text}}</h1>
-          </div>
-        </div>
-      </div>
-    </ng-container>
+<ng-container *ngIf="Tiles.length > 0; else spinner">
+  <div *ngFor="let tile of Tiles" [ngSwitch]="tile.type" (window:resize)="onResize($event)">
 
-    <ng-container *ngSwitchCase="TileType.Text">
-      <div *ngIf="!tile.images" class="container my-5">
-        <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
-          <div *ngFor="let piece of tile.text|splitText:(tile.columns+colAdj)" class="col-12 col-sm">
-            <p>{{piece}}</p>
-          </div>
-        </div>
-      </div>
-
-      <div *ngIf="tile.images && tile.images.length > 0" class="container">
-        <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
-          <div class="col-12 col-md-7">
-            <p>{{tile.text}}</p>
-          </div>
-          <div class="col-12 col-md-5 order-first order-md-last mb-4">
-            <img class="w-100" [src]="tile.images[0].s3Key|keyToS3" [alt]="tile.images[0].s3Key|filename">
-          </div>
-        </div>
-      </div>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="TileType.ImageGrid">
-      <div *ngIf="tile.hasFilters" class="container">
-        <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
-          <div class="col-auto ms-auto align-self-center">
-            <a routerLink="/">All</a>
-          </div>
-          <div class="col-auto align-self-center">
-            <a routerLink="/">Illustration</a>
-          </div>
-          <div class="col-auto align-self-center">
-            <a routerLink="/">Animation</a>
-          </div>
-          <div class="col-auto align-self-center">
-            <a routerLink="/">UX/UI</a>
-          </div>
-        </div>
-      </div>
-
-      <ng-container *ngIf="!tile.large">
-        <div class="container">
-          <div *ngFor="let imgRow of tile.images|rowSplit:(tile.columns+colAdj)" class="row" [ngClass]="{'mx-md-5': tile.margin}">
-            <div *ngFor="let img of imgRow" class="col" [ngClass]="{'gx-5' : tile.gutters}">
-              <img class="w-100" [src]="img.s3Key|keyToS3" [alt]="img.s3Key|filename">
-            </div>
-          </div>
-        </div>
-      </ng-container>
-
-      <div class="spaceBelow" *ngIf="tile.large">
-        <div *ngFor="let imgRow of tile.images|rowSplit:(tile.columns+colAdj); index as row" class="row mx-1">
-          <div *ngFor="let bigImg of imgRow; index as i" class="d-flex col g-1 g-sm-2 position-relative">
-            <img class="w-100" [src]="bigImg.s3Key|keyToS3" [alt]="bigImg.s3Key|filename"
-              (mouseenter)="setMouseOver(bigImg.s3Key)" (click)="goToPath(bigImg.link)">
-
-            <!-- Overlay Container: -->
-            <div class="position-absolute top-0 left-0 pe-1 pe-sm-2 w-100 h-100" [hidden]="mouseOverId!==bigImg.s3Key"
-              (click)="goToPath(bigImg.link)">
-              <div class="w-100 h-100 overlayBox" (mouseleave)="setMouseOver('')">
-                <p class="montserrat-bold overlayText">
-                  {{bigImg.link}}
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </ng-container>
-
-    <div *ngSwitchCase="TileType.Slideshow" class="container">
+    <div *ngSwitchCase="TileType.Title" class="container text-center text-sm-start my-3">
       <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
-        <div [id]="'book'+tile.order" class="carousel carousel-dark slide spaceBelow position-relative "
-          data-bs-interval="false" data-ride="carousel">
-          <div class="carousel-indicators position-absolute top-100 mb-0">
-            <button *ngFor="let page of tile.images; let pg = index" class="px-2" style="text-indent: 0" type="btn"
-              [id]="'book'+tile.order+'btn'+pg" [attr.data-bs-target]="'#book'+tile.order" [attr.data-bs-slide-to]="pg"
-              [attr.aria-label]="'Slide '+(pg+1)">
-              <p class="my-1">{{pg + 1}}</p>
-            </button>
-          </div>
-          <div class="carousel-inner">
-            <div *ngFor="let page of tile.images; let pg = index" class="carousel-item"
-              [id]="'book'+tile.order+'page'+pg">
-              <img class="d-block w-100" [src]="page.s3Key" [alt]="page.s3Key|filename">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#book'+tile.order"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon position-absolute start-0" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#book'+tile.order"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon position-absolute end-0" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+        <div class="col">
+          <h1 class="px-2 px-sm-0">{{tile.text}}</h1>
         </div>
       </div>
     </div>
+
+    <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
+    </app-text-display>
+
+    <app-image-grid *ngSwitchCase="TileType.ImageGrid" [tile]="tile">
+    </app-image-grid>
+
+    <app-slideshow *ngSwitchCase="TileType.Slideshow" [tile]="tile">
+    </app-slideshow>
 
     <div *ngSwitchCase="TileType.VimeoVid" class="container spaceBelow">
       <div class="row" [ngClass]="{'mx-md-5': tile.margin}">

@@ -53,6 +53,7 @@ export const environment = {
   },
   dynamoDb: {
     region: 'us-west-2',
+    pageTable: 'ryan-portfolio-pages',
   }
 };
 `;

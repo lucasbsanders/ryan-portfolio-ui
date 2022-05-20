@@ -37,12 +37,12 @@ export class AwsConnectService {
   //// DynamoDB methods
   ////
 
-  getDynamoObjectByKey(dynamoKeyName: any, dynamoKey: string): Observable<any> {
+  getDynamoObjectByKey(dynamoKeyName: string, dynamoKey: any, table: string): Observable<any> {
     const params = {
       Key: {
         [dynamoKeyName]: this.createTypedObj(dynamoKey),
       },
-      TableName: 'ryan-portfolio-dynamodb',
+      TableName: table,
     };
 
     // return of({ Text: '', Num: 0 });
@@ -57,7 +57,7 @@ export class AwsConnectService {
     );
   }
 
-  putDynamoObjectByKey(obj: any, dynamoKeyName: any, dynamoKey: any): Observable<any> {
+  putDynamoObjectByKey(obj: any, dynamoKeyName: string, dynamoKey: any, table: string): Observable<any> {
     const expressionAttrNames: Record<string, string> = {};
     const expressionAttrVals: Record<string, any> = {};
     var updateExp: string = 'SET ';
@@ -78,7 +78,7 @@ export class AwsConnectService {
       Key: {
         [dynamoKeyName]: this.createTypedObj(dynamoKey),
       },
-      TableName: 'ryan-portfolio-dynamodb',
+      TableName: table,
 
       ExpressionAttributeNames: expressionAttrNames,
       ExpressionAttributeValues: expressionAttrVals,
@@ -134,8 +134,6 @@ export class AwsConnectService {
 
   createTypedObj(value: any): any {
     var typedObj: any = {};
-    console.log('creating typed object of:');
-    console.log(value);
 
     switch (typeof value) {
       case 'boolean':
@@ -175,12 +173,6 @@ export class AwsConnectService {
         typedObj.S = JSON.stringify(value);
         break;
     }
-
-    console.log('final value:');
-    console.log(typedObj);
-    console.log('parsing returned obj:');
-    console.log(this.parseTypedObj(typedObj));
-    console.log(' ');
 
     return typedObj;
   }

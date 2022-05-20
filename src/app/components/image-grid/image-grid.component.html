@@ -1,0 +1,46 @@
+<div *ngIf="tile.hasFilters" class="container">
+  <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
+    <div class="col-auto ms-auto align-self-center">
+      <a routerLink="/">All</a>
+    </div>
+    <div class="col-auto align-self-center">
+      <a routerLink="/">Illustration</a>
+    </div>
+    <div class="col-auto align-self-center">
+      <a routerLink="/">Animation</a>
+    </div>
+    <div class="col-auto align-self-center">
+      <a routerLink="/">UX/UI</a>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!tile.large">
+  <div class="container">
+    <div *ngFor="let imgRow of tile.images|rowSplit:(tile.columns+colAdj)" class="row" [ngClass]="{'mx-md-5': tile.margin}">
+      <div *ngFor="let img of imgRow" class="col" [ngClass]="{'gx-5' : tile.gutters}">
+        <img class="w-100" [src]="img.s3Key|keyToS3" [alt]="img.s3Key|filename">
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div class="spaceBelow" *ngIf="tile.large">
+  <div *ngFor="let imgRow of tile.images|rowSplit:(tile.columns+colAdj); index as row" class="row mx-1">
+    <div *ngFor="let bigImg of imgRow; index as i" class="d-flex col g-1 g-sm-2 position-relative">
+      <img class="w-100" [src]="bigImg.s3Key|keyToS3" [alt]="bigImg.s3Key|filename"
+        (mouseenter)="setMouseOver(bigImg.s3Key)" (click)="goToPath(bigImg.link)">
+
+      <!-- Overlay Container: -->
+      <div class="position-absolute top-0 left-0 pe-1 pe-sm-2 w-100 h-100" [hidden]="mouseOverId!==bigImg.s3Key"
+        (click)="goToPath(bigImg.link)">
+        <div class="w-100 h-100 overlayBox" (mouseleave)="setMouseOver('')">
+          <p class="montserrat-bold overlayText">
+            {{bigImg.link}}
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

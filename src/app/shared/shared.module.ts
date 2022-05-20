@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
-import { FullscreenMenuComponent } from './fullscreen-menu/fullscreen-menu.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './PageNotFound';
@@ -15,7 +14,6 @@ import { KeyToS3Pipe } from './pipes/key-to-s3.pipe';
   declarations: [
     NavbarComponent,
     FooterComponent,
-    FullscreenMenuComponent,
     PageNotFoundComponent,
     RowSplitPipe,
     HtmlSanitizePipe,
@@ -37,7 +35,6 @@ import { KeyToS3Pipe } from './pipes/key-to-s3.pipe';
   exports: [
     NavbarComponent,
     FooterComponent,
-    FullscreenMenuComponent,
     PageNotFoundComponent,
     RowSplitPipe,
     HtmlSanitizePipe,

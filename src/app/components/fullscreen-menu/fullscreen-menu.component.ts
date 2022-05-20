@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { LocalResourceService } from 'src/app/services/local-resource.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fullscreen-menu',
@@ -23,12 +24,18 @@ export class FullscreenMenuComponent {
   }
 
   constructor(private navbarService: NavbarService,
-    private resourceService: LocalResourceService) {
+    private resourceService: LocalResourceService,
+    private router: Router) {
       this.videoReelUrl = this.resourceService.getConstUrls().videoReelUrl;
     }
 
-  close(): void {
+  closeMenu(): void {
     this.navbarService.menuOpen = false;
+  }
+
+  goToPath(path: string) {
+    this.router.navigate([path]);
+    this.closeMenu();
   }
 
 }
