@@ -12,10 +12,10 @@
     <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
     </app-text-display>
 
-    <app-image-grid *ngSwitchCase="TileType.ImageGrid" [tile]="tile">
+    <app-image-grid *ngSwitchCase="TileType.ImageGrid" class="spaceBelow" [tile]="tile">
     </app-image-grid>
 
-    <app-slideshow *ngSwitchCase="TileType.Slideshow" [tile]="tile">
+    <app-slideshow *ngSwitchCase="TileType.Slideshow" class="spaceBelow" [tile]="tile">
     </app-slideshow>
 
     <div *ngSwitchCase="TileType.VimeoVid" class="container spaceBelow">

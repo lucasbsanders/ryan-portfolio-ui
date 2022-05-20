@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { AwsConnectService } from './aws-connect.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,25 @@ export class NavbarService {
 
   colAdj = 0; // global column adjust for mobile
 
-  constructor() {}
+  staticDataKey = 'PorfolioStaticData';
+
+  staticData = {
+    route: this.staticDataKey,
+    menu: [
+      {title: 'Services', route: '/services'},
+      {title: 'Portfolio', route: '/'},
+      {title: 'About Me', route: '/about'},
+      {title: 'Illustrated Books', route: '/books'},
+      {title: 'Video Reel', url: 'https://duckduckgo.com/'},
+    ],
+    footer: {
+      resume: 'https://duckduckgo.com/',
+      linkedin: 'https://duckduckgo.com/',
+      email: 'mailto:xfennessey@gmail.com',
+    }
+  };
+
+  constructor(private awsService: AwsConnectService) {}
 
   onResize(width: number) {
     if (width < 576) {
@@ -31,6 +51,18 @@ export class NavbarService {
     } else {
       this.colAdj = 0;
     }
+  }
+
+  getMenuData(): Observable<any[]> {
+    return of(this.staticData.menu);
+  }
+
+  getFooterData(): Observable<any> {
+    return of(this.staticData.footer);
+  }
+
+  click() {
+    this.awsService.putDynamoObjectByKey(this.staticData, 'route', this.staticDataKey, 'ryan-portfolio-pages').subscribe(data => console.log(data));
   }
 
 

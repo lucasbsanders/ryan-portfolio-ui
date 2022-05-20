@@ -1,10 +1,9 @@
 <div *ngIf="menuOpen" class="fullscreen-menu position-fixed background-fade pt-4 w-100 h-100">
   <div class="container">
-    <div *ngFor="let route of appRoutes" class="text-center mb-3">
-      <a class="montserrat-bold px-3 py-1" (mousedown)="goToPath(route.path)">{{route.title}}</a>
-    </div>
-    <div class="text-center">
-      <a [href]="videoReelUrl" class="montserrat-bold px-3 py-1">Video Reel</a>
+    <div *ngFor="let option of menuData" class="text-center mb-3">
+      <a *ngIf="option.route" class="montserrat-bold px-3 py-1" (mousedown)="goToPath(option.route)">{{option.title}}</a>
+      <a *ngIf="option.url" [href]="option.url" class="montserrat-bold px-3 py-1">{{option.title}}</a>
     </div>
   </div>
+  <button class="btn-primary" (click)="click()">Click me</button>
 </div>

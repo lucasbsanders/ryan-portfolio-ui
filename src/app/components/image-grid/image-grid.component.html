@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<ng-container *ngIf="!tile.large">
+<ng-container class="spaceBelow" *ngIf="!tile.large">
   <div class="container">
     <div *ngFor="let imgRow of tile.images|rowSplit:(tile.columns+colAdj)" class="row" [ngClass]="{'mx-md-5': tile.margin}">
       <div *ngFor="let img of imgRow" class="col" [ngClass]="{'gx-5' : tile.gutters}">

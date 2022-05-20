@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
-    <div [id]="'book'+tile.order" class="carousel carousel-dark slide spaceBelow position-relative "
+    <div [id]="'book'+tile.order" class="carousel carousel-dark slide position-relative"
       data-bs-interval="false" data-ride="carousel">
       <div class="carousel-indicators position-absolute top-100 mb-0">
         <button *ngFor="let image of Images; let pg = index" class="px-2" style="text-indent: 0" type="btn"
