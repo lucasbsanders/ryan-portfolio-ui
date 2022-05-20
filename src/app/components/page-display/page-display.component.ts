@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { AwsConnectService } from 'src/app/services/aws-connect.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { PageReadService } from 'src/app/services/page-read.service';
-import { allPages, TileType } from 'src/app/services/pages.const';
+import { TileType } from 'src/app/services/pages.const';
 
 @Component({
   selector: 'app-page-display',
@@ -27,7 +26,6 @@ export class PageDisplayComponent implements OnInit {
 
   constructor(
     private pageService: PageReadService,
-    private awsService: AwsConnectService,
     private navService: NavbarService,
     private activatedRoute: ActivatedRoute
   ) {}

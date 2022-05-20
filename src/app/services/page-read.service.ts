@@ -1,19 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of, tap } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AwsConnectService } from './aws-connect.service';
-import { allPages } from './pages.const';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PageReadService {
+
   private _pages: any[] = [];
   private _pageSessionKey = 'RYAN-PORTFOLIO-PAGES';
 
   constructor(
-    private awsService: AwsConnectService,
     private http: HttpClient
   ) {
     this.instantiatePages().subscribe();
@@ -30,7 +28,7 @@ export class PageReadService {
     } else return of(this._pages.find((page) => page.route === route));
   }
 
-  instantiatePages(): Observable<any[]> {
+  private instantiatePages(): Observable<any[]> {
     this._pages = JSON.parse(
       <string>sessionStorage.getItem(this._pageSessionKey)
     );
@@ -46,13 +44,13 @@ export class PageReadService {
     } else return of(this._pages);
   }
 
-  parsePagesFromString(responseBody: any): any[] {
+  private parsePagesFromString(responseBody: any): any[] {
     const retList: any[] = [];
     
     JSON.parse(responseBody).Items.forEach((page: any) => {
       const retValue: Record<string, any> = {};
       for (const [key, value] of Object.entries(page)) {
-        retValue[key] = this.awsService.parseTypedObj(value);
+        retValue[key] = this.parseTypedObj(value);
       }
       retList.push(retValue);
     });
@@ -60,10 +58,33 @@ export class PageReadService {
     return retList;
   }
 
-  getAllPages(): Observable<any> {
+  private getAllPages(): Observable<any> {
     return this.http.get(
-      'https://0c5wla1jif.execute-api.us-west-2.amazonaws.com/dev/pages'
+      environment.apiBaseUrl + 'pages'
     );
+  }
+
+  private parseTypedObj(typedObj: any): any {
+    switch (Object.keys(typedObj)[0]) {
+      case 'BOOL':
+        return typedObj.BOOL;
+      case 'S':
+        return typedObj.S;
+      case 'SS':
+        return typedObj.SS;
+      case 'N':
+        return parseInt(typedObj.N);
+      case 'NS':
+        return typedObj.NS.map((v: any) => parseInt(v));
+      case 'L':
+        return typedObj.L.map((v: any) => this.parseTypedObj(v));
+      case 'M':
+        const obj: Record<string, any> = {};
+        Object.keys(typedObj.M).forEach(key => obj[key] = this.parseTypedObj(typedObj.M[key]))
+        return obj;
+      default:
+        return JSON.parse(typedObj.S);
+    }
   }
 
 }

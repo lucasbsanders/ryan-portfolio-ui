@@ -48,18 +48,31 @@ export const environment = {
     secondary: 'assets/siteLogos/RyanFennessey_logo_white.svg',
     small: 'assets/siteLogos/RyanFennessey_logo_favicon.svg',
   },
-  aws: {
-    identityPoolId: '${process.env.AWS_POOL_ID}',
-    defaultRegion: 'us-east-2',
-  },
+  staticDataKey: 'PorfolioStaticData',
+  apiBaseUrl: '${process.env.API_BASE_URL}',
   s3: {
-    baseUrl: 'https://s3.us-east-2.amazonaws.com/',
-    bucketName: 'ryan-portfolio-bucket',
+    baseUrl: '${process.env.S3_BASE_URL}',
+    bucketName: '${process.env.S3_BUCKET_NAME}',
+  },
+${isProduction ? 
+`  aws: {
+    identityPoolId: '',
+    defaultRegion: '',
   },
   dynamoDb: {
-    region: 'us-west-2',
-    pageTable: 'ryan-portfolio-pages',
-  }
+    region: '',
+    pageTable: '',
+  },`
+  :
+`  aws: {
+    identityPoolId: '${process.env.AWS_POOL_ID}',
+    defaultRegion: '${process.env.AWS_REGION}',
+  },
+  dynamoDb: {
+    region: '${process.env.DYNAMO_REGION}',
+    pageTable: '${process.env.DYNAMO_TABLE_NAME}',
+  },`
+}
 };
 `;
 
