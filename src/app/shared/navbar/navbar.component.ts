@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { LocalResourceService } from 'src/app/services/local-resource.service';
+import { environment } from 'src/environments/environment';
 
 enum Brand {
   primary = 'primary',
@@ -15,7 +15,12 @@ enum Brand {
 export class NavbarComponent {
 
   Brand = Brand;
-  brandLinks: any;
+
+  brandLinks = {
+    primary: environment.icons.primary,
+    secondary: environment.icons.secondary,
+  };
+
   mouseIn = false;
 
   get brandSelection(): Brand {
@@ -30,10 +35,7 @@ export class NavbarComponent {
     return this.navbarService.isAtTop;
   }
 
-  constructor(private navbarService: NavbarService,
-    private resourceService: LocalResourceService) {
-      this.brandLinks = this.resourceService.getConstUrls();
-    }
+  constructor(private navbarService: NavbarService) {}
 
   public mouseOverBrand(mouseIn: boolean) {
     this.mouseIn = mouseIn;

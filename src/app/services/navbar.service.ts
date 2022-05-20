@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { AwsConnectService } from './aws-connect.service';
+import { PageReadService } from './page-read.service';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,8 @@ export class NavbarService {
     }
   };
 
-  constructor(private awsService: AwsConnectService) {}
+  constructor(private awsService: AwsConnectService,
+    private pageService: PageReadService) {}
 
   onResize(width: number) {
     if (width < 576) {
@@ -54,16 +56,13 @@ export class NavbarService {
   }
 
   getMenuData(): Observable<any[]> {
-    return of(this.staticData.menu);
+    return this.pageService.getPageByRoute(this.staticDataKey).pipe(
+      map(staticData => staticData.menu));
   }
 
   getFooterData(): Observable<any> {
-    return of(this.staticData.footer);
+    return this.pageService.getPageByRoute(this.staticDataKey).pipe(
+      map(staticData => staticData.footer));
   }
-
-  click() {
-    this.awsService.putDynamoObjectByKey(this.staticData, 'route', this.staticDataKey, 'ryan-portfolio-pages').subscribe(data => console.log(data));
-  }
-
 
 }

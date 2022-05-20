@@ -65,4 +65,5 @@ export class PageReadService {
       'https://0c5wla1jif.execute-api.us-west-2.amazonaws.com/dev/pages'
     );
   }
+
 }

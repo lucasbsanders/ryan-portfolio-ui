@@ -43,7 +43,6 @@ export class PageDisplayComponent implements OnInit {
         })
       )
       .subscribe((page) => {
-        console.log(page);
         this._page = page;
         if (!this._page) this.pageNotFound = true;
       });
