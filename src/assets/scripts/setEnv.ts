@@ -47,7 +47,7 @@ export const environment = {
   icons: {
     primary: 'assets/siteLogos/RyanFennessey_logo_black.svg',
     secondary: 'assets/siteLogos/RyanFennessey_logo_white.svg',
-    small: 'assets/siteLogos/RyanFennessey_logo_favicon.svg',
+    small: 'assets/siteLogos/RyanFennessey_logo_footer_initials.svg',
   },
   staticDataKey: 'PorfolioStaticData',
   apiBaseUrl: '${process.env.API_BASE_URL}',
@@ -62,7 +62,7 @@ ${isProduction ?
   },
   dynamoDb: {
     region: '',
-    pageTable: '',
+    tableName: '',
   },`
   :
 `  aws: {
@@ -71,7 +71,7 @@ ${isProduction ?
   },
   dynamoDb: {
     region: '${process.env.DYNAMO_REGION}',
-    pageTable: '${process.env.DYNAMO_TABLE_NAME}',
+    tableName: '${process.env.DYNAMO_TABLE_NAME}',
   },`
 }
 };

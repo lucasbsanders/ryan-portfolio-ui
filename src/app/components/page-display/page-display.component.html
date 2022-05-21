@@ -1,5 +1,6 @@
+<app-fullscreen-menu></app-fullscreen-menu>
 <ng-container *ngIf="Tiles.length > 0; else spinner">
-  <div *ngFor="let tile of Tiles" [ngSwitch]="tile.type" (window:resize)="onResize($event)">
+  <div *ngFor="let tile of Tiles" [ngSwitch]="tile.type">
 
     <div *ngSwitchCase="TileType.Title" class="container text-center text-sm-start my-3">
       <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
@@ -18,13 +19,8 @@
     <app-slideshow *ngSwitchCase="TileType.Slideshow" [tile]="tile">
     </app-slideshow>
 
-    <div *ngSwitchCase="TileType.VimeoVid" class="container spaceBelow">
-      <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
-        <div class="col">
-          <div [innerHTML]="tile.text|htmlsanitize"></div>
-        </div>
-      </div>
-    </div>
+    <app-vimeo-video *ngSwitchCase="TileType.VimeoVid" [tile]="tile">
+    </app-vimeo-video>
 
     <div *ngSwitchDefault class="container my-2">
       <ng-container *ngIf="true; then spinner">

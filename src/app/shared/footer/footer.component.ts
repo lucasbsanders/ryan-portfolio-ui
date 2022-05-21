@@ -19,8 +19,8 @@ export class FooterComponent {
     return environment.icons.small;
   }
 
-  constructor(private navService: NavbarService) {
-      this.navService.getFooterData().subscribe(data => this.links = data);
+  constructor(private navbarService: NavbarService) {
+      this.navbarService.getFooterData().subscribe(data => this.links = data);
   }
 
 }

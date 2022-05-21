@@ -8,18 +8,18 @@ export class TileBaseComponent {
   @Input() tile: any = {};
 
   get colAdj(): number {
-    return this.navService.colAdj;
+    return this.navbarService.colAdj;
   }
 
   get Images(): any[] {
-    return this.tile ? this.tile.images.sort() : [];
+    return this.tile ? this.tile.images.sort((a: any, b: any) => a.order - b.order) : [];
   }
 
-  constructor(private navService: NavbarService,
+  constructor(private navbarService: NavbarService,
     private router: Router) { }
 
-  goToPath(id: string) {
-    this.router.navigate(['details/' + id.toString()]);
+  goToPath(route: string) {
+    this.router.navigate([route]);
   }
 
 }

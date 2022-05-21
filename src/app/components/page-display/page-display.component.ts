@@ -25,8 +25,8 @@ export class PageDisplayComponent implements OnInit {
   }
 
   constructor(
+    private navbarService: NavbarService,
     private pageService: PageReadService,
-    private navService: NavbarService,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -36,6 +36,7 @@ export class PageDisplayComponent implements OnInit {
         switchMap((paramMap: any) => {
           this._page = {};
           this.pageNotFound = false;
+          this.navbarService.setRoute(paramMap.get('path'));
 
           return this.pageService.getPageByRoute(paramMap.get('path'));
         })
@@ -46,7 +47,4 @@ export class PageDisplayComponent implements OnInit {
       });
   }
 
-  onResize(event: any) {
-    this.navService.onResize(event.target.width);
-  }
 }

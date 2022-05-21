@@ -1,15 +1,15 @@
-<nav id="navbar" class="navbar" [ngClass]="{'background-fade': menuOpen, 'background-regular': !menuOpen}">
+<nav id="navbar" class="navbar" [ngClass]="{'background-fade': menuOpen, 'background-regular': !menuOpen}" (window:resize)="onResize()">
   <div class="container">
-    <div class="row">
-      <div class="col-sm-4 align-self-center" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop}">
-        <div class="float-sm-start text-center">
-          <a class="montserrat navLink" routerLink="/"
-            [ngStyle]="{'color': menuOpen ? 'white' : 'black', 'border-color': menuOpen ? 'white' : 'black'}">
+    <div class="row position-relative">
+      <div class="col-sm-4 align-self-center homeButton" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop, 'position-absolute': smallScreen && isAtTop}">
+        <div [ngClass]="{'text-center': smallScreen && !isAtTop}" [ngStyle]="{'display': isHomepage ? 'none' : ''}">
+          <a *ngIf="!smallScreen; else closeButton" class="montserrat navLink" routerLink="/"
+            [ngStyle]="{'color': menuOpen ? 'white' : 'black', 'border-color': menuOpen ? 'white' : 'black'}" (click)="setMenuOpen(false)">
             Home
           </a>
         </div>
-
       </div>
+
       <div class="col-sm-4 position-relative brandCol" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop}"
         [ngStyle]="{'height.px': isAtTop ? 100 : 60}">
         <a class="navbar-brand position-absolute top-50 start-50 translate-middle h-100" routerLink="/"
@@ -17,6 +17,7 @@
           <img class="h-100" [src]="brandLinks[brandSelection]" alt="[Ryan Fennessey]">
         </a>
       </div>
+
       <div class="col-sm-4 align-self-center" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop}">
         <div class="float-sm-end text-center">
           <input type="checkbox" id="navbar-menu" [checked]="menuOpen" disabled>
@@ -30,3 +31,7 @@
     </div>
   </div>
 </nav>
+
+<ng-template #closeButton>
+  <button *ngIf="!menuOpen" routerLink="/" type="button" class="btn-close" aria-label="Close"></button>
+</ng-template>
