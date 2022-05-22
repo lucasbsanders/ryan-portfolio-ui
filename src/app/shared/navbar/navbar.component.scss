@@ -6,7 +6,7 @@
   background-color: white;
 }
 
-$nav-transition-time: .2s;
+$nav-transition-time: .25s;
 
 .brandCol {
   -webkit-transition: height $nav-transition-time;
@@ -22,6 +22,12 @@ a.navLink {
 
 a.navLink:hover {
   border-bottom: 3px solid black;
+}
+
+.homeButton {
+  top: 10px;
+  left: 10px;
+  z-index: 99;
 }
 
 // https://w3codepen.com/howto-html-css-hamburger-menu-icon/
@@ -71,7 +77,7 @@ $translate-up: -1 * $translate-down;
   transform: rotate(-135deg) translate(0px, $translate-up);
 }
 
-$transition-time: .2s;
+$transition-time: .3s;
 
 #navbar-menu-icon span {
   -webkit-transition: $transition-time ease-in-out;

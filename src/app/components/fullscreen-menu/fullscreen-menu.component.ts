@@ -5,7 +5,7 @@ import { NavbarService } from 'src/app/services/navbar.service';
 @Component({
   selector: 'app-fullscreen-menu',
   templateUrl: './fullscreen-menu.component.html',
-  styleUrls: ['./fullscreen-menu.component.scss']
+  styleUrls: ['./fullscreen-menu.component.scss'],
 })
 export class FullscreenMenuComponent implements OnInit {
 
@@ -15,11 +15,15 @@ export class FullscreenMenuComponent implements OnInit {
     return this.navbarService.menuOpen;
   }
 
-  constructor(private navbarService: NavbarService,
-    private router: Router) {}
+  constructor(private navbarService: NavbarService, private router: Router) {}
 
   ngOnInit(): void {
-    this.navbarService.getMenuData().subscribe(menuData => this.menuData = menuData);
+    this.navbarService
+      .getMenuData()
+      .subscribe(
+        (menuData) =>
+          (this.menuData = menuData.sort((a: any, b: any) => a.order - b.order))
+      );
   }
 
   closeMenu(): void {

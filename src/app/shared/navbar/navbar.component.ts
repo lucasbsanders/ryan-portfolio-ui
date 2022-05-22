@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { environment } from 'src/environments/environment';
 
@@ -12,7 +12,7 @@ enum Brand {
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
   Brand = Brand;
 
@@ -35,20 +35,41 @@ export class NavbarComponent {
     return this.navbarService.isAtTop;
   }
 
+  get smallScreen(): boolean {
+    return this.navbarService.colAdj === -1;
+  }
+
+  get isHomepage(): boolean {
+    return this.navbarService.isHomepage;
+  }
+
   constructor(private navbarService: NavbarService) {}
 
-  public mouseOverBrand(mouseIn: boolean) {
+  ngOnInit(): void {
+    this.onResize();
+  }
+
+  mouseOverBrand(mouseIn: boolean) {
     this.mouseIn = mouseIn;
   }
 
-  public clickBrand(): void {
+  clickBrand(): void {
     this.mouseOverBrand(true);
+    this.setMenuOpen(false);
     this.navbarService.menuOpen = false;
   }
 
-  public clickMenuButton(): void {
+  clickMenuButton(): void {
     this.mouseOverBrand(false);
-    this.navbarService.menuOpen = !this.navbarService.menuOpen;
+    this.setMenuOpen(!this.navbarService.menuOpen);
+  }
+
+  setMenuOpen(menuOpen: boolean): void {
+    this.navbarService.menuOpen = menuOpen;
+  }
+
+  onResize() {
+    this.navbarService.onResize(window.innerWidth);
   }
 
 }

@@ -10,9 +10,9 @@ import { TileBaseComponent } from '../tile-base.component';
 })
 export class TextDisplayComponent extends TileBaseComponent implements OnInit {
 
-  constructor(navService: NavbarService,
+  constructor(navbarService: NavbarService,
     router: Router) {
-    super(navService, router);
+    super(navbarService, router);
   }
 
   ngOnInit(): void {

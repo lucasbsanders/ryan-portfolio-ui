@@ -11,6 +11,7 @@ export class NavbarService {
   menuOpen: boolean = false;
   isAtTop: boolean = true;
   colAdj = 0; // global column adjust for mobile
+  isHomepage = false;
 
   constructor(private pageService: PageReadService) {}
 
@@ -20,6 +21,10 @@ export class NavbarService {
     } else {
       this.colAdj = 0;
     }
+  }
+
+  setRoute(route: string) {
+    this.isHomepage = route.localeCompare('portfolio') === 0;
   }
 
   getMenuData(): Observable<any[]> {

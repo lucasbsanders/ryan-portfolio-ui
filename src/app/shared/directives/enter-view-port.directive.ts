@@ -24,7 +24,7 @@ export class EnterViewPortDirective implements AfterViewInit, OnDestroy {
 
     const options = {
       root: null,
-      rootMargin: '-30px',
+      rootMargin: '-70px',
       threshold: 0,
     };
 

@@ -1,0 +1,7 @@
+<div class="container spaceBelow">
+  <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
+    <div class="col">
+      <div [innerHTML]="tile.text|htmlsanitize"></div>
+    </div>
+  </div>
+</div>

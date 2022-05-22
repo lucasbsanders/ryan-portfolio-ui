@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FooterComponent {
 
-  links: any;
+  links: any = {};
 
   get envString(): string {
     return environment.production ? '' : '[NonProd]';
@@ -19,8 +19,8 @@ export class FooterComponent {
     return environment.icons.small;
   }
 
-  constructor(private navService: NavbarService) {
-      this.navService.getFooterData().subscribe(data => this.links = data);
+  constructor(private navbarService: NavbarService) {
+      this.navbarService.getFooterData().subscribe(data => this.links = data);
   }
 
 }

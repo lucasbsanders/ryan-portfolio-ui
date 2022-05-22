@@ -1,7 +1,3 @@
-.fullscreen-menu {
-  z-index: 99;
-}
-
 a {
   color: lightgray;
   text-decoration: none;
@@ -11,6 +7,21 @@ a {
 
 a:hover {
   color: white;
-  border: 2px solid lightgray;
+  border: 2px solid rgba(211, 211, 211, 0.75);
+  background-color: rgba(211, 211, 211, 0.5);
   border-radius: 5px;
+}
+
+.fullscreen-menu {
+  z-index: 99;
+  margin-top: 100vh;
+}
+
+$transition-time: .3s;
+
+.fullscreen-menu {
+  -webkit-transition: margin-top $transition-time ease-in-out;
+  -moz-transition: margin-top $transition-time ease-in-out;
+  -o-transition: margin-top $transition-time ease-in-out;
+  transition: margin-top $transition-time ease-in-out;
 }

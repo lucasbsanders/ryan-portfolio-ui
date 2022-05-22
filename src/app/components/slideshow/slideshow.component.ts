@@ -10,9 +10,9 @@ import { TileBaseComponent } from '../tile-base.component';
 })
 export class SlideshowComponent extends TileBaseComponent implements AfterViewInit {
 
-  constructor(navService: NavbarService,
+  constructor(navbarService: NavbarService,
     router: Router) {
-    super(navService, router);
+    super(navbarService, router);
   }
 
   ngAfterViewInit(): void {

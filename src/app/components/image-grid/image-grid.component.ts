@@ -11,19 +11,29 @@ import { TileBaseComponent } from '../tile-base.component';
 export class ImageGridComponent extends TileBaseComponent implements OnInit {
 
   mouseOverId = '';
-  filterOptions: string[] = [];
+  filterOptions = ['All', 'Illustration', 'Animation', 'UX/UI'];
+  selectedFilter = 'All';
 
-  constructor(navService: NavbarService,
+  override get Images(): any[] {
+    return this.tile.images
+      .sort((a: any, b: any) => a.order - b.order)
+      .filter((img: any) => this.selectedFilter === 'All' || (img.tags &&
+        img.tags.find((t: string) => t.localeCompare(this.selectedFilter) === 0).length > 0));
+  }
+
+  constructor(navbarService: NavbarService,
     router: Router) {
-    super(navService, router);
+    super(navbarService, router);
   }
 
-  ngOnInit(): void {
-    this.Images.map(image => { if (image.tag) this.filterOptions.push(image.tag) });
-  }
+  ngOnInit(): void {}
 
   setMouseOver(id: string): void {
     this.mouseOverId = id;
+  }
+
+  filterItems(filter: string): void {
+    this.selectedFilter = filter;
   }
 
 }
