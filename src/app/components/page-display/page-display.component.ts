@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { NavbarService } from 'src/app/services/navbar.service';
@@ -11,17 +11,16 @@ import { TileType } from 'src/app/services/pages.const';
   styleUrls: ['./page-display.component.scss'],
 })
 export class PageDisplayComponent implements OnInit {
+
   TileType = TileType;
   pageNotFound = false;
 
-  private _page: any = {};
+  @Input() page: any = {};
 
   get Tiles(): any[] {
-    return !this._page || !this._page.tiles
+    return !this.page || !this.page.tiles
       ? []
-      : this._page.tiles.sort((a: any, b: any) => {
-          return a.order - b.order;
-        });
+      : this.page.tiles.sort((a: any, b: any) => a.order - b.order);
   }
 
   constructor(
@@ -34,7 +33,7 @@ export class PageDisplayComponent implements OnInit {
     this.activatedRoute.paramMap
       .pipe(
         switchMap((paramMap: any) => {
-          this._page = {};
+          this.page = {};
           this.pageNotFound = false;
           this.navbarService.setRoute(paramMap.get('path'));
 
@@ -42,8 +41,8 @@ export class PageDisplayComponent implements OnInit {
         })
       )
       .subscribe((page) => {
-        this._page = page;
-        if (!this._page) this.pageNotFound = true;
+        this.page = page;
+        if (!this.page) this.pageNotFound = true;
       });
   }
 

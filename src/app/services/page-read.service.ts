@@ -30,9 +30,11 @@ export class PageReadService {
   }
 
   private getPagesFromClosestSource(): Observable<any[]> {
-    this._pages = JSON.parse(
-      <string>sessionStorage.getItem(this._pageSessionKey)
-    );
+    if (environment.useCache) {
+      this._pages = JSON.parse(
+        <string>sessionStorage.getItem(this._pageSessionKey)
+      );
+    }
 
     var pagesObs: Observable<any>;
 
@@ -50,8 +52,6 @@ export class PageReadService {
           this._pageSessionKey,
           JSON.stringify(this._pages)
         );
-        console.log('New API call');
-        console.log(this._pages);
         return this._pages;
       })
     );

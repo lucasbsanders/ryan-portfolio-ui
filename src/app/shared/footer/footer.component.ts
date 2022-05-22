@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FooterComponent {
 
-  links: any;
+  links: any = {};
 
   get envString(): string {
     return environment.production ? '' : '[NonProd]';

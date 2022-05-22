@@ -1,7 +1,3 @@
-.fullscreen-menu {
-  z-index: 99;
-}
-
 a {
   color: lightgray;
   text-decoration: none;
@@ -16,9 +12,14 @@ a:hover {
   border-radius: 5px;
 }
 
+.fullscreen-menu {
+  z-index: 99;
+  margin-top: 100vh;
+}
+
 $transition-time: .3s;
 
-.menu {
+.fullscreen-menu {
   -webkit-transition: margin-top $transition-time ease-in-out;
   -moz-transition: margin-top $transition-time ease-in-out;
   -o-transition: margin-top $transition-time ease-in-out;

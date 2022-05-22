@@ -55,8 +55,10 @@ export const environment = {
     baseUrl: '${process.env.S3_BASE_URL}',
     bucketName: '${process.env.S3_BUCKET_NAME}',
   },
+  useCache: ${isProduction},
 ${isProduction ? 
-`  aws: {
+`  //aws values for local development
+  aws: {
     identityPoolId: '',
     defaultRegion: '',
   },
@@ -65,7 +67,8 @@ ${isProduction ?
     tableName: '',
   },`
   :
-`  aws: {
+`  //aws values for local development
+  aws: {
     identityPoolId: '${process.env.AWS_POOL_ID}',
     defaultRegion: '${process.env.AWS_REGION}',
   },

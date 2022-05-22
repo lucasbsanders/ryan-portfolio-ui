@@ -45,8 +45,6 @@ export class AwsConnectService {
       TableName: table,
     };
 
-    // return of({ Text: '', Num: 0 });
-
     return from(this.dynamo.getItem(params).promise()).pipe(
       map((data) => {
         const error = data.$response.error;
@@ -86,13 +84,30 @@ export class AwsConnectService {
       ReturnValues: 'ALL_NEW',
     };
 
-    //return of({ Text: obj.Text, Num: obj.Num });
     return from(this.dynamo.updateItem(params).promise()).pipe(
       map((data) => {
         const error = data.$response.error;
         if (error) throw { message: error.message };
 
         return this.parseAttributes(data.Attributes);
+      })
+    );
+  }
+
+  deleteDynamoObjectByKey(dynamoKeyName: string, dynamoKey: any, table: string): Observable<any> {
+    const params = {
+      Key: {
+        [dynamoKeyName]: this.createTypedObj(dynamoKey),
+      },
+      TableName: table,
+    };
+
+    return from(this.dynamo.deleteItem(params).promise()).pipe(
+      map((data) => {
+        const error = data.$response.error;
+        if (error) throw { message: error.message };
+
+        return data;
       })
     );
   }
