@@ -5,7 +5,7 @@
         <div [ngClass]="{'text-center': smallScreen && !isAtTop}" [ngStyle]="{'display': isHomepage ? 'none' : ''}">
           <a *ngIf="!smallScreen; else closeButton" class="montserrat navLink" routerLink="/"
             [ngStyle]="{'color': menuOpen ? 'white' : 'black', 'border-color': menuOpen ? 'white' : 'black'}" (click)="setMenuOpen(false)">
-            Home
+            Back
           </a>
         </div>
       </div>

@@ -12,7 +12,8 @@ export class TileBaseComponent {
   }
 
   get Images(): any[] {
-    return this.tile ? this.tile.images.sort((a: any, b: any) => a.order - b.order) : [];
+    return this.tile && this.tile.images ?
+      this.tile.images.sort((a: any, b: any) => a.order - b.order) : [];
   }
 
   constructor(private navbarService: NavbarService,
