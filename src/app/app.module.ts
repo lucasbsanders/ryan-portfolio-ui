@@ -12,6 +12,7 @@ import { TextDisplayComponent } from './components/text-display/text-display.com
 import { VimeoVideoComponent } from './components/vimeo-video/vimeo-video.component';
 import { EnterViewPortDirective } from './shared/directives/enter-view-port.directive';
 import { SharedModule } from './shared/shared.module';
+import { PageEditComponent } from './components/page-edit/page-edit.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SharedModule } from './shared/shared.module';
     ImageGridComponent,
     TextDisplayComponent,
     VimeoVideoComponent,
+    PageEditComponent,
   ],
   imports: [
     BrowserModule,

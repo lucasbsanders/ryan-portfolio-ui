@@ -1,0 +1,29 @@
+<div class="container mb-4">
+  <textarea id="textareaInput" class="w-100 montserrat" [value]="pageJson"
+    [ngStyle]="{'border' : invalidJson ? '3px solid red' : '3px solid lime'}" (input)="input($event)"></textarea>
+</div>
+
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-6">
+      <button type="btn" class="btn btn-primary" (click)="savePage()" [disabled]="invalidJson">
+        Save Page to DynamoDB
+      </button>
+    </div>
+    <div class="col-6">
+      <button type="btn" class="btn btn-danger float-end" (click)="deletePage()">
+        Delete Page
+      </button>
+    </div>
+  </div>
+
+  <div class="row text-center" *ngIf="resultMessage">
+    <p>{{resultMessage}}</p>
+  </div>
+</div>
+
+<div class="container mb-4">
+  <hr style="height: 4px">
+</div>
+
+<app-page-display [page]="displayPage"></app-page-display>
