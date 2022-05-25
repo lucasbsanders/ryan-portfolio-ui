@@ -9,9 +9,20 @@ export enum TileType {
   Text = 'Text',
   Slideshow = 'Slideshow',
   ImageGrid = 'ImageGrid',
+  ImageSubtitle = 'ImageSubtitle',
+  Subtitle = 'Subtitle',
   VimeoVid = 'VimeoVid',
 };
 
+export enum Width {
+  XS = 'XS',
+  S = 'S',
+  M = 'M',
+  L = 'L',
+  XL = 'XL'
+};
+
+/** 
 export const allPages: any[] = [
 
   /////////////////////////////////////////////////
@@ -380,3 +391,4 @@ export const allPages: any[] = [
     ],
   },
 ];
+*/

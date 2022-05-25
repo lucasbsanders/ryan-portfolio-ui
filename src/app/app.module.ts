@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FullscreenMenuComponent } from './components/fullscreen-menu/fullscreen-menu.component';
+import { FullscreenMenuComponent } from './helpers/fullscreen-menu/fullscreen-menu.component';
 import { ImageGridComponent } from './components/image-grid/image-grid.component';
 import { PageDisplayComponent } from './components/page-display/page-display.component';
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
@@ -13,6 +13,9 @@ import { VimeoVideoComponent } from './components/vimeo-video/vimeo-video.compon
 import { EnterViewPortDirective } from './shared/directives/enter-view-port.directive';
 import { SharedModule } from './shared/shared.module';
 import { PageEditComponent } from './components/page-edit/page-edit.component';
+import { ImageSubtitleComponent } from './components/image-subtitle/image-subtitle.component';
+import { ImageComponent } from './helpers/image/image.component';
+import { RowWidthAdjustComponent } from './helpers/row-width-adjust/row-width-adjust.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { PageEditComponent } from './components/page-edit/page-edit.component';
     TextDisplayComponent,
     VimeoVideoComponent,
     PageEditComponent,
+    ImageSubtitleComponent,
+    ImageComponent,
+    RowWidthAdjustComponent,
   ],
   imports: [
     BrowserModule,

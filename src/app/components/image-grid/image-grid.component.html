@@ -1,5 +1,5 @@
 <div *ngIf="tile.hasFilters" class="container">
-  <div class="row justify-content-center justify-content-sm-end" [ngClass]="{'mx-md-5': tile.margin}">
+  <div class="row justify-content-center justify-content-sm-end">
     <div *ngFor="let option of filterOptions" class="col-auto align-self-center" (click)="filterItems(option)">
       <a [ngStyle]="{'border-bottom': option===selectedFilter ? '3px solid black' : ''}">
         {{option}}
@@ -8,32 +8,20 @@
   </div>
 </div>
 
-<ng-container *ngIf="!tile.large">
+<ng-container *ngIf="!tile.width || tile.width!==Width.XL">
   <div class="container spaceBelow">
-    <div *ngFor="let imgRow of Images|rowSplit:(tile.columns+colAdj)" class="row" [ngClass]="{'mx-md-5': tile.margin}">
-      <div *ngFor="let img of imgRow" class="col" [ngClass]="{'gx-5' : tile.gutters}">
+    <div *ngFor="let imgRow of Images|rowSplit:(tile.columns+colAdj)" class="row" [ngStyle]="{'margin': !tile.width || isSmall || tile.width===Width.L  ? '0' : tile.width===Width.M ? '0 8rem': tile.width===Width.S ? '0 16rem' : '0 24rem'}">
+      <div *ngFor="let img of imgRow" class="col">
         <img class="w-100" [src]="img.s3Key|keyToS3" [alt]="img.s3Key|filename">
       </div>
     </div>
   </div>
 </ng-container>
 
-<div class="spaceBelow" *ngIf="tile.large">
+<div class="spaceBelow" *ngIf="tile.width===Width.XL">
   <div *ngFor="let imgRow of Images|rowSplit:(tile.columns+colAdj); index as row" class="row mx-1">
     <div *ngFor="let bigImg of imgRow; index as i" class="d-flex col g-3 g-sm-2 position-relative">
-      <img class="w-100" [src]="bigImg.s3Key|keyToS3" [alt]="bigImg.s3Key|filename"
-        (mouseenter)="setMouseOver(bigImg.s3Key)" (click)="goToPath(bigImg.link)">
-
-      <!-- Overlay Container: -->
-      <div class="position-absolute top-0 left-0 pe-1 pe-sm-2 w-100 h-100" [hidden]="mouseOverId!==bigImg.s3Key"
-        (click)="goToPath(bigImg.link)">
-        <div class="w-100 h-100 overlayBox" (mouseleave)="setMouseOver('')">
-          <p class="montserrat-bold overlayText">
-            {{bigImg.link}}
-          </p>
-        </div>
-      </div>
-
+      <app-image [image]="bigImg" [overlay]="tile.imageOverlay"></app-image>
     </div>
   </div>
 </div>

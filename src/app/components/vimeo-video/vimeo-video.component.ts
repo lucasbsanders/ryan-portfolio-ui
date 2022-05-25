@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { TileBaseComponent } from '../tile-base.component';
+import { TileBaseComponent } from '../../helpers/tile-base.component';
 
 @Component({
   selector: 'app-vimeo-video',

@@ -1,7 +1,7 @@
 <div class="container spaceBelow">
-  <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
+  <app-row-width-adjust [width]="tile.width">
     <div class="col">
       <div [innerHTML]="tile.text|htmlsanitize"></div>
     </div>
-  </div>
+  </app-row-width-adjust>
 </div>
