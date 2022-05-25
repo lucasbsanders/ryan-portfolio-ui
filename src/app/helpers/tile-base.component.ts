@@ -10,12 +10,20 @@ export class TileBaseComponent {
 
   @Input() tile: any = {};
 
-  get colAdj(): number {
-    return this.navbarService.colAdj;
+  get colAdjSm(): number {
+    return this.navbarService.isSmallScreen ? -1 : 0;
+  }
+
+  get colAdjMd(): number {
+    return this.navbarService.isMediumScreen ? -1 : 0;
   }
 
   get isSmall(): boolean {
-    return this.navbarService.colAdj < 0;
+    return this.navbarService.isSmallScreen;
+  }
+
+  get isMedium(): boolean {
+    return this.navbarService.isMediumScreen;
   }
 
   get Images(): any[] {

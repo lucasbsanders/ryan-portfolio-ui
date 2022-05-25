@@ -10,17 +10,15 @@ export class NavbarService {
 
   menuOpen: boolean = false;
   isAtTop: boolean = true;
-  colAdj = 0; // global column adjust for mobile
+  isSmallScreen = false;
+  isMediumScreen = false;
   isHomepage = false;
 
   constructor(private pageService: PageReadService) {}
 
   onResize(width: number) {
-    if (width < 576) {
-      this.colAdj = -1;
-    } else {
-      this.colAdj = 0;
-    }
+    this.isSmallScreen = width < 576;
+    this.isMediumScreen = width < 768;
   }
 
   setRoute(route: string) {
@@ -28,12 +26,12 @@ export class NavbarService {
   }
 
   getMenuData(): Observable<any[]> {
-    return this.pageService.getPageByRoute(environment.staticDataKey).pipe(
+    return this.pageService.getStaticData().pipe(
       map(staticData => staticData.menu));
   }
 
   getFooterData(): Observable<any> {
-    return this.pageService.getPageByRoute(environment.staticDataKey).pipe(
+    return this.pageService.getStaticData().pipe(
       map(staticData => staticData.footer));
   }
 

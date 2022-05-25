@@ -1,6 +1,6 @@
 <div class="container spaceBelow">
   <app-row-width-adjust [width]="tile.width">
-    <div *ngFor="let piece of tile.text|splitText:(tile.columns+colAdj)" class="col-12 col-sm">
+    <div *ngFor="let piece of tile.text|splitText:(tile.columns+colAdjMd)" class="col-12 col-md">
       <p [innerText]="piece"></p>
     </div>
   </app-row-width-adjust>

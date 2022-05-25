@@ -1,9 +1,9 @@
-<img class="w-100" [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename" (mouseover)="image.mouseOver=true" (click)="goToPath(image.link)">
+<img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename" [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}" (mouseover)="image.mouseOver=true" (mousedown)="goToPath(image.link)">
 
 <!-- Overlay Container: -->
-<div class="position-absolute top-0 left-0 pe-1 pe-sm-2 w-100 h-100" [hidden]="!showOverlay" (mouseout)="out()">
-  <div class="w-100 h-100 overlayBox">
-    <p class="montserrat-bold overlayText" (click)="goToPath(image.link)">
+<div class="position-absolute top-0 left-0 pe-3 pe-sm-2 w-100 h-100" [hidden]="!showOverlay" (mouseout)="image.mouseOver=false">
+  <div class="w-100 h-100 overlayBox p-3">
+    <p class="montserrat-bold overlayText text-center" (click)="goToPath(image.link)">
       {{image.link}}
     </p>
   </div>

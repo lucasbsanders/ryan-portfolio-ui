@@ -24,10 +24,6 @@ export class PageDisplayComponent implements OnInit {
       : this.page.tiles.sort((a: any, b: any) => a.order - b.order);
   }
 
-  get isSmall(): boolean {
-    return this.navbarService.colAdj < 0;
-  }
-
   constructor(
     private navbarService: NavbarService,
     private pageService: PageReadService,

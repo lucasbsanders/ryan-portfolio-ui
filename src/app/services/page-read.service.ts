@@ -15,7 +15,7 @@ export class PageReadService {
   }
 
   getPageByRoute(route: string | null): Observable<any> {
-    if (!route) return of();
+    if (!route || route.localeCompare(environment.staticDataKey) === 0) return of(null);
     else
       return this.getPagesFromClosestSource().pipe(
         switchMap((pages: any[]) => {
@@ -27,6 +27,19 @@ export class PageReadService {
           else return of(page);
         })
       );
+  }
+
+  getStaticData(): Observable<any> {
+    return this.getPagesFromClosestSource().pipe(
+      switchMap((data: any[]) => {
+        const page = data.find((page: any) => page.route.localeCompare(environment.staticDataKey) === 0);
+        if (!page)
+          return this.fillPagesFromAPI().pipe(
+            map((data) => data.find((page: any) => page.route.localeCompare(environment.staticDataKey) === 0))
+          );
+        else return of(page);
+      })
+    );
   }
 
   private getPagesFromClosestSource(): Observable<any[]> {

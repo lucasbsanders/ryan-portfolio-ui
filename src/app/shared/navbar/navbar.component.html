@@ -1,6 +1,7 @@
 <nav id="navbar" class="navbar" [ngClass]="{'background-fade': menuOpen, 'background-regular': !menuOpen}" (window:resize)="onResize()">
   <div class="container">
     <div class="row position-relative">
+
       <div class="col-sm-4 align-self-center homeButton" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop, 'position-absolute': smallScreen && isAtTop}">
         <div [ngClass]="{'text-center': smallScreen && !isAtTop}" [ngStyle]="{'display': isHomepage ? 'none' : ''}">
           <a *ngIf="!smallScreen; else closeButton" class="montserrat navLink" routerLink="/"
@@ -28,6 +29,7 @@
           </label>
         </div>
       </div>
+
     </div>
   </div>
 </nav>

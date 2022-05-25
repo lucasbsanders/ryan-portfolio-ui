@@ -16,6 +16,7 @@ import { PageEditComponent } from './components/page-edit/page-edit.component';
 import { ImageSubtitleComponent } from './components/image-subtitle/image-subtitle.component';
 import { ImageComponent } from './helpers/image/image.component';
 import { RowWidthAdjustComponent } from './helpers/row-width-adjust/row-width-adjust.component';
+import { TitleComponent } from './components/title/title.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { RowWidthAdjustComponent } from './helpers/row-width-adjust/row-width-ad
     ImageSubtitleComponent,
     ImageComponent,
     RowWidthAdjustComponent,
+    TitleComponent,
   ],
   imports: [
     BrowserModule,
