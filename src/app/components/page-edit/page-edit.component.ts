@@ -58,9 +58,9 @@ export class PageEditComponent
       )
       .subscribe((data) => {
         if (!data)
-          this.resultMessage = 'ERROR: Request did not succeed';
+          this.setResultMessage('ERROR: Request did not succeed');
         else
-          this.resultMessage = 'Successfully saved page';
+          this.setResultMessage('Successfully saved page');
       });
   }
 
@@ -77,6 +77,16 @@ export class PageEditComponent
   private adjustTextareaHeight() {
     this.pageNotFound = false;
     const element = document.querySelector('textarea');
-    if (element) element.style.height = (element.scrollHeight + 10) + 'px';
+    if (element) {
+      element.style.height = '0';
+      element.style.height = (element.scrollHeight + 10) + 'px';
+    }
+  }
+
+  private setResultMessage(msg: string) {
+    this.resultMessage = msg;
+    setTimeout(() => {
+      this.resultMessage = '';
+    }, 8000);
   }
 }
