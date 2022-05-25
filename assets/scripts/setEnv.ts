@@ -55,17 +55,9 @@ export const environment = {
     baseUrl: '${process.env.S3_BASE_URL}',
     bucketName: '${process.env.S3_BUCKET_NAME}',
   },
-  useCache: ${isProduction},
+  useCache: false,
 ${isProduction ? 
-`  //aws values for local development
-  aws: {
-    identityPoolId: '',
-    defaultRegion: '',
-  },
-  dynamoDb: {
-    region: '',
-    tableName: '',
-  },`
+``
   :
 `  //aws values for local development
   aws: {
