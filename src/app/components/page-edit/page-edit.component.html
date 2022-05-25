@@ -1,6 +1,7 @@
-<div class="container mb-4">
-  <textarea id="textareaInput" class="w-100 montserrat" [value]="pageJson"
-    [ngStyle]="{'border' : invalidJson ? '3px solid red' : '3px solid lime'}" (input)="input($event)"></textarea>
+<div *ngFor="let tile of Tiles; index as i" class="container mb-4 textareaParent">
+  <textarea class="w-100 montserrat" [value]="json(tile)" (input)="changeTile($event)"></textarea>
+  <button *ngIf="i>0" class="btn btn-info" (click)="moveTile(tile, -1)">Move Up</button>
+  <button *ngIf="i<Tiles.length-1" class="btn btn-info float-end" (click)="moveTile(tile, 1)">Move Down</button>
 </div>
 
 <div class="container mb-5">

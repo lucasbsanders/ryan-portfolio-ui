@@ -11,18 +11,10 @@ import { environment } from 'src/environments/environment';
   templateUrl: './page-edit.component.html',
   styleUrls: ['./page-edit.component.scss'],
 })
-export class PageEditComponent
-  extends PageDisplayComponent
-  implements OnInit, AfterViewInit
-{
-
-  displayPage: any = {};
+export class PageEditComponent extends PageDisplayComponent implements OnInit {
   invalidJson = false;
   resultMessage = '';
-
-  get pageJson(): string {
-    return JSON.stringify(this.page, null, 2);
-  }
+  displayPage: any = {};
 
   constructor(
     navbarService: NavbarService,
@@ -33,34 +25,54 @@ export class PageEditComponent
     super(navbarService, pageService, activatedRoute);
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => this.adjustTextareaHeight(), 500);
+  json(obj: any): string {
+    return JSON.stringify(obj, null, 2);
   }
 
-  input(event: any) {
-    this.adjustTextareaHeight();
+  changeTile(event: any) {
     try {
-      this.displayPage = JSON.parse(event.target.value);
-
-      this.invalidJson = false;
+      const tile = JSON.parse(event.target.value);
+      this.displayPage = this.page;
+      this.displayPage.tiles = this.page.tiles.filter(
+        (t: { order: any }) => t.order !== tile.order
+      );
+      this.displayPage.tiles.push(tile);
+      console.log(event.target.style);
+      event.target.style.border = '3px solid lime';
     } catch (err) {
-      this.invalidJson = true;
+      event.target.style.border = '3px solid red';
     }
+  }
+
+  moveTile(tile: any, adj: number) {
+    const currentPos = tile.order;
+    const targetPos = currentPos + adj;
+
+    this.displayPage = this.page;
+    const targetTile = this.displayPage.tiles.find(
+      (t: { order: any }) => t.order === targetPos
+    );
+    targetTile.order = currentPos;
+    tile.order = targetPos;
+
+    this.displayPage.tiles = this.page.tiles.filter(
+      (t: { order: any }) => t.order !== currentPos && t.order !== targetPos
+    );
+    this.displayPage.tiles.push(tile);
+    this.displayPage.tiles.push(targetTile);
   }
 
   savePage() {
     this.awsService
       .putDynamoObjectByKey(
-        this.displayPage,
+        this.page,
         'route',
-        this.displayPage.route,
+        this.page.route,
         environment.dynamoDb.tableName
       )
       .subscribe((data) => {
-        if (!data)
-          this.setResultMessage('ERROR: Request did not succeed');
-        else
-          this.setResultMessage('Successfully saved page');
+        if (!data) this.setResultMessage('ERROR: Request did not succeed');
+        else this.setResultMessage('Successfully saved page');
       });
   }
 
@@ -68,19 +80,10 @@ export class PageEditComponent
     this.awsService
       .deleteDynamoObjectByKey(
         'route',
-        this.displayPage.route,
+        this.page.route,
         environment.dynamoDb.tableName
       )
       .subscribe((data) => console.log(data));
-  }
-
-  private adjustTextareaHeight() {
-    this.pageNotFound = false;
-    const element = document.querySelector('textarea');
-    if (element) {
-      element.style.height = '0';
-      element.style.height = (element.scrollHeight + 10) + 'px';
-    }
   }
 
   private setResultMessage(msg: string) {
