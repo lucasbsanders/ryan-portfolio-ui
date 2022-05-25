@@ -1,18 +1,7 @@
-<div *ngIf="Images.length===0" class="container spaceBelow">
-  <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
+<div class="container spaceBelow">
+  <app-row-width-adjust [width]="tile.width">
     <div *ngFor="let piece of tile.text|splitText:(tile.columns+colAdj)" class="col-12 col-sm">
-      <p>{{piece}}</p>
+      <p [innerText]="piece"></p>
     </div>
-  </div>
-</div>
-
-<div *ngIf="Images.length>0" class="container spaceBelow">
-  <div class="row" [ngClass]="{'mx-md-5': tile.margin}">
-    <div class="col-12 col-md-7">
-      <p>{{tile.text}}</p>
-    </div>
-    <div class="col-12 col-md-5 order-first order-md-last mb-4">
-      <img class="w-100" [src]="Images[0].s3Key|keyToS3" [alt]="Images[0].s3Key|filename">
-    </div>
-  </div>
+  </app-row-width-adjust>
 </div>

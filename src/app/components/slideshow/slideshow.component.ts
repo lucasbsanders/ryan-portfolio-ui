@@ -1,21 +1,22 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewChecked, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { TileBaseComponent } from '../tile-base.component';
+import { Width } from 'src/app/services/pages.const';
+import { TileBaseComponent } from '../../helpers/tile-base.component';
 
 @Component({
   selector: 'app-slideshow',
   templateUrl: './slideshow.component.html',
   styleUrls: ['./slideshow.component.scss']
 })
-export class SlideshowComponent extends TileBaseComponent implements AfterViewInit {
+export class SlideshowComponent extends TileBaseComponent implements AfterViewChecked {
 
   constructor(navbarService: NavbarService,
     router: Router) {
     super(navbarService, router);
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewChecked(): void {
     this.activateSlideshows();
   }
 

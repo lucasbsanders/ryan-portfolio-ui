@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { PageReadService } from 'src/app/services/page-read.service';
-import { TileType } from 'src/app/services/pages.const';
+import { TileType, Width } from 'src/app/services/pages.const';
 
 @Component({
   selector: 'app-page-display',
@@ -13,6 +13,7 @@ import { TileType } from 'src/app/services/pages.const';
 export class PageDisplayComponent implements OnInit {
 
   TileType = TileType;
+  Width = Width;
   pageNotFound = false;
 
   @Input() page: any = {};
@@ -21,6 +22,10 @@ export class PageDisplayComponent implements OnInit {
     return !this.page || !this.page.tiles
       ? []
       : this.page.tiles.sort((a: any, b: any) => a.order - b.order);
+  }
+
+  get isSmall(): boolean {
+    return this.navbarService.colAdj < 0;
   }
 
   constructor(

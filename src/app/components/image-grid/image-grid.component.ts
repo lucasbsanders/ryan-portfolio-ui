@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { TileBaseComponent } from '../tile-base.component';
+import { Width } from 'src/app/services/pages.const';
+import { TileBaseComponent } from '../../helpers/tile-base.component';
 
 @Component({
   selector: 'app-image-grid',
   templateUrl: './image-grid.component.html',
   styleUrls: ['./image-grid.component.scss']
 })
-export class ImageGridComponent extends TileBaseComponent implements OnInit {
+export class ImageGridComponent extends TileBaseComponent {
 
-  mouseOverId = '';
   filterOptions = ['All', 'Illustration', 'Animation', 'UX/UI'];
   selectedFilter = 'All';
 
@@ -25,12 +25,6 @@ export class ImageGridComponent extends TileBaseComponent implements OnInit {
   constructor(navbarService: NavbarService,
     router: Router) {
     super(navbarService, router);
-  }
-
-  ngOnInit(): void {}
-
-  setMouseOver(id: string): void {
-    this.mouseOverId = id;
   }
 
   filterItems(filter: string): void {

@@ -1,0 +1,4 @@
+<div class="row"
+  [ngStyle]="{'margin': !width || isSmall || width===Width.XL  ? '0' : width===Width.L ? '0 4rem' : width===Width.M ? '0 8rem': width===Width.S ? '0 12rem' : '0 16rem'}">
+  <ng-content></ng-content>
+</div>

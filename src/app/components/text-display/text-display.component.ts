@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/services/navbar.service';
-import { TileBaseComponent } from '../tile-base.component';
+import { Width } from 'src/app/services/pages.const';
+import { TileBaseComponent } from '../../helpers/tile-base.component';
 
 @Component({
   selector: 'app-text-display',

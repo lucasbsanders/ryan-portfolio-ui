@@ -21,6 +21,10 @@ a:hover {
   border-bottom: 3px solid black;
 }
 
-p {
+p, a, img {
   cursor: pointer;
+}
+
+p:hover {
+  text-decoration: underline;
 }

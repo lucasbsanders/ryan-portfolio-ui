@@ -1,0 +1,10 @@
+<img class="w-100" [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename" (mouseover)="image.mouseOver=true" (click)="goToPath(image.link)">
+
+<!-- Overlay Container: -->
+<div class="position-absolute top-0 left-0 pe-1 pe-sm-2 w-100 h-100" [hidden]="!showOverlay" (mouseout)="out()">
+  <div class="w-100 h-100 overlayBox">
+    <p class="montserrat-bold overlayText" (click)="goToPath(image.link)">
+      {{image.link}}
+    </p>
+  </div>
+</div>
