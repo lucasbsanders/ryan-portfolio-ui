@@ -30,12 +30,6 @@ if (!existsSync(envDirectory)) {
   mkdirSync(envDirectory);
 }
 
-// choose the correct targetPath based on the environment chosen
-const targetPath = isProduction
-  ? './src/environments/environment.prod.ts'
-  : './src/environments/environment.ts';
-
-
 // creates the files with no content
 writeFileUsingFS('./src/environments/environment.prod.ts', '');
 writeFileUsingFS('./src/environments/environment.ts', '');
@@ -56,10 +50,7 @@ export const environment = {
     bucketName: '${process.env.S3_BUCKET_NAME}',
   },
   useCache: false,
-${isProduction ? 
-``
-  :
-`  //aws values for local development
+  ${isProduction ? '' : `//aws values for local development
   aws: {
     identityPoolId: '${process.env.AWS_POOL_ID}',
     defaultRegion: '${process.env.AWS_REGION}',
@@ -67,12 +58,12 @@ ${isProduction ?
   dynamoDb: {
     region: '${process.env.DYNAMO_REGION}',
     tableName: '${process.env.DYNAMO_TABLE_NAME}',
-  },`
-}
+  },`}
 };
 `;
 
-// appends data into the target file
-writeFileUsingFS(targetPath, environmentFileContent);
+// appends data into the target file(s)
+writeFileUsingFS('./src/environments/environment.ts', environmentFileContent);
+if (isProduction) writeFileUsingFS('./src/environments/environment.prod.ts', environmentFileContent);
 
 /* tslint:enable */

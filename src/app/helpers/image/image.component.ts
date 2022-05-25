@@ -13,7 +13,7 @@ export class ImageComponent {
   @Input() overlay = false;
 
   get showOverlay(): boolean {
-    return this.image && this.image.mouseOver && this.overlay;
+    return this.image && this.image.mouseOver && this.image.link && this.overlay;
   }
 
   constructor(private navbarService: NavbarService,

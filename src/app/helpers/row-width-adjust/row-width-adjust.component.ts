@@ -12,8 +12,8 @@ export class RowWidthAdjustComponent {
 
   Width = Width;
 
-  get isSmall(): boolean {
-    return this.navbarService.colAdj < 0;
+  get isMedium(): boolean {
+    return this.navbarService.isMediumScreen;
   }
 
   constructor(private navbarService: NavbarService) {}

@@ -5,6 +5,7 @@
     "ng": "ng",
     "config": "npx ts-node ./src/assets/scripts/setEnv.ts",
     "start": "npm run config -- --environment=dev && ng serve",
+    "start-prod": "npm run config -- --environment=prod && ng serve",
     "build": "npm run config -- --environment=prod && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "npm run config -- --environment=dev && ng test",

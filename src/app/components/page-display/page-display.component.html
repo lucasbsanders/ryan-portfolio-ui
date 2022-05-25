@@ -1,23 +1,11 @@
-<app-fullscreen-menu></app-fullscreen-menu>
-
 <ng-container *ngIf="Tiles.length > 0; else spinner">
   <div *ngFor="let tile of Tiles" [ngSwitch]="tile.type">
 
-    <div *ngSwitchCase="TileType.Title" class="container text-center text-sm-start my-3">
-      <app-row-width-adjust [width]="tile.width">
-        <div class="col">
-          <h1 class="px-2 px-sm-0">{{tile.text}}</h1>
-        </div>
-      </app-row-width-adjust>
-    </div>
+    <app-title *ngSwitchCase="TileType.Title" [tile]="tile">
+    </app-title>
 
-    <div *ngSwitchCase="TileType.Subtitle" class="container text-center text-sm-start my-3">
-      <app-row-width-adjust [width]="tile.width">
-        <div class="col">
-          <h2 class="px-2 px-sm-0">{{tile.text}}</h2>
-        </div>
-      </app-row-width-adjust>
-    </div>
+    <app-title *ngSwitchCase="TileType.Subtitle" [isSubtitle]="true" [tile]="tile">
+    </app-title>
 
     <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
     </app-text-display>

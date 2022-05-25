@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit {
   }
 
   get smallScreen(): boolean {
-    return this.navbarService.colAdj === -1;
+    return this.navbarService.isSmallScreen;
   }
 
   get isHomepage(): boolean {
@@ -69,7 +69,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onResize() {
-    this.navbarService.onResize(window.innerWidth);
+    this.navbarService.onResize(window.outerWidth);
   }
 
 }
