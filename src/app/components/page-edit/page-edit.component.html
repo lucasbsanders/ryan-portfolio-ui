@@ -1,17 +1,23 @@
 <div *ngFor="let tile of Tiles; index as i" class="container mb-4 textareaParent">
   <textarea class="w-100 montserrat" [value]="json(tile)" (input)="changeTile($event)"></textarea>
-  <button *ngIf="i>0" class="btn btn-info" (click)="moveTile(tile, -1)">Move Up</button>
-  <button *ngIf="i<Tiles.length-1" class="btn btn-info float-end" (click)="moveTile(tile, 1)">Move Down</button>
+  <!-- <app-tile-edit [tile]="tile" (saveChanges)="changeTile($event)"></app-tile-edit> -->
+  <button *ngIf="i>0" class="btn btn-info me-2" (click)="moveTile(tile, -1)">Move Up</button>
+  <button *ngIf="i<Tiles.length-1" class="btn btn-info ms-2" (click)="moveTile(tile, 1)">Move Down</button>
 </div>
 
 <div class="container mb-5">
   <div class="row">
-    <div class="col-6">
-      <button type="btn" class="btn btn-primary" (click)="savePage()" [disabled]="invalidJson">
+    <div class="col-4">
+      <button type="btn" class="btn btn-primary" (click)="addTile()">
+        Add New Tile
+      </button>
+    </div>
+    <div class="col-4">
+      <button type="btn" class="btn btn-primary" (click)="savePage()">
         Save Page to DynamoDB
       </button>
     </div>
-    <div class="col-6">
+    <div class="col-4">
       <button type="btn" class="btn btn-danger float-end" (click)="deletePage()">
         Delete Page
       </button>

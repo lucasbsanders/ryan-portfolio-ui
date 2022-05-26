@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./page-edit.component.scss'],
 })
 export class PageEditComponent extends PageDisplayComponent implements OnInit {
-  invalidJson = false;
   resultMessage = '';
   displayPage: any = {};
 
@@ -25,49 +24,88 @@ export class PageEditComponent extends PageDisplayComponent implements OnInit {
     super(navbarService, pageService, activatedRoute);
   }
 
+  override ngOnInit(): void {
+    super.ngOnInit();
+    setTimeout(() => {
+      this.setAllHeights();
+    }, 1000);
+  }
+
+  private setAllHeights() {
+    const elements = document.getElementsByTagName('textarea');
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].style.height = '0px';
+      elements[i].style.height = (elements[i].scrollHeight + 5) + 'px';
+    }
+  }
+
   json(obj: any): string {
     return JSON.stringify(obj, null, 2);
   }
 
   changeTile(event: any) {
-    try {
-      const tile = JSON.parse(event.target.value);
+    if (!this.displayPage || !this.displayPage.tiles) {
       this.displayPage = this.page;
-      this.displayPage.tiles = this.page.tiles.filter(
-        (t: { order: any }) => t.order !== tile.order
+    }
+    this.setAllHeights();
+
+    event.target.style.height = '0px';
+    event.target.style.height = (event.target.scrollHeight + 5) + 'px';
+
+    try {
+      const tileData = JSON.parse(event.target.value);
+      const displayTile =
+        this.displayPage.tiles[
+          this.displayPage.tiles.findIndex(
+            (t: { order: any }) => t.order === tileData.order
+          )
+        ];
+
+      Object.keys(displayTile).forEach((key) => delete displayTile[key]);
+      Object.keys(tileData).forEach(
+        (key) => (displayTile[key] = tileData[key])
       );
-      this.displayPage.tiles.push(tile);
-      console.log(event.target.style);
+
       event.target.style.border = '3px solid lime';
     } catch (err) {
       event.target.style.border = '3px solid red';
     }
   }
 
-  moveTile(tile: any, adj: number) {
-    const currentPos = tile.order;
-    const targetPos = currentPos + adj;
+  moveTile(tile: any, adjust: number) {
+    if (!this.displayPage || !this.displayPage.tiles) {
+      this.displayPage = this.page;
+    }
+    this.setAllHeights();
 
-    this.displayPage = this.page;
+    const currentPos = tile.order;
+    const targetPos = currentPos + adjust;
+
     const targetTile = this.displayPage.tiles.find(
-      (t: { order: any }) => t.order === targetPos
+      (t: any) => t.order === targetPos
     );
+
     targetTile.order = currentPos;
     tile.order = targetPos;
+  }
 
-    this.displayPage.tiles = this.page.tiles.filter(
-      (t: { order: any }) => t.order !== currentPos && t.order !== targetPos
-    );
-    this.displayPage.tiles.push(tile);
-    this.displayPage.tiles.push(targetTile);
+  addTile() {
+    if (!this.displayPage || !this.displayPage.tiles) {
+      this.displayPage = this.page;
+    }
+    this.setAllHeights();
+
+    const endOrderNum =
+      this.displayPage.tiles[this.displayPage.tiles.length - 1].order;
+    this.displayPage.tiles.push({ order: endOrderNum + 1 });
   }
 
   savePage() {
     this.awsService
       .putDynamoObjectByKey(
         this.page,
-        'route',
-        this.page.route,
+        ['route', 'type'],
+        [this.page.route, this.page.type],
         environment.dynamoDb.tableName
       )
       .subscribe((data) => {

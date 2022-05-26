@@ -55,13 +55,13 @@ export class AwsConnectService {
     );
   }
 
-  putDynamoObjectByKey(obj: any, dynamoKeyName: string, dynamoKey: any, table: string): Observable<any> {
+  putDynamoObjectByKey(obj: any, dynamoKeyName: string[], dynamoKey: string[], table: string): Observable<any> {
     const expressionAttrNames: Record<string, string> = {};
     const expressionAttrVals: Record<string, any> = {};
     var updateExp: string = 'SET ';
 
     Object.keys(obj).forEach((key: string) => {
-      if (dynamoKeyName.localeCompare(key) !== 0) {
+      if (!dynamoKeyName.find(k => k.localeCompare(key) === 0)) {
         expressionAttrNames['#' + key] = key;
         expressionAttrVals[':' + key] = this.createTypedObj(obj[key]);
         updateExp += `#${key} = :${key}, `;
@@ -74,7 +74,8 @@ export class AwsConnectService {
 
     const params = {
       Key: {
-        [dynamoKeyName]: this.createTypedObj(dynamoKey),
+        [dynamoKeyName[0]]: this.createTypedObj(dynamoKey[0]),
+        [dynamoKeyName[1]]: this.createTypedObj(dynamoKey[1]),
       },
       TableName: table,
 

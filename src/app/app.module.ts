@@ -17,6 +17,7 @@ import { ImageSubtitleComponent } from './components/image-subtitle/image-subtit
 import { ImageComponent } from './helpers/image/image.component';
 import { RowWidthAdjustComponent } from './helpers/row-width-adjust/row-width-adjust.component';
 import { TitleComponent } from './components/title/title.component';
+import { TileEditComponent } from './helpers/tile-edit/tile-edit.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { TitleComponent } from './components/title/title.component';
     ImageComponent,
     RowWidthAdjustComponent,
     TitleComponent,
+    TileEditComponent,
   ],
   imports: [
     BrowserModule,
