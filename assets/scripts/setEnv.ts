@@ -43,7 +43,6 @@ export const environment = {
     secondary: 'assets/siteLogos/RyanFennessey_logo_white.svg',
     small: 'assets/siteLogos/RyanFennessey_logo_footer_initials.svg',
   },
-  staticDataKey: 'PorfolioStaticData',
   apiBaseUrl: '${process.env.API_BASE_URL}',
   s3: {
     baseUrl: '${process.env.S3_BASE_URL}',
