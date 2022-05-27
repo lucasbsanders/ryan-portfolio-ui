@@ -19,7 +19,14 @@ export enum Width {
   S = 'S',
   M = 'M',
   L = 'L',
-  XL = 'XL'
+  XL = 'XL',
+  FULL = 'FULL',
+};
+
+export enum PageType {
+  Project = 'Project',
+  Static = 'Static',
+  Layout = 'Layout',
 };
 
 /** 

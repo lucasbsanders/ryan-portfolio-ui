@@ -8,11 +8,10 @@ import { TileBaseComponent } from '../../helpers/tile-base.component';
   templateUrl: './vimeo-video.component.html',
   styleUrls: ['./vimeo-video.component.scss'],
 })
-export class VimeoVideoComponent extends TileBaseComponent implements OnInit {
+export class VimeoVideoComponent extends TileBaseComponent {
 
   constructor(navbarService: NavbarService, router: Router) {
     super(navbarService, router);
   }
 
-  ngOnInit(): void {}
 }

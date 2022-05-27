@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { PageReadService } from './page-read.service';
-import { environment } from 'src/environments/environment';
+import { PageType } from './pages.const';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavbarService {
 
@@ -26,13 +26,14 @@ export class NavbarService {
   }
 
   getMenuData(): Observable<any[]> {
-    return this.pageService.getStaticData().pipe(
-      map(staticData => staticData.menu));
+    return this.pageService
+      .getPageByRoute('menu', PageType.Static)
+      .pipe(map((response) => response.data));
   }
 
   getFooterData(): Observable<any> {
-    return this.pageService.getStaticData().pipe(
-      map(staticData => staticData.footer));
+    return this.pageService
+      .getPageByRoute('footer', PageType.Static)
+      .pipe(map((response) => response.data));
   }
-
 }

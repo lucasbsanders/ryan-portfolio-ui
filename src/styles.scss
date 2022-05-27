@@ -3,6 +3,10 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+.primary {
+  color: $primary;
+}
+
 @font-face {
   font-family: "Fugaz";
   src: local("Fugaz"), url(./assets/fonts/Fugaz_One/FugazOne-Regular.ttf) format("truetype");
@@ -26,7 +30,11 @@ h1 {
 .montserrat,
 p,
 a,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Montserrat", Arial, sans-serif;
 }
 
@@ -45,4 +53,15 @@ h2 {
 
 .bigSpaceBelow {
   margin-bottom: 6rem !important;
+}
+
+$shadow-length: 10;
+$shadow-blur: 16px;
+$shadow-color: lightgray;
+
+.customShadow {
+  box-shadow: $shadow-length * 1px $shadow-length * 1px $shadow-blur $shadow-color,
+    $shadow-length * -1px $shadow-length * -1px $shadow-blur $shadow-color,
+    $shadow-length * 1px $shadow-length * -1px $shadow-blur $shadow-color,
+    $shadow-length * -1px $shadow-length * 1px $shadow-blur $shadow-color;
 }

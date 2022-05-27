@@ -15,13 +15,12 @@ export class PageDisplayComponent implements OnInit {
   TileType = TileType;
   Width = Width;
   pageNotFound = false;
+  private defaultPage = {route: '', type: '', tiles: []};
 
-  @Input() page: any = {};
+  @Input() page: {route: string, type: string, tiles: any[]} = this.defaultPage;
 
   get Tiles(): any[] {
-    return !this.page || !this.page.tiles
-      ? []
-      : this.page.tiles.sort((a: any, b: any) => a.order - b.order);
+    return this.page.tiles.sort((a: any, b: any) => a.order - b.order);
   }
 
   constructor(
@@ -34,7 +33,7 @@ export class PageDisplayComponent implements OnInit {
     this.activatedRoute.paramMap
       .pipe(
         switchMap((paramMap: any) => {
-          this.page = {};
+          this.page = this.defaultPage;
           this.pageNotFound = false;
           this.navbarService.setRoute(paramMap.get('path'));
 

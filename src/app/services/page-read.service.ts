@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { PageType } from './pages.const';
 
 @Injectable({
   providedIn: 'root',
@@ -14,32 +15,34 @@ export class PageReadService {
     this.getPagesFromClosestSource().subscribe();
   }
 
-  getPageByRoute(route: string | null): Observable<any> {
-    if (!route || route.localeCompare(environment.staticDataKey) === 0) return of(null);
+  getPageByRoute(route: string | null, type?: PageType): Observable<any> {
+    if (!route) return of(null);
     else
       return this.getPagesFromClosestSource().pipe(
         switchMap((pages: any[]) => {
-          const page = pages.find((page: any) => page.route === route);
+          var page;
+          if (type)
+            page = pages.find(
+              (page: any) =>
+                page.route === route && page.type.localeCompare(type) === 0
+            );
+          else page = pages.find((page: any) => page.route === route);
+
           if (!page)
             return this.fillPagesFromAPI().pipe(
-              map((pages) => pages.find((page: any) => page.route === route))
+              map((pages) => {
+                if (type)
+                  return pages.find(
+                    (page: any) =>
+                      page.route === route &&
+                      page.type.localeCompare(type) === 0
+                  );
+                else return pages.find((page: any) => page.route === route);
+              })
             );
           else return of(page);
         })
       );
-  }
-
-  getStaticData(): Observable<any> {
-    return this.getPagesFromClosestSource().pipe(
-      switchMap((data: any[]) => {
-        const page = data.find((page: any) => page.route.localeCompare(environment.staticDataKey) === 0);
-        if (!page)
-          return this.fillPagesFromAPI().pipe(
-            map((data) => data.find((page: any) => page.route.localeCompare(environment.staticDataKey) === 0))
-          );
-        else return of(page);
-      })
-    );
   }
 
   private getPagesFromClosestSource(): Observable<any[]> {

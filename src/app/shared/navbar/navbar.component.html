@@ -14,7 +14,7 @@
       <div class="col-sm-4 position-relative brandCol" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop}"
         [ngStyle]="{'height.px': isAtTop ? 100 : 60}">
         <a class="navbar-brand position-absolute top-50 start-50 translate-middle h-100" routerLink="/"
-          (mouseover)="mouseOverBrand(true)" (mouseout)="mouseOverBrand(false)" (mousedown)="clickBrand()">
+          (mouseover)="mouseOverBrand(true)" (mouseout)="mouseOverBrand(false)" (click)="clickBrand()">
           <img class="h-100" [src]="brandLinks[brandSelection]" alt="[Ryan Fennessey]">
         </a>
       </div>

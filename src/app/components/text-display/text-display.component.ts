@@ -9,14 +9,11 @@ import { TileBaseComponent } from '../../helpers/tile-base.component';
   templateUrl: './text-display.component.html',
   styleUrls: ['./text-display.component.scss']
 })
-export class TextDisplayComponent extends TileBaseComponent implements OnInit {
+export class TextDisplayComponent extends TileBaseComponent {
 
   constructor(navbarService: NavbarService,
     router: Router) {
     super(navbarService, router);
-  }
-
-  ngOnInit(): void {
   }
 
 }
