@@ -1,1 +1,55 @@
-<p>tile-edit works!</p>
+<div class="border p-3">
+  <div class="row my-1" *ngFor="let key of tileKeys">
+    <ng-container *ngIf="key!=='order'">
+  
+      <div class="col-auto">
+        <button [disabled]="key==='type'" class="btn btn-link" (click)="remove(key)">
+          X
+        </button>
+      </div>
+  
+      <div class="col-2">
+        <label class="w-100 montserrat d-inline-block">
+          {{key}}
+          &nbsp;
+          <span *ngIf="key==='type'" [title]="tileTypesTitle"><i>i</i></span>
+          <span *ngIf="key==='width'" [title]="widthTypesTitle"><i>i</i></span>
+        </label>
+      </div>
+
+      <div class="col">
+        <input *ngIf="typeOf(key)==='string'" class="w-100 montserrat" type="text" [value]="tile[key]"
+          (input)="changeText(key, $event)">
+        <input *ngIf="typeOf(key)==='number'" class="w-100 montserrat" type="number" [value]="tile[key]"
+          (input)="changeNumber(key, $event)">
+        <input *ngIf="typeOf(key)==='boolean'" type="checkbox" [checked]="tile[key]"
+          (change)="changeCheckbox(key, $event)">
+        <textarea *ngIf="typeOf(key)==='object'" class="w-100 montserrat" [value]="json(tile[key])"
+          (input)="changeObject(key, $event)"></textarea>
+      </div>
+
+      
+
+    </ng-container>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <input class="montserrat" type="text" placeholder="New Field Name" [value]="newFieldName" (input)="setNewFieldName($event)">
+    </div>
+    <div class="col-9">
+      <button class="btn btn-success me-4" (click)="addField('')">
+        + text
+      </button>
+      <button class="btn btn-success me-4" (click)="addField(0)">
+        + number
+      </button>
+      <button class="btn btn-success me-4" (click)="addField(false)">
+        + checkbox
+      </button>
+      <button class="btn btn-success me-4" (click)="addField({})">
+        + JSON
+      </button>
+    </div>
+  </div>
+</div>

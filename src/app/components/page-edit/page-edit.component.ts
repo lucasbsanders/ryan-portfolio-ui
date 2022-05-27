@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AwsConnectService } from 'src/app/services/aws-connect.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { PageReadService } from 'src/app/services/page-read.service';
-import { PageDisplayComponent } from '../page-display/page-display.component';
 import { environment } from 'src/environments/environment';
+import { PageDisplayComponent } from '../page-display/page-display.component';
 
 @Component({
   selector: 'app-page-edit',
@@ -12,8 +12,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./page-edit.component.scss'],
 })
 export class PageEditComponent extends PageDisplayComponent implements OnInit {
+
   resultMessage = '';
-  displayPage: any = {};
+  tilePreviewMap = new Map();
 
   constructor(
     navbarService: NavbarService,
@@ -24,80 +25,40 @@ export class PageEditComponent extends PageDisplayComponent implements OnInit {
     super(navbarService, pageService, activatedRoute);
   }
 
-  override ngOnInit(): void {
-    super.ngOnInit();
-    setTimeout(() => {
-      this.setAllHeights();
-    }, 1000);
+  changeTile(tile: any, event: any) {
+    tile[event[0]] = event[1];
   }
 
-  private setAllHeights() {
-    const elements = document.getElementsByTagName('textarea');
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].style.height = '0px';
-      elements[i].style.height = (elements[i].scrollHeight + 5) + 'px';
+  deleteTile(tile: any) {
+    var deleteElement = this.page.tiles.findIndex((t: { order: any; }) => t.order === tile.order);
+    this.page.tiles.splice(deleteElement, 1);
+    while (deleteElement < this.page.tiles.length) {
+      this.page.tiles[deleteElement++].order--;
     }
+    this.tilePreviewMap.clear();
   }
 
-  json(obj: any): string {
-    return JSON.stringify(obj, null, 2);
-  }
-
-  changeTile(event: any) {
-    if (!this.displayPage || !this.displayPage.tiles) {
-      this.displayPage = this.page;
-    }
-    this.setAllHeights();
-
-    event.target.style.height = '0px';
-    event.target.style.height = (event.target.scrollHeight + 5) + 'px';
-
-    try {
-      const tileData = JSON.parse(event.target.value);
-      const displayTile =
-        this.displayPage.tiles[
-          this.displayPage.tiles.findIndex(
-            (t: { order: any }) => t.order === tileData.order
-          )
-        ];
-
-      Object.keys(displayTile).forEach((key) => delete displayTile[key]);
-      Object.keys(tileData).forEach(
-        (key) => (displayTile[key] = tileData[key])
-      );
-
-      event.target.style.border = '3px solid lime';
-    } catch (err) {
-      event.target.style.border = '3px solid red';
-    }
+  removeKey(tile: any, key: string) {
+    delete tile[key];
   }
 
   moveTile(tile: any, adjust: number) {
-    if (!this.displayPage || !this.displayPage.tiles) {
-      this.displayPage = this.page;
-    }
-    this.setAllHeights();
-
     const currentPos = tile.order;
     const targetPos = currentPos + adjust;
 
-    const targetTile = this.displayPage.tiles.find(
+    const targetTile = this.page.tiles.find(
       (t: any) => t.order === targetPos
     );
 
     targetTile.order = currentPos;
     tile.order = targetPos;
+    this.tilePreviewMap.clear();
   }
 
   addTile() {
-    if (!this.displayPage || !this.displayPage.tiles) {
-      this.displayPage = this.page;
-    }
-    this.setAllHeights();
-
     const endOrderNum =
-      this.displayPage.tiles[this.displayPage.tiles.length - 1].order;
-    this.displayPage.tiles.push({ order: endOrderNum + 1 });
+      this.page.tiles[this.page.tiles.length - 1].order;
+    this.page.tiles.push({ order: endOrderNum + 1, type: '' });
   }
 
   savePage() {
@@ -117,8 +78,8 @@ export class PageEditComponent extends PageDisplayComponent implements OnInit {
   deletePage() {
     this.awsService
       .deleteDynamoObjectByKey(
-        'route',
-        this.page.route,
+        ['route', 'type'],
+        [this.page.route, this.page.type],
         environment.dynamoDb.tableName
       )
       .subscribe((data) => console.log(data));
@@ -128,6 +89,6 @@ export class PageEditComponent extends PageDisplayComponent implements OnInit {
     this.resultMessage = msg;
     setTimeout(() => {
       this.resultMessage = '';
-    }, 8000);
+    }, 10000);
   }
 }
