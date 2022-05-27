@@ -95,10 +95,11 @@ export class AwsConnectService {
     );
   }
 
-  deleteDynamoObjectByKey(dynamoKeyName: string, dynamoKey: any, table: string): Observable<any> {
+  deleteDynamoObjectByKey(dynamoKeyName: string[], dynamoKey: string[], table: string): Observable<any> {
     const params = {
       Key: {
-        [dynamoKeyName]: this.createTypedObj(dynamoKey),
+        [dynamoKeyName[0]]: this.createTypedObj(dynamoKey[0]),
+        [dynamoKeyName[1]]: this.createTypedObj(dynamoKey[1]),
       },
       TableName: table,
     };
