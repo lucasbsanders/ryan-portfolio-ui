@@ -8,16 +8,13 @@ import { NavbarService } from 'src/app/services/navbar.service';
   templateUrl: './title.component.html',
   styleUrls: ['./title.component.scss']
 })
-export class TitleComponent extends TileBaseComponent implements OnInit {
+export class TitleComponent extends TileBaseComponent {
 
   @Input() isSubtitle: boolean = false;
 
   constructor(navbarService: NavbarService,
     router: Router) {
     super(navbarService, router);
-  }
-
-  ngOnInit(): void {
   }
 
 }

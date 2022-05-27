@@ -1,8 +1,8 @@
-<div class="container spaceBelow">
+<div *ngIf="!tile.width || tile.width!==Width.FULL; else fullScreen" class="container spaceBelow">
 
   <app-row-width-adjust *ngIf="tile.style===SubtitleStyle.Left" [width]="tile.width">
     <div class="col-12 col-md-7">
-      <p>{{tile.text}}</p>
+      <p [innerText]="tile.text"></p>
     </div>
     <div class="col-12 col-md-5 order-first order-md-last mb-4">
       <app-image [image]="Images[0]"></app-image>
@@ -13,9 +13,17 @@
     <div class="col-12 mb-2 text-center">
       <app-image [image]="Images[0]"></app-image>
     </div>
-    <div class="col-12 text-center">
-      <p>{{tile.text}}</p>
+    <div *ngIf="tile.text" class="col-12 mt-2 text-center">
+      <p [innerText]="tile.text"></p>
     </div>
   </app-row-width-adjust>
 
 </div>
+
+<ng-template #fullScreen>
+  <div class="row" [ngClass]="{'mx-4': !isMedium, 'mx-0': isMedium}">
+    <div class="d-flex col position-relative">
+      <app-image [image]="Images[0]"></app-image>
+    </div>
+  </div>
+</ng-template>

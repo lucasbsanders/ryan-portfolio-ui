@@ -8,21 +8,23 @@
   </div>
 </div>
 
-<div *ngIf="!tile.width || tile.width!==Width.XL" class="container spaceBelow">
-  <div *ngFor="let imgRow of Images|rowSplit:(tile.columns+colAdjSm)" class="row" [ngStyle]="{'margin': isMedium || !tile.width || tile.width===Width.L  ? '0' : tile.width===Width.M ? '0 8rem': tile.width===Width.S ? '0 16rem' : '0 24rem'}">
+<div *ngIf="!tile.width || tile.width!==Width.FULL; else fullScreen" class="container spaceBelow">
+  <app-row-width-adjust *ngFor="let imgRow of Images|rowSplit:(tile.columns+colAdjSm)" [width]="tile.width">
     <div *ngFor="let img of imgRow" class="col">
       <app-image [image]="img"></app-image>
     </div>
-  </div>
+  </app-row-width-adjust>
 </div>
 
-<div *ngIf="tile.width===Width.XL" class="spaceBelow" >
-  <div *ngFor="let imgRow of Images|rowSplit:(tile.columns+colAdjSm); index as row" class="row mx-1">
-    <div *ngFor="let bigImg of imgRow; index as i" class="d-flex col g-3 g-sm-2 position-relative">
-      <app-image [image]="bigImg" [overlay]="tile.imageOverlay"></app-image>
+<ng-template #fullScreen>
+  <div class="spaceBelow">
+    <div *ngFor="let imgRow of Images|rowSplit:(tile.columns+colAdjSm)" class="row mx-1">
+      <div *ngFor="let bigImg of imgRow" class="d-flex col g-2 position-relative" style="overflow: hidden">
+        <app-image [image]="bigImg" [overlayVisible]="tile.imageOverlay"></app-image>
+      </div>
     </div>
   </div>
-</div>
+</ng-template>
 
 <div *ngIf="Images.length===0 && selectedFilter!=='All'" class="container spaceBelow">
   <h2>No images in category {{selectedFilter}}</h2>

@@ -17,10 +17,10 @@ export class SlideshowComponent extends TileBaseComponent implements AfterViewIn
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.activateSlideshows(), 500);
+    setTimeout(() => this.activateSlideshow(), 500);
   }
 
-  private activateSlideshows() {
+  private activateSlideshow() {
     document.getElementById('book' + this.tile.order + 'btn0')?.classList.add('active');
     document.getElementById('book' + this.tile.order + 'page0')?.classList.add('active');
   }
