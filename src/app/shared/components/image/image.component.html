@@ -1,15 +1,15 @@
-<div class="w-100 h-100 text-center" [ngClass]="{'padBox': image.shadow}" (mouseenter)="setMouseOver(true)">
+<a class="w-100 h-100 text-center" [routerLink]="'/'+image.link" [ngClass]="{'padBox': image.shadow}"
+  (mouseenter)="setMouseOver(true)">
   <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename" [ngClass]="{'customShadow': image.shadow}"
-    [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}"
-    (click)="goToPath(image.link)">
-</div>
+    [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}">
+</a>
 
 
 <!-- Overlay Container: -->
-<div class="position-absolute top-0 left-0 pe-2 w-100 h-100" [hidden]="!showOverlay || !image.mouseOver" (mouseleave)="setMouseOver(false)">
+<div class="position-absolute top-0 left-0 pe-2 w-100 h-100" [hidden]="!showOverlay" (mouseleave)="setMouseOver(false)">
   <div class="w-100 h-100 overlayBox p-3">
-    <p class="montserrat-bold overlayText text-center" (click)="goToPath(image.link)">
+    <a class="montserrat-bold overlayText text-center" [routerLink]="'/'+image.link">
       {{image.link}}
-    </p>
+    </a>
   </div>
 </div>

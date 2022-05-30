@@ -25,8 +25,8 @@ export class FullscreenMenuComponent implements OnInit {
       );
   }
 
-  goToPath(path: string) {
-    this.navbarService.menuOpen = false;
-    this.router.navigate([path]);
+  closeMenu(event: any) {
+    if (!event.ctrlKey)
+      this.navbarService.menuOpen = false;
   }
 }

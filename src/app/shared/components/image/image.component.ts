@@ -11,20 +11,20 @@ export class ImageComponent {
   @Input() image: any = {};
   @Input() overlayVisible = false;
 
+  private static mouseOverId = ''; 
+
   get showOverlay(): boolean {
-    return this.image && this.image.link && this.overlayVisible;
+    return this.image && this.image.link && this.overlayVisible && ImageComponent.mouseOverId === this.image.s3Key + this.image.order;
   }
 
-  constructor(private router: Router) { }
-
-  goToPath(path: string) {
-    this.router.navigate([path]);
-  }
+  constructor() { }
 
   setMouseOver(hover: boolean) {
-    if (this.showOverlay) {
-      if (hover) this.image.mouseOver = true;
-      else delete this.image.mouseOver;
+    if (this.overlayVisible) {
+      if (hover)
+        ImageComponent.mouseOverId = this.image.s3Key + this.image.order;
+      else
+        ImageComponent.mouseOverId = '';
     }
   }
 
