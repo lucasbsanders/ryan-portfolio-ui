@@ -1,5 +1,5 @@
 <div class="border p-3">
-  <div class="row my-1" *ngFor="let key of parseKeys(tile)">
+  <div class="row my-1" *ngFor="let key of Keys">
     <ng-container *ngIf="key!=='order'">
 
       <div class="col-auto">
@@ -12,34 +12,34 @@
         <label class="w-100 montserrat d-inline-block">
           {{key}}
           &nbsp;
-          <span *ngIf="key==='type'" [title]="tileTypes.join(', ')"><i>i</i></span>
-          <span *ngIf="key==='width'" [title]="widthTypes.join(', ')"><i>i</i></span>
+          <span *ngIf="key==='type'" [title]="TileTypeValues.join(', ')"><i>i</i></span>
+          <span *ngIf="key==='width'" [title]="WidthTypeValues.join(', ')"><i>i</i></span>
         </label>
       </div>
 
       <div class="col">
         <ng-container *ngIf="!(key==='type' || key==='width'|| key==='images')">
-          <input *ngIf="typeOf(tile[key])==='number'" class="w-100 montserrat" type="number" [value]="tile[key]"
+          <input *ngIf="typeOf(Tile[key])==='number'" class="w-100 montserrat" type="number" [value]="Tile[key]"
             (input)="changeNumber(key, $event)">
 
-          <input *ngIf="typeOf(tile[key])==='boolean'" type="checkbox" [checked]="tile[key]"
+          <input *ngIf="typeOf(Tile[key])==='boolean'" type="checkbox" [checked]="Tile[key]"
             (change)="changeCheckbox(key, $event)">
 
-          <input *ngIf="typeOf(tile[key])==='string' && tile[key].length <= 100" class="w-100 montserrat" type="text"
-            [value]="tile[key]" (input)="changeText(key, $event)">
+          <input *ngIf="typeOf(Tile[key])==='string' && Tile[key].length <= 100" class="w-100 montserrat" type="text"
+            [value]="Tile[key]" (input)="changeText(key, $event)">
 
-          <textarea *ngIf="typeOf(tile[key])==='object' || tile[key].length > 100" class="w-100 montserrat"
-            [value]="json(tile[key])" (input)="changeObject(key, $event)" (focus)="changeObject(key, $event)">
+          <textarea *ngIf="typeOf(Tile[key])==='object' || Tile[key].length > 100" class="w-100 montserrat"
+            [value]="json(Tile[key])" (input)="changeObject(key, $event)" (focus)="changeObject(key, $event)">
           </textarea>
         </ng-container>
 
         <div *ngIf="key==='type'" class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
             data-bs-toggle="dropdown" aria-expanded="false">
-            {{tile[key]}}
+            {{Tile[key]}}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li *ngFor="let type of tileTypes">
+            <li *ngFor="let type of TileTypeValues">
               <button class="dropdown-item" (click)="changeText(key, {target: {value: type}})">{{type}}</button>
             </li>
           </ul>
@@ -48,10 +48,10 @@
         <div *ngIf="key==='width'" class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
             data-bs-toggle="dropdown" aria-expanded="false">
-            {{tile[key]}}
+            {{Tile[key]}}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li *ngFor="let type of widthTypes">
+            <li *ngFor="let type of WidthTypeValues">
               <button class="dropdown-item" (click)="changeText(key, {target: {value: type}})">{{type}}</button>
             </li>
           </ul>
@@ -60,13 +60,20 @@
         <ng-container *ngIf="key==='images'">
           <div *ngFor="let image of Images" class="row border py-2 my-3">
             <div class="col-auto">
-              <app-order-scroll [index]="image.order" [maxIndex]="tile.images.length" (moveItem)="moveImage($event)">
+              <app-order-scroll [index]="image.order" [maxIndex]="Tile.images.length" (moveItem)="moveImage($event)">
               </app-order-scroll>
             </div>
           
             <div class="col align-self-center">
-              <app-image-edit [image]="image" (changeImage)="changeImg($event)">
+              <app-image-edit [imageNumber]="image.order" [tileNumber]="Tile.order">
               </app-image-edit>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <button type="btn" class="btn btn-primary" (click)="addImage()">
+                Add Image
+              </button>
             </div>
           </div>
         </ng-container>

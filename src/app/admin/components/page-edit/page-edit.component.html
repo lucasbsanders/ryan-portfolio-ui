@@ -41,14 +41,14 @@
       <div [id]="'EditTile' + tile.order" class="position-absolute" style="top: -150px"></div>
 
       <div class="col-auto">
-        <app-order-scroll [index]="i" [maxIndex]="page.tiles.length" (moveItem)="moveTile($event)">
+        <app-order-scroll [index]="i" [maxIndex]="Tiles.length" (moveItem)="moveTile($event)">
         </app-order-scroll>
       </div>
   
       <!-- EDIT TILE -->
 
       <div class="col">
-        <app-tile-edit [tile]="tile" (changeTile)="changeTile(tile.order, $event)" (removeKey)="removeKey(tile.order, $event)" (changeImage)="changeImage(tile.order, $event)">
+        <app-tile-edit [tileNumber]="tile.order">
         </app-tile-edit>
       </div>
     </div>

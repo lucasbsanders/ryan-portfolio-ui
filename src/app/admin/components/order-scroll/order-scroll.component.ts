@@ -1,20 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-order-scroll',
   templateUrl: './order-scroll.component.html',
-  styleUrls: ['./order-scroll.component.scss']
+  styleUrls: ['./order-scroll.component.scss'],
 })
-export class OrderScrollComponent implements OnInit {
+export class OrderScrollComponent {
 
   @Input() index: number = 0;
   @Input() maxIndex: number = 0;
   @Output() moveItem = new EventEmitter<number[]>();
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  constructor() {}
 
   moveTile(currentIndex: number, adjust: number) {
     var targetIndex = currentIndex + adjust;
@@ -22,5 +19,5 @@ export class OrderScrollComponent implements OnInit {
       targetIndex = currentIndex;
     this.moveItem.emit([currentIndex, targetIndex]);
   }
-
+  
 }

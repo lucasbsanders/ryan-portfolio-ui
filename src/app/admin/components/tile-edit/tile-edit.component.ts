@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TileType, Width } from 'src/app/shared/enums.const';
+import { PageEditService } from '../../services/page-edit.service';
 
 @Component({
   selector: 'app-tile-edit',
@@ -8,38 +9,33 @@ import { TileType, Width } from 'src/app/shared/enums.const';
 })
 export class TileEditComponent {
 
-  @Input() tile: any = {};
-
-  @Output() changeTile = new EventEmitter<any[]>();
-  @Output() changeImage = new EventEmitter<any[]>();
-  @Output() removeKey = new EventEmitter<string>();
+  @Input() tileNumber: number = 0;
 
   newFieldName = '';
 
-  Array = Array;
-
   get Images(): any[] {
-    return this.tile && this.tile.images ?
-      this.tile.images.sort((a: any, b: any) => a.order - b.order) : [];
+    return this.pageEdit.getImages(this.tileNumber);
   }
 
-  get tileTypes(): string[] {
-    return Object.keys(TileType);
+  get Keys(): string[] {
+    const keys = Object.keys(this.Tile);
+    return keys ? keys : [];
   }
 
-  get widthTypes(): string[] {
-    return Object.keys(Width);
+  get Tile(): any {
+    const tile = this.pageEdit.getTile(this.tileNumber);
+    return tile ? tile : {};
   }
 
-  constructor() {}
-
-  parseKeys(obj: any): string[] {
-    return obj
-      ? Object.keys(obj).sort((a: string, b: string) =>
-          b.localeCompare(a)
-        )
-      : [];
+  get TileTypeValues(): string[] {
+    return Object.values(TileType);
   }
+
+  get WidthTypeValues(): string[] {
+    return Object.values(Width);
+  }
+
+  constructor(private pageEdit: PageEditService) {}
 
   typeOf(obj: any): string {
     return typeof obj;
@@ -54,30 +50,30 @@ export class TileEditComponent {
   }
 
   addField(obj: any) {
-    this.changeTile.emit([this.newFieldName, obj]);
+    this.pageEdit.changeTile(this.tileNumber, this.newFieldName, obj);
     this.newFieldName = '';
   }
 
   changeText(key: string, event: any) {
-    this.changeTile.emit([key, event.target.value]);
+    this.pageEdit.changeTile(this.tileNumber, key, event.target.value);
   }
 
   changeNumber(key: string, event: any) {
-    this.changeTile.emit([key, parseInt(event.target.value)]);
+    this.pageEdit.changeTile(this.tileNumber, key, parseInt(event.target.value));
   }
 
   changeCheckbox(key: string, event: any) {
-    this.changeTile.emit([key, event.target.checked]);
+    this.pageEdit.changeTile(this.tileNumber, key, event.target.checked);
   }
 
   removeTileKey(key: string) {
-    this.removeKey.emit(key);
+    this.pageEdit.changeTile(this.tileNumber, key, null);
   }
 
   changeObject(key: string, event: any) {
     try {
       const tileData = JSON.parse(event.target.value);
-      this.changeTile.emit([key, tileData]);
+      this.pageEdit.changeTile(this.tileNumber, key, tileData);
 
       this.styleTextarea(event.target, '3px solid lime');
     } catch (err) {
@@ -91,15 +87,14 @@ export class TileEditComponent {
     element.style.height = element.scrollHeight + 5 + 'px';
   }
 
-  changeImg(event: any) {
-    this.changeImage.emit(event);
+  addImage() {
+    this.pageEdit.addImage(this.tileNumber);
   }
 
   moveImage($event: any) {
-    const currentImg = this.tile.images[$event[0]];
-    const targetImg = this.tile.images[$event[1]];
+    const currentImg = this.Tile.images[$event[0]];
+    const targetImg = this.Tile.images[$event[1]];
     currentImg.order = $event[1];
     targetImg.order = $event[0];
   }
-
 }

@@ -1,26 +1,27 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { PageEditService } from '../../services/page-edit.service';
 
 @Component({
   selector: 'app-image-edit',
   templateUrl: './image-edit.component.html',
-  styleUrls: ['./image-edit.component.scss']
+  styleUrls: ['./image-edit.component.scss'],
 })
 export class ImageEditComponent {
 
-  @Input() image: any = {};
-  @Output() changeImage = new EventEmitter<any[]>();
+  @Input() imageNumber: number = 0;
+  @Input() tileNumber: number = 0;
 
   newFieldName = '';
 
-  constructor() { }
-
-  parseKeys(obj: any): string[] {
-    return obj
-      ? Object.keys(obj).sort((a: string, b: string) =>
-          b.localeCompare(a)
-        )
-      : [];
+  get Image() {
+    return this.pageEdit.getImage(this.tileNumber, this.imageNumber);
   }
+
+  get Keys(): string[] {
+    return this.Image ? Object.keys(this.Image) : [];
+  }
+
+  constructor(private pageEdit: PageEditService) {}
 
   typeOf(obj: any): string {
     return typeof obj;
@@ -31,24 +32,32 @@ export class ImageEditComponent {
   }
 
   addField(obj: any) {
-    this.changeImage.emit([this.image.order, this.newFieldName, obj]);
+    this.changeImage(this.newFieldName, obj);
     this.newFieldName = '';
   }
-
+  
   changeImageText(key: string, event: any) {
-    this.changeImage.emit([this.image.order, key, event.target.value]);
+    this.changeImage(key, event.target.value);
   }
 
   changeImageNumber(key: string, event: any) {
-    this.changeImage.emit([this.image.order, key, parseInt(event.target.value)]);
+    this.changeImage(key, parseInt(event.target.value));
   }
 
   changeImageCheckbox(key: string, event: any) {
-    this.changeImage.emit([this.image.order, key, event.target.checked]);
+    this.changeImage(key, event.target.checked);
   }
 
-  removeImageKey(order: number, key: string) {
-    this.changeImage.emit([order, key, null]);
+  removeField(key: string) {
+    this.changeImage(key, null)
+  }
+
+  deleteImage() {
+    this.pageEdit.deleteImage(this.tileNumber, this.Image.order);
+  }
+
+  private changeImage(key: string, value: any) {
+    this.pageEdit.changeImage(this.tileNumber, this.Image.order, key, value);
   }
 
 }
