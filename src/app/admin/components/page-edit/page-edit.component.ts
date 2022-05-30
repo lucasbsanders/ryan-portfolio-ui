@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { AwsConnectService } from 'src/app/admin/services/aws-connect.service';
 import { NavbarService } from 'src/app/portfolio/services/navbar.service';
 import { PageReadService } from 'src/app/portfolio/services/page-read.service';
@@ -15,22 +15,20 @@ import { PageEditService } from '../../services/page-edit.service';
   styleUrls: ['./page-edit.component.scss'],
 })
 export class PageEditComponent implements OnInit {
-
-  resultMessage = '';
-  tilePreviewMap = new Map();
-
   TileType = TileType;
   Width = Width;
   PageType = PageType;
 
+  resultMessage = '';
   pageNotFound = false;
+  tilePreviewMap = new Map();
 
   get page(): Page {
     return this.pageEdit.page;
   }
 
-  set page(p: Page) {
-    this.pageEdit.page = p;
+  get pageObs(): Observable<Page> {
+    return this.pageEdit.pageObs;
   }
 
   get Tiles(): any[] {
@@ -42,7 +40,7 @@ export class PageEditComponent implements OnInit {
     private pageService: PageReadService,
     private activatedRoute: ActivatedRoute,
     private awsService: AwsConnectService,
-    private pageEdit: PageEditService,
+    private pageEdit: PageEditService
   ) {}
 
   ngOnInit(): void {
@@ -57,8 +55,8 @@ export class PageEditComponent implements OnInit {
         })
       )
       .subscribe((page: Page) => {
-        this.pageEdit.page = page;
         if (!this.page) this.pageNotFound = true;
+        else this.pageEdit.page = page;
       });
   }
 
@@ -67,24 +65,21 @@ export class PageEditComponent implements OnInit {
     this.tilePreviewMap.clear();
   }
 
-  moveTile(event: any) {
-    const currentPos = event.target.value[0];
-    const targetPos = event.target.value[1];
+  moveTile(event: number[]) {
+    const currentPos = event[0];
+    const targetPos = event[1];
 
-    const currentTile = this.Tiles.find(
-      (t: any) => t.order === currentPos
-    );
+    const currentTile = this.pageEdit.getTile(currentPos);
+    const targetTile = this.pageEdit.getTile(targetPos);
 
-    const targetTile = this.Tiles.find(
-      (t: any) => t.order === targetPos
-    );
-
-    targetTile.order = currentPos;
     currentTile.order = targetPos;
+    targetTile.order = currentPos;
 
     this.tilePreviewMap.clear();
 
-    this.scroll('EditTile' + Math.min(targetPos, currentPos));
+    this.scroll('EditTile' + targetPos);
+
+    this.pageEdit.update();
   }
 
   addTile() {
@@ -93,9 +88,13 @@ export class PageEditComponent implements OnInit {
   }
 
   scroll(id: string) {
-    document
-      .getElementById(id)
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(
+      () =>
+        document
+          .getElementById(id)
+          ?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+      300
+    );
   }
 
   savePage() {

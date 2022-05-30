@@ -1,11 +1,10 @@
 <!-- HEADER BUTTONS -->
 
-<div class="container sticky-top py-4">
+<div class="container sticky-top py-3">
   <div class="row">
-    
     <div class="col-auto">
-      <button type="btn" class="btn btn-primary" (click)="savePage()">
-        Save Page to DynamoDB
+      <button type="btn" class="btn btn-secondary" (click)="scroll('preview')">
+        Preview Page
       </button>
     </div>
 
@@ -14,29 +13,29 @@
         Add New Tile
       </button>
     </div>
-
+    
     <div class="col-auto">
-      <button type="btn" class="btn btn-danger" (click)="deletePage()">
-        Delete Page
+      <button type="btn" class="btn btn-primary" (click)="savePage()">
+        Save Page To DynamoDB
       </button>
     </div>
 
-    <div class="col-auto">
-      <button type="btn" class="btn btn-secondary" (click)="scroll('preview')">
-        Preview Page
+    <div class="col">
+      <button type="btn" class="btn btn-danger float-end" (click)="deletePage()">
+        Delete Page
       </button>
     </div>
   </div>
 
-  <div class="row" *ngIf="resultMessage" style="background-color: white">
+  <div class="row background-white" *ngIf="resultMessage">
     <p>{{resultMessage}}</p>
   </div>
 </div>
 
-<hr style="height: 4px">
+<hr>
 
 <ng-container *ngFor="let tile of Tiles; index as i">
-  <div class="container" style="overflow: visible;">
+  <div class="container overflow-visible">
     <div class="row position-relative">
       <div [id]="'EditTile' + tile.order" class="position-absolute" style="top: -150px"></div>
 
@@ -63,7 +62,7 @@
       </div>
 
       <div class="col">
-        <button class="btn btn-danger float-end" (click)="deleteTile(tile.order)">
+        <button class="btn btn-outline-danger float-end" (click)="deleteTile(tile.order)">
           Delete Tile
         </button>
       </div>
@@ -75,7 +74,7 @@
 
   <ng-container *ngIf="tilePreviewMap.get(tile.order)">
     <div class="container">
-      <hr style="height: 2px">
+      <hr>
     </div>
 
     <ng-container [ngSwitch]="tile.type">
@@ -107,7 +106,7 @@
     </ng-container>
   </ng-container>
 
-  <hr style="height: 4px">
+  <hr>
 
 </ng-container>
 
@@ -119,9 +118,9 @@
   <div id="preview" class="position-absolute" style="top: -150px"></div>
 </div>
 
-<hr style="height: 4px">
+<hr>
 
-<app-page-display [page]="page"></app-page-display>
+<app-page-display [pageObs]="pageObs"></app-page-display>
 
 <ng-template #spinner>
   <div class="row my-5">

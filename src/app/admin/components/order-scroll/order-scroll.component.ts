@@ -9,14 +9,17 @@ export class OrderScrollComponent {
 
   @Input() index: number = 0;
   @Input() maxIndex: number = 0;
+
   @Output() moveItem = new EventEmitter<number[]>();
 
   constructor() {}
 
   moveTile(currentIndex: number, adjust: number) {
     var targetIndex = currentIndex + adjust;
+    
     if (targetIndex < 0 || targetIndex >= this.maxIndex)
       targetIndex = currentIndex;
+
     this.moveItem.emit([currentIndex, targetIndex]);
   }
   

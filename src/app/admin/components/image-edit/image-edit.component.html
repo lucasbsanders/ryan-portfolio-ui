@@ -3,12 +3,12 @@
     <div *ngFor="let key of Keys" class="row align-items-center">
       <ng-container *ngIf="key!=='order'">
         <div class="col-auto">
-          <button [disabled]="key==='s3Key'" class="btn btn-link" (click)="removeField(key)">
+          <button class="btn btn-link" (click)="removeField(key)">
             x
           </button>
         </div>
 
-        <div class="col-1">
+        <div class="col-2">
           <label class="w-100 montserrat d-inline-block">
             {{key}}
           </label>
@@ -27,20 +27,20 @@
       </ng-container>
     </div>
 
-    <div class="row align-items-center">
+    <div class="row align-items-center mt-3">
       <div class="col-3">
         <input class="montserrat w-100" type="text" placeholder="New Field Name" [value]="newFieldName"
           (input)="setNewFieldName($event)">
       </div>
 
       <div class="col">
-        <button class="btn btn-success me-4" (click)="addField('')">
+        <button class="btn btn-outline-success me-4" (click)="addField('')">
           + text
         </button>
-        <button class="btn btn-success me-4" (click)="addField(0)">
+        <button class="btn btn-outline-success me-4" (click)="addField(0)">
           + number
         </button>
-        <button class="btn btn-success" (click)="addField(false)">
+        <button class="btn btn-outline-success" (click)="addField(false)">
           + checkbox
         </button>
       </div>

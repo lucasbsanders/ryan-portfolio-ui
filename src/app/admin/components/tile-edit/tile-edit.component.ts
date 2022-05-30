@@ -91,10 +91,16 @@ export class TileEditComponent {
     this.pageEdit.addImage(this.tileNumber);
   }
 
-  moveImage($event: any) {
-    const currentImg = this.Tile.images[$event[0]];
-    const targetImg = this.Tile.images[$event[1]];
-    currentImg.order = $event[1];
-    targetImg.order = $event[0];
+  moveImage(event: any) {
+    const currentPos = event[0];
+    const targetPos = event[1];
+
+    const currentImg = this.pageEdit.getImage(this.tileNumber, currentPos);
+    const targetImg = this.pageEdit.getImage(this.tileNumber, targetPos);
+
+    currentImg.order = targetPos;
+    targetImg.order = currentPos;
+
+    this.pageEdit.update();
   }
 }
