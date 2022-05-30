@@ -1,0 +1,57 @@
+<div *ngIf="Images.length>0; else noImages" [id]="'book'+tile.order" class="carousel carousel-dark slide position-relative spaceBelow" data-bs-interval="false"
+  data-ride="carousel">
+  <div class="container">
+    <app-row-width-adjust [width]="tile.width">
+
+      <div class="col-1 g-0 text-center">
+        <button class="carousel-control-prev position-relative w-100 h-100" type="button"
+          [attr.data-bs-target]="'#book'+tile.order" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+      </div>
+
+      <div class="col-10 g-0">
+        <div class="carousel-inner" [ngClass]="{'customShadow': tile.shadow, 'border': !tile.shadow}">
+          <div *ngFor="let image of Images; let pg = index" class="carousel-item" [id]="'book'+tile.order+'page'+pg">
+            <img class="d-block w-100" [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-1 g-0 text-center">
+        <button class="carousel-control-next position-relative w-100 h-100" type="button"
+          [attr.data-bs-target]="'#book'+tile.order" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <div class="col-10 offset-1 px-4 text-center" [ngClass]="{'mt-4': tile.shadow}">
+        <div class="carousel-indicators position-relative m-0 text-center w-100 d-inline">
+          <button *ngFor="let image of Images; let pg = index" class="slideButton px-1 mb-4" style="text-indent: 0" type="btn"
+            [id]="'book'+tile.order+'btn'+pg" [attr.data-bs-target]="'#book'+tile.order" [attr.data-bs-slide-to]="pg"
+            [attr.aria-label]="'Slide '+(pg+1)">
+            <p *ngIf="tile.pageNumbers" class="my-1">{{pg + 1}}</p>
+            <p *ngIf="!tile.pageNumbers" class="my-1">&nbsp;</p>
+          </button>
+        </div>
+      </div>
+
+    </app-row-width-adjust>
+  </div>
+</div>
+
+<div class="container">
+  <app-row-width-adjust [width]="tile.width">
+    <div *ngIf="tile.text" class="col-12 mt-3 text-center">
+      <p [innerText]="tile.text"></p>
+    </div>
+  </app-row-width-adjust>
+</div>
+
+<ng-template #noImages>
+  <div class="container spaceBelow">
+    <h2>No images</h2>
+  </div>
+</ng-template>

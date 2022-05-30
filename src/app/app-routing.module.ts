@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageDisplayComponent } from './components/page-display/page-display.component';
+import { PageDisplayComponent } from './portfolio/components/page-display/page-display.component';
 import { PageNotFoundComponent } from './shared/PageNotFound';
 
 const routes: Routes = [

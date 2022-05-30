@@ -1,0 +1,48 @@
+<ng-container *ngIf="page.tiles.length > 0; else spinner">
+  <div *ngFor="let tile of Tiles" [ngSwitch]="tile.type">
+
+    <app-title *ngSwitchCase="TileType.Title" [tile]="tile">
+    </app-title>
+
+    <app-title *ngSwitchCase="TileType.Subtitle" [isSubtitle]="true" [tile]="tile">
+    </app-title>
+
+    <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
+    </app-text-display>
+
+    <app-image-grid *ngSwitchCase="TileType.ImageGrid" [tile]="tile">
+    </app-image-grid>
+
+    <app-slideshow *ngSwitchCase="TileType.Slideshow" [tile]="tile">
+    </app-slideshow>
+
+    <app-vimeo-video *ngSwitchCase="TileType.VimeoVid" [tile]="tile">
+    </app-vimeo-video>
+
+    <app-image-subtitle *ngSwitchCase="TileType.ImageSubtitle" [tile]="tile">
+    </app-image-subtitle>
+
+    <div *ngSwitchDefault class="container my-2">
+      <ng-container *ngIf="true; then spinner">
+      </ng-container>
+    </div>
+
+  </div>
+
+  <app-project-navigation *ngIf="page.type===PageType.Project" [current]="page.route">
+  </app-project-navigation>
+</ng-container>
+
+<ng-template #spinner>
+  <div *ngIf="!pageNotFound; else pnf" class="row my-5">
+    <div class="col-12 text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading Portfolio...</span>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #pnf>
+  <app-page-not-found></app-page-not-found>
+</ng-template>
