@@ -1,0 +1,99 @@
+<div class="border p-3">
+  <div class="row my-1" *ngFor="let key of parseKeys(tile)">
+    <ng-container *ngIf="key!=='order'">
+
+      <div class="col-auto">
+        <button [disabled]="key==='type'" class="btn btn-link" (click)="removeTileKey(key)">
+          x
+        </button>
+      </div>
+
+      <div class="col-2">
+        <label class="w-100 montserrat d-inline-block">
+          {{key}}
+          &nbsp;
+          <span *ngIf="key==='type'" [title]="tileTypes.join(', ')"><i>i</i></span>
+          <span *ngIf="key==='width'" [title]="widthTypes.join(', ')"><i>i</i></span>
+        </label>
+      </div>
+
+      <div class="col">
+        <ng-container *ngIf="!(key==='type' || key==='width'|| key==='images')">
+          <input *ngIf="typeOf(tile[key])==='number'" class="w-100 montserrat" type="number" [value]="tile[key]"
+            (input)="changeNumber(key, $event)">
+
+          <input *ngIf="typeOf(tile[key])==='boolean'" type="checkbox" [checked]="tile[key]"
+            (change)="changeCheckbox(key, $event)">
+
+          <input *ngIf="typeOf(tile[key])==='string' && tile[key].length <= 100" class="w-100 montserrat" type="text"
+            [value]="tile[key]" (input)="changeText(key, $event)">
+
+          <textarea *ngIf="typeOf(tile[key])==='object' || tile[key].length > 100" class="w-100 montserrat"
+            [value]="json(tile[key])" (input)="changeObject(key, $event)" (focus)="changeObject(key, $event)">
+          </textarea>
+        </ng-container>
+
+        <div *ngIf="key==='type'" class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            {{tile[key]}}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li *ngFor="let type of tileTypes">
+              <button class="dropdown-item" (click)="changeText(key, {target: {value: type}})">{{type}}</button>
+            </li>
+          </ul>
+        </div>
+
+        <div *ngIf="key==='width'" class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            {{tile[key]}}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li *ngFor="let type of widthTypes">
+              <button class="dropdown-item" (click)="changeText(key, {target: {value: type}})">{{type}}</button>
+            </li>
+          </ul>
+        </div>
+
+        <ng-container *ngIf="key==='images'">
+          <div *ngFor="let image of Images" class="row border py-2 my-3">
+            <div class="col-auto">
+              <app-order-scroll [index]="image.order" [maxIndex]="tile.images.length" (moveItem)="moveImage($event)">
+              </app-order-scroll>
+            </div>
+          
+            <div class="col align-self-center">
+              <app-image-edit [image]="image" (changeImage)="changeImg($event)">
+              </app-image-edit>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+    </ng-container>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+      <input class="montserrat w-100" type="text" placeholder="New Field Name" [value]="newFieldName"
+        (input)="setNewFieldName($event)">
+    </div>
+
+    <div class="col">
+      <button class="btn btn-success me-4" (click)="addField('')">
+        + text
+      </button>
+      <button class="btn btn-success me-4" (click)="addField(0)">
+        + number
+      </button>
+      <button class="btn btn-success me-4" (click)="addField(false)">
+        + checkbox
+      </button>
+      <button class="btn btn-success me-4" (click)="addField({})">
+        + JSON
+      </button>
+    </div>
+  </div>
+</div>

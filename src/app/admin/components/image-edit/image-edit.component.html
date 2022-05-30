@@ -1,0 +1,45 @@
+<div *ngFor="let imageKey of parseKeys(image)" class="row align-items-center">
+  <ng-container *ngIf="imageKey!=='order'">
+    <div class="col-auto">
+      <button [disabled]="imageKey==='s3Key'" class="btn btn-link" (click)="removeImageKey(image.order, imageKey)">
+        x
+      </button>
+    </div>
+
+    <div class="col-1">
+      <label class="w-100 montserrat d-inline-block">
+        {{imageKey}}
+      </label>
+    </div>
+
+    <div class="col">
+      <input *ngIf="typeOf(image[imageKey])==='number'" class="w-100 montserrat" type="number"
+        [value]="image[imageKey]" (input)="changeImageNumber(imageKey, $event)">
+
+      <input *ngIf="typeOf(image[imageKey])==='boolean'" type="checkbox" [checked]="image[imageKey]"
+        (change)="changeImageCheckbox(imageKey, $event)">
+
+      <input *ngIf="typeOf(image[imageKey])==='string'" class="w-100 montserrat" type="text"
+        [value]="image[imageKey]" (input)="changeImageText(imageKey, $event)">
+    </div>
+  </ng-container>
+</div>
+
+<div class="row align-items-center">
+  <div class="col-3">
+    <input class="montserrat w-100" type="text" placeholder="New Field Name" [value]="newFieldName"
+      (input)="setNewFieldName($event)">
+  </div>
+
+  <div class="col">
+    <button class="btn btn-success me-4" (click)="addField('')">
+      + text
+    </button>
+    <button class="btn btn-success me-4" (click)="addField(0)">
+      + number
+    </button>
+    <button class="btn btn-success" (click)="addField(false)">
+      + checkbox
+    </button>
+  </div>
+</div>

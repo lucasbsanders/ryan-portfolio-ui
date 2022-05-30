@@ -1,0 +1,134 @@
+<!-- HEADER BUTTONS -->
+
+<div class="container sticky-top py-4">
+  <div class="row">
+    
+    <div class="col-auto">
+      <button type="btn" class="btn btn-primary" (click)="savePage()">
+        Save Page to DynamoDB
+      </button>
+    </div>
+
+    <div class="col-auto">
+      <button type="btn" class="btn btn-success" (click)="addTile()">
+        Add New Tile
+      </button>
+    </div>
+
+    <div class="col-auto">
+      <button type="btn" class="btn btn-danger" (click)="deletePage()">
+        Delete Page
+      </button>
+    </div>
+
+    <div class="col-auto">
+      <button type="btn" class="btn btn-secondary" (click)="scroll('preview')">
+        Preview Page
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="resultMessage" style="background-color: white">
+    <p>{{resultMessage}}</p>
+  </div>
+</div>
+
+<hr style="height: 4px">
+
+<ng-container *ngFor="let tile of Tiles; index as i">
+  <div class="container" style="overflow: visible;">
+    <div class="row position-relative">
+      <div [id]="'EditTile' + tile.order" class="position-absolute" style="top: -150px"></div>
+
+      <div class="col-auto">
+        <app-order-scroll [index]="i" [maxIndex]="page.tiles.length" (moveItem)="moveTile($event)">
+        </app-order-scroll>
+      </div>
+  
+      <!-- EDIT TILE -->
+
+      <div class="col">
+        <app-tile-edit [tile]="tile" (changeTile)="changeTile(tile.order, $event)" (removeKey)="removeKey(tile.order, $event)" (changeImage)="changeImage(tile.order, $event)">
+        </app-tile-edit>
+      </div>
+    </div>
+
+    <!-- BUTTON ROW TILE OPTIONS -->
+
+    <div class="row my-2">
+      <div class="col">
+        <button class="btn btn-primary" (click)="tilePreviewMap.set(tile.order, !tilePreviewMap.get(tile.order))">
+          Tile Preview {{tilePreviewMap.get(tile.order) ? '(close)' : '(open)'}}
+        </button>
+      </div>
+
+      <div class="col">
+        <button class="btn btn-danger float-end" (click)="deleteTile(tile.order)">
+          Delete Tile
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TILE PREVIEW -->
+
+  <ng-container *ngIf="tilePreviewMap.get(tile.order)">
+    <div class="container">
+      <hr style="height: 2px">
+    </div>
+
+    <ng-container [ngSwitch]="tile.type">
+      <app-title *ngSwitchCase="TileType.Title" [tile]="tile">
+      </app-title>
+  
+      <app-title *ngSwitchCase="TileType.Subtitle" [isSubtitle]="true" [tile]="tile">
+      </app-title>
+  
+      <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
+      </app-text-display>
+  
+      <app-image-grid *ngSwitchCase="TileType.ImageGrid" [tile]="tile">
+      </app-image-grid>
+  
+      <app-slideshow *ngSwitchCase="TileType.Slideshow" [tile]="tile">
+      </app-slideshow>
+  
+      <app-vimeo-video *ngSwitchCase="TileType.VimeoVid" [tile]="tile">
+      </app-vimeo-video>
+  
+      <app-image-subtitle *ngSwitchCase="TileType.ImageSubtitle" [tile]="tile">
+      </app-image-subtitle>
+  
+      <div *ngSwitchDefault class="container my-2">
+        <ng-container *ngIf="true; then spinner">
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <hr style="height: 4px">
+
+</ng-container>
+
+<!-- PAGE PREVIEW -->
+
+<div class="container position-relative">
+  <h4>Page Preview:</h4>
+
+  <div id="preview" class="position-absolute" style="top: -150px"></div>
+</div>
+
+<hr style="height: 4px">
+
+<app-page-display [page]="page"></app-page-display>
+
+<ng-template #spinner>
+  <div class="row my-5">
+    <div class="col-12 text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading Portfolio...</span>
+      </div>
+    </div>
+  </div>
+</ng-template>
