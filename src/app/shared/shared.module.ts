@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ImageComponent } from './components/image/image.component';
-import { OrderScrollComponent } from './components/order-scroll/order-scroll.component';
 import { RowWidthAdjustComponent } from './components/row-width-adjust/row-width-adjust.component';
 import { EnterViewPortDirective } from './directives/enter-view-port.directive';
 import { PageNotFoundComponent } from './PageNotFound';
@@ -17,7 +16,6 @@ import { SplitTextPipe } from './pipes/split-text.pipe';
   declarations: [
     PageNotFoundComponent,
     RowWidthAdjustComponent,
-    OrderScrollComponent,
     ImageComponent,
     RowSplitPipe,
     HtmlSanitizePipe,
@@ -40,7 +38,6 @@ import { SplitTextPipe } from './pipes/split-text.pipe';
   exports: [
     PageNotFoundComponent,
     RowWidthAdjustComponent,
-    OrderScrollComponent,
     ImageComponent,
     RowSplitPipe,
     HtmlSanitizePipe,
