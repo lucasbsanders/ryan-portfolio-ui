@@ -1,8 +1,14 @@
-<a class="w-100 h-100 text-center" [routerLink]="'/'+image.link" [ngClass]="{'padBox': image.shadow}"
+<a *ngIf="image.link" class="w-100 h-100 text-center" [routerLink]="'/'+image.link" [ngClass]="{'padBox': image.shadow}"
   (mouseenter)="setMouseOver(true)">
   <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename" [ngClass]="{'customShadow': image.shadow}"
     [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}">
 </a>
+
+<div *ngIf="!image.link" class="w-100 h-100 text-center" [ngClass]="{'padBox': image.shadow}"
+  (mouseenter)="setMouseOver(true)">
+  <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename" [ngClass]="{'customShadow': image.shadow}"
+    [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}">
+</div>
 
 
 <!-- Overlay Container: -->

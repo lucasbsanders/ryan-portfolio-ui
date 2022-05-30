@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { Page } from 'src/app/shared/interfaces.const';
 import { PageType, TileType, Width } from '../../../shared/enums.const';
 import { NavbarService } from '../../services/navbar.service';
@@ -14,7 +14,9 @@ import { PageReadService } from '../../services/page-read.service';
 export class PageDisplayComponent implements OnInit, OnChanges {
 
   private defaultPage = {route: '', type: '', tiles: []};
-  @Input() page: Page  = this.defaultPage;
+  page: Page  = this.defaultPage;
+
+  @Input() pageObs = new Observable<Page>();
 
   TileType = TileType;
   Width = Width;
@@ -49,8 +51,8 @@ export class PageDisplayComponent implements OnInit, OnChanges {
         this.page = page;
         if (!this.page) this.pageNotFound = true;
       });
+
+    this.pageObs.subscribe((page: Page) => this.page = page);
   }
-
-
 
 }
