@@ -39,7 +39,7 @@ testem.log
 src/assets/s3
 src/assets/dynamoDB
 .env
-src/environments
+src/environments/*
 
 # System files
 .DS_Store

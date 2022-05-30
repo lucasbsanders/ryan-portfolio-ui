@@ -7,6 +7,10 @@
   color: $primary;
 }
 
+.background-white {
+  background-color: $white;
+}
+
 @font-face {
   font-family: "Fugaz";
   src: local("Fugaz"), url(./assets/fonts/Fugaz_One/FugazOne-Regular.ttf) format("truetype");
@@ -30,6 +34,7 @@ h1 {
 .montserrat,
 p,
 a,
+img,
 h2,
 h3,
 h4,

@@ -20,7 +20,7 @@
   <ng-template #widthFULL>
     <div class="spaceBelow">
       <div *ngFor="let imgRow of Images|rowSplit:adjustedColumns" class="row mx-1">
-        <div *ngFor="let bigImg of imgRow" class="d-flex col g-2 position-relative" style="overflow: hidden">
+        <div *ngFor="let bigImg of imgRow" class="d-flex col g-2 position-relative overflow-hidden">
           <app-image [image]="bigImg" [overlayVisible]="tile.imageOverlay"></app-image>
         </div>
       </div>
