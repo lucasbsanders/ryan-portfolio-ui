@@ -2,45 +2,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FullscreenMenuComponent } from './helpers/fullscreen-menu/fullscreen-menu.component';
-import { ImageGridComponent } from './components/image-grid/image-grid.component';
-import { PageDisplayComponent } from './components/page-display/page-display.component';
-import { SlideshowComponent } from './components/slideshow/slideshow.component';
-import { TextDisplayComponent } from './components/text-display/text-display.component';
-import { VimeoVideoComponent } from './components/vimeo-video/vimeo-video.component';
-import { EnterViewPortDirective } from './shared/directives/enter-view-port.directive';
+import { PortfolioModule } from './portfolio/portfolio.module';
 import { SharedModule } from './shared/shared.module';
-import { PageEditComponent } from './components/page-edit/page-edit.component';
-import { ImageSubtitleComponent } from './components/image-subtitle/image-subtitle.component';
-import { ImageComponent } from './helpers/image/image.component';
-import { RowWidthAdjustComponent } from './helpers/row-width-adjust/row-width-adjust.component';
-import { TitleComponent } from './components/title/title.component';
-import { TileEditComponent } from './helpers/tile-edit/tile-edit.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    EnterViewPortDirective,
-    FullscreenMenuComponent,
-    PageDisplayComponent,
-    SlideshowComponent,
-    ImageGridComponent,
-    TextDisplayComponent,
-    VimeoVideoComponent,
-    PageEditComponent,
-    ImageSubtitleComponent,
-    ImageComponent,
-    RowWidthAdjustComponent,
-    TitleComponent,
-    TileEditComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
+    PortfolioModule,
+    AdminModule,
     HttpClientModule,
   ],
   providers: [],

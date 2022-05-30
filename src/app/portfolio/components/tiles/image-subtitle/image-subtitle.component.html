@@ -1,0 +1,35 @@
+<div *ngIf="!tile.width || tile.width!==Width.FULL; else widthFULL" class="container spaceBelow">
+  <app-row-width-adjust [width]="tile.width">
+
+    <ng-container *ngIf="Images.length>0; else noImages"></ng-container>
+    <div *ngIf="Images.length>0; else noImages" class="col-12" [ngClass]="{'col-md-5 order-first order-md-last mb-2' :
+        tile.style===SubtitleStyle.Left,
+        'mb-4 text-center' : tile.style!==SubtitleStyle.Left}">
+      <app-image [image]="Images[0]"></app-image>
+    </div>
+
+    <div *ngIf="tile.text" class="col-12" [ngClass]="{'col-md-7' : tile.style===SubtitleStyle.Left,
+        'mt-2 text-center' : tile.style!==SubtitleStyle.Left}">
+      <p [innerText]="tile.text"></p>
+    </div>
+
+    <ng-template #noImages>
+      <h2>No image</h2>
+    </ng-template>
+
+  </app-row-width-adjust>
+</div>
+
+<ng-template #widthFULL>
+  <div class="row" [ngClass]="{'mx-4': !isMedium, 'mx-0': isMedium}">
+    <div class="d-flex col position-relative">
+      <app-image [image]="Images[0]"></app-image>
+    </div>
+  </div>
+  <div class="row" [ngClass]="{'mx-4': !isMedium, 'mx-1': isMedium}">
+    <div *ngIf="tile.text" class="col-12" [ngClass]="{'col-md-7' : tile.style===SubtitleStyle.Left,
+      'mt-2 text-center' : tile.style!==SubtitleStyle.Left}">
+      <p [innerText]="tile.text"></p>
+    </div>
+  </div>
+</ng-template>
