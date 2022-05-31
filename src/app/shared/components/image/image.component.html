@@ -14,8 +14,12 @@
 <!-- Overlay Container: -->
 <div class="position-absolute top-0 left-0 pe-2 w-100 h-100" [hidden]="!showOverlay" (mouseleave)="setMouseOver(false)">
   <div class="w-100 h-100 overlayBox p-3">
-    <a class="montserrat-bold overlayText text-center" [routerLink]="'/'+image.link">
+    <a *ngIf="image.link && !image.url" class="montserrat-bold overlayText text-center" [routerLink]="'/'+image.link">
       {{image.link}}
+    </a>
+
+    <a *ngIf="image.url" class="montserrat-bold overlayText text-center" [href]="image.url">
+      {{image.link ? image.link : image.url}}
     </a>
   </div>
 </div>

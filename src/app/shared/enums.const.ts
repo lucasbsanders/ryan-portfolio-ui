@@ -8,6 +8,11 @@ export enum TileType {
   VimeoVid = 'VimeoVid',
 };
 
+export enum SubtitleStyle {
+  Left = 'Left',
+  Bottom = 'Bottom',
+};
+
 export enum Width {
   XS = 'XS',
   S = 'S',

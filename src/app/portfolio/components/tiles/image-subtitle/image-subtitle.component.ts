@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/portfolio/services/navbar.service';
+import { SubtitleStyle } from 'src/app/shared/enums.const';
 import { TileBaseComponent } from '../tile-base.component';
-
-export enum SubtitleStyle {
-  Left = 'Left',
-  Bottom = 'Bottom',
-}
 
 @Component({
   selector: 'app-image-subtitle',
