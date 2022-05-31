@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { PageDefault } from 'src/app/shared/classes.const';
 import { TileType } from 'src/app/shared/enums.const';
 import { Page } from 'src/app/shared/interfaces.const';
 
@@ -8,8 +9,7 @@ import { Page } from 'src/app/shared/interfaces.const';
 })
 export class PageEditService {
 
-  defaultPage = { route: '', type: '', tiles: [] };
-  page: Page = this.defaultPage;
+  page: Page = new PageDefault();
   
   pageSubject: Subject<Page> = new Subject<Page>();
   pageObs: Observable<Page> = this.pageSubject.asObservable();
@@ -17,7 +17,7 @@ export class PageEditService {
   constructor() {}
 
   setPageToDefault() {
-    this.page = this.defaultPage;
+    this.page = new PageDefault();
   }
 
   update() {

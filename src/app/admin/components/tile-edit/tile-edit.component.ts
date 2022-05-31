@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TileDefault } from 'src/app/shared/classes.const';
 import { TileType, Width } from 'src/app/shared/enums.const';
 import { PageEditService } from '../../services/page-edit.service';
 
@@ -7,10 +8,9 @@ import { PageEditService } from '../../services/page-edit.service';
   templateUrl: './tile-edit.component.html',
   styleUrls: ['./tile-edit.component.scss'],
 })
-export class TileEditComponent implements OnInit {
-  @Input() tileNumber: number = 0;
+export class TileEditComponent {
 
-  newFieldName = '';
+  @Input() tileNumber: number = -1;
 
   get Images(): any[] {
     return this.pageEdit.getImages(this.tileNumber);
@@ -34,52 +34,28 @@ export class TileEditComponent implements OnInit {
     return Object.values(Width);
   }
 
-  constructor(private pageEdit: PageEditService) {}
-
-  ngOnInit(): void {
-    setTimeout(() => {
-      const collection = document.getElementsByTagName('textarea');
-      for (let i = 0; i < collection.length; i++) {
-        this.styleTextarea(collection[i], '');
-      }
-    }, 300);
+  get TileFieldOptions(): any[] {
+    return Object.entries(new TileDefault()).filter(
+      (entry) => this.Keys.findIndex((key) => key === entry[0]) === -1
+    );
   }
+
+  constructor(private pageEdit: PageEditService) {}
 
   typeOf(obj: any): string {
     return typeof obj;
   }
 
-  json(obj: any): string {
-    return JSON.stringify(obj, null, 2);
-  }
-
-  setNewFieldName(event: any) {
-    this.newFieldName = event.target.value;
-  }
-
-  addField(obj: any) {
-    this.pageEdit.changeTile(this.tileNumber, this.newFieldName, obj);
-    this.newFieldName = '';
-  }
-
-  changeText(key: string, event: any) {
-    this.pageEdit.changeTile(this.tileNumber, key, event.target.value);
-  }
-
-  changeNumber(key: string, event: any) {
-    this.pageEdit.changeTile(
-      this.tileNumber,
-      key,
-      parseInt(event.target.value)
-    );
-  }
-
-  changeCheckbox(key: string, event: any) {
-    this.pageEdit.changeTile(this.tileNumber, key, event.target.checked);
+  addField(key: string, obj: any) {
+    this.pageEdit.changeTile(this.tileNumber, key, obj);
   }
 
   removeTileKey(key: string) {
     this.pageEdit.changeTile(this.tileNumber, key, null);
+  }
+
+  changeText(key: string, event: any) {
+    this.pageEdit.changeTile(this.tileNumber, key, event.target.value);
   }
 
   changeObject(key: string, event: any) {

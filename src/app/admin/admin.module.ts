@@ -6,13 +6,15 @@ import { ImageEditComponent } from './components/image-edit/image-edit.component
 import { OrderScrollComponent } from './components/order-scroll/order-scroll.component';
 import { PageEditComponent } from './components/page-edit/page-edit.component';
 import { TileEditComponent } from './components/tile-edit/tile-edit.component';
+import { InputFieldComponent } from './components/input-field/input-field.component';
 
 @NgModule({
   declarations: [
     PageEditComponent,
     TileEditComponent,
     ImageEditComponent,
-    OrderScrollComponent
+    OrderScrollComponent,
+    InputFieldComponent
   ],
   imports: [
     CommonModule,

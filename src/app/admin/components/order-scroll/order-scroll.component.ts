@@ -7,8 +7,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class OrderScrollComponent {
 
-  @Input() index: number = 0;
-  @Input() maxIndex: number = 0;
+  @Input() index: number = -1;
+  @Input() maxIndex: number = -1;
 
   @Output() moveItem = new EventEmitter<number[]>();
 

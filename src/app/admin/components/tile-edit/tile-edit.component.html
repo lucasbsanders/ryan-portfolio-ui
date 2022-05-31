@@ -1,14 +1,14 @@
 <div class="border p-3 bg-light">
-  <div class="row my-1" *ngFor="let key of Keys">
+  <div class="row my-1 align-items-center" *ngFor="let key of Keys">
     <ng-container *ngIf="key!=='order'">
 
-      <div class="col-auto align-self-start">
+      <div class="col-auto">
         <button [disabled]="key==='type'" class="btn btn-link" (click)="removeTileKey(key)">
           x
         </button>
       </div>
 
-      <div class="col-2 align-self-start">
+      <div class="col-2">
         <label class="w-100 montserrat d-inline-block">
           {{key}}
           &nbsp;
@@ -17,21 +17,10 @@
         </label>
       </div>
 
-      <div class="col align-self-center">
+      <div class="col">
         <ng-container *ngIf="!(key==='type' || key==='width'|| key==='images')">
-          <input *ngIf="typeOf(Tile[key])==='number'" class="w-100 montserrat" type="number" [value]="Tile[key]"
-            (input)="changeNumber(key, $event)">
-
-          <input *ngIf="typeOf(Tile[key])==='boolean'" type="checkbox" [checked]="Tile[key]"
-            (change)="changeCheckbox(key, $event)">
-
-          <textarea *ngIf="typeOf(Tile[key])==='string'" class="w-100 montserrat"
-            [value]="Tile[key]" (input)="changeText(key, $event); styleTextarea($event.target, '');" (focus)="changeText(key, $event); styleTextarea($event.target, '');">
-          </textarea>
-
-          <textarea *ngIf="typeOf(Tile[key])==='object'" class="w-100 montserrat"
-            [value]="json(Tile[key])" (input)="changeObject(key, $event)" (focus)="changeObject(key, $event)">
-          </textarea>
+          <app-input-field [tileNumber]="Tile.order" [key]="key" [obj]="Tile[key]">
+          </app-input-field>
         </ng-container>
 
         <div *ngIf="key==='type'" class="dropdown">
@@ -85,23 +74,9 @@
   </div>
 
   <div class="row mt-3">
-    <div class="col-3">
-      <input class="montserrat w-100" type="text" placeholder="New Field Name" [value]="newFieldName"
-        (input)="setNewFieldName($event)">
-    </div>
-
     <div class="col">
-      <button class="btn btn-outline-success me-4" (click)="addField('')">
-        + text
-      </button>
-      <button class="btn btn-outline-success me-4" (click)="addField(0)">
-        + number
-      </button>
-      <button class="btn btn-outline-success me-4" (click)="addField(false)">
-        + checkbox
-      </button>
-      <button class="btn btn-outline-success me-4" (click)="addField({})">
-        + JSON
+      <button *ngFor="let field of TileFieldOptions" type="btn" class="btn btn-outline-success me-4" (click)="addField(field[0], field[1])">
+        + {{field[0]}}
       </button>
     </div>
   </div>

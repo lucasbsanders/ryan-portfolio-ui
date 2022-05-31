@@ -15,6 +15,7 @@ import { PageEditService } from '../../services/page-edit.service';
   styleUrls: ['./page-edit.component.scss'],
 })
 export class PageEditComponent implements OnInit {
+
   TileType = TileType;
   Width = Width;
   PageType = PageType;
