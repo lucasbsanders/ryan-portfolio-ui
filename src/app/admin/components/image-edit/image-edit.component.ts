@@ -48,6 +48,27 @@ export class ImageEditComponent {
     this.changeImage(key, event.target.checked);
   }
 
+  json(obj: any): string {
+    return JSON.stringify(obj, null, 2);
+  }
+
+  changeImageObject(key: string, event: any) {
+    try {
+      const tileData = JSON.parse(event.target.value);
+      this.changeImage(key, tileData);
+
+      this.styleTextarea(event.target, '3px solid lime');
+    } catch (err) {
+      this.styleTextarea(event.target, '3px solid red');
+    }
+  }
+
+  styleTextarea(element: any, borderStyle: string) {
+    element.style.border = borderStyle;
+    element.style.height = '0px';
+    element.style.height = element.scrollHeight + 5 + 'px';
+  }
+
   removeField(key: string) {
     this.changeImage(key, null)
   }

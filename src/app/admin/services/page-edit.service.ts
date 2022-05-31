@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { TileType } from 'src/app/shared/enums.const';
 import { Page } from 'src/app/shared/interfaces.const';
 
 @Injectable({
@@ -41,7 +42,9 @@ export class PageEditService {
 
     tiles.push({
       order: tiles[tiles.length - 1].order + 1,
-      type: 'Title',
+      type: TileType.Subtitle,
+      text: '',
+      images: [],
       width: 'XL',
     });
 

@@ -23,6 +23,9 @@
 
           <input *ngIf="typeOf(Image[key])==='string'" class="w-100 montserrat" type="text"
             [value]="Image[key]" (input)="changeImageText(key, $event)">
+
+          <textarea *ngIf="typeOf(Image[key])==='object'" class="w-100 montserrat"
+            [value]="json(Image[key])" (input)="changeImageObject(key, $event)" (focus)="changeImageObject(key, $event)"></textarea>
         </div>
       </ng-container>
     </div>
@@ -40,8 +43,11 @@
         <button class="btn btn-outline-success me-4" (click)="addField(0)">
           + number
         </button>
-        <button class="btn btn-outline-success" (click)="addField(false)">
+        <button class="btn btn-outline-success me-4" (click)="addField(false)">
           + checkbox
+        </button>
+        <button class="btn btn-outline-success" (click)="addField({})">
+          + JSON
         </button>
       </div>
     </div>

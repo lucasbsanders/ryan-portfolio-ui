@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TileType, Width } from 'src/app/shared/enums.const';
 import { PageEditService } from '../../services/page-edit.service';
 
@@ -7,8 +7,7 @@ import { PageEditService } from '../../services/page-edit.service';
   templateUrl: './tile-edit.component.html',
   styleUrls: ['./tile-edit.component.scss'],
 })
-export class TileEditComponent {
-
+export class TileEditComponent implements OnInit {
   @Input() tileNumber: number = 0;
 
   newFieldName = '';
@@ -37,6 +36,15 @@ export class TileEditComponent {
 
   constructor(private pageEdit: PageEditService) {}
 
+  ngOnInit(): void {
+    setTimeout(() => {
+      const collection = document.getElementsByTagName('textarea');
+      for (let i = 0; i < collection.length; i++) {
+        this.styleTextarea(collection[i], '');
+      }
+    }, 300);
+  }
+
   typeOf(obj: any): string {
     return typeof obj;
   }
@@ -59,7 +67,11 @@ export class TileEditComponent {
   }
 
   changeNumber(key: string, event: any) {
-    this.pageEdit.changeTile(this.tileNumber, key, parseInt(event.target.value));
+    this.pageEdit.changeTile(
+      this.tileNumber,
+      key,
+      parseInt(event.target.value)
+    );
   }
 
   changeCheckbox(key: string, event: any) {
@@ -81,7 +93,7 @@ export class TileEditComponent {
     }
   }
 
-  private styleTextarea(element: any, borderStyle: string) {
+  styleTextarea(element: any, borderStyle: string) {
     element.style.border = borderStyle;
     element.style.height = '0px';
     element.style.height = element.scrollHeight + 5 + 'px';

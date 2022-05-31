@@ -25,10 +25,11 @@
           <input *ngIf="typeOf(Tile[key])==='boolean'" type="checkbox" [checked]="Tile[key]"
             (change)="changeCheckbox(key, $event)">
 
-          <input *ngIf="typeOf(Tile[key])==='string' && Tile[key].length <= 100" class="w-100 montserrat" type="text"
-            [value]="Tile[key]" (input)="changeText(key, $event)">
+          <textarea *ngIf="typeOf(Tile[key])==='string'" class="w-100 montserrat"
+            [value]="Tile[key]" (input)="changeText(key, $event); styleTextarea($event.target, '');" (focus)="changeText(key, $event); styleTextarea($event.target, '');">
+          </textarea>
 
-          <textarea *ngIf="typeOf(Tile[key])==='object' || Tile[key].length > 100" class="w-100 montserrat"
+          <textarea *ngIf="typeOf(Tile[key])==='object'" class="w-100 montserrat"
             [value]="json(Tile[key])" (input)="changeObject(key, $event)" (focus)="changeObject(key, $event)">
           </textarea>
         </ng-container>
@@ -101,9 +102,6 @@
       </button>
       <button class="btn btn-outline-success me-4" (click)="addField({})">
         + JSON
-      </button>
-      <button class="btn btn-outline-success" (click)="addField([])">
-        + List
       </button>
     </div>
   </div>

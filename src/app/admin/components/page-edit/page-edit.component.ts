@@ -84,7 +84,7 @@ export class PageEditComponent implements OnInit {
 
   addTile() {
     this.pageEdit.addTile();
-    this.scroll('EditTile' + (this.Tiles[this.Tiles.length - 1].order + 1));
+    this.scroll('EditTile' + (this.Tiles.length - 1));
   }
 
   scroll(id: string) {
