@@ -1,7 +1,6 @@
 <div *ngIf="!tile.width || tile.width!==Width.FULL; else widthFULL" class="container spaceBelow">
   <app-row-width-adjust [width]="tile.width">
 
-    <ng-container *ngIf="Images.length>0; else noImages"></ng-container>
     <div *ngIf="Images.length>0; else noImages" class="col-12" [ngClass]="{'col-md-5 order-first order-md-last mb-2' :
         tile.style===SubtitleStyle.Left,
         'mb-4 text-center' : tile.style!==SubtitleStyle.Left}">

@@ -1,7 +1,11 @@
 <div class="container spaceBelow">
   <app-row-width-adjust [width]="tile.width">
-    <div class="col">
-      <div [innerHTML]="tile.text|htmlsanitize"></div>
+    <div class="col-12 mb-4">
+      <div [innerHTML]="tile.html|htmlsanitize"></div>
+    </div>
+
+    <div *ngIf="tile.text" class="col-12 mt-2 text-center">
+      <p [innerText]="tile.text"></p>
     </div>
   </app-row-width-adjust>
 </div>

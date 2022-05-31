@@ -1,10 +1,10 @@
 export enum TileType {
-  Title = 'Title',
-  Text = 'Text',
-  Slideshow = 'Slideshow',
   ImageGrid = 'ImageGrid',
   ImageSubtitle = 'ImageSubtitle',
+  Slideshow = 'Slideshow',
   Subtitle = 'Subtitle',
+  Text = 'Text',
+  Title = 'Title',
   VimeoVid = 'VimeoVid',
 };
 

@@ -21,7 +21,7 @@ export class ImageGridComponent extends TileBaseComponent {
     return this.tile && this.tile.images ? this.tile.images
       .sort((a: any, b: any) => a.order - b.order)
       .filter((img: any) => this.selectedFilter.localeCompare('All')===0 || (img.tags &&
-        img.tags.find((t: string) => t.localeCompare(this.selectedFilter) === 0).length > 0))
+        img.tags.filter((t: string) => t === this.selectedFilter).length > 0))
         : [];
   }
 
