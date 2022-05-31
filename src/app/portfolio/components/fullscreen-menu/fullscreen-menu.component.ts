@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NavbarService } from '../../services/navbar.service';
 
 @Component({
@@ -8,13 +7,14 @@ import { NavbarService } from '../../services/navbar.service';
   styleUrls: ['./fullscreen-menu.component.scss'],
 })
 export class FullscreenMenuComponent implements OnInit {
+
   menuData: any[] = [];
 
   get menuOpen(): boolean {
     return this.navbarService.menuOpen;
   }
 
-  constructor(private navbarService: NavbarService, private router: Router) {}
+  constructor(private navbarService: NavbarService) {}
 
   ngOnInit(): void {
     this.navbarService

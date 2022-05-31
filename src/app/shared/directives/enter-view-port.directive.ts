@@ -1,4 +1,3 @@
-import { isIdentifier } from '@angular/compiler';
 import {
   AfterViewInit,
   Directive,
@@ -6,7 +5,7 @@ import {
   EventEmitter,
   Host,
   OnDestroy,
-  Output,
+  Output
 } from '@angular/core';
 
 @Directive({

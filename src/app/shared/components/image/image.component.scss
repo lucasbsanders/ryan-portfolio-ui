@@ -10,9 +10,12 @@
   font-size: xx-large;
 }
 
-p:hover {
+a {
+  text-decoration: none;
+}
+
+a:hover {
   text-decoration: underline;
-  cursor: pointer;
 }
 
 img {

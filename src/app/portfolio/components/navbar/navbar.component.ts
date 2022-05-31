@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Brand } from 'src/app/shared/enums.const';
 import { environment } from 'src/environments/environment';
 import { NavbarService } from '../../services/navbar.service';
-
-enum Brand {
-  primary = 'primary',
-  secondary = 'secondary'
-}
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +12,7 @@ export class NavbarComponent implements OnInit {
 
   Brand = Brand;
 
-  brandLinks = {
+  brandLinks: any = {
     primary: environment.icons.primary,
     secondary: environment.icons.secondary,
   };
@@ -24,7 +20,7 @@ export class NavbarComponent implements OnInit {
   mouseIn = false;
 
   get brandSelection(): Brand {
-    return !this.menuOpen ? Brand.primary : Brand.secondary;
+    return !this.menuOpen ? this.Brand.primary : this.Brand.secondary;
   }
 
   get menuOpen(): boolean {

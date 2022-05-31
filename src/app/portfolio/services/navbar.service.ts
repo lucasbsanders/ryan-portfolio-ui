@@ -10,9 +10,9 @@ export class NavbarService {
 
   menuOpen: boolean = false;
   isAtTop: boolean = true;
-  isSmallScreen = false;
-  isMediumScreen = false;
-  isHomepage = false;
+  isSmallScreen: boolean = false;
+  isMediumScreen: boolean = false;
+  isHomepage: boolean = false;
 
   constructor(private pageService: PageReadService) {}
 
