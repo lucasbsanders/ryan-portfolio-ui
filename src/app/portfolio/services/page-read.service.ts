@@ -8,8 +8,9 @@ import { PageType } from '../../shared/enums.const';
   providedIn: 'root',
 })
 export class PageReadService {
+
   private _pages: any[] = [];
-  private _pageSessionKey = 'RYAN-PORTFOLIO-PAGES';
+  private _pageSessionKey: string = 'RYAN-PORTFOLIO-PAGES';
 
   constructor(private http: HttpClient) {
     this.getPagesFromClosestSource().subscribe();

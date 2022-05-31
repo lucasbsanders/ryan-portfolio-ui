@@ -10,8 +10,8 @@ import { TileBaseComponent } from '../tile-base.component';
 })
 export class ImageGridComponent extends TileBaseComponent {
 
-  filterOptions = ['All', 'Illustration', 'Animation', 'UX/UI'];
-  selectedFilter = 'All';
+  filterOptions: string[] = ['All', 'Illustration', 'Animation', 'UX/UI'];
+  selectedFilter: string = 'All';
 
   get adjustedColumns(): number {
     return this.tile.columns ? this.tile.columns + this.colAdjSm : 1;

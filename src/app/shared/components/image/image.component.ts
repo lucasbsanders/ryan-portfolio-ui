@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-image',
@@ -9,9 +8,9 @@ import { Router } from '@angular/router';
 export class ImageComponent {
 
   @Input() image: any = {};
-  @Input() overlayVisible = false;
+  @Input() overlayVisible: boolean = false;
 
-  private static mouseOverId = ''; 
+  private static mouseOverId: string = ''; 
 
   get showOverlay(): boolean {
     return this.image && this.image.link && this.overlayVisible && ImageComponent.mouseOverId === this.image.s3Key + this.image.order;

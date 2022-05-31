@@ -8,14 +8,14 @@ import { ProjectNavigationService } from '../../services/project-navigation.serv
 })
 export class ProjectNavigationComponent implements OnChanges {
 
-  @Input() current = '';
+  @Input() current: string = '';
+
+  previousIndex: number = -1;
+  nextIndex: number = -1;
 
   get orderedProjects(): string[] {
     return this.projectNavService.orderedProjects;
   }
-
-  previousIndex = -1;
-  nextIndex = -1;
 
   constructor(private projectNavService: ProjectNavigationService) {}
 

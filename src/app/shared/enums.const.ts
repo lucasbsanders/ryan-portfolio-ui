@@ -27,3 +27,10 @@ export enum PageType {
   Static = 'Static',
   Layout = 'Layout',
 };
+
+
+
+export enum Brand {
+  primary = 'primary',
+  secondary = 'secondary'
+};

@@ -8,9 +8,10 @@ import { NavbarService } from 'src/app/portfolio/services/navbar.service';
   styleUrls: ['./row-width-adjust.component.scss'],
 })
 export class RowWidthAdjustComponent {
-  @Input() width = '';
 
   Width = Width;
+
+  @Input() width: string = '';
 
   get isMedium(): boolean {
     return this.navbarService.isMediumScreen;
