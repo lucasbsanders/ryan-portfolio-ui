@@ -13,7 +13,7 @@ export class SplitTextPipe implements PipeTransform {
     for (var curr = 0; numPieces > 0; numPieces--) {
       const nextSpace = text.indexOf(' ', curr + approxLength);
       const splitEnd = nextSpace > 0 ? nextSpace : text.length;
-      parts.push(text.substring(curr, splitEnd));
+      parts.push(text.substring(curr, splitEnd).trim());
       curr = splitEnd;
     }
 
