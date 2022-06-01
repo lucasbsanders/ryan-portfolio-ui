@@ -1,19 +1,23 @@
 <a *ngIf="image.link" class="w-100 h-100 text-center" [routerLink]="'/'+image.link" [ngClass]="{'padBox': image.shadow}"
   (mouseenter)="setMouseOver(true)">
-  <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename" [ngClass]="{'customShadow': image.shadow}"
-    [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}">
+  <ng-container *ngTemplateOutlet="imageTag"></ng-container>
 </a>
 
 <div *ngIf="!image.link" class="w-100 h-100 text-center" [ngClass]="{'padBox': image.shadow}"
   (mouseenter)="setMouseOver(true)">
-  <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename" [ngClass]="{'customShadow': image.shadow}"
-    [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}">
+  <ng-container *ngTemplateOutlet="imageTag"></ng-container>
 </div>
 
+<ng-template #imageTag>
+  <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename" [ngClass]="{'customShadow': image.shadow}"
+    [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}"
+    (load)="loading=false">
+</ng-template>
 
-<!-- Overlay Container: -->
+
+<!-- Link/URL overlay: -->
 <div class="position-absolute top-0 left-0 pe-2 w-100 h-100" [hidden]="!showOverlay" (mouseleave)="setMouseOver(false)">
-  <div class="w-100 h-100 overlayBox p-3">
+  <div class="w-100 h-100 overlayBox p-3 align-items-center d-flex">
     <a *ngIf="image.link && !image.url" class="montserrat-bold overlayText text-center" [routerLink]="'/'+image.link">
       {{image.link}}
     </a>
@@ -21,5 +25,16 @@
     <a *ngIf="image.url" class="montserrat-bold overlayText text-center" [href]="image.url">
       {{image.link ? image.link : image.url}}
     </a>
+  </div>
+</div>
+
+<!-- Loading overlay: -->
+<div class="position-absolute bottom-0 left-0 pe-2 w-100 h-100" [hidden]="!loading">
+  <div class="row w-100 h-100 text-center align-items-center">
+    <div class="col-12">
+      <div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Loading Image...</span>
+      </div>
+    </div>
   </div>
 </div>

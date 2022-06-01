@@ -1,5 +1,5 @@
 <ng-container *ngIf="page.tiles.length > 0; else spinner">
-  <div *ngFor="let tile of Tiles" [ngSwitch]="tile.type">
+  <div *ngFor="let tile of page.tiles" [ngSwitch]="tile.type">
 
     <app-title *ngSwitchCase="TileType.Title" [tile]="tile">
     </app-title>

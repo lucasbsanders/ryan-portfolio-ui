@@ -16,7 +16,9 @@ export class ImageComponent {
     return this.image && this.image.link && this.overlayVisible && ImageComponent.mouseOverId === this.image.s3Key + this.image.order;
   }
 
-  constructor() { }
+  loading: boolean = true;
+
+  constructor() {}
 
   setMouseOver(hover: boolean) {
     if (this.overlayVisible) {

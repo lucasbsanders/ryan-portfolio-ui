@@ -1,14 +1,14 @@
 <div class="spaceBelow" [ngClass]="{'container': !tile.width || tile.width!==Width.FULL}">
   <app-row-width-adjust [width]="tile.width" [ngClass]="{'mx-4': tile.width===Width.FULL && !isMedium, 'mx-0': tile.width===Width.FULL && isMedium}">
 
-    <div *ngIf="Images.length>0; else noImages" class="col-12 position-relative" [ngClass]="{'col-md-5 order-first order-md-last mb-2' :
+    <div *ngIf="images.length>0; else noImages" class="col-12 position-relative" [ngClass]="{'col-md-5 order-first order-md-last mb-2' :
         tile.style===SubtitleStyle.Left,
         'mb-4 text-center' : tile.style!==SubtitleStyle.Left}">
-      <app-image [image]="Images[0]" [overlayVisible]="Images[0].overlay"></app-image>
+      <app-image [image]="images[0]" [overlayVisible]="images[0].overlay"></app-image>
     </div>
 
     <div *ngIf="tile.text" class="col-12" [ngClass]="{'col-md-7' : tile.style===SubtitleStyle.Left,
-        'mt-2 text-center' : tile.style!==SubtitleStyle.Left}">
+        'text-center' : tile.style!==SubtitleStyle.Left}">
       <p [innerText]="tile.text"></p>
     </div>
 

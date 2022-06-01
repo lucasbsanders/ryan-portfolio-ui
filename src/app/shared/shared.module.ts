@@ -10,6 +10,7 @@ import { HtmlSanitizePipe } from './pipes/html-sanitize.pipe';
 import { KeyToS3Pipe } from './pipes/key-to-s3.pipe';
 import { RowSplitPipe } from './pipes/row-double.pipe';
 import { SplitTextPipe } from './pipes/split-text.pipe';
+import { UrlSanitizePipe } from './pipes/url-sanitize.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SplitTextPipe } from './pipes/split-text.pipe';
     FilenamePipe,
     SplitTextPipe,
     KeyToS3Pipe,
-    EnterViewPortDirective
+    EnterViewPortDirective,
+    UrlSanitizePipe
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { SplitTextPipe } from './pipes/split-text.pipe';
     FilenamePipe,
     SplitTextPipe,
     KeyToS3Pipe,
+    UrlSanitizePipe
   ],
   exports: [
     PageNotFoundComponent,
@@ -43,7 +46,8 @@ import { SplitTextPipe } from './pipes/split-text.pipe';
     FilenamePipe,
     SplitTextPipe,
     KeyToS3Pipe,
-    EnterViewPortDirective
+    EnterViewPortDirective,
+    UrlSanitizePipe
   ]
 })
 export class SharedModule { }
