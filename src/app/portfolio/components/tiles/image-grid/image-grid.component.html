@@ -8,9 +8,9 @@
   </div>
 </div>
 
-<ng-container *ngIf="Images.length>0; else noImages">
+<ng-container *ngIf="sortedFilteredImages.length>0; else noImages">
   <div class="spaceBelow" [ngClass]="{'container': !tile.width || tile.width!==Width.FULL}">
-    <app-row-width-adjust *ngFor="let imgRow of Images|rowSplit:adjustedColumns" [width]="tile.width" [ngClass]="{'my-1': tile.width===Width.FULL}">
+    <app-row-width-adjust *ngFor="let imgRow of sortedFilteredImages|rowSplit:adjustedColumns" [width]="tile.width" [ngClass]="{'my-1': tile.width===Width.FULL}">
       <div *ngFor="let image of imgRow" class="g-2 position-relative overflow-hidden" [ngClass]="{'col-6 offset-3' : imgRow.length < adjustedColumns && adjustedColumns===2, 'col': imgRow.length === adjustedColumns || adjustedColumns>2}">
         <app-image [image]="image" [overlayVisible]="image.overlay"></app-image>
       </div>

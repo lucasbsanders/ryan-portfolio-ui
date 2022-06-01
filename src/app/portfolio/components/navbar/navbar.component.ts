@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { Brand } from 'src/app/shared/enums.const';
 import { environment } from 'src/environments/environment';
 import { NavbarService } from '../../services/navbar.service';
@@ -8,7 +8,7 @@ import { NavbarService } from '../../services/navbar.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements AfterViewInit {
 
   Brand = Brand;
 
@@ -41,7 +41,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private navbarService: NavbarService) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.onResize();
   }
 

@@ -10,13 +10,13 @@ export class TileDefault {
   order = 0;
   type = TileType.Subtitle;
   text = '';
-  html = '';
   center = false;
   width = Width.XL;
   style = SubtitleStyle.Bottom;
   images = [];
   columns = 1;
   hasFilters = false;
+  videoId = '';
 };
 
 export class ImageDefault {

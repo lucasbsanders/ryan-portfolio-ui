@@ -10,6 +10,8 @@ import { TileBaseComponent } from '../tile-base.component';
 })
 export class VimeoVideoComponent extends TileBaseComponent {
 
+  loading: boolean = true;
+
   constructor(navbarService: NavbarService, router: Router) {
     super(navbarService, router);
   }

@@ -23,10 +23,6 @@ export class PageDisplayComponent implements OnInit {
   page: Page = new PageDefault();
   pageNotFound = false;
 
-  get Tiles(): any[] {
-    return this.page ? this.page.tiles.sort((a: any, b: any) => a.order - b.order) : [];
-  }
-
   constructor(
     private navbarService: NavbarService,
     private pageService: PageReadService,
@@ -39,17 +35,22 @@ export class PageDisplayComponent implements OnInit {
         switchMap((paramMap: any) => {
           this.page = new PageDefault();
           this.pageNotFound = false;
-          this.navbarService.setRoute(paramMap.get('path'));
+          const path = paramMap.get('path');
 
-          return this.pageService.getPageByRoute(paramMap.get('path'));
+          this.navbarService.setRoute(path);
+          return this.pageService.getPageByRoute(path);
         })
       )
-      .subscribe((page: Page) => {
-        this.page = page;
-        if (!this.page) this.pageNotFound = true;
-      });
+      .subscribe((page: Page) => this.setPage(page));
 
-    this.pageObs.subscribe((page: Page) => this.page = page);
+    this.pageObs.subscribe((page: Page) => this.setPage(page));
+  }
+
+  setPage(page: Page) {
+    this.page = page;
+        
+    if (!this.page) this.pageNotFound = true;
+    else if (this.page.tiles) this.page.tiles.sort((a: any, b: any) => a.order - b.order);
   }
 
 }
