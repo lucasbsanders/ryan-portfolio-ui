@@ -2,26 +2,133 @@ a {
   color: lightgray;
   text-decoration: none;
   font-size: xx-large;
-  cursor: pointer;
 }
 
 a:hover {
   color: white;
-  border: 2px solid rgba(211, 211, 211, 0.75);
-  background-color: rgba(211, 211, 211, 0.5);
-  border-radius: 5px;
+  cursor: pointer;
+  text-shadow: 0px 0px 30px gray;
 }
 
-.fullscreen-menu {
-  z-index: 9999;
-  margin-top: 100vh;
+.menuIcon {
+  position: fixed;
+  right: 40px;
+  top: 30px;
+  z-index: 10000;
 }
+
+.fullscreenMenu {
+  z-index: 9999;
+  padding-top: 120px;
+}
+
+
+// NAV LINK HOVER ANIMATION
+
+$hover-transition-time: .25s;
+
+.fullscreenMenu {
+  -webkit-transition: $hover-transition-time ease-in-out;
+  -moz-transition: $hover-transition-time ease-in-out;
+  -o-transition: $hover-transition-time ease-in-out;
+  transition: $hover-transition-time ease-in-out;
+}
+
+
+// MENU SWOOP UP ANIMATION
 
 $transition-time: .3s;
 
-.fullscreen-menu {
+.fullscreenMenu {
   -webkit-transition: margin-top $transition-time ease-in-out;
   -moz-transition: margin-top $transition-time ease-in-out;
   -o-transition: margin-top $transition-time ease-in-out;
   transition: margin-top $transition-time ease-in-out;
+}
+
+
+// SCALE MENU ON HOVER
+
+$menu-transform-size: 1.2;
+
+.menuIcon:hover {
+  -webkit-transform: scale($menu-transform-size);
+  -moz-transform: scale($menu-transform-size);
+  -o-transform: scale($menu-transform-size);
+  transform: scale($menu-transform-size);
+}
+
+$itemscale-transition-time: .25s;
+
+.menuIcon {
+  -webkit-transition: transform $itemscale-transition-time ease-in-out;
+  -moz-transition: transform $itemscale-transition-time ease-in-out;
+  -o-transition: transform $itemscale-transition-time ease-in-out;
+  transition: transform $itemscale-transition-time ease-in-out;
+}
+
+
+// CREATE AND ANIMATE HAMBURGER MENU
+// https://w3codepen.com/howto-html-css-hamburger-menu-icon/
+
+$menu-transition-time: .3s;
+
+input[type="checkbox"]#navbar-menu {
+  display: none;
+}
+
+#navbar-menu-icon {
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#navbar-menu-icon {
+  -webkit-transition: background-color $menu-transition-time ease-in-out;
+  -moz-transition: background-color $menu-transition-time ease-in-out;
+  -o-transition: background-color $menu-transition-time ease-in-out;
+  transition: background-color $menu-transition-time ease-in-out;
+}
+
+#navbar-menu-icon span {
+  display: block;
+  position: relative;
+  left: 0px;
+  height: 4px;
+  width: 30px;
+  border-radius: 2px;
+  margin: 4px;
+  background: black;
+}
+
+$translate-down: 8px;
+
+#navbar-menu:checked~#navbar-menu-icon span:nth-child(1) {
+  background: white;
+  -webkit-transform: translate(0px, $translate-down) rotate(135deg);
+  -moz-transform: translate(0px, $translate-down) rotate(135deg);
+  -o-transform: translate(0px, $translate-down) rotate(135deg);
+  transform: translate(0px, $translate-down) rotate(135deg);
+}
+
+#navbar-menu:checked~#navbar-menu-icon span:nth-child(2) {
+  background: white;
+  opacity: 0;
+  left: -25px;
+}
+
+$translate-up: -1 * $translate-down;
+
+#navbar-menu:checked~#navbar-menu-icon span:nth-child(3) {
+  background: white;
+  -webkit-transform: translate(0px, $translate-up) rotate(-135deg);
+  -moz-transform: translate(0px, $translate-up) rotate(-135deg);
+  -o-transform: translate(0px, $translate-up) rotate(-135deg);
+  transform: translate(0px, $translate-up) rotate(-135deg);
+}
+
+#navbar-menu-icon span {
+  -webkit-transition: $menu-transition-time ease-in-out;
+  -moz-transition: $menu-transition-time ease-in-out;
+  -o-transition: $menu-transition-time ease-in-out;
+  transition: $menu-transition-time ease-in-out;
 }

@@ -5,3 +5,8 @@ p.med {
 p.big {
   font-size: xx-large;
 }
+
+button:hover p.projectText,
+p.projectText:hover {
+  border-bottom: 3px solid black;
+}

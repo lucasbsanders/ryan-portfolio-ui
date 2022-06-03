@@ -13,7 +13,10 @@ img {
 
 .navLink {
   color: white;
-  font-size: xx-large;
+  font-size: x-large;
+}
+
+a {
   text-decoration: none;
 }
 
@@ -25,6 +28,9 @@ img {
 }
 
 img.invisible {
+  -webkit-transform: scale(.75);
+  -moz-transform: scale(.75);
+  -o-transform: scale(.75);
   transform: scale(.75);
 }
 
@@ -45,23 +51,7 @@ img {
 }
 
 
-// SCALE IMAGE ON HOVER ANIMATION
-
-.scaleImg:hover {
-  transform: scale(1.2);
-}
-
-$imgscale-transition-time: .25s;
-
-.scaleImg {
-  -webkit-transition: transform $imgscale-transition-time ease-in-out;
-  -moz-transition: transform $imgscale-transition-time ease-in-out;
-  -o-transition: transform $imgscale-transition-time ease-in-out;
-  transition: transform $imgscale-transition-time ease-in-out;
-}
-
-
-// OVERLAY LINK HOVER ANIMATION
+// OVERLAY HOVER ANIMATION
 
 .overlayContainer {
   opacity: 0;
@@ -72,27 +62,43 @@ a.imgBox:hover + .overlayContainer,
   opacity: 1;
 }
 
-$linkhover-transition-time: .25s;
+$overlayhover-transition-time: .25s;
 
 .overlayContainer {
-  -webkit-transition: opacity $linkhover-transition-time ease-in-out;
-  -moz-transition: opacity $linkhover-transition-time ease-in-out;
-  -o-transition: opacity $linkhover-transition-time ease-in-out;
-  transition: opacity $linkhover-transition-time ease-in-out;
+  -webkit-transition: opacity $overlayhover-transition-time ease-in-out;
+  -moz-transition: opacity $overlayhover-transition-time ease-in-out;
+  -o-transition: opacity $overlayhover-transition-time ease-in-out;
+  transition: opacity $overlayhover-transition-time ease-in-out;
 }
 
 
-// SCALE LINK ON HOVER ANIMATION
+// SCALE IMAGE AND LINK ON HOVER ANIMATION
 
 .navLink:hover {
+  font-size: xx-large;
+}
+
+.scaleImg:hover {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
   transform: scale(1.2);
 }
 
 $scalelink-transition-time: .25s;
 
 .navLink {
-  -webkit-transition: transform $scalelink-transition-time ease-in-out;
-  -moz-transition: transform $scalelink-transition-time ease-in-out;
-  -o-transition: transform $scalelink-transition-time ease-in-out;
-  transition: transform $scalelink-transition-time ease-in-out;
+  -webkit-transition: font-size $scalelink-transition-time ease-in-out;
+  -moz-transition: font-size $scalelink-transition-time ease-in-out;
+  -o-transition: font-size $scalelink-transition-time ease-in-out;
+  transition: font-size $scalelink-transition-time ease-in-out;
+}
+
+$scaleimg-transition-time: .25s;
+
+.scaleImg {
+  -webkit-transition: transform $scaleimg-transition-time ease-in-out;
+  -moz-transition: transform $scaleimg-transition-time ease-in-out;
+  -o-transition: transform $scaleimg-transition-time ease-in-out;
+  transition: transform $scaleimg-transition-time ease-in-out;
 }
