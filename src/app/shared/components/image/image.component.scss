@@ -1,25 +1,98 @@
-.overlayBox {
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.overlayBox > .overlayText {
-  color: white;
-  font-size: xx-large;
-}
-
-a {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
 img {
   max-width: 100%;
 }
 
 .padBox {
   padding: 10px;
+}
+
+.overlayBox {
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.navLink {
+  color: white;
+  font-size: xx-large;
+  text-decoration: none;
+}
+
+
+// LOAD IMAGE ANIMATION
+
+.imgBox.invisible {
+  opacity: 0;
+}
+
+img.invisible {
+  transform: scale(.75);
+}
+
+$imgload-transition-time: .5s;
+
+.imgBox {
+  -webkit-transition: opacity $imgload-transition-time ease-in-out;
+  -moz-transition: opacity $imgload-transition-time ease-in-out;
+  -o-transition: opacity $imgload-transition-time ease-in-out;
+  transition: opacity $imgload-transition-time ease-in-out;
+}
+
+img {
+  -webkit-transition: transform $imgload-transition-time ease-in-out;
+  -moz-transition: transform $imgload-transition-time ease-in-out;
+  -o-transition: transform $imgload-transition-time ease-in-out;
+  transition: transform $imgload-transition-time ease-in-out;
+}
+
+
+// SCALE IMAGE ON HOVER ANIMATION
+
+.scaleImg:hover {
+  transform: scale(1.2);
+}
+
+$imgscale-transition-time: .25s;
+
+.scaleImg {
+  -webkit-transition: transform $imgscale-transition-time ease-in-out;
+  -moz-transition: transform $imgscale-transition-time ease-in-out;
+  -o-transition: transform $imgscale-transition-time ease-in-out;
+  transition: transform $imgscale-transition-time ease-in-out;
+}
+
+
+// OVERLAY LINK HOVER ANIMATION
+
+.overlayContainer {
+  opacity: 0;
+}
+
+a.imgBox:hover + .overlayContainer,
+.overlayContainer:hover {
+  opacity: 1;
+}
+
+$linkhover-transition-time: .25s;
+
+.overlayContainer {
+  -webkit-transition: opacity $linkhover-transition-time ease-in-out;
+  -moz-transition: opacity $linkhover-transition-time ease-in-out;
+  -o-transition: opacity $linkhover-transition-time ease-in-out;
+  transition: opacity $linkhover-transition-time ease-in-out;
+}
+
+
+// SCALE LINK ON HOVER ANIMATION
+
+.navLink:hover {
+  transform: scale(1.2);
+}
+
+$scalelink-transition-time: .25s;
+
+.navLink {
+  -webkit-transition: transform $scalelink-transition-time ease-in-out;
+  -moz-transition: transform $scalelink-transition-time ease-in-out;
+  -o-transition: transform $scalelink-transition-time ease-in-out;
+  transition: transform $scalelink-transition-time ease-in-out;
 }

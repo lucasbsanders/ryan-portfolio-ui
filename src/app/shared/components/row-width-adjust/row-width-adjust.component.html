@@ -1,4 +1,4 @@
 <div class="row"
-  [ngStyle]="{'margin': isMedium || !width || width===Width.XL || width===Width.FULL  ? '0' : width===Width.L ? '0 4vw' : width===Width.M ? '0 8vw': width===Width.S ? '0 12vw' : '0 16vw'}">
+  [ngStyle]="{'margin': isMedium || !width || width===Width.XL || width===Width.FULL  ? '0' : width===Width.L ? '0 4vw' : width===Width.M ? '0 8vw': width===Width.S ? '0 12vw' : '0 16vw'}" [ngClass]="{'mx-1': width===Width.FULL}">
   <ng-content></ng-content>
 </div>

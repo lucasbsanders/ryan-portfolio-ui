@@ -1,9 +1,10 @@
-<nav id="navbar" class="navbar" [ngClass]="{'background-fade': menuOpen, 'background-regular': !menuOpen}" (window:resize)="onResize()">
+<nav id="navbar" class="navbar" [ngClass]="{'background-fade': menuOpen}" (window:resize)="onResize()">
   <div class="container">
     <div class="row position-relative">
 
-      <div class="col-sm-4 align-self-center homeButton" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop, 'position-absolute': smallScreen && isAtTop}">
-        <div [ngClass]="{'text-center': smallScreen && !isAtTop}" [ngStyle]="{'display': isHomepage ? 'none' : ''}">
+      <div class="align-self-center homeButton" [ngClass]="{'col-12 order-1': isAtTop, 'col-sm-12 order-4': !isAtTop, 'position-absolute': smallScreen}">
+
+        <div [ngStyle]="{'display': isHomepage ? 'none' : ''}">
           <a *ngIf="!smallScreen; else closeButton" class="montserrat navLink" routerLink="/"
             [ngStyle]="{'color': menuOpen ? 'white' : 'black', 'border-color': menuOpen ? 'white' : 'black'}" (click)="setMenuOpen(false)">
             Back
@@ -11,18 +12,20 @@
         </div>
       </div>
 
-      <div class="col-sm-4 position-relative brandCol" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop}"
+      <div class="position-relative brandCol" [ngClass]="{'col-12 col-sm-4 order-2': isAtTop, 'col-6 order-1': !isAtTop}"
         [ngStyle]="{'height.px': isAtTop ? 100 : 60}">
-        <a class="navbar-brand position-absolute top-50 start-50 translate-middle h-100" routerLink="/"
+
+        <a class="navbar-brand h-100" routerLink="/" [ngClass]="{'position-absolute top-50 start-50 translate-middle' : isAtTop}"
           (mouseover)="mouseOverBrand(true)" (mouseout)="mouseOverBrand(false)" (click)="clickBrand()">
-          <img class="h-100" [src]="brandLinks[brandSelection]" alt="[Ryan Fennessey]">
+          <img class="h-100 scaleImage" [src]="brandLinks[brandSelection]" alt="[Ryan Fennessey]" [ngStyle]="{'background-color' : menuOpen ? '' : 'white'}">
         </a>
       </div>
 
-      <div class="col-sm-4 align-self-center" [ngClass]="{'col-12': isAtTop, 'col-4': !isAtTop}">
-        <div class="float-sm-end text-center">
+      <div class="order-3 col-6 align-self-center" [ngClass]="{'col-6': !isAtTop, 'col-12': isAtTop}">
+
+        <div [ngClass]="{'float-end': !isAtTop, 'text-center': isAtTop}">
           <input type="checkbox" id="navbar-menu" [checked]="menuOpen" disabled>
-          <label id="navbar-menu-icon" for="navbar-menu" (mousedown)="clickMenuButton()">
+          <label id="navbar-menu-icon" for="navbar-menu" class="scaleMenu p-1" [ngStyle]="{'background-color' : menuOpen ? '' : 'white'}" (mousedown)="clickMenuButton()">
             <span></span>
             <span></span>
             <span></span>

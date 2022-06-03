@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { PageDefault } from 'src/app/shared/classes.const';
-import { Page } from 'src/app/shared/interfaces.const';
+import { iPage } from 'src/app/shared/interfaces.const';
 import { PageType, TileType, Width } from '../../../shared/enums.const';
 import { NavbarService } from '../../services/navbar.service';
 import { PageReadService } from '../../services/page-read.service';
@@ -18,9 +18,9 @@ export class PageDisplayComponent implements OnInit {
   Width = Width;
   PageType = PageType;
 
-  @Input() pageObs = new Observable<Page>();
+  @Input() pageObs = new Observable<iPage>();
 
-  page: Page = new PageDefault();
+  page: iPage = new PageDefault();
   pageNotFound = false;
 
   constructor(
@@ -41,12 +41,12 @@ export class PageDisplayComponent implements OnInit {
           return this.pageService.getPageByRoute(path);
         })
       )
-      .subscribe((page: Page) => this.setPage(page));
+      .subscribe((page: iPage) => this.setPage(page));
 
-    this.pageObs.subscribe((page: Page) => this.setPage(page));
+    this.pageObs.subscribe((page: iPage) => this.setPage(page));
   }
 
-  setPage(page: Page) {
+  setPage(page: iPage) {
     this.page = page;
         
     if (!this.page) this.pageNotFound = true;
