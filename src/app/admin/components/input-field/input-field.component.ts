@@ -28,6 +28,8 @@ export class InputFieldComponent implements OnInit {
   changeText(key: string, event: any) {
     if (this.imageNumber > -1) this.changeImage(key, event.target.value);
     else this.pageEdit.changeTile(this.tileNumber, key, event.target.value);
+
+    this.styleTextarea(event.target, '');
   }
 
   changeNumber(key: string, event: any) {

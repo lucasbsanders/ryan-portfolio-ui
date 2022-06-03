@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { PageDefault } from 'src/app/shared/classes.const';
 import { TileType } from 'src/app/shared/enums.const';
-import { Page } from 'src/app/shared/interfaces.const';
+import { iPage } from 'src/app/shared/interfaces.const';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PageEditService {
 
-  page: Page = new PageDefault();
+  page: iPage = new PageDefault();
   
-  pageSubject: Subject<Page> = new Subject<Page>();
-  pageObs: Observable<Page> = this.pageSubject.asObservable();
+  pageSubject: Subject<iPage> = new Subject<iPage>();
+  pageObs: Observable<iPage> = this.pageSubject.asObservable();
 
   constructor() {}
 
@@ -21,6 +21,7 @@ export class PageEditService {
   }
 
   update() {
+    this.page = JSON.parse(JSON.stringify(this.page));
     this.pageSubject.next(this.page);
   }
 

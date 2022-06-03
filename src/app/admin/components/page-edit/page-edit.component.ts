@@ -5,7 +5,7 @@ import { AwsConnectService } from 'src/app/admin/services/aws-connect.service';
 import { NavbarService } from 'src/app/portfolio/services/navbar.service';
 import { PageReadService } from 'src/app/portfolio/services/page-read.service';
 import { PageType, TileType, Width } from 'src/app/shared/enums.const';
-import { Page } from 'src/app/shared/interfaces.const';
+import { iPage } from 'src/app/shared/interfaces.const';
 import { environment } from 'src/environments/environment';
 import { PageEditService } from '../../services/page-edit.service';
 
@@ -24,11 +24,11 @@ export class PageEditComponent implements OnInit {
   pageNotFound = false;
   tilePreviewMap = new Map();
 
-  get page(): Page {
+  get page(): iPage {
     return this.pageEdit.page;
   }
 
-  get pageObs(): Observable<Page> {
+  get pageObs(): Observable<iPage> {
     return this.pageEdit.pageObs;
   }
 
@@ -55,7 +55,7 @@ export class PageEditComponent implements OnInit {
           return this.pageService.getPageByRoute(paramMap.get('path'));
         })
       )
-      .subscribe((page: Page) => {
+      .subscribe((page: iPage) => {
         if (!this.page) this.pageNotFound = true;
         else this.pageEdit.page = page;
       });
