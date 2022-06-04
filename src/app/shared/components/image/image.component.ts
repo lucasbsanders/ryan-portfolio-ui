@@ -21,4 +21,9 @@ export class ImageComponent {
 
   constructor() {}
 
+  loadImageOnScroll(isInView: boolean) {
+    if (isInView && this.loading)
+      this.loading = false;
+  }
+
 }

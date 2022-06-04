@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavbarService } from '../../services/navbar.service';
 
 @Component({
@@ -7,7 +7,6 @@ import { NavbarService } from '../../services/navbar.service';
   styleUrls: ['./fullscreen-menu.component.scss'],
 })
 export class FullscreenMenuComponent implements OnInit {
-
   menuData: any[] = [];
 
   get menuOpen(): boolean {
@@ -26,7 +25,21 @@ export class FullscreenMenuComponent implements OnInit {
   }
 
   closeMenu(event: any) {
-    if (!event.ctrlKey)
-      this.navbarService.menuOpen = false;
+    if (!event.ctrlKey) this.setMenuOpen(false);
+  }
+
+  clickMenuButton(): void {
+    this.setMenuOpen(!this.navbarService.menuOpen);
+  }
+
+  setMenuOpen(menuOpen: boolean): void {
+    this.navbarService.menuOpen = menuOpen;
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeydownHandler( event: KeyboardEvent) {
+    if (this.navbarService.menuOpen && (event.key === 'Escape' || event.key === 'Esc')) {
+      this.setMenuOpen(false);
+    }
   }
 }

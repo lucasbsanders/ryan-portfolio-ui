@@ -45,18 +45,12 @@ export class NavbarComponent implements AfterViewInit {
     this.onResize();
   }
 
-  mouseOverBrand(mouseIn: boolean) {
-    this.mouseIn = mouseIn;
-  }
-
   clickBrand(): void {
-    this.mouseOverBrand(true);
     this.setMenuOpen(false);
     this.navbarService.menuOpen = false;
   }
 
   clickMenuButton(): void {
-    this.mouseOverBrand(false);
     this.setMenuOpen(!this.navbarService.menuOpen);
   }
 

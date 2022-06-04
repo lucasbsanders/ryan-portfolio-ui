@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <ng-container *ngIf="page.tiles.length > 0; else spinner">
   <div *ngFor="let tile of page.tiles" [ngSwitch]="tile.type">
 
