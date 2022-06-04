@@ -27,11 +27,13 @@ a {
   opacity: 0;
 }
 
+$imgload-transform-factor: .5;
+
 img.invisible {
-  -webkit-transform: scale(.75);
-  -moz-transform: scale(.75);
-  -o-transform: scale(.75);
-  transform: scale(.75);
+  -webkit-transform: scale($imgload-transform-factor);
+  -moz-transform: scale($imgload-transform-factor);
+  -o-transform: scale($imgload-transform-factor);
+  transform: scale($imgload-transform-factor);
 }
 
 $imgload-transition-time: .5s;

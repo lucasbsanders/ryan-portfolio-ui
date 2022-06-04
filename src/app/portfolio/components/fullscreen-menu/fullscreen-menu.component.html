@@ -2,16 +2,17 @@
   [ngStyle]="{'margin-top': menuOpen ? '0px' : '100vh'}">
   <div class="container">
     <div *ngFor="let option of menuData" class="text-center mb-3">
-      <a *ngIf="option.route" class="montserrat-bold px-3 py-1"
-        [routerLink]="'/'+option.route" (click)="closeMenu($event)">{{option.title}}</a>
-      <a *ngIf="option.url" [href]="option.url" class="montserrat-bold px-3 py-1">{{option.title}}</a>
+      <a *ngIf="option.route" class="montserrat-bold px-3 py-1" [routerLink]="'/'+option.route"
+        (click)="closeMenu($event)">{{option.title}}</a>
+      <a *ngIf="option.url" [href]="option.url" class="montserrat-bold px-3 py-1" target="_blank" rel="noopener noreferrer">{{option.title}}</a>
     </div>
   </div>
 </div>
 
 <div class="menuIcon">
   <input type="checkbox" id="navbar-menu" [checked]="menuOpen" disabled>
-  <label id="navbar-menu-icon" for="navbar-menu" class="p-1" [ngStyle]="{'background-color' : menuOpen ? '' : 'white'}" (mousedown)="clickMenuButton()">
+  <label id="navbar-menu-icon" for="navbar-menu" class="p-1" [ngStyle]="{'background-color' : menuOpen ? '' : 'white'}"
+    (mousedown)="clickMenuButton()">
     <span></span>
     <span></span>
     <span></span>

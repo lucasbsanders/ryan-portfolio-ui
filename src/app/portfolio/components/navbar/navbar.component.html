@@ -12,9 +12,9 @@
       </div>
 
       <div class="position-relative col-12 col-sm-4 order-1 order-sm-2 brandCol"
-        [ngStyle]="{'height.px': isAtTop ? 100 : 60}">
+        [ngStyle]="{'height.px': isAtTop ? 100 : 50}">
 
-        <a class="navbar-brand h-100 position-absolute top-50 start-50 translate-middle" routerLink="/" (click)="clickBrand()">
+        <a class="navbar-brand h-100 position-absolute top-50 start-50 translate-middle p-0" routerLink="/" (click)="clickBrand()">
           <img class="h-100 scaleImage" [src]="brandLinks[brandSelection]" alt="[Ryan Fennessey]" [ngStyle]="{'background-color' : menuOpen ? '' : 'white'}">
         </a>
       </div>

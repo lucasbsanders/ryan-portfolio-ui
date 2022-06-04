@@ -12,8 +12,8 @@ a:hover {
 
 .menuIcon {
   position: fixed;
-  right: 40px;
-  top: 30px;
+  right: 7vw;
+  top: 25px;
   z-index: 10000;
 }
 
@@ -49,7 +49,7 @@ $transition-time: .3s;
 
 // SCALE MENU ON HOVER
 
-$menu-transform-size: 1.2;
+$menu-transform-size: 1.3;
 
 .menuIcon:hover {
   -webkit-transform: scale($menu-transform-size);
