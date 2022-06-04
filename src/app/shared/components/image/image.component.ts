@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { ImageDefault } from '../../classes.const';
+import { iImage } from '../../interfaces.const';
 
 @Component({
   selector: 'app-image',
@@ -7,26 +9,16 @@ import { Component, Input } from '@angular/core';
 })
 export class ImageComponent {
 
-  @Input() image: any = {};
+  @Input() image: iImage = new ImageDefault();
   @Input() overlayVisible: boolean = false;
-
-  private static mouseOverId: string = ''; 
+  @Input() scaleImageHover: boolean = false;
 
   get showOverlay(): boolean {
-    return this.image && this.image.link && this.overlayVisible && ImageComponent.mouseOverId === this.image.s3Key + this.image.order;
+    return this.image && !(!this.image.link) && this.overlayVisible;
   }
 
   loading: boolean = true;
 
   constructor() {}
-
-  setMouseOver(hover: boolean) {
-    if (this.overlayVisible) {
-      if (hover)
-        ImageComponent.mouseOverId = this.image.s3Key + this.image.order;
-      else
-        ImageComponent.mouseOverId = '';
-    }
-  }
 
 }
