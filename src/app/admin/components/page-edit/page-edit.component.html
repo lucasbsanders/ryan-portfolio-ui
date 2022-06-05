@@ -16,19 +16,15 @@
     
     <div class="col-auto">
       <button type="btn" class="btn btn-primary" (click)="savePage()">
-        Save Page To DynamoDB
+        Save Page To DynamoDB{{resultMessage ? ' ('+resultMessage+')' : ''}}
       </button>
     </div>
 
     <div class="col">
-      <button type="btn" class="btn btn-danger float-end" (click)="deletePage()">
+      <button type="btn" class="btn btn-danger" (click)="deletePage()">
         Delete Page
       </button>
     </div>
-  </div>
-
-  <div class="row background-white" *ngIf="resultMessage">
-    <p>{{resultMessage}}</p>
   </div>
 </div>
 
