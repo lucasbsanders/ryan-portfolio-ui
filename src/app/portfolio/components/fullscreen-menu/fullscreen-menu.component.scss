@@ -97,7 +97,7 @@ $img-scale-transition-time: .3s;
 
 .scaleImage {
   position: relative;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
 
   -webkit-transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out;
@@ -132,7 +132,7 @@ input[type="checkbox"]#navbar-menu {
 }
 
 #navbar-menu-icon {
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
 }
 

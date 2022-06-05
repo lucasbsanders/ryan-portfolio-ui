@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { NavbarService } from '../../services/navbar.service';
 import { environment } from 'src/environments/environment';
+import { Brand } from 'src/app/shared/enums.const';
 
 @Component({
   selector: 'app-fullscreen-menu',
@@ -10,9 +11,12 @@ import { environment } from 'src/environments/environment';
 export class FullscreenMenuComponent implements OnInit, AfterViewInit {
 
   menuData: any[] = [];
+  icons: any = {};
 
   get brandSelection(): string {
-    return !this.isMenuOpen ? environment.icons.primary : environment.icons.secondary;
+    return this.icons ?
+      !this.isMenuOpen ? this.icons[Brand.primary] : this.icons[Brand.secondary]
+      : '';
   }
 
   get isMenuOpen(): boolean {
@@ -34,11 +38,14 @@ export class FullscreenMenuComponent implements OnInit, AfterViewInit {
   constructor(private navbarService: NavbarService) {}
 
   ngOnInit(): void {
-    this.navbarService
-      .getMenuData()
-      .subscribe(
-        (menuData: any) =>
-          (this.menuData = menuData.sort((a: any, b: any) => a.order - b.order))
+    this.navbarService.getMenuData()
+      .subscribe((menuData: any) =>
+        this.menuData = menuData.sort((a: any, b: any) => a.order - b.order)
+      );
+
+    this.navbarService.getIcons()
+      .subscribe((data: any) =>
+        this.icons = data
       );
   }
 
