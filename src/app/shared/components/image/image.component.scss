@@ -8,11 +8,11 @@ img {
 
 .overlayBox {
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .navLink {
-  color: white;
+  color: lightgray;
   font-size: xx-large;
   text-decoration: none;
 }
@@ -24,8 +24,20 @@ img {
   opacity: 0;
 }
 
+
+// LOAD IMAGE ANIMATION
+
+.imgBox.invisible {
+  opacity: 0;
+}
+
+$imgload-transform-factor: .5;
+
 img.invisible {
-  transform: scale(.75);
+  -webkit-transform: scale($imgload-transform-factor);
+  -moz-transform: scale($imgload-transform-factor);
+  -o-transform: scale($imgload-transform-factor);
+  transform: scale($imgload-transform-factor);
 }
 
 $imgload-transition-time: .5s;
@@ -45,23 +57,7 @@ img {
 }
 
 
-// SCALE IMAGE ON HOVER ANIMATION
-
-.scaleImg:hover {
-  transform: scale(1.2);
-}
-
-$imgscale-transition-time: .25s;
-
-.scaleImg {
-  -webkit-transition: transform $imgscale-transition-time ease-in-out;
-  -moz-transition: transform $imgscale-transition-time ease-in-out;
-  -o-transition: transform $imgscale-transition-time ease-in-out;
-  transition: transform $imgscale-transition-time ease-in-out;
-}
-
-
-// OVERLAY LINK HOVER ANIMATION
+// OVERLAY HOVER ANIMATION
 
 .overlayContainer {
   opacity: 0;
@@ -72,27 +68,46 @@ a.imgBox:hover + .overlayContainer,
   opacity: 1;
 }
 
-$linkhover-transition-time: .25s;
+$overlayhover-transition-time: .25s;
 
 .overlayContainer {
-  -webkit-transition: opacity $linkhover-transition-time ease-in-out;
-  -moz-transition: opacity $linkhover-transition-time ease-in-out;
-  -o-transition: opacity $linkhover-transition-time ease-in-out;
-  transition: opacity $linkhover-transition-time ease-in-out;
+  -webkit-transition: opacity $overlayhover-transition-time ease-in-out;
+  -moz-transition: opacity $overlayhover-transition-time ease-in-out;
+  -o-transition: opacity $overlayhover-transition-time ease-in-out;
+  transition: opacity $overlayhover-transition-time ease-in-out;
 }
 
 
-// SCALE LINK ON HOVER ANIMATION
+// SCALE IMAGE AND LINK ON HOVER ANIMATION
 
 .navLink:hover {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+  text-shadow: 0px 0px 50px lightgray;
+  color: white;
+}
+
+.scaleImg:hover {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
   transform: scale(1.2);
 }
 
-$scalelink-transition-time: .25s;
+$scaleitem-transition-time: .3s;
+
+.scaleImg {
+  -webkit-transition: transform $scaleitem-transition-time ease-in-out;
+  -moz-transition: transform $scaleitem-transition-time ease-in-out;
+  -o-transition: transform $scaleitem-transition-time ease-in-out;
+  transition: transform $scaleitem-transition-time ease-in-out;
+}
 
 .navLink {
-  -webkit-transition: transform $scalelink-transition-time ease-in-out;
-  -moz-transition: transform $scalelink-transition-time ease-in-out;
-  -o-transition: transform $scalelink-transition-time ease-in-out;
-  transition: transform $scalelink-transition-time ease-in-out;
+  -webkit-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
+  -moz-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
+  -o-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
+  transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
 }

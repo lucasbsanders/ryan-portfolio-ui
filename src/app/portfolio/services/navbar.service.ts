@@ -8,7 +8,7 @@ import { PageReadService } from './page-read.service';
 })
 export class NavbarService {
 
-  menuOpen: boolean = false;
+  isMenuOpen: boolean = false;
   isAtTop: boolean = true;
   isSmallScreen: boolean = false;
   isMediumScreen: boolean = false;

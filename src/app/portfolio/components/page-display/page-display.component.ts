@@ -23,6 +23,14 @@ export class PageDisplayComponent implements OnInit {
   page: iPage = new PageDefault();
   pageNotFound = false;
 
+  get isHomepage(): boolean {
+    return this.navbarService.isHomepage;
+  }
+
+  get isSmallScreen(): boolean {
+    return this.navbarService.isSmallScreen;
+  }
+
   constructor(
     private navbarService: NavbarService,
     private pageService: PageReadService,
