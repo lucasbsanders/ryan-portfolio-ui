@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { ProjectNavigationService } from '../../services/project-navigation.service';
+import { NavbarService } from '../../services/navbar.service';
 
 @Component({
   selector: 'app-project-navigation',
@@ -17,7 +18,12 @@ export class ProjectNavigationComponent implements OnChanges {
     return this.projectNavService.orderedProjects;
   }
 
-  constructor(private projectNavService: ProjectNavigationService) {}
+  get isSmallScreen(): boolean {
+    return this.navbarService.isSmallScreen;
+  }
+
+  constructor(private navbarService: NavbarService,
+    private projectNavService: ProjectNavigationService) {}
 
   ngOnChanges(): void {
     this.previousIndex = -1;
