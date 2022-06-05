@@ -1,10 +1,18 @@
-.overlayBox {
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+img {
+  max-width: 100%;
 }
 
-.overlayBox > .overlayText {
-  color: white;
+.padBox {
+  padding: 10px;
+}
+
+.overlayBox {
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.navLink {
+  color: lightgray;
   font-size: xx-large;
 }
 
@@ -12,14 +20,90 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
+
+// LOAD IMAGE ANIMATION
+
+.imgBox.invisible {
+  opacity: 0;
+}
+
+$imgload-transform-factor: .5;
+
+img.invisible {
+  -webkit-transform: scale($imgload-transform-factor);
+  -moz-transform: scale($imgload-transform-factor);
+  -o-transform: scale($imgload-transform-factor);
+  transform: scale($imgload-transform-factor);
+}
+
+$imgload-transition-time: .5s;
+
+.imgBox {
+  -webkit-transition: opacity $imgload-transition-time ease-in-out;
+  -moz-transition: opacity $imgload-transition-time ease-in-out;
+  -o-transition: opacity $imgload-transition-time ease-in-out;
+  transition: opacity $imgload-transition-time ease-in-out;
 }
 
 img {
-  max-width: 100%;
+  -webkit-transition: transform $imgload-transition-time ease-in-out;
+  -moz-transition: transform $imgload-transition-time ease-in-out;
+  -o-transition: transform $imgload-transition-time ease-in-out;
+  transition: transform $imgload-transition-time ease-in-out;
 }
 
-.padBox {
-  padding: 10px;
+
+// OVERLAY HOVER ANIMATION
+
+.overlayContainer {
+  opacity: 0;
+}
+
+a.imgBox:hover + .overlayContainer,
+.overlayContainer:hover {
+  opacity: 1;
+}
+
+$overlayhover-transition-time: .25s;
+
+.overlayContainer {
+  -webkit-transition: opacity $overlayhover-transition-time ease-in-out;
+  -moz-transition: opacity $overlayhover-transition-time ease-in-out;
+  -o-transition: opacity $overlayhover-transition-time ease-in-out;
+  transition: opacity $overlayhover-transition-time ease-in-out;
+}
+
+
+// SCALE IMAGE AND LINK ON HOVER ANIMATION
+
+.navLink:hover {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+  text-shadow: 0px 0px 50px lightgray;
+  color: white;
+}
+
+.scaleImg:hover {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+$scaleitem-transition-time: .3s;
+
+.scaleImg {
+  -webkit-transition: transform $scaleitem-transition-time ease-in-out;
+  -moz-transition: transform $scaleitem-transition-time ease-in-out;
+  -o-transition: transform $scaleitem-transition-time ease-in-out;
+  transition: transform $scaleitem-transition-time ease-in-out;
+}
+
+.navLink {
+  -webkit-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
+  -moz-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
+  -o-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
+  transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
 }

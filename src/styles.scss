@@ -45,11 +45,10 @@ h6 {
 
 .montserrat-bold {
   font-family: "Montserrat-Bold", Arial, sans-serif;
-  font-weight: bold;
 }
 
 .background-fade {
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.85);
 }
 
 .spaceBelow {
@@ -57,12 +56,9 @@ h6 {
 }
 
 $shadow-length: 10;
-$shadow-blur: 16px;
-$shadow-color: lightgray;
+$shadow-blur: 25px;
+$shadow-color: gray;
 
 .customShadow {
-  box-shadow: $shadow-length * 1px $shadow-length * 1px $shadow-blur $shadow-color,
-    $shadow-length * -1px $shadow-length * -1px $shadow-blur $shadow-color,
-    $shadow-length * 1px $shadow-length * -1px $shadow-blur $shadow-color,
-    $shadow-length * -1px $shadow-length * 1px $shadow-blur $shadow-color;
+  box-shadow: 0px 0px $shadow-blur $shadow-color;
 }

@@ -5,14 +5,14 @@
         [routerLink]="'/' + orderedProjects[previousIndex]">
         <p class="big mb-0 ms-5 me-3"><</p>
         &nbsp;
-        <p class="med my-0 align-self-center">{{orderedProjects[previousIndex]}}</p>
+        <p class="med my-0 align-self-center projectText">{{orderedProjects[previousIndex]}}</p>
       </button>
     </div>
 
     <div class="col-6">
       <button *ngIf="nextIndex > -1" class="btn btn-white w-100 d-flex"
         [routerLink]="'/' + orderedProjects[nextIndex]">
-        <p class="med ms-auto my-0 align-self-center">{{orderedProjects[nextIndex]}}</p>
+        <p class="med ms-auto my-0 align-self-center projectText">{{orderedProjects[nextIndex]}}</p>
         &nbsp;
         <p class="big mb-0 me-5 ms-3">></p>
       </button>

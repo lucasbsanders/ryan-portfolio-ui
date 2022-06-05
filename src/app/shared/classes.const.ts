@@ -1,12 +1,13 @@
 import { SubtitleStyle, TileType, Width } from "./enums.const";
+import { iImage, iPage, iTile } from "./interfaces.const";
 
-export class PageDefault {
+export class PageDefault implements iPage {
   route = '';
   type = '';
   tiles = []
 };
 
-export class TileDefault {
+export class TileDefault implements iTile {
   order = 0;
   type = TileType.Subtitle;
   text = '';
@@ -19,7 +20,7 @@ export class TileDefault {
   videoId = '';
 };
 
-export class ImageDefault {
+export class ImageDefault implements iImage {
   order = 0;
   s3Key = '';
   link = '';
@@ -28,4 +29,5 @@ export class ImageDefault {
   overlay = false;
   icon = false;
   tags = [];
+  scale = false;
 };

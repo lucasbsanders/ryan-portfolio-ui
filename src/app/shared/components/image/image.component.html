@@ -1,35 +1,37 @@
-<a *ngIf="image.link" class="w-100 h-100 text-center" [routerLink]="'/'+image.link" [ngClass]="{'padBox': image.shadow}"
-  (mouseenter)="setMouseOver(true)">
+<a *ngIf="image.link" class="w-100 h-100 text-center imgBox" [routerLink]="'/'+image.link"
+  [ngClass]="{'padBox': image.shadow, 'invisible' : loading}">
   <ng-container *ngTemplateOutlet="imageTag"></ng-container>
 </a>
 
-<div *ngIf="!image.link" class="w-100 h-100 text-center" [ngClass]="{'padBox': image.shadow}"
-  (mouseenter)="setMouseOver(true)">
+<div *ngIf="!image.link" class="w-100 h-100 text-center imgBox"
+  [ngClass]="{'padBox': image.shadow, 'invisible' : loading, 'scaleImg': scaleImageHover}">
   <ng-container *ngTemplateOutlet="imageTag"></ng-container>
 </div>
 
 <ng-template #imageTag>
-  <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename" [ngClass]="{'customShadow': image.shadow}"
-    [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}"
-    (load)="loading=false">
+  <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename"
+    [ngClass]="{'customShadow': image.shadow, 'invisible' : loading}"
+    [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}" appEnterViewPort
+    (isAtTop)="loadImageOnScroll($event)">
 </ng-template>
 
 
 <!-- Link/URL overlay: -->
-<div class="position-absolute top-0 left-0 pe-2 w-100 h-100" [hidden]="!showOverlay" (mouseleave)="setMouseOver(false)">
-  <div class="w-100 h-100 overlayBox p-3 align-items-center d-flex">
-    <a *ngIf="image.link && !image.url" class="montserrat-bold overlayText text-center" [routerLink]="'/'+image.link">
+<div class="position-absolute w-100 h-100 top-0 left-0 pe-2 overlayContainer" *ngIf="showOverlay">
+  <div class="w-100 h-100 p-3 align-items-center d-flex overlayBox">
+    <a *ngIf="image.link && !image.url" class="montserrat-bold p-4 navLink" [routerLink]="'/'+image.link">
       {{image.link}}
     </a>
 
-    <a *ngIf="image.url" class="montserrat-bold overlayText text-center" [href]="image.url">
+    <a *ngIf="image.url" class="montserrat-bold p-4 navLink" [href]="image.url" target="_blank"
+      rel="noopener noreferrer">
       {{image.link ? image.link : image.url}}
     </a>
   </div>
 </div>
 
 <!-- Loading overlay: -->
-<div class="position-absolute bottom-0 left-0 pe-2 w-100 h-100" [hidden]="!loading">
+<div class="position-absolute bottom-0 left-0 pe-2 w-100" [hidden]="!loading">
   <div class="row w-100 h-100 text-center align-items-center">
     <div class="col-12">
       <div class="spinner-border text-secondary" role="status">
