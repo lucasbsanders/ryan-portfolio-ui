@@ -1,5 +1,5 @@
 <div class="fullscreenMenu position-fixed background-fade w-100 h-100"
-  [ngStyle]="{'margin-top': isMenuOpen ? '0px' : '100vh'}" (window:resize)="onResize()">
+  [ngStyle]="{'margin-top.vh': isMenuOpen ? 0 : 100}" (window:resize)="onResize()">
   <div class="container">
     <div *ngFor="let option of menuData" class="text-center mb-3 row">
       <a *ngIf="option.route" class="montserrat-bold px-3 py-1 menuLink" [routerLink]="'/'+option.route"
