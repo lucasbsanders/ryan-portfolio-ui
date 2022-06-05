@@ -8,12 +8,12 @@ img {
 
 .overlayBox {
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .navLink {
-  color: white;
-  font-size: x-large;
+  color: lightgray;
+  font-size: xx-large;
 }
 
 a {
@@ -77,7 +77,12 @@ $overlayhover-transition-time: .25s;
 // SCALE IMAGE AND LINK ON HOVER ANIMATION
 
 .navLink:hover {
-  font-size: xx-large;
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+  text-shadow: 0px 0px 50px lightgray;
+  color: white;
 }
 
 .scaleImg:hover {
@@ -87,20 +92,18 @@ $overlayhover-transition-time: .25s;
   transform: scale(1.2);
 }
 
-$scalelink-transition-time: .25s;
-
-.navLink {
-  -webkit-transition: font-size $scalelink-transition-time ease-in-out;
-  -moz-transition: font-size $scalelink-transition-time ease-in-out;
-  -o-transition: font-size $scalelink-transition-time ease-in-out;
-  transition: font-size $scalelink-transition-time ease-in-out;
-}
-
-$scaleimg-transition-time: .25s;
+$scaleitem-transition-time: .3s;
 
 .scaleImg {
-  -webkit-transition: transform $scaleimg-transition-time ease-in-out;
-  -moz-transition: transform $scaleimg-transition-time ease-in-out;
-  -o-transition: transform $scaleimg-transition-time ease-in-out;
-  transition: transform $scaleimg-transition-time ease-in-out;
+  -webkit-transition: transform $scaleitem-transition-time ease-in-out;
+  -moz-transition: transform $scaleitem-transition-time ease-in-out;
+  -o-transition: transform $scaleitem-transition-time ease-in-out;
+  transition: transform $scaleitem-transition-time ease-in-out;
+}
+
+.navLink {
+  -webkit-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
+  -moz-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
+  -o-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
+  transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
 }

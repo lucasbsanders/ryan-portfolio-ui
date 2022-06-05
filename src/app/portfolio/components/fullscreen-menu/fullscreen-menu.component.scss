@@ -1,15 +1,3 @@
-a {
-  color: lightgray;
-  text-decoration: none;
-  font-size: xx-large;
-}
-
-a:hover {
-  color: white;
-  cursor: pointer;
-  text-shadow: 0px 0px 30px gray;
-}
-
 .menuIcon {
   position: fixed;
   right: 7vw;
@@ -17,21 +5,60 @@ a:hover {
   z-index: 10000;
 }
 
-.fullscreenMenu {
-  z-index: 9999;
-  padding-top: 120px;
+.brandIcon {
+  position: fixed;
+  left: 7vw;
+  top: 25px;
+  z-index: 10000;
+}
+
+.scaleImage {
+  position: relative;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.fitContentWidth {
+  width: fit-content;
+}
+
+a.navLink {
+  text-decoration: none;
+  font-size: large;
+}
+
+a.navLink:hover {
+  border-bottom: 3px solid black;
+  font-family: "Montserrat-Bold", Arial, sans-serif;
 }
 
 
-// NAV LINK HOVER ANIMATION
+// MENU OPTION HOVER ANIMATION
 
-$hover-transition-time: .25s;
+a.menuLink {
+  color: lightgray;
+  text-decoration: none;
+  font-size: xx-large;
+  cursor: pointer;
+}
 
-.fullscreenMenu {
-  -webkit-transition: $hover-transition-time ease-in-out;
-  -moz-transition: $hover-transition-time ease-in-out;
-  -o-transition: $hover-transition-time ease-in-out;
-  transition: $hover-transition-time ease-in-out;
+a.menuLink:hover {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+
+  color: white;
+  text-shadow: 0px 0px 30px gray;
+}
+
+$hover-transition-time: .3s;
+
+a.menuLink {
+  -webkit-transition: color $hover-transition-time ease-in-out, transform $hover-transition-time ease-in-out;
+  -moz-transition: color $hover-transition-time ease-in-out, transform $hover-transition-time ease-in-out;
+  -o-transition: color $hover-transition-time ease-in-out, transform $hover-transition-time ease-in-out;
+  transition: color $hover-transition-time ease-in-out, transform $hover-transition-time ease-in-out;
 }
 
 
@@ -40,6 +67,9 @@ $hover-transition-time: .25s;
 $transition-time: .3s;
 
 .fullscreenMenu {
+  z-index: 9000;
+  padding-top: 140px;
+
   -webkit-transition: margin-top $transition-time ease-in-out;
   -moz-transition: margin-top $transition-time ease-in-out;
   -o-transition: margin-top $transition-time ease-in-out;
@@ -47,9 +77,10 @@ $transition-time: .3s;
 }
 
 
-// SCALE MENU ON HOVER
+// SCALE MENU BUTTON AND IMAGE ON HOVER
 
 $menu-transform-size: 1.3;
+$img-transform-size: 1.2;
 
 .menuIcon:hover {
   -webkit-transform: scale($menu-transform-size);
@@ -58,13 +89,39 @@ $menu-transform-size: 1.3;
   transform: scale($menu-transform-size);
 }
 
-$itemscale-transition-time: .25s;
+.scaleImage:hover {
+  -webkit-transform: scale($img-transform-size);
+  -moz-transform: scale($img-transform-size);
+  -o-transform: scale($img-transform-size);
+  transform: scale($img-transform-size);
+}
+
+$itemscale-transition-time: .3s;
 
 .menuIcon {
   -webkit-transition: transform $itemscale-transition-time ease-in-out;
   -moz-transition: transform $itemscale-transition-time ease-in-out;
   -o-transition: transform $itemscale-transition-time ease-in-out;
   transition: transform $itemscale-transition-time ease-in-out;
+}
+
+
+// SCALE IMAGE ON HOVER AND SCROLL
+
+$imgheight-transition-time: .25s;
+
+.scaleImage {
+  -webkit-transition: height $imgheight-transition-time ease-in-out, transform $itemscale-transition-time ease-in-out;
+  -moz-transition: height $imgheight-transition-time ease-in-out, transform $itemscale-transition-time ease-in-out;
+  -o-transition: height $imgheight-transition-time ease-in-out, transform $itemscale-transition-time ease-in-out;
+  transition: height $imgheight-transition-time ease-in-out, transform $itemscale-transition-time ease-in-out;
+}
+
+.brandIcon {
+  -webkit-transition: right $imgheight-transition-time ease-in-out;
+  -moz-transition: right $imgheight-transition-time ease-in-out;
+  -o-transition: right $imgheight-transition-time ease-in-out;
+  transition: right $imgheight-transition-time ease-in-out;
 }
 
 

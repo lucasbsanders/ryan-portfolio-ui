@@ -19,11 +19,11 @@
 <!-- Link/URL overlay: -->
 <div class="position-absolute w-100 h-100 top-0 left-0 pe-2 overlayContainer" *ngIf="showOverlay">
   <div class="w-100 h-100 p-3 align-items-center d-flex overlayBox">
-    <a *ngIf="image.link && !image.url" class="montserrat-bold text-center p-5 navLink" [routerLink]="'/'+image.link">
+    <a *ngIf="image.link && !image.url" class="montserrat-bold p-4 navLink" [routerLink]="'/'+image.link">
       {{image.link}}
     </a>
 
-    <a *ngIf="image.url" class="montserrat-bold text-center p-5 navLink" [href]="image.url" target="_blank"
+    <a *ngIf="image.url" class="montserrat-bold p-4 navLink" [href]="image.url" target="_blank"
       rel="noopener noreferrer">
       {{image.link ? image.link : image.url}}
     </a>
