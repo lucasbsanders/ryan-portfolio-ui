@@ -1,5 +1,5 @@
 <div class="spaceBelow" [ngClass]="{'container': !tile.width || tile.width!==Width.FULL}">
-  <app-row-width-adjust [width]="tile.width" [ngClass]="{'mx-4': tile.width===Width.FULL && !isMedium, 'mx-0': tile.width===Width.FULL && isMedium}">
+  <app-row-width-adjust [width]="tile.width" [ngClass]="{'mx-4': tile.width===Width.FULL && !isMediumScreen, 'mx-0': tile.width===Width.FULL && isMediumScreen}">
 
     <div *ngIf="images.length>0; else noImages" class="col-12 position-relative" [ngClass]="{'col-md-6 order-first order-md-last mb-2' :
         tile.style===SubtitleStyle.Left,

@@ -24,7 +24,7 @@ export class TileBaseComponent implements OnInit, OnChanges {
     return this.navbarService.isSmallScreen;
   }
 
-  get isMedium(): boolean {
+  get isMediumScreen(): boolean {
     return this.navbarService.isMediumScreen;
   }
 

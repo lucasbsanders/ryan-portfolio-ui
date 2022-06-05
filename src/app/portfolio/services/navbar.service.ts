@@ -10,9 +10,9 @@ export class NavbarService {
 
   isMenuOpen: boolean = false;
   isAtTop: boolean = true;
+  isHomepage: boolean = false;
   isSmallScreen: boolean = false;
   isMediumScreen: boolean = false;
-  isHomepage: boolean = false;
 
   constructor(private pageService: PageReadService) {}
 
@@ -31,9 +31,16 @@ export class NavbarService {
       .pipe(map((response) => response.data));
   }
 
+  getIcons(): Observable<any> {
+    return this.pageService
+      .getPageByRoute('icons', PageType.Static)
+      .pipe(map((response) => response.data));
+  }
+
   getFooterData(): Observable<any> {
     return this.pageService
       .getPageByRoute('footer', PageType.Static)
       .pipe(map((response) => response.data));
   }
+
 }

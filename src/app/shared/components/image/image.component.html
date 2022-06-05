@@ -3,7 +3,7 @@
   <ng-container *ngTemplateOutlet="imageTag"></ng-container>
 </a>
 
-<div *ngIf="!image.link" class="w-100 h-100 text-center imgBox"
+<div *ngIf="!image.link" class="w-100 h-100 text-center"
   [ngClass]="{'padBox': image.shadow, 'invisible' : loading, 'scaleImg': scaleImageHover}">
   <ng-container *ngTemplateOutlet="imageTag"></ng-container>
 </div>

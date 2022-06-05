@@ -7,7 +7,9 @@ import { environment } from 'src/environments/environment';
 export class KeyToS3Pipe implements PipeTransform {
 
   transform(s3Key: string): string {
-    return [environment.s3.baseUrl, environment.s3.bucketName, s3Key].join('/');
+    return (!s3Key || s3Key === '') ? 
+      environment.icons.primary : 
+      [environment.s3.baseUrl, environment.s3.bucketName, s3Key].join('/');
   }
 
 }
