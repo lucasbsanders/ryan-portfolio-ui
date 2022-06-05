@@ -1,3 +1,4 @@
+<app-fullscreen-menu></app-fullscreen-menu>
 <div *ngIf="page.tiles.length > 0; else spinner" [ngStyle]="{'margin-top.px': isHomepage ? (isSmallScreen ? 130 : 140) : (isSmallScreen ? 150 : 160)}">
   <div *ngFor="let tile of page.tiles" [ngSwitch]="tile.type">
 

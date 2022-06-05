@@ -11,7 +11,7 @@
 <ng-template #imageTag>
   <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename"
     [ngClass]="{'customShadow': image.shadow, 'invisible' : loading}"
-    [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}" appEnterViewPort
+    [ngStyle]="{'width': image.icon ? '18rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}" trackViewPort
     (isAtTop)="loadImageOnScroll($event)">
 </ng-template>
 
