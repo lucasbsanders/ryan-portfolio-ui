@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { FullscreenMenuComponent } from './components/fullscreen-menu/fullscreen-menu.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageDisplayComponent } from './components/page-display/page-display.component';
 import { ProjectNavigationComponent } from './components/project-navigation/project-navigation.component';
 import { ImageGridComponent } from './components/tiles/image-grid/image-grid.component';
@@ -16,7 +15,6 @@ import { VimeoVideoComponent } from './components/tiles/vimeo-video/vimeo-video.
 
 @NgModule({
   declarations: [
-    NavbarComponent,
     FooterComponent,
     FullscreenMenuComponent,
     PageDisplayComponent,
@@ -34,7 +32,6 @@ import { VimeoVideoComponent } from './components/tiles/vimeo-video/vimeo-video.
     SharedModule
   ],
   exports: [
-    NavbarComponent,
     FooterComponent,
     FullscreenMenuComponent,
     PageDisplayComponent,

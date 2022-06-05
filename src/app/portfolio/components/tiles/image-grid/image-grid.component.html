@@ -1,7 +1,7 @@
 <div *ngIf="tile.hasFilters" class="container">
   <div class="row justify-content-center">
-    <div *ngFor="let option of filterOptions" class="col-auto align-self-center" (click)="filterItems(option)">
-      <a [ngStyle]="{'border-bottom': option===selectedFilter ? '3px solid black' : ''}" [ngClass]="{'montserrat-bold' : option===selectedFilter}">
+    <div *ngFor="let option of filterOptions" class="col-auto align-self-center text-center" (click)="filterItems(option)">
+      <a [ngStyle]="{'border-bottom': option===selectedFilter ? '3px solid black' : ''}">
         {{option}}
       </a>
     </div>
