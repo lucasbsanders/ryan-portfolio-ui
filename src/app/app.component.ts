@@ -10,7 +10,7 @@ export class AppComponent {
 
   constructor(private navbarService: NavbarService) {}
 
-  isScrollTop(isAtTop: any): void {
+  scrolledAtTop(isAtTop: any): void {
     this.navbarService.isAtTop = isAtTop;
   }
 
