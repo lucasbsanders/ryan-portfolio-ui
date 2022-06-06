@@ -37,6 +37,15 @@ export class ImageGridComponent extends TileBaseComponent implements OnInit, OnC
     this.sortedFilteredImages = this.sortFilterImages(filter);
   }
 
+  lastRowColOffset(rowLen: number, index: number): string {
+    if (rowLen === this.adjustedColumns) return 'col';
+    else {
+      const colWidth = Math.ceil(12 / this.adjustedColumns);
+      const offsetWidth = index === 0 ? Math.floor(6 - (colWidth * rowLen) / 2) : 0;
+      return `col-${colWidth} offset-${offsetWidth}`;
+    }
+  }
+
   private sortFilterImages(filter: string): any[] {
     return this.getSortedImages()
       .filter((img: any) => filter === 'All' || (img.tags && img.tags.includes(filter)));

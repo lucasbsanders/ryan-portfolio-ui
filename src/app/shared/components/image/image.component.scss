@@ -71,36 +71,44 @@ $overlayhover-transition-time: .25s;
 }
 
 
-// SCALE IMAGE AND LINK ON HOVER ANIMATION
+// SCALE LINK ON HOVER ANIMATION
+
+$link-hover-transform-size: 1.2;
+$scale-link-transition-time: .3s;
 
 .navLink:hover {
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -o-transform: scale(1.2);
-  transform: scale(1.2);
-  text-shadow: 0px 0px 50px lightgray;
   color: white;
-}
+  text-shadow: 0px 0px 50px lightgray;
 
-.scaleImg:hover {
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -o-transform: scale(1.2);
-  transform: scale(1.2);
-}
-
-$scaleitem-transition-time: .3s;
-
-.scaleImg {
-  -webkit-transition: transform $scaleitem-transition-time ease-in-out;
-  -moz-transition: transform $scaleitem-transition-time ease-in-out;
-  -o-transition: transform $scaleitem-transition-time ease-in-out;
-  transition: transform $scaleitem-transition-time ease-in-out;
+  -webkit-transform: scale($link-hover-transform-size);
+  -moz-transform: scale($link-hover-transform-size);
+  -o-transform: scale($link-hover-transform-size);
+  transform: scale($link-hover-transform-size);
 }
 
 .navLink {
-  -webkit-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
-  -moz-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
-  -o-transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
-  transition: transform $scaleitem-transition-time ease-in-out, color $scaleitem-transition-time ease-in-out;
+  -webkit-transition: transform $scale-link-transition-time ease-in-out, color $scale-link-transition-time ease-in-out;
+  -moz-transition: transform $scale-link-transition-time ease-in-out, color $scale-link-transition-time ease-in-out;
+  -o-transition: transform $scale-link-transition-time ease-in-out, color $scale-link-transition-time ease-in-out;
+  transition: transform $scale-link-transition-time ease-in-out, color $scale-link-transition-time ease-in-out;
+}
+
+
+// SCALE IMAGE ON HOVER ANIMATION
+
+$img-hover-transform-size: 1.15;
+$scale-image-transition-time: .3s;
+
+.scaleImg:hover {
+  -webkit-transform: scale($img-hover-transform-size);
+  -moz-transform: scale($img-hover-transform-size);
+  -o-transform: scale($img-hover-transform-size);
+  transform: scale($img-hover-transform-size);
+}
+
+.scaleImg {
+  -webkit-transition: transform $scale-image-transition-time ease-in-out;
+  -moz-transition: transform $scale-image-transition-time ease-in-out;
+  -o-transition: transform $scale-image-transition-time ease-in-out;
+  transition: transform $scale-image-transition-time ease-in-out;
 }

@@ -19,6 +19,7 @@ export class PageDisplayComponent implements OnInit {
   PageType = PageType;
 
   @Input() pageObs = new Observable<iPage>();
+  @Input() hideMenu = false;
 
   page: iPage = new PageDefault();
   pageNotFound = false;

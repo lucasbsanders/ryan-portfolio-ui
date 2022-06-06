@@ -23,6 +23,7 @@ export class TileDefault implements iTile {
 export class ImageDefault implements iImage {
   order = 0;
   s3Key = '';
+  subtitle = '';
   link = '';
   url = '';
   shadow = false;
