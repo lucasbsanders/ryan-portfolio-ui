@@ -7,6 +7,7 @@ import { OrderScrollComponent } from './components/order-scroll/order-scroll.com
 import { PageEditComponent } from './components/page-edit/page-edit.component';
 import { TileEditComponent } from './components/tile-edit/tile-edit.component';
 import { InputFieldComponent } from './components/input-field/input-field.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,9 @@ import { InputFieldComponent } from './components/input-field/input-field.compon
   ],
   imports: [
     CommonModule,
-    PortfolioModule,
-    SharedModule
+    RouterModule,
+    SharedModule,
+    PortfolioModule    
   ],
   exports: [
     PageEditComponent,

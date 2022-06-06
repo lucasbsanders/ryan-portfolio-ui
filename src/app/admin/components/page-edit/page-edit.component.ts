@@ -20,6 +20,7 @@ export class PageEditComponent implements OnInit {
   Width = Width;
   PageType = PageType;
 
+  route = '';
   resultMessage = '';
   pageNotFound = false;
   tilePreviewMap = new Map();
@@ -50,9 +51,10 @@ export class PageEditComponent implements OnInit {
         switchMap((paramMap: any) => {
           this.pageEdit.setPageToDefault();
           this.pageNotFound = false;
-          this.navbarService.setRoute(paramMap.get('path'));
+          this.route = paramMap.get('path');
+          this.navbarService.setRoute(this.route);
 
-          return this.pageService.getPageByRoute(paramMap.get('path'));
+          return this.pageService.getPageByRoute(this.route);
         })
       )
       .subscribe((page: iPage) => {
