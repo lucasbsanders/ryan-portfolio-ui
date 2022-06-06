@@ -19,6 +19,7 @@ export interface iTile {
 export interface iImage {
   order: number,
   s3Key: string,
+  subtitle: string,
   link: string,
   url: string,
   shadow: boolean,

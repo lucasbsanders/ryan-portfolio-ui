@@ -1,6 +1,7 @@
 <div *ngIf="tile.hasFilters" class="container">
   <div class="row justify-content-center">
-    <div *ngFor="let option of filterOptions" class="col-auto align-self-center text-center" (click)="filterItems(option)">
+    <div *ngFor="let option of filterOptions" class="col-auto align-self-center text-center"
+      (click)="filterItems(option)">
       <a class="filterLink" [ngStyle]="{'border-bottom': option===selectedFilter ? '3px solid black' : ''}">
         {{option}}
       </a>
@@ -11,7 +12,8 @@
 <ng-container *ngIf="sortedFilteredImages.length>0; else noImages">
   <div class="spaceBelow" [ngClass]="{'container': !tile.width || tile.width!==Width.FULL}">
     <app-row-width-adjust *ngFor="let imgRow of sortedFilteredImages|rowSplit:adjustedColumns" [width]="tile.width">
-      <div *ngFor="let image of imgRow" class="g-2 position-relative overflow-hidden" [ngClass]="{'col-6 offset-3' : imgRow.length < adjustedColumns && adjustedColumns===2, 'col': imgRow.length === adjustedColumns || adjustedColumns>2}">
+      <div *ngFor="let image of imgRow; index as i" class="g-2 position-relative overflow-hidden"
+        [ngClass]="lastRowColOffset(imgRow.length, i)">
         <app-image [image]="image" [overlayVisible]="image.overlay" [scaleImageHover]="image.scale"></app-image>
       </div>
     </app-row-width-adjust>
