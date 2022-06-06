@@ -1,5 +1,5 @@
 <div class="fullscreenMenu position-fixed background-fade w-100 h-100"
-  [ngStyle]="{'margin-top': isMenuOpen ? '0px' : '100vh'}" (window:resize)="onResize()">
+  [ngStyle]="{'margin-top.vh': isMenuOpen ? 0 : 100}" (window:resize)="onResize()">
   <div class="container">
     <div *ngFor="let option of menuData" class="text-center mb-3 row">
       <a *ngIf="option.route" class="montserrat-bold px-3 py-1 menuLink" [routerLink]="'/'+option.route"
@@ -12,8 +12,8 @@
 
 <div class="brandIcon text-center" [ngStyle]="{'right.vw': isSmallScreen && isAtTop ? '7' : '100'}">
   <div class="fitContentWidth mx-auto">
-    <img class="scaleImage" [src]="brandSelection" alt="[Ryan Fennessey]"
-      [ngStyle]="{'background-color' : isMenuOpen ? '' : 'white', 'height.px': !isAtTop ? 50 : isSmallScreen ? 80 : 100}"
+    <img class="scaleImage" [src]="brandSelection|keyToS3" alt="[Ryan Fennessey]"
+      [ngStyle]="{'height.px': !isAtTop ? 50 : isSmallScreen ? 80 : 100}"
       routerLink="/" (click)="clickBrand()">
 
     <div [ngClass]="{'mt-2': !isSmallScreen}" [ngStyle]="{'display': isHomepage ? 'none' : ''}">
@@ -29,7 +29,6 @@
       </ng-template>
     </div>
   </div>
-
 </div>
 
 <div class="menuIcon">

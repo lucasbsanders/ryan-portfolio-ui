@@ -3,12 +3,12 @@
 }
 
 a, p {
-  color: white;
+  color: lightgray;
   text-decoration: none;
 }
 
 a:hover {
-  color: lightgray;
+  color: white;
   font-family: "Montserrat-Bold", Arial, sans-serif;
-  border-bottom: 3px solid lightgray;
+  border-bottom: 3px solid white;
 }
