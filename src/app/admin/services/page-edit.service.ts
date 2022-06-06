@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { PageDefault } from 'src/app/shared/classes.const';
 import { TileType } from 'src/app/shared/enums.const';
-import { iPage } from 'src/app/shared/interfaces.const';
+import { iPage, iTile } from 'src/app/shared/interfaces.const';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PageEditService {
-
   page: iPage = new PageDefault();
-  
+
   pageSubject: Subject<iPage> = new Subject<iPage>();
   pageObs: Observable<iPage> = this.pageSubject.asObservable();
 
@@ -21,7 +20,6 @@ export class PageEditService {
   }
 
   update() {
-    this.page = JSON.parse(JSON.stringify(this.page));
     this.pageSubject.next(this.page);
   }
 
@@ -57,6 +55,8 @@ export class PageEditService {
 
     if (value === null) delete tile[key];
     else tile[key] = value;
+
+    this.page.tiles[tileNum] = JSON.parse(JSON.stringify(tile));
 
     this.update();
   }
@@ -105,6 +105,10 @@ export class PageEditService {
 
     if (value === null) delete image[key];
     else image[key] = value;
+
+    this.page.tiles[tileNum].images[imageNum] = JSON.parse(
+      JSON.stringify(image)
+    );
 
     this.update();
   }
