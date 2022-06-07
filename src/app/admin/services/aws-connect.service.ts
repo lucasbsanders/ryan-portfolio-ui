@@ -37,24 +37,6 @@ export class AwsConnectService {
   //// DynamoDB methods
   ////
 
-  getDynamoObjectByKey(dynamoKeyName: string, dynamoKey: any, table: string): Observable<any> {
-    const params = {
-      Key: {
-        [dynamoKeyName]: this.createTypedObj(dynamoKey),
-      },
-      TableName: table,
-    };
-
-    return from(this.dynamo.getItem(params).promise()).pipe(
-      map((data) => {
-        const error = data.$response.error;
-        if (error) throw { message: error.message };
-
-        return this.parseAttributes(data.Item);
-      })
-    );
-  }
-
   putDynamoObjectByKey(obj: any, dynamoKeyName: string[], dynamoKey: string[], table: string): Observable<any> {
     const expressionAttrNames: Record<string, string> = {};
     const expressionAttrVals: Record<string, any> = {};
