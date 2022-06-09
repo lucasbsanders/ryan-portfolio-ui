@@ -86,9 +86,11 @@ export class TileEditComponent {
     const currentImg = this.pageEdit.getImage(this.tileNumber, currentPos);
     const targetImg = this.pageEdit.getImage(this.tileNumber, targetPos);
 
-    currentImg.order = targetPos;
-    targetImg.order = currentPos;
-
-    this.pageEdit.update();
+    if (currentImg && targetImg) {
+      currentImg.order = targetPos;
+      targetImg.order = currentPos;
+  
+      this.pageEdit.update();
+    }
   }
 }

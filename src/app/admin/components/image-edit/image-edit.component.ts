@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ImageDefault } from 'src/app/shared/classes.const';
+import { iImage } from 'src/app/shared/interfaces.const';
 import { PageEditService } from '../../services/page-edit.service';
 
 @Component({
@@ -12,8 +13,9 @@ export class ImageEditComponent {
   @Input() imageNumber: number = -1;
   @Input() tileNumber: number = -1;
 
-  get Image() {
-    return this.pageEdit.getImage(this.tileNumber, this.imageNumber);
+  get Image(): iImage {
+    const image = this.pageEdit.getImage(this.tileNumber, this.imageNumber)
+    return image ? image : <iImage>{};
   }
 
   get Keys(): string[] {
@@ -40,7 +42,8 @@ export class ImageEditComponent {
     this.pageEdit.deleteImage(this.tileNumber, this.Image.order);
   }
 
-  private changeImage(key: string, value: any) {
+  private changeImage(key: string, value: iImage | null) {
     this.pageEdit.changeImage(this.tileNumber, this.Image.order, key, value);
   }
+
 }

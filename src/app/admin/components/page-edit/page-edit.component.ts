@@ -6,7 +6,6 @@ import { NavbarService } from 'src/app/portfolio/services/navbar.service';
 import { PageReadService } from 'src/app/portfolio/services/page-read.service';
 import { PageType, TileType, Width } from 'src/app/shared/enums.const';
 import { iPage } from 'src/app/shared/interfaces.const';
-import { environment } from 'src/environments/environment';
 import { PageEditService } from '../../services/page-edit.service';
 
 @Component({
@@ -21,7 +20,8 @@ export class PageEditComponent implements OnInit {
   PageType = PageType;
 
   route = '';
-  resultMessage = '';
+  successMessage = '';
+  errorMessage = '';
   pageNotFound = false;
   tilePreviewMap = new Map();
 
@@ -58,7 +58,7 @@ export class PageEditComponent implements OnInit {
         })
       )
       .subscribe((page: iPage) => {
-        if (!this.page) this.pageNotFound = true;
+        if (!page) this.pageNotFound = true;
         else this.pageEdit.page = page;
       });
   }
@@ -75,14 +75,16 @@ export class PageEditComponent implements OnInit {
     const currentTile = this.pageEdit.getTile(currentPos);
     const targetTile = this.pageEdit.getTile(targetPos);
 
-    currentTile.order = targetPos;
-    targetTile.order = currentPos;
-
-    this.tilePreviewMap.clear();
-
-    this.scroll('EditTile' + targetPos);
-
-    this.pageEdit.update();
+    if (currentTile && targetTile) {
+      currentTile.order = targetPos;
+      targetTile.order = currentPos;
+  
+      this.tilePreviewMap.clear();
+  
+      this.scroll('EditTile' + targetPos);
+  
+      this.pageEdit.update();
+    }
   }
 
   addTile() {
@@ -101,33 +103,35 @@ export class PageEditComponent implements OnInit {
   }
 
   savePage() {
-    this.awsService
-      .putDynamoObjectByKey(
-        this.page,
-        ['route', 'type'],
-        [this.page.route, this.page.type],
-        environment.dynamoDb.tableName
-      )
-      .subscribe((data) => {
-        if (!data) this.setResultMessage('ERROR: Request did not succeed');
-        else this.setResultMessage('Successfully saved page');
-      });
+    this.awsService.createOrEditPage(this.page)
+    .subscribe((data) => {
+      if (!data) this.setErrorMessage('ERROR: Request did not succeed');
+      else this.setSuccessMessage('Successfully saved page');
+    });
   }
 
   deletePage() {
-    this.awsService
-      .deleteDynamoObjectByKey(
-        ['route', 'type'],
-        [this.page.route, this.page.type],
-        environment.dynamoDb.tableName
-      )
-      .subscribe((data) => console.log(data));
+    try {
+      this.awsService.deletePage(this.page)
+      .subscribe((data) => this.setSuccessMessage(JSON.stringify(data)));
+    }
+    catch (err: string | any) {
+      this.setErrorMessage(err);
+    }
+    
   }
 
-  private setResultMessage(msg: string) {
-    this.resultMessage = msg;
+  private setSuccessMessage(msg: string) {
+    this.successMessage = msg;
     setTimeout(() => {
-      this.resultMessage = '';
+      this.successMessage = '';
+    }, 10000);
+  }
+
+  private setErrorMessage(msg: string) {
+    this.errorMessage = msg;
+    setTimeout(() => {
+      this.errorMessage = '';
     }, 10000);
   }
 }
