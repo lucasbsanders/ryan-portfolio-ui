@@ -11,7 +11,7 @@
 <ng-template #imageTag>
   <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename"
     [ngClass]="{'customShadow': image.shadow, 'invisible' : loading, 'scaleImg': scaleImageHover}"
-    [ngStyle]="{'width': image.icon && !isSmallScreen ? '12rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}" trackViewPort
+    [ngStyle]="{'width': image.icon && !isSmallScreen ? '12rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}" appTrackViewPort
     (isAtTop)="loadImageOnScroll($event)">
 </ng-template>
 

@@ -1,4 +1,4 @@
-import { SubtitleStyle, TileType, Width } from "./enums.const";
+import { TileType, Width } from "./enums.const";
 import { iImage, iPage, iTile } from "./interfaces.const";
 
 export class PageDefault implements iPage {
