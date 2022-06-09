@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
-import { AwsConnectService } from 'src/app/admin/services/aws-connect.service';
+import { AdminAPIService } from 'src/app/admin/services/api-connect.service';
 import { NavbarService } from 'src/app/portfolio/services/navbar.service';
 import { PageReadService } from 'src/app/portfolio/services/page-read.service';
 import { PageType, TileType, Width } from 'src/app/shared/enums.const';
@@ -41,7 +41,7 @@ export class PageEditComponent implements OnInit {
     private navbarService: NavbarService,
     private pageService: PageReadService,
     private activatedRoute: ActivatedRoute,
-    private awsService: AwsConnectService,
+    private awsService: AdminAPIService,
     private pageEdit: PageEditService
   ) {}
 

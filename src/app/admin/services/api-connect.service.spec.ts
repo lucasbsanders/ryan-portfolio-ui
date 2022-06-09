@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AwsConnectService } from './aws-connect.service';
+import { AdminAPIService } from './api-connect.service';
 
-describe('AwsConnectService', () => {
-  let service: AwsConnectService;
+describe('AdminAPIService', () => {
+  let service: AdminAPIService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AwsConnectService);
+    service = TestBed.inject(AdminAPIService);
   });
 
   it('should be created', () => {
