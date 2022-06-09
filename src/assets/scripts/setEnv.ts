@@ -48,7 +48,7 @@ export const environment = {
     baseUrl: '${process.env.S3_BASE_URL}',
     bucketName: '${process.env.S3_BUCKET_NAME}',
   },
-  useCache: false,
+  useCache: ${isProduction},
 };`;
 
 // appends data into the target file(s)
