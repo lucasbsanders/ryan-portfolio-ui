@@ -71,7 +71,7 @@ export class PageEditService {
     const tiles = this.getTiles();
 
     tiles.splice(
-      tiles.findIndex((tile: any) => tile.order === tileNum),
+      tiles.findIndex((tile: iTile) => tile.order === tileNum),
       1
     );
 
@@ -83,16 +83,16 @@ export class PageEditService {
   // CRUD IMAGES
 
   getImages(tileNum: number): iImage[] {
-    const tile = this.page.tiles.find((tile: any) => tile.order === tileNum);
+    const tile = this.page.tiles.find((tile: iTile) => tile.order === tileNum);
 
     return tile && tile.images
-      ? tile.images.sort((a: any, b: any) => a.order - b.order)
+      ? tile.images.sort((a: iImage, b: iImage) => a.order - b.order)
       : [];
   }
 
   getImage(tileNum: number, imageNum: number): iImage | undefined {
     const images = this.getImages(tileNum); 
-    return images.find((img: any) => img.order === imageNum);
+    return images.find((img: iImage) => img.order === imageNum);
   }
 
   addImage(tileNum: number) {
@@ -125,7 +125,7 @@ export class PageEditService {
     const images = this.getImages(tileNum);
 
     images.splice(
-      images.findIndex((img: any) => img.order === imageNum),
+      images.findIndex((img: iImage) => img.order === imageNum),
       1
     );
 

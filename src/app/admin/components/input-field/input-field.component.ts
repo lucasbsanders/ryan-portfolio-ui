@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PageEditService } from '../../services/page-edit.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { PageEditService } from '../../services/page-edit.service';
   templateUrl: './input-field.component.html',
   styleUrls: ['./input-field.component.scss'],
 })
-export class InputFieldComponent implements OnInit {
+export class InputFieldComponent {
   
   @Input() tileNumber: number = -1;
   @Input() imageNumber: number = -1;
@@ -14,8 +14,6 @@ export class InputFieldComponent implements OnInit {
   @Input() obj: any = {};
 
   constructor(private pageEdit: PageEditService) {}
-
-  ngOnInit(): void {}
 
   typeOf(obj: any): string {
     return typeof obj;

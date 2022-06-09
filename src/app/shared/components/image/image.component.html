@@ -1,9 +1,9 @@
-<a *ngIf="image.link" class="w-100 text-center imgBox" [routerLink]="'/'+image.link"
+<a *ngIf="image.link" class="w-100 imgBox" [routerLink]="'/'+image.link"
   [ngClass]="{'padBox': image.shadow}">
   <ng-container *ngTemplateOutlet="imageTag"></ng-container>
 </a>
 
-<div *ngIf="!image.link" class="w-100 text-center"
+<div *ngIf="!image.link" class="w-100"
   [ngClass]="{'padBox': image.shadow}">
   <ng-container *ngTemplateOutlet="imageTag"></ng-container>
 </div>
@@ -21,7 +21,7 @@
 
 <!-- Link/URL overlay: -->
 <div class="position-absolute w-100 h-100 top-0 left-0 pe-2 overlayContainer" *ngIf="showOverlay">
-  <div class="w-100 h-100 p-3 align-items-center d-flex overlayBox">
+  <div class="w-100 h-100 p-3 align-items-center d-flex overlayBox text-center">
     <a *ngIf="image.link && !image.url" class="montserrat-bold p-4 navLink" [routerLink]="'/'+image.link">
       {{image.link}}
     </a>

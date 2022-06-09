@@ -22,7 +22,7 @@ export class ImageEditComponent {
     return this.Image ? Object.keys(this.Image) : [];
   }
 
-  get ImageFieldOptions(): any[] {
+  get ImageFieldOptions(): [string, any][] {
     return Object.entries(new ImageDefault()).filter(
       (entry) => this.Keys.findIndex((key) => key === entry[0]) === -1
     );

@@ -17,6 +17,7 @@ export class TileDefault implements iTile {
   columns = 1;
   hasFilters = false;
   videoId = '';
+  shadow = false;
 };
 
 export class ImageDefault implements iImage {

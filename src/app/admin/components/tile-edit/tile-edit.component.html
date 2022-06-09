@@ -50,7 +50,7 @@
         <ng-container *ngIf="key==='images'">
           <div *ngFor="let image of Images" class="row mb-3">
             <div class="col-auto">
-              <app-order-scroll [index]="image.order" [maxIndex]="Tile.images.length" (moveItem)="moveImage($event)">
+              <app-order-scroll [index]="image.order" [maxIndex]="Tile.images? Tile.images.length : 0" (moveItem)="moveImage($event)">
               </app-order-scroll>
             </div>
 

@@ -2,13 +2,13 @@
   <app-row-width-adjust [width]="tile.width" [ngClass]="{'mx-4': tile.width===Width.FULL && !isMediumScreen, 'mx-0': tile.width===Width.FULL && isMediumScreen}">
 
     <div *ngIf="!isMediumScreen" class="col-12 position-relative">
-      <app-image class="float-end w-50 ms-2 mb-2" [image]="images[0]" [overlayVisible]="images[0].overlay"></app-image>
+      <app-image class="float-end w-50 ms-2 mb-2" [image]="Image" [overlayVisible]="Image.overlay!"></app-image>
       <p [innerText]="tile.text"></p>
     </div>
 
     <ng-container *ngIf="isMediumScreen">
       <div class="col-12 mb-4 position-relative">
-        <app-image [image]="images[0]" [overlayVisible]="images[0].overlay"></app-image>
+        <app-image [image]="Image" [overlayVisible]="Image.overlay!"></app-image>
       </div>
   
       <div class="col-12">

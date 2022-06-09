@@ -7,6 +7,7 @@ export interface iPage extends Map {
   type: string,
   tiles: iTile[]
 };
+
 export interface iTile extends Map {
   order: number,
   type: string,
@@ -16,7 +17,8 @@ export interface iTile extends Map {
   images?: iImage[],
   columns?: number,
   hasFilters?: boolean,
-  videoId?: string
+  videoId?: string,
+  shadow?: boolean,
 };
 
 export interface iImage extends Map {

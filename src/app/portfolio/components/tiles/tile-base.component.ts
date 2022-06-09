@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { TileDefault } from 'src/app/shared/classes.const';
+import { iImage, iTile } from 'src/app/shared/interfaces.const';
 import { Width } from '../../../shared/enums.const';
 import { NavbarService } from '../../services/navbar.service';
 
@@ -8,9 +10,9 @@ export class TileBaseComponent implements OnInit, OnChanges {
 
   Width = Width;
 
-  @Input() tile: any = {};
+  @Input() tile: iTile = new TileDefault();
 
-  images: any[] = [];
+  images: iImage[] = [];
 
   get colAdjSm(): number {
     return this.navbarService.isSmallScreen ? -1 : 0;
@@ -43,9 +45,9 @@ export class TileBaseComponent implements OnInit, OnChanges {
     this.images = this.getSortedImages();
   }
 
-  getSortedImages(): any[] {
+  getSortedImages(): iImage[] {
     return this.tile && this.tile.images ?
-      this.tile.images.sort((a: any, b: any) => a.order - b.order) : [];
+      this.tile.images.sort((a: iImage, b: iImage) => a.order - b.order) : [];
   }
 
   goToPath(route: string) {

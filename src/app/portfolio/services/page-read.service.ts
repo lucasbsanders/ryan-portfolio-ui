@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of, switchMap } from 'rxjs';
+import { iPage } from 'src/app/shared/interfaces.const';
 import { environment } from 'src/environments/environment';
 import { PageType } from '../../shared/enums.const';
 
@@ -9,7 +10,7 @@ import { PageType } from '../../shared/enums.const';
 })
 export class PageReadService {
 
-  private _pages: any[] = [];
+  private _pages: iPage[] = [];
   private _pageSessionKey: string = 'RYAN-PORTFOLIO-PAGES';
 
   constructor(private http: HttpClient) {
@@ -75,7 +76,7 @@ export class PageReadService {
     else return of(this._pages);
   }
 
-  private getAllPagesAPICall(): Observable<any> {
+  private getAllPagesAPICall(): Observable<any[]> {
     return this.http.get(environment.apiBaseUrl + 'pages').pipe(
       map((response: any) => {
         this._pages = this.parsePagesFromString(response.body);
@@ -88,7 +89,7 @@ export class PageReadService {
     );
   }
 
-  private parsePagesFromString(responseBody: any): any[] {
+  private parsePagesFromString(responseBody: string): any[] {
     const retList: any[] = [];
 
     JSON.parse(responseBody).Items.forEach((page: any) => {

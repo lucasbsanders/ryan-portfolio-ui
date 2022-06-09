@@ -5,7 +5,7 @@ import { AwsConnectService } from 'src/app/admin/services/aws-connect.service';
 import { NavbarService } from 'src/app/portfolio/services/navbar.service';
 import { PageReadService } from 'src/app/portfolio/services/page-read.service';
 import { PageType, TileType, Width } from 'src/app/shared/enums.const';
-import { iPage } from 'src/app/shared/interfaces.const';
+import { iPage, iTile } from 'src/app/shared/interfaces.const';
 import { PageEditService } from '../../services/page-edit.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class PageEditComponent implements OnInit {
     return this.pageEdit.pageObs;
   }
 
-  get Tiles(): any[] {
+  get Tiles(): iTile[] {
     return this.pageEdit.getTiles();
   }
 

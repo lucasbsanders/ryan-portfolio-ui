@@ -4,6 +4,7 @@ import { CognitoIdentityCredentials, config as AWSConfig } from 'aws-sdk';
 import * as DynamoDb from 'aws-sdk/clients/dynamodb';
 import * as S3 from 'aws-sdk/clients/s3';
 import { from, map, Observable } from 'rxjs';
+import { iPage } from 'src/app/shared/interfaces.const';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -40,7 +41,7 @@ export class AwsConnectService {
   //// API methods
   ////
 
-  createOrEditPage(pageData: any): Observable<any> {
+  createOrEditPage(pageData: iPage): Observable<any> {
     return this.http.put(environment.apiBaseUrl + 'pages', 
       this.convertPageToDynamoExpression(pageData, 'PUT')).pipe(
       map((response: any) => {
@@ -52,7 +53,7 @@ export class AwsConnectService {
     );
   }
 
-  deletePage(pageData: any): Observable<any> {
+  deletePage(pageData: iPage): Observable<any> {
     return this.http.delete(environment.apiBaseUrl + 'pages',
       {body: this.convertPageToDynamoExpression(pageData, 'DELETE')}).pipe(
       map((response: any) => {
@@ -66,7 +67,7 @@ export class AwsConnectService {
     );
   }
 
-  private convertPageToDynamoExpression(pageData: any, type: 'PUT' | 'DELETE'): any {
+  private convertPageToDynamoExpression(pageData: iPage, type: 'PUT' | 'DELETE'): any {
     var dynamoExpression: any = {
       Key: {
         [this.pageKeys[0]]: this.createTypedObj(pageData[this.pageKeys[0]]),

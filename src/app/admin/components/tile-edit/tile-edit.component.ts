@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TileDefault } from 'src/app/shared/classes.const';
 import { TileType, Width } from 'src/app/shared/enums.const';
+import { iImage, iTile } from 'src/app/shared/interfaces.const';
 import { PageEditService } from '../../services/page-edit.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class TileEditComponent {
 
   @Input() tileNumber: number = -1;
 
-  get Images(): any[] {
+  get Images(): iImage[] {
     return this.pageEdit.getImages(this.tileNumber);
   }
 
@@ -21,9 +22,9 @@ export class TileEditComponent {
     return keys ? keys : [];
   }
 
-  get Tile(): any {
+  get Tile(): iTile {
     const tile = this.pageEdit.getTile(this.tileNumber);
-    return tile ? tile : {};
+    return tile ? tile : <iTile>{};
   }
 
   get TileTypeValues(): string[] {
@@ -34,7 +35,7 @@ export class TileEditComponent {
     return Object.values(Width);
   }
 
-  get TileFieldOptions(): any[] {
+  get TileFieldOptions(): [string, any][] {
     return Object.entries(new TileDefault()).filter(
       (entry) => this.Keys.findIndex((key) => key === entry[0]) === -1
     );
