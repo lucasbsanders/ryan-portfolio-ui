@@ -1,30 +1,35 @@
-export interface iPage {
+interface Map {
+  [key: string]: any
+}
+
+export interface iPage extends Map {
   route: string,
   type: string,
   tiles: iTile[]
 };
-export interface iTile {
+
+export interface iTile extends Map {
   order: number,
   type: string,
   text: string,
-  center: boolean,
   width: string,
-  style: string,
-  images: iImage[],
-  columns: number,
-  hasFilters: boolean,
-  videoId: string
+  center?: boolean,
+  images?: iImage[],
+  columns?: number,
+  hasFilters?: boolean,
+  videoId?: string,
+  shadow?: boolean,
 };
 
-export interface iImage {
+export interface iImage extends Map {
   order: number,
   s3Key: string,
-  subtitle: string,
-  link: string,
-  url: string,
-  shadow: boolean,
-  overlay: boolean,
-  icon: boolean,
-  tags: string[],
-  scale: boolean
+  subtitle?: string,
+  link?: string,
+  url?: string,
+  shadow?: boolean,
+  overlay?: boolean,
+  icon?: boolean,
+  tags?: string[],
+  scale?: boolean
 };

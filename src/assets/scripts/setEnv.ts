@@ -49,17 +49,7 @@ export const environment = {
     bucketName: '${process.env.S3_BUCKET_NAME}',
   },
   useCache: false,
-  ${isProduction ? '' : `//aws values for local development
-  aws: {
-    identityPoolId: '${process.env.AWS_POOL_ID}',
-    defaultRegion: '${process.env.AWS_REGION}',
-  },
-  dynamoDb: {
-    region: '${process.env.DYNAMO_REGION}',
-    tableName: '${process.env.DYNAMO_TABLE_NAME}',
-  },`}
-};
-`;
+};`;
 
 // appends data into the target file(s)
 writeFileUsingFS('./src/environments/environment.ts', environmentFileContent);

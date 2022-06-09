@@ -1,10 +1,10 @@
-import { SubtitleStyle, TileType, Width } from "./enums.const";
+import { TileType, Width } from "./enums.const";
 import { iImage, iPage, iTile } from "./interfaces.const";
 
 export class PageDefault implements iPage {
   route = '';
   type = '';
-  tiles = []
+  tiles = [];
 };
 
 export class TileDefault implements iTile {
@@ -13,11 +13,11 @@ export class TileDefault implements iTile {
   text = '';
   center = false;
   width = Width.XL;
-  style = SubtitleStyle.Bottom;
   images = [];
   columns = 1;
   hasFilters = false;
   videoId = '';
+  shadow = false;
 };
 
 export class ImageDefault implements iImage {

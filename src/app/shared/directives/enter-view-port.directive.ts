@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[trackViewPort]',
+  selector: '[appTrackViewPort]',
 })
 export class EnterViewPortDirective implements AfterViewInit, OnDestroy {
 

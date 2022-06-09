@@ -12,7 +12,6 @@ import { RowSplitPipe } from './pipes/row-double.pipe';
 import { SplitTextPipe } from './pipes/split-text.pipe';
 import { UrlSanitizePipe } from './pipes/url-sanitize.pipe';
 
-
 @NgModule({
   declarations: [
     PageNotFoundComponent,

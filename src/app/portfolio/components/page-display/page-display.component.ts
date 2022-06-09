@@ -19,7 +19,7 @@ export class PageDisplayComponent implements OnInit {
   PageType = PageType;
 
   @Input() pageObs = new Observable<iPage>();
-  @Input() hideMenu = false;
+  @Input() isPreview = false;
 
   page: iPage = new PageDefault();
   pageNotFound = false;
@@ -56,10 +56,8 @@ export class PageDisplayComponent implements OnInit {
   }
 
   setPage(page: iPage) {
-    this.page = page;
-        
-    if (!this.page) this.pageNotFound = true;
-    else if (this.page.tiles) this.page.tiles.sort((a: any, b: any) => a.order - b.order);
+    if (!page) this.pageNotFound = true;
+    else this.page = page;
   }
 
 }

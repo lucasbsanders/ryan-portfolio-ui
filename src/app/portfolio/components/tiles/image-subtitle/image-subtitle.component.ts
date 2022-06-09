@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/portfolio/services/navbar.service';
-import { SubtitleStyle } from 'src/app/shared/enums.const';
+import { iImage } from 'src/app/shared/interfaces.const';
 import { TileBaseComponent } from '../tile-base.component';
 
 @Component({
@@ -11,7 +11,9 @@ import { TileBaseComponent } from '../tile-base.component';
 })
 export class ImageSubtitleComponent extends TileBaseComponent {
 
-  SubtitleStyle = SubtitleStyle;
+  get Image(): iImage {
+    return this.images[0] ? this.images[0] : <iImage>{};
+  }
 
   constructor(navbarService: NavbarService, router: Router) {
     super(navbarService, router);
