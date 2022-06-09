@@ -15,7 +15,7 @@
         <!-- Slideshow -->
         <div class="col-10 g-0">
           <div class="carousel-inner" [ngClass]="{'customShadow': tile.shadow, 'border': !tile.shadow}">
-            <div *ngFor="let image of images; let pg = index" class="carousel-item" [id]="'book'+tile.order+'page'+pg">
+            <div *ngFor="let image of images; let pg = index" class="carousel-item position-relative" [id]="'book'+tile.order+'page'+pg">
               <app-image class="d-block w-100" [image]="image">
               </app-image>
             </div>

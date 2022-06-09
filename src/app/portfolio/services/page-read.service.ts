@@ -29,8 +29,8 @@ export class PageReadService {
             );
           else page = pages.find((page: any) => page.route === route);
 
-          if (!page)
-            return this.fillPagesFromAPI().pipe(
+          if (!page) // if page not found in session storage, try the API one more time
+            return this.getAllPagesAPICall().pipe(
               map((pages) => {
                 if (type)
                   return pages.find(
@@ -42,6 +42,14 @@ export class PageReadService {
               })
             );
           else return of(page);
+        }),
+        map((foundPage: any) => {
+          if (foundPage && foundPage.type !== 'Static') {
+            if (foundPage.tiles)
+              foundPage.tiles.sort((a: any, b: any) => a.order - b.order);
+            else foundPage.tiles = [];
+          }
+          return foundPage;
         })
       );
   }
@@ -63,13 +71,13 @@ export class PageReadService {
       );
     }
 
-    if (!this._pages) return this.fillPagesFromAPI();
+    if (!this._pages) return this.getAllPagesAPICall();
     else return of(this._pages);
   }
 
-  private fillPagesFromAPI(): Observable<any> {
-    return this.getAllPagesAPICall().pipe(
-      map((response) => {
+  private getAllPagesAPICall(): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + 'pages').pipe(
+      map((response: any) => {
         this._pages = this.parsePagesFromString(response.body);
         sessionStorage.setItem(
           this._pageSessionKey,
@@ -78,10 +86,6 @@ export class PageReadService {
         return this._pages;
       })
     );
-  }
-
-  private getAllPagesAPICall(): Observable<any> {
-    return this.http.get(environment.apiBaseUrl + 'pages');
   }
 
   private parsePagesFromString(responseBody: any): any[] {

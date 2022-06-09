@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { NavbarService } from 'src/app/portfolio/services/navbar.service';
 import { ImageDefault } from '../../classes.const';
 import { iImage } from '../../interfaces.const';
 
@@ -17,9 +18,13 @@ export class ImageComponent {
     return this.image && !(!this.image.link) && this.overlayVisible;
   }
 
+  get isSmallScreen(): boolean {
+    return this.navbarService.isSmallScreen;
+  }
+
   loading: boolean = true;
 
-  constructor() {}
+  constructor(private navbarService: NavbarService) {}
 
   loadImageOnScroll(isInView: boolean) {
     if (isInView && this.loading)

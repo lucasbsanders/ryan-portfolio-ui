@@ -12,7 +12,7 @@
 <ng-container *ngIf="sortedFilteredImages.length>0; else noImages">
   <div class="spaceBelow" [ngClass]="{'container': !tile.width || tile.width!==Width.FULL}">
     <app-row-width-adjust *ngFor="let imgRow of sortedFilteredImages|rowSplit:adjustedColumns" [width]="tile.width">
-      <div *ngFor="let image of imgRow; index as i" class="g-2 position-relative overflow-hidden"
+      <div *ngFor="let image of imgRow; index as i" class="g-2 position-relative"
         [ngClass]="lastRowColOffset(imgRow.length, i)">
         <app-image [image]="image" [overlayVisible]="image.overlay" [scaleImageHover]="image.scale"></app-image>
       </div>
