@@ -58,6 +58,8 @@ export class PageDisplayComponent implements OnInit {
   setPage(page: iPage) {
     if (!page) this.pageNotFound = true;
     else this.page = page;
+    
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 300);
   }
 
 }
