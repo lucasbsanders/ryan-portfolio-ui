@@ -38,7 +38,7 @@ export class PageEditService {
 
   addTile() {
     const tiles = this.getTiles();
-    console.log(tiles);
+
     const nextNumber =
       tiles.length > 0 ? tiles[tiles.length - 1].order + 1 : 0;
 
@@ -51,7 +51,6 @@ export class PageEditService {
     });
 
     this.update();
-    console.log(this.getTiles());
   }
 
   changeTile(tileNum: number, key: string, value: any) {

@@ -9,13 +9,13 @@ import { NavbarService } from '../../services/navbar.service';
 })
 export class ProjectNavigationComponent implements OnChanges {
 
-  @Input() current: string = '';
+  @Input() currentProjectLink: string = '';
 
   previousIndex: number = -1;
   nextIndex: number = -1;
 
-  get orderedProjects(): string[] {
-    return this.projectNavService.orderedProjects;
+  get orderedProjectLinks(): string[] {
+    return this.projectNavService.orderedProjectLinks;
   }
 
   get isSmallScreen(): boolean {
@@ -29,14 +29,14 @@ export class ProjectNavigationComponent implements OnChanges {
     this.previousIndex = -1;
     this.nextIndex = -1;
 
-    const currentIndex = this.orderedProjects.findIndex(
-      (proj: string) => proj === this.current
+    const currentIndex = this.orderedProjectLinks.findIndex(
+      (proj: string) => proj === this.currentProjectLink
     );
 
     if (currentIndex > -1) {
       this.previousIndex = currentIndex - 1;
-      this.nextIndex = currentIndex + 1;
-      if (this.nextIndex >= this.orderedProjects.length) this.nextIndex = -1;
+      if (currentIndex < this.orderedProjectLinks.length - 1)
+        this.nextIndex = currentIndex + 1;
     }
   }
 

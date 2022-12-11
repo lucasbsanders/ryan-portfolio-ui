@@ -11,6 +11,7 @@ import { iImage } from '../../interfaces.const';
 export class ImageComponent {
 
   @Input() image: iImage = new ImageDefault();
+  @Input() className: string = '';
   @Input() overlayVisible: boolean = false;
   @Input() scaleImageHover: boolean = false;
 

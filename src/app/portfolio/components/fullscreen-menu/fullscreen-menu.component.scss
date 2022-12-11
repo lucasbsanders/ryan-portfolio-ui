@@ -87,6 +87,7 @@ $menu-scale-transition-time: .3s;
 $img-hover-transform-size: 1.2;
 $img-scroll-transition-time: .25s;
 $img-scale-transition-time: .3s;
+$img-display-transition-time: .4s;
 
 .scaleImage:hover {
   -webkit-transform: scale($img-hover-transform-size);
@@ -100,10 +101,10 @@ $img-scale-transition-time: .3s;
   border-radius: 8px;
   cursor: pointer;
 
-  -webkit-transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out;
-  -moz-transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out;
-  -o-transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out;
-  transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out;
+  -webkit-transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out, opacity $img-display-transition-time ease;
+  -moz-transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out, opacity $img-display-transition-time ease;
+  -o-transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out, opacity $img-display-transition-time ease;
+  transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out, opacity $img-display-transition-time ease;
 }
 
 

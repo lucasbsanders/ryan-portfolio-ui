@@ -12,6 +12,7 @@ import { SlideshowComponent } from './components/tiles/slideshow/slideshow.compo
 import { TextDisplayComponent } from './components/tiles/text-display/text-display.component';
 import { TitleComponent } from './components/tiles/title/title.component';
 import { VimeoVideoComponent } from './components/tiles/vimeo-video/vimeo-video.component';
+import { HomepageGridImageComponent } from './components/tiles/homepage-grid-image/homepage-grid-image.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { VimeoVideoComponent } from './components/tiles/vimeo-video/vimeo-video.
     ImageSubtitleComponent,
     TitleComponent,
     ProjectNavigationComponent,
+    HomepageGridImageComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +44,7 @@ import { VimeoVideoComponent } from './components/tiles/vimeo-video/vimeo-video.
     ImageSubtitleComponent,
     TitleComponent,
     ProjectNavigationComponent,
+    HomepageGridImageComponent,
   ]
 })
 export class PortfolioModule { }

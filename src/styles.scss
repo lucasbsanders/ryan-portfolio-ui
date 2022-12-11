@@ -3,6 +3,9 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+/* Custom styles */
+@import "assets/scss/index.scss";
+
 .primary {
   color: $primary;
 }
@@ -55,6 +58,8 @@ h6 {
   margin-bottom: 4rem !important;
 }
 
+// global shadow effect
+
 $shadow-length: 10;
 $shadow-blur: 25px;
 $shadow-color: gray;
@@ -63,4 +68,133 @@ $shadow-background-color: lightgray;
 .customShadow {
   box-shadow: 0px 0px $shadow-blur $shadow-color;
   background-color: $shadow-background-color;
+}
+
+// homepage logo styling
+
+img.homepage-logo {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 55% !important;
+}
+
+img.homepage-logo-bg {
+  max-height: 100vh;
+  max-width: 100%;
+}
+
+// homepage icon animations
+
+img.homepage-icon-round {
+  width: 70% !important;
+}
+
+div.animate-bounce {
+  animation: bounceAnimation 2s linear infinite;
+}
+
+div.animate-spin {
+  animation: spinAnimation 4s ease-out infinite;
+}
+
+div.animate-pulse {
+  animation: pulseAnimation 2.5s ease-in-out infinite;
+}
+
+div.animate-round {
+  animation: roundAnimationContainer 2.5s linear infinite;
+}
+
+img.homepage-icon-round {
+  animation: roundAnimationImage 2.5s linear infinite;
+}
+
+/*                           Total
+* wait: 20                   20
+* lift: 20                   40
+* drop: 16                   56
+* lift 2: 12                
+ 68
+* drop 2: 10                 78
+* lift 3: 8                  84
+* drop 3: 6                  90
+* wait: 10                   100
+*/
+@keyframes bounceAnimation {
+  0%,
+  20%,
+  56%,
+  78%,
+  90%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-3rem);
+  }
+
+  68% {
+    transform: translateY(-1rem);
+  }
+
+  84% {
+    transform: translateY(-.5rem);
+  }
+}
+
+@keyframes spinAnimation {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  50% {
+    transform: rotate(180deg)
+  }
+
+  100% {
+    transform: rotate(359deg)
+  }
+}
+
+@keyframes pulseAnimation {
+  0% {
+    transform: scale(1)
+  }
+
+  30% {
+    transform: scale(1.5)
+  }
+
+  100% {
+    transform: scale(1)
+  }
+}
+
+@keyframes roundAnimationContainer {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  50% {}
+
+  100% {
+    transform: rotate(-359deg)
+  }
+}
+
+@keyframes roundAnimationImage {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  50% {}
+
+  100% {
+    transform: rotate(359deg)
+  }
 }

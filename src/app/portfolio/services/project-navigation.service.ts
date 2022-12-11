@@ -5,18 +5,16 @@ import { PageReadService } from './page-read.service';
   providedIn: 'root',
 })
 export class ProjectNavigationService {
-
-  orderedProjects: string[] = [];
+  orderedProjectLinks: string[] = [];
 
   constructor(private pageService: PageReadService) {
     this.pageService
-      .getPageByRoute('portfolio')
+      .getPageFromRoute('portfolio')
       .subscribe(
         (pageData: any) =>
-          (this.orderedProjects = pageData.tiles[1].images.map(
+          (this.orderedProjectLinks = pageData.tiles[2].images.map(
             (imgData: any) => imgData.link
           ))
       );
   }
-
 }

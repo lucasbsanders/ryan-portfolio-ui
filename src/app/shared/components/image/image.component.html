@@ -1,15 +1,15 @@
 <a *ngIf="image.link" class="w-100 imgBox" [routerLink]="'/'+image.link"
   [ngClass]="{'padBox': image.shadow}">
-  <ng-container *ngTemplateOutlet="imageTag"></ng-container>
+  <ng-container *ngTemplateOutlet="imageFromS3"></ng-container>
 </a>
 
 <div *ngIf="!image.link" class="w-100"
   [ngClass]="{'padBox': image.shadow}">
-  <ng-container *ngTemplateOutlet="imageTag"></ng-container>
+  <ng-container *ngTemplateOutlet="imageFromS3"></ng-container>
 </div>
 
-<ng-template #imageTag>
-  <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename"
+<ng-template #imageFromS3>
+  <img [src]="image.s3Key|keyToS3" [alt]="image.s3Key|filename" [class]="className"
     [ngClass]="{'customShadow': image.shadow, 'invisible' : loading, 'scaleImg': scaleImageHover}"
     [ngStyle]="{'width': image.icon && !isSmallScreen ? '12rem': '100%', 'cursor': image.link ? 'pointer' : 'auto'}" appTrackViewPort
     (isAtTop)="loadImageOnScroll($event)">

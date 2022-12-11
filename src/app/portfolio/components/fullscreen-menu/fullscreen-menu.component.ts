@@ -11,11 +11,11 @@ import { Brand } from 'src/app/shared/enums.const';
 export class FullscreenMenuComponent implements OnInit, AfterViewInit {
 
   menuData: any[] = [];
-  icons: any = {};
+  icons = environment.icons;
 
   get brandSelection(): string {
     return this.icons ?
-      !this.isMenuOpen ? this.icons[Brand.primary] : this.icons[Brand.secondary]
+      !this.isMenuOpen ? environment.icons.primary : environment.icons.secondary
       : '';
   }
 
@@ -41,11 +41,6 @@ export class FullscreenMenuComponent implements OnInit, AfterViewInit {
     this.navbarService.getMenuData()
       .subscribe((menuData: any) =>
         this.menuData = menuData.sort((a: any, b: any) => a.order - b.order)
-      );
-
-    this.navbarService.getIcons()
-      .subscribe((data: any) =>
-        this.icons = data
       );
   }
 

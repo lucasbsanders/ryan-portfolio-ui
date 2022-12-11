@@ -1,0 +1,43 @@
+.grid-image-container {
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto 3rem auto;
+  position: relative;
+}
+
+/* Shapes width */
+.shapes div {
+  position: absolute;
+  height: fit-content;
+  width: 15%;
+}
+
+/* Result of (div width * img width) must be consistent so shapes are the same size */
+// see the img.homepage-icon-round selector
+.shapes div.animate-round {
+  width: 21%;
+}
+
+/* Shapes placement on screen */
+$shapes-margin-y: 10%;
+$shapes-margin-x: 8%;
+
+.shapes div:nth-child(1) {
+  left: $shapes-margin-x;
+  top: $shapes-margin-y;
+}
+
+.shapes div:nth-child(2) {
+  right: $shapes-margin-x;
+  top: $shapes-margin-y;
+}
+
+.shapes div:nth-child(3) {
+  left: $shapes-margin-x;
+  bottom: $shapes-margin-y;
+}
+
+.shapes div:nth-child(4) {
+  right: $shapes-margin-x;
+  bottom: $shapes-margin-y;
+}

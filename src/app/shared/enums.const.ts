@@ -1,4 +1,5 @@
 export enum TileType {
+  HomepageGrid = 'HomepageGrid',
   ImageGrid = 'ImageGrid',
   ImageSubtitle = 'ImageSubtitle',
   Slideshow = 'Slideshow',

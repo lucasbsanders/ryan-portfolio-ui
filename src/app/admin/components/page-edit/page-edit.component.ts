@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { AdminAPIService } from 'src/app/admin/services/api-connect.service';
 import { NavbarService } from 'src/app/portfolio/services/navbar.service';
 import { PageReadService } from 'src/app/portfolio/services/page-read.service';
 import { PageType, TileType, Width } from 'src/app/shared/enums.const';
 import { iPage, iTile } from 'src/app/shared/interfaces.const';
+import { environment } from 'src/environments/environment';
 import { PageEditService } from '../../services/page-edit.service';
 
 @Component({
@@ -42,10 +43,13 @@ export class PageEditComponent implements OnInit {
     private pageService: PageReadService,
     private activatedRoute: ActivatedRoute,
     private awsService: AdminAPIService,
-    private pageEdit: PageEditService
+    private pageEdit: PageEditService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
+    if (environment.disableEdit)
+      this.router.navigate(['/']);
     this.activatedRoute.paramMap
       .pipe(
         switchMap((paramMap: any) => {
@@ -54,10 +58,10 @@ export class PageEditComponent implements OnInit {
           this.route = paramMap.get('path');
           this.navbarService.setRoute(this.route);
 
-          return this.pageService.getPageByRoute(this.route);
+          return this.pageService.getPageFromRoute(this.route);
         })
       )
-      .subscribe((page: iPage) => {
+      .subscribe((page: iPage | null) => {
         if (!page) this.pageNotFound = true;
         else this.pageEdit.page = page;
       });

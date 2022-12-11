@@ -93,6 +93,9 @@
     </div>
 
     <ng-container [ngSwitch]="tile.type">
+      <app-homepage-grid-image *ngSwitchCase="TileType.HomepageGrid">
+      </app-homepage-grid-image>
+
       <app-title *ngSwitchCase="TileType.Title" [tile]="tile">
       </app-title>
 

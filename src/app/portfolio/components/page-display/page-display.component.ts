@@ -47,15 +47,15 @@ export class PageDisplayComponent implements OnInit {
           const path = paramMap.get('path');
 
           this.navbarService.setRoute(path);
-          return this.pageService.getPageByRoute(path);
+          return this.pageService.getPageFromRoute(path);
         })
       )
-      .subscribe((page: iPage) => this.setPage(page));
+      .subscribe((page: iPage | null) => this.setPage(page));
 
     this.pageObs.subscribe((page: iPage) => this.setPage(page));
   }
 
-  setPage(page: iPage) {
+  setPage(page: iPage | null) {
     if (!page) this.pageNotFound = true;
     else this.page = page;
     

@@ -7,6 +7,8 @@
     "start": "npm run config -- --environment=dev && ng serve",
     "start-prod": "npm run config -- --environment=prod && ng serve",
     "build": "npm run config -- --environment=prod && ng build",
+    "build-prod": "npm run config -- --environment=prod && ng build --prod --base-href \"https://lucasbsanders.github.io/ryan-portfolio-ui/\"",
+    "deploy-gh-pages": "ngh --dir dist/ryan-portfolio-ui",
     "watch": "ng build --watch --configuration development",
     "test": "npm run config -- --environment=dev && ng test",
     "lint": "ng lint"

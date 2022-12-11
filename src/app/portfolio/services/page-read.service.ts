@@ -9,74 +9,70 @@ import { PageType } from '../../shared/enums.const';
   providedIn: 'root',
 })
 export class PageReadService {
-
   private _pages: iPage[] = [];
-  private _pageSessionKey: string = 'RYAN-PORTFOLIO-PAGES';
+  private _pageSessionKey: string = 'RYAN_PORTFOLIO_PAGES';
 
   constructor(private http: HttpClient) {
     this.getPagesFromClosestSource().subscribe();
   }
 
-  getPageByRoute(route: string | null, type?: PageType): Observable<any> {
+  /**
+   * Returns an iPage web page (within an observable) for a particular route input
+   * @param route the unique name for a particular route in the site
+   * @param type optional page type parameter that filters page list before searching for the route
+   * @returns the iPage representation of a particular page, or null if not found 
+   */
+  getPageFromRoute(
+    route: string | null,
+    type?: PageType
+  ): Observable<iPage | null> {
     if (!route) return of(null);
-    else
-      return this.getPagesFromClosestSource().pipe(
-        switchMap((pages: any[]) => {
-          var page;
-          if (type)
-            page = pages.find(
-              (page: any) =>
-                page.route === route && page.type.localeCompare(type) === 0
-            );
-          else page = pages.find((page: any) => page.route === route);
 
-          if (!page) // if page not found in session storage, try the API one more time
-            return this.getAllPagesAPICall().pipe(
-              map((pages) => {
-                if (type)
-                  return pages.find(
-                    (page: any) =>
-                      page.route === route &&
-                      page.type.localeCompare(type) === 0
-                  );
-                else return pages.find((page: any) => page.route === route);
-              })
-            );
-          else return of(page);
-        }),
-        map((foundPage: any) => {
-          if (foundPage && foundPage.type !== 'Static') {
-            if (foundPage.tiles)
-              foundPage.tiles.sort((a: any, b: any) => a.order - b.order);
-            else foundPage.tiles = [];
-          }
-          return foundPage;
-        })
-      );
+    return this.getPagesFromClosestSource().pipe(
+      map((pages: iPage[]) =>
+        type
+          ? pages.filter((page: iPage) => page.type === type)
+          : pages
+      ),
+      switchMap((pages: iPage[]) => {
+        const page = pages.find((page: any) => page.route === route);
+
+        if (!page)
+          // if page not found in session storage, try the API one more time
+          return this.getAllPagesAPICall().pipe(
+            map((pages: any[]) =>
+              type ? pages.filter((page: any) => page.type === type) : pages
+            ),
+            map((pages) => {
+              return pages.find((page: any) => page.route === route);
+            })
+          );
+        else return of(page);
+      }),
+      map((foundPage: iPage | null) => {
+        if (foundPage && foundPage.type !== PageType.Static) {
+          if (foundPage.tiles)
+            foundPage.tiles.sort((a: any, b: any) => a.order - b.order);
+          else foundPage.tiles = [];
+        }
+        return foundPage;
+      })
+    );
   }
 
-  getPagesByType(type: PageType): Observable<any[]> {
-    if (!type) return of([]);
-    else
-      return this.getPagesFromClosestSource().pipe(
-        switchMap((pages: any[]) =>
-          pages.filter((page: any) => page.type === type)
-        )
-      );
-  }
-
-  private getPagesFromClosestSource(): Observable<any[]> {
+  private getPagesFromClosestSource(): Observable<iPage[]> {
     if (environment.useCache) {
+      // todo: check for cache recency
       this._pages = JSON.parse(
         <string>sessionStorage.getItem(this._pageSessionKey)
       );
     }
 
     if (!this._pages) return this.getAllPagesAPICall();
-    else return of(this._pages);
+    else return of(<iPage[]>this._pages);
   }
 
-  private getAllPagesAPICall(): Observable<any[]> {
+  private getAllPagesAPICall(): Observable<iPage[]> {
     return this.http.get(environment.apiBaseUrl + 'pages').pipe(
       map((response: any) => {
         this._pages = this.parsePagesFromString(response.body);
@@ -89,15 +85,15 @@ export class PageReadService {
     );
   }
 
-  private parsePagesFromString(responseBody: string): any[] {
-    const retList: any[] = [];
+  private parsePagesFromString(responseBody: string): iPage[] {
+    const retList: iPage[] = [];
 
     JSON.parse(responseBody).Items.forEach((page: any) => {
       const retValue: Record<string, any> = {};
       for (const [key, value] of Object.entries(page)) {
         retValue[key] = this.parseTypedObj(value);
       }
-      retList.push(retValue);
+      retList.push(<iPage>retValue);
     });
 
     return retList;
