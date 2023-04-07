@@ -1,6 +1,6 @@
 {
   "name": "ryan-portfolio-ui",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "scripts": {
     "ng": "ng",
     "config": "npx ts-node ./src/assets/scripts/setEnv.ts",
