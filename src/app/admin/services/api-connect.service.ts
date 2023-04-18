@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AdminAPIService {
-
   private pageKeys = ['route', 'type'];
 
   constructor(private http: HttpClient) {}
@@ -18,47 +17,57 @@ export class AdminAPIService {
   ////
 
   createOrEditPage(pageData: iPage): Observable<any> {
-    return this.http.put(environment.apiBaseUrl + 'pages', 
-      this.convertPageToDynamoExpression(pageData, 'PUT')).pipe(
-      map((response: any) => {
-        const attributes = JSON.parse(response.body).Attributes;
-        const parsedResponse: Record<string, any> = {};
+    return this.http
+      .put(
+        environment.apiBaseUrl + 'pages',
+        this.convertPageToDynamoExpression(pageData, 'PUT')
+      )
+      .pipe(
+        map((response: any) => {
+          const attributes = JSON.parse(response.body).Attributes;
+          const parsedResponse: Record<string, any> = {};
 
-        if (attributes) {
-          Object.keys(attributes).forEach((key: string) => {
-            parsedResponse[key] = this.parseTypedObj(attributes[key]);
-          });
-        }
+          if (attributes) {
+            Object.keys(attributes).forEach((key: string) => {
+              parsedResponse[key] = this.parseTypedObj(attributes[key]);
+            });
+          }
 
-        return parsedResponse;
-      })
-    );
+          return parsedResponse;
+        })
+      );
   }
 
   deletePage(pageData: iPage): Observable<any> {
-    return this.http.delete(environment.apiBaseUrl + 'pages',
-      {body: this.convertPageToDynamoExpression(pageData, 'DELETE')}).pipe(
-      map((response: any) => {
-        if (response.errorMessage)
-          throw response.errorType + ': ' + response.errorMessage;
-
-        const parsedResponse = JSON.parse(response.body);
-        return parsedResponse;
+    return this.http
+      .delete(environment.apiBaseUrl + 'pages', {
+        body: this.convertPageToDynamoExpression(pageData, 'DELETE'),
       })
-    );
+      .pipe(
+        map((response: any) => {
+          if (response.errorMessage)
+            throw response.errorType + ': ' + response.errorMessage;
+
+          const parsedResponse = JSON.parse(response.body);
+          return parsedResponse;
+        })
+      );
   }
 
   //
   // Helpers
   //
 
-  private convertPageToDynamoExpression(pageData: iPage, type: 'PUT' | 'DELETE'): any {
+  private convertPageToDynamoExpression(
+    pageData: iPage,
+    type: 'PUT' | 'DELETE'
+  ): any {
     var dynamoExpression: any = {
       Key: {
         [this.pageKeys[0]]: this.createTypedObj(pageData[this.pageKeys[0]]),
         [this.pageKeys[1]]: this.createTypedObj(pageData[this.pageKeys[1]]),
-      }
-    }
+      },
+    };
 
     if (type === 'PUT') {
       const expressionAttrNames: Record<string, string> = {};
@@ -66,7 +75,7 @@ export class AdminAPIService {
       var updateExp: string = 'SET ';
 
       Object.keys(pageData).forEach((key: string) => {
-        if (!this.pageKeys.find(k => k === key)) {
+        if (!this.pageKeys.find((k) => k === key)) {
           expressionAttrNames['#' + key] = key;
           expressionAttrVals[':' + key] = this.createTypedObj(pageData[key]);
           updateExp += `#${key} = :${key}, `;
@@ -97,7 +106,9 @@ export class AdminAPIService {
         return typedObj.L.map((v: any) => this.parseTypedObj(v));
       case 'M':
         const obj: Record<string, any> = {};
-        Object.keys(typedObj.M).forEach(key => obj[key] = this.parseTypedObj(typedObj.M[key]))
+        Object.keys(typedObj.M).forEach(
+          (key) => (obj[key] = this.parseTypedObj(typedObj.M[key]))
+        );
         return obj;
       default:
         return JSON.parse(typedObj.S);
@@ -123,13 +134,13 @@ export class AdminAPIService {
           if (value.length > 0) {
             switch (typeof value[0]) {
               case 'number':
-                typedObj.NS = value.map(v => v.toString());
+                typedObj.NS = value.map((v) => v.toString());
                 break;
               case 'string':
                 typedObj.SS = value;
                 break;
               case 'object':
-                typedObj.L = value.map(v => this.createTypedObj(v));
+                typedObj.L = value.map((v) => this.createTypedObj(v));
                 break;
             }
           } else {
@@ -137,7 +148,9 @@ export class AdminAPIService {
           }
         } else {
           const obj: Record<string, any> = {};
-          Object.keys(value).forEach(key => obj[key] = this.createTypedObj(value[key]))
+          Object.keys(value).forEach(
+            (key) => (obj[key] = this.createTypedObj(value[key]))
+          );
           typedObj.M = obj;
         }
         break;
@@ -148,5 +161,4 @@ export class AdminAPIService {
 
     return typedObj;
   }
-
 }
