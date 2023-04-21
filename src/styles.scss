@@ -98,11 +98,11 @@ div.animate-bounce {
 }
 
 div.animate-spin {
-  animation: spinAnimation 4s ease-out infinite;
+  animation: spinAnimation 4s linear infinite;
 }
 
 div.animate-spin-backwards {
-  animation: spinAnimationBackwards 4s ease-out infinite;
+  animation: spinAnimationBackwards 4s linear infinite;
 }
 
 div.animate-pulse {
@@ -166,16 +166,16 @@ img.homepage-icon-round {
 }
 
 @keyframes spinAnimationBackwards {
-  0% {
-    transform: rotate(0deg)
+  from {
+    transform: rotate(359deg)
   }
 
-  50% {
-    transform: rotate(181deg)
+  to {
+    transform: rotate(180deg)
   }
 
   100% {
-    transform: rotate(1deg)
+    transform: rotate(0deg)
   }
 }
 
