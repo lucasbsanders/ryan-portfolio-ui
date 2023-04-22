@@ -8,7 +8,7 @@
     "start-prod": "npm run config -- --environment=prod && ng serve",
     "build": "npm run config -- --environment=prod && ng build",
     "build-prod": "npm run config -- --environment=prod && ng build --prod --base-href \"https://lucasbsanders.github.io/ryan-portfolio-ui/\"",
-    "deploy-gh-pages": "ngh --dir dist/ryan-portfolio-ui",
+    "deploy": "npm run config -- --environment=prod && ng deploy --base-href=/ryan-portfolio-ui/",
     "watch": "ng build --watch --configuration development",
     "test": "npm run config -- --environment=dev && ng test",
     "lint": "ng lint"
@@ -43,6 +43,7 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.17.0",
+    "angular-cli-ghpages": "^1.0.5",
     "dotenv": "^16.0.0",
     "eslint": "^8.12.0",
     "jasmine-core": "~3.10.0",
