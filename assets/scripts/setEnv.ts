@@ -17,7 +17,11 @@ function writeFileUsingFS(targetPath, environmentFileContent) {
     }
     if (environmentFileContent !== '') {
       console.log(`wrote variables to ${targetPath}`);
-      console.log(`parsed env variable: ${!process.env.S3_BUCKET_NAME ? 'FAILED' : 'SUCCESS'}`);
+      console.log(
+        `parsed env variable: ${
+          !process.env.S3_BUCKET_NAME ? 'FAILED' : 'SUCCESS'
+        }`
+      );
     }
   });
 }
@@ -54,6 +58,9 @@ export const environment = {
 
 // appends data into the target file(s)
 writeFileUsingFS('./src/environments/environment.ts', environmentFileContent);
-if (isProduction) writeFileUsingFS('./src/environments/environment.prod.ts', environmentFileContent);
+writeFileUsingFS(
+  './src/environments/environment.prod.ts',
+  environmentFileContent
+);
 
 /* tslint:enable */
