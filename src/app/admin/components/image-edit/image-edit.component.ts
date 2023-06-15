@@ -9,12 +9,11 @@ import { PageEditService } from '../../services/page-edit.service';
   styleUrls: ['./image-edit.component.scss'],
 })
 export class ImageEditComponent {
-
   @Input() imageNumber: number = -1;
   @Input() tileNumber: number = -1;
 
   get Image(): iImage {
-    const image = this.pageEdit.getImage(this.tileNumber, this.imageNumber)
+    const image = this.pageEdit.getImage(this.tileNumber, this.imageNumber);
     return image ? image : <iImage>{};
   }
 
@@ -29,6 +28,10 @@ export class ImageEditComponent {
   }
 
   constructor(private pageEdit: PageEditService) {}
+
+  typeOf(obj: any): string {
+    return typeof obj;
+  }
 
   addField(key: string, obj: any) {
     this.changeImage(key, obj);
@@ -45,5 +48,4 @@ export class ImageEditComponent {
   private changeImage(key: string, value: iImage | null) {
     this.pageEdit.changeImage(this.tileNumber, this.Image.order, key, value);
   }
-
 }

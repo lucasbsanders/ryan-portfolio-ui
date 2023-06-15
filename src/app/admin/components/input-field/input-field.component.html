@@ -1,12 +1,32 @@
-<input *ngIf="typeOf(obj)==='number'" class="w-100 montserrat" type="number" [value]="obj"
-  (blur)="changeNumber(key, $event)">
+<input
+  #inputRef
+  *ngIf="type === 'number'"
+  class="w-100 montserrat"
+  type="number"
+  [defaultValue]="obj"
+  (blur)="changeNumber(key, $event)"
+/>
 
-<input *ngIf="typeOf(obj)==='boolean'" type="checkbox" [checked]="obj" (change)="changeCheckbox(key, $event)">
+<input
+  #inputRef
+  *ngIf="type === 'boolean'"
+  type="checkbox"
+  [defaultChecked]="obj"
+  (change)="changeCheckbox(key, $event)"
+/>
 
-<textarea *ngIf="typeOf(obj)==='string'" class="w-100 montserrat" [value]="obj" (blur)="changeText(key, $event)"
-  (focus)="styleTextarea($event.target, '')">
-</textarea>
+<textarea
+  #inputRef
+  *ngIf="type === 'string'"
+  class="w-100 montserrat"
+  [defaultValue]="obj"
+  (blur)="changeText(key, $event)"
+></textarea>
 
-<textarea *ngIf="typeOf(obj)==='object'" class="w-100 montserrat" [value]="json(obj)"
-  (keyup)="changeObject(key, $event)" (focus)="styleTextarea($event.target, '')">
-</textarea>
+<textarea
+  #inputRef
+  *ngIf="type === 'object'"
+  class="w-100 montserrat"
+  [defaultValue]="jsonObj"
+  (blur)="changeObject(key, $event)"
+></textarea>

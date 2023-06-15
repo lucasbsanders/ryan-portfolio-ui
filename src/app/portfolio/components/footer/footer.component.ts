@@ -5,14 +5,13 @@ import { NavbarService } from '../../services/navbar.service';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
-
   links: any = {};
 
   get envString(): string {
-    return environment.production ? '' : '[NonProd]';
+    return environment.production ? '' : 'Beta';
   }
 
   get smallIcon(): string {
@@ -20,7 +19,6 @@ export class FooterComponent {
   }
 
   constructor(private navbarService: NavbarService) {
-    this.navbarService.getFooterData().subscribe(data => this.links = data);
+    this.navbarService.getFooterData().subscribe((data) => (this.links = data));
   }
-
 }

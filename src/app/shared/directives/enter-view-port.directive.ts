@@ -5,14 +5,13 @@ import {
   EventEmitter,
   Host,
   OnDestroy,
-  Output
+  Output,
 } from '@angular/core';
 
 @Directive({
   selector: '[appTrackViewPort]',
 })
 export class EnterViewPortDirective implements AfterViewInit, OnDestroy {
-
   @Output() isAtTop: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private _observer: IntersectionObserver | undefined;
@@ -20,10 +19,9 @@ export class EnterViewPortDirective implements AfterViewInit, OnDestroy {
   constructor(@Host() private _elementRef: ElementRef) {}
 
   ngAfterViewInit(): void {
-
     const options: IntersectionObserverInit = {
       root: null,
-      rootMargin: '0px',
+      rootMargin: '25px',
       threshold: 0,
     };
 
@@ -36,8 +34,10 @@ export class EnterViewPortDirective implements AfterViewInit, OnDestroy {
     this._observer?.disconnect();
   }
 
-  private _callback: IntersectionObserverCallback =
-  (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+  private _callback: IntersectionObserverCallback = (
+    entries: IntersectionObserverEntry[],
+    observer: IntersectionObserver
+  ) => {
     entries.forEach((entry) => {
       this.isAtTop.emit(entry.isIntersecting);
     });

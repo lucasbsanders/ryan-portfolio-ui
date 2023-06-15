@@ -2,7 +2,6 @@
 
 <div class="container sticky-top py-3">
   <div class="row mb-2">
-
     <div class="col-auto">
       <button type="btn" class="btn btn-primary" (click)="savePage()">
         Save Page
@@ -16,54 +15,78 @@
     </div>
 
     <div class="col-auto">
-      <button type="btn" class="btn btn-secondary" (click)="scroll('preview')">
-        Preview
-      </button>
-    </div>
-
-    <div class="col-auto">
-      <button type="btn" class="btn btn-secondary" [routerLink]="'/'+route">
-        Go to /{{route}}
+      <button type="btn" class="btn btn-secondary" [routerLink]="'/' + route">
+        Go to /{{ route }}
       </button>
     </div>
 
     <div class="col">
-      <button type="btn" class="btn btn-danger float-end" (click)="deletePage()">
+      <button
+        type="btn"
+        class="btn btn-danger float-end"
+        (click)="deletePage()"
+        disabled
+      >
         Delete Page
       </button>
     </div>
   </div>
 
   <div class="row">
-    <div *ngIf="successMessage !== ''" class="alert alert-success alert-dismissible fade show" role="alert">
-      {{successMessage}}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div
+      *ngIf="successMessage !== ''"
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+    >
+      {{ successMessage }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
     </div>
 
-    <div *ngIf="errorMessage !== ''" class="alert alert-danger alert-dismissible fade show" role="alert">
-      {{errorMessage}}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div
+      *ngIf="errorMessage !== ''"
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+    >
+      {{ errorMessage }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
     </div>
   </div>
 </div>
 
-<hr>
+<hr />
 
 <ng-container *ngFor="let tile of Tiles; index as i">
   <div class="container overflow-visible">
     <div class="row position-relative">
-      <div [id]="'EditTile' + tile.order" class="position-absolute" style="top: -150px"></div>
+      <div
+        [id]="'EditTile' + tile.order"
+        class="position-absolute"
+        style="top: -150px"
+      ></div>
 
       <div class="col-auto">
-        <app-order-scroll [index]="i" [maxIndex]="Tiles.length" (moveItem)="moveTile($event)">
+        <app-order-scroll
+          [index]="i"
+          [maxIndex]="Tiles.length"
+          (moveItem)="moveTile($event)"
+        >
         </app-order-scroll>
       </div>
 
       <!-- EDIT TILE -->
 
       <div class="col">
-        <app-tile-edit [tileNumber]="tile.order">
-        </app-tile-edit>
+        <app-tile-edit [tileNumber]="tile.order"> </app-tile-edit>
       </div>
     </div>
 
@@ -71,35 +94,46 @@
 
     <div class="row my-2">
       <div class="col">
-        <button class="btn btn-primary" (click)="tilePreviewMap.set(tile.order, !tilePreviewMap.get(tile.order))">
-          Tile Preview {{!tilePreviewMap.get(tile.order) ? '(close)' : '(open)'}}
+        <button
+          class="btn btn-primary"
+          (click)="
+            tilePreviewMap.set(tile.order, !tilePreviewMap.get(tile.order))
+          "
+        >
+          Tile Preview
+          {{ !tilePreviewMap.get(tile.order) ? "(close)" : "(open)" }}
         </button>
       </div>
 
       <div class="col">
-        <button class="btn btn-outline-danger float-end" (click)="deleteTile(tile.order)">
+        <button
+          class="btn btn-outline-danger float-end"
+          (click)="deleteTile(tile.order)"
+        >
           Delete Tile
         </button>
       </div>
     </div>
-
   </div>
 
   <!-- TILE PREVIEW -->
 
   <ng-container *ngIf="!tilePreviewMap.get(tile.order)">
     <div class="container">
-      <hr>
+      <hr />
     </div>
 
     <ng-container [ngSwitch]="tile.type">
       <app-homepage-grid-image *ngSwitchCase="TileType.HomepageGrid">
       </app-homepage-grid-image>
 
-      <app-title *ngSwitchCase="TileType.Title" [tile]="tile">
-      </app-title>
+      <app-title *ngSwitchCase="TileType.Title" [tile]="tile"> </app-title>
 
-      <app-title *ngSwitchCase="TileType.Subtitle" [isSubtitle]="true" [tile]="tile">
+      <app-title
+        *ngSwitchCase="TileType.Subtitle"
+        [isSubtitle]="true"
+        [tile]="tile"
+      >
       </app-title>
 
       <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
@@ -118,27 +152,13 @@
       </app-image-subtitle>
 
       <div *ngSwitchDefault class="container my-2">
-        <ng-container *ngIf="true; then spinner">
-        </ng-container>
+        <ng-container *ngIf="true; then spinner"> </ng-container>
       </div>
     </ng-container>
   </ng-container>
 
-  <hr>
-
+  <hr />
 </ng-container>
-
-<!-- PAGE PREVIEW -->
-
-<div class="container position-relative">
-  <h4>Page Preview:</h4>
-
-  <div id="preview" class="position-absolute" style="top: -150px"></div>
-</div>
-
-<hr>
-
-<app-page-display [pageObs]="pageObs" [isPreview]="true"></app-page-display>
 
 <ng-template #spinner>
   <div class="row my-5">
@@ -149,3 +169,16 @@
     </div>
   </div>
 </ng-template>
+
+<!-- PAGE PREVIEW -->
+<!-- 
+<div class="container position-relative">
+  <h4>Page Preview:</h4>
+
+  <div id="preview" class="position-absolute" style="top: -150px"></div>
+</div>
+
+<hr>
+
+<app-page-display [pageObs]="pageObs" [isPreview]="true"></app-page-display>
+-->

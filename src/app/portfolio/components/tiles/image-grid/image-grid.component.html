@@ -1,31 +1,60 @@
 <div *ngIf="tile.hasFilters" class="container">
   <div class="row justify-content-center">
-    <div *ngFor="let option of filterOptions" class="col-auto align-self-center text-center"
-      (click)="filterItems(option)">
-      <a class="filterLink" [ngStyle]="{'border-bottom': option===selectedFilter ? '3px solid black' : ''}">
-        {{option}}
+    <div
+      *ngFor="let option of filterOptions"
+      class="col-auto align-self-center text-center"
+      (click)="filterItems(option)"
+    >
+      <a
+        class="filterLink"
+        [ngStyle]="{
+          'border-bottom': option === selectedFilter ? '3px solid black' : ''
+        }"
+      >
+        {{ option }}
       </a>
     </div>
   </div>
 </div>
 
-<ng-container *ngIf="sortedFilteredImages.length>0; else noImages">
-  <div class="spaceBelow" [ngClass]="{'container': !tile.width || tile.width!==Width.FULL}">
-    <app-row-width-adjust *ngFor="let imgRow of sortedFilteredImages|rowSplit:adjustedColumns" [width]="tile.width">
-      <div *ngFor="let image of imgRow; index as i" class="g-2 position-relative"
-        [ngClass]="lastRowColOffset(imgRow.length, i)">
-        <app-image [image]="image" [overlayVisible]="image.overlay" [scaleImageHover]="image.scale"></app-image>
+<ng-container *ngIf="sortedFilteredImages.length > 0; else noImages">
+  <div
+    [ngClass]="{ container: !tile.width || tile.width !== Width.FULL }"
+    [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }"
+  >
+    <app-row-width-adjust
+      *ngFor="let imgRow of sortedFilteredImages | rowSplit : adjustedColumns"
+      [width]="tile.width"
+    >
+      <div
+        *ngFor="let image of imgRow; index as i"
+        class="g-2 position-relative"
+        [ngClass]="lastRowColOffset(imgRow.length, i)"
+      >
+        <app-image
+          [image]="image"
+          [overlayVisible]="image.overlay"
+          [scaleImageHover]="image.scale"
+        ></app-image>
       </div>
     </app-row-width-adjust>
   </div>
 </ng-container>
 
 <ng-template #noImages>
-  <div *ngIf="selectedFilter==='All'" class="container spaceBelow">
+  <div
+    *ngIf="selectedFilter === 'All'"
+    class="container"
+    [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }"
+  >
     <h2>No images</h2>
   </div>
 
-  <div *ngIf="selectedFilter!=='All'" class="container spaceBelow">
-    <h2>No images in category {{selectedFilter}}</h2>
+  <div
+    *ngIf="selectedFilter !== 'All'"
+    class="container"
+    [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }"
+  >
+    <h2>No images in category {{ selectedFilter }}</h2>
   </div>
 </ng-template>

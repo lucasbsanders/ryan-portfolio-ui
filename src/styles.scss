@@ -54,10 +54,6 @@ h6 {
   background-color: rgba(0, 0, 0, 0.85);
 }
 
-.spaceBelow {
-  margin-bottom: 4rem !important;
-}
-
 // global shadow effect
 
 $shadow-length: 10;
@@ -83,7 +79,7 @@ img.homepage-logo {
 }
 
 img.homepage-logo-bg {
-  max-height: 100vh;
+  max-height: 50vh;
   max-width: 100%;
 }
 

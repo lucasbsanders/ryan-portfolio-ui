@@ -1,16 +1,33 @@
 <app-fullscreen-menu *ngIf="!isPreview"></app-fullscreen-menu>
 
-<div [ngStyle]="{'margin-top.px': isPreview ? 0 : isHomepage ? (isSmallScreen ? 85 : 0) : (isSmallScreen ? 150 : 160)}">
+<div
+  [ngStyle]="{
+    'margin-top.px': isPreview
+      ? 0
+      : isHomepage
+      ? isSmallScreen
+        ? 85
+        : 0
+      : isSmallScreen
+      ? 150
+      : 160
+  }"
+>
   <ng-container *ngIf="page.tiles.length > 0; else spinner">
     <div *ngFor="let tile of page.tiles" [ngSwitch]="tile.type">
-
-      <app-homepage-grid-image *ngSwitchCase="TileType.HomepageGrid">
+      <app-homepage-grid-image
+        *ngSwitchCase="TileType.HomepageGrid"
+        [tile]="tile"
+      >
       </app-homepage-grid-image>
 
-      <app-title *ngSwitchCase="TileType.Title" [tile]="tile">
-      </app-title>
+      <app-title *ngSwitchCase="TileType.Title" [tile]="tile"> </app-title>
 
-      <app-title *ngSwitchCase="TileType.Subtitle" [isSubtitle]="true" [tile]="tile">
+      <app-title
+        *ngSwitchCase="TileType.Subtitle"
+        [isSubtitle]="true"
+        [tile]="tile"
+      >
       </app-title>
 
       <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
@@ -31,10 +48,12 @@
       <div *ngSwitchDefault class="container my-2">
         <ng-container *ngTemplateOutlet="spinner"></ng-container>
       </div>
-
     </div>
 
-    <app-project-navigation *ngIf="page.type===PageType.Project" [currentProjectLink]="page.route">
+    <app-project-navigation
+      *ngIf="page.type === PageType.Project"
+      [currentProjectLink]="page.route"
+    >
     </app-project-navigation>
   </ng-container>
 

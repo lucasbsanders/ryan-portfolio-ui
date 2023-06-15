@@ -2,6 +2,7 @@ import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { NavbarService } from '../../services/navbar.service';
 import { environment } from 'src/environments/environment';
 import { Brand } from 'src/app/shared/enums.const';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fullscreen-menu',
@@ -9,13 +10,14 @@ import { Brand } from 'src/app/shared/enums.const';
   styleUrls: ['./fullscreen-menu.component.scss'],
 })
 export class FullscreenMenuComponent implements OnInit, AfterViewInit {
-
   menuData: any[] = [];
   icons = environment.icons;
 
   get brandSelection(): string {
-    return this.icons ?
-      !this.isMenuOpen ? environment.icons.primary : environment.icons.secondary
+    return this.icons
+      ? !this.isMenuOpen
+        ? environment.icons.primary
+        : environment.icons.secondary
       : '';
   }
 
@@ -35,17 +37,27 @@ export class FullscreenMenuComponent implements OnInit, AfterViewInit {
     return this.navbarService.isHomepage;
   }
 
-  constructor(private navbarService: NavbarService) {}
+  get isProduction(): boolean {
+    return environment.production;
+  }
+
+  constructor(private router: Router, private navbarService: NavbarService) {}
 
   ngOnInit(): void {
-    this.navbarService.getMenuData()
-      .subscribe((menuData: any) =>
-        this.menuData = menuData.sort((a: any, b: any) => a.order - b.order)
+    this.navbarService
+      .getMenuData()
+      .subscribe(
+        (menuData: any) =>
+          (this.menuData = menuData.sort((a: any, b: any) => a.order - b.order))
       );
   }
 
   ngAfterViewInit(): void {
     this.onResize();
+  }
+
+  openEditPage(): void {
+    this.router.navigate([decodeURI(this.router.url), 'edit']);
   }
 
   onResize() {
@@ -70,8 +82,11 @@ export class FullscreenMenuComponent implements OnInit, AfterViewInit {
   }
 
   @HostListener('document:keydown', ['$event'])
-  onKeydownHandler( event: KeyboardEvent) {
-    if (this.navbarService.isMenuOpen && (event.key === 'Escape' || event.key === 'Esc')) {
+  onKeydownHandler(event: KeyboardEvent) {
+    if (
+      this.navbarService.isMenuOpen &&
+      (event.key === 'Escape' || event.key === 'Esc')
+    ) {
       this.setMenuOpen(false);
     }
   }

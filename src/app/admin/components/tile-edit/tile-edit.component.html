@@ -1,61 +1,102 @@
 <div class="border p-3 bg-light">
   <div class="row my-1 align-items-top" *ngFor="let key of Keys">
-    <ng-container *ngIf="key!=='order'">
-
+    <ng-container *ngIf="key !== 'order'">
       <div class="col-auto">
-        <button [disabled]="key==='type'" class="btn btn-link" (click)="removeTileKey(key)">
+        <button
+          [disabled]="key === 'type'"
+          class="btn btn-link"
+          (click)="removeTileKey(key)"
+        >
           x
         </button>
       </div>
 
       <div class="col-2">
         <label class="w-100 montserrat d-inline-block">
-          {{key}}
+          {{ key }}
           &nbsp;
-          <span *ngIf="key==='type'" [title]="TileTypeValues.join(', ')"><i>i</i></span>
-          <span *ngIf="key==='width'" [title]="WidthTypeValues.join(', ')"><i>i</i></span>
+          <span *ngIf="key === 'type'" [title]="TileTypeValues.join(', ')"
+            ><i>i</i></span
+          >
+          <span *ngIf="key === 'width'" [title]="WidthTypeValues.join(', ')"
+            ><i>i</i></span
+          >
         </label>
       </div>
 
       <div class="col">
-        <ng-container *ngIf="!(key==='type' || key==='width'|| key==='images')">
-          <app-input-field [tileNumber]="Tile.order" [key]="key" [obj]="Tile[key]">
+        <ng-container
+          *ngIf="!(key === 'type' || key === 'width' || key === 'images')"
+        >
+          <app-input-field
+            [tileNumber]="Tile.order"
+            [key]="key"
+            [obj]="Tile[key]"
+            [type]="typeOf(Tile[key])"
+          >
           </app-input-field>
         </ng-container>
 
-        <div *ngIf="key==='type'" class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            {{Tile[key]}}
+        <div *ngIf="key === 'type'" class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ Tile[key] }}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li *ngFor="let type of TileTypeValues">
-              <button class="dropdown-item" (click)="changeText(key, {target: {value: type}})">{{type}}</button>
+              <button
+                class="dropdown-item"
+                (click)="changeText(key, { target: { value: type } })"
+              >
+                {{ type }}
+              </button>
             </li>
           </ul>
         </div>
 
-        <div *ngIf="key==='width'" class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            {{Tile[key]}}
+        <div *ngIf="key === 'width'" class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ Tile[key] }}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li *ngFor="let type of WidthTypeValues">
-              <button class="dropdown-item" (click)="changeText(key, {target: {value: type}})">{{type}}</button>
+              <button
+                class="dropdown-item"
+                (click)="changeText(key, { target: { value: type } })"
+              >
+                {{ type }}
+              </button>
             </li>
           </ul>
         </div>
 
-        <ng-container *ngIf="key==='images'">
+        <ng-container *ngIf="key === 'images'">
           <div *ngFor="let image of Images" class="row mb-3">
             <div class="col-auto">
-              <app-order-scroll [index]="image.order" [maxIndex]="Tile.images? Tile.images.length : 0" (moveItem)="moveImage($event)">
+              <app-order-scroll
+                [index]="image.order"
+                [maxIndex]="Tile.images ? Tile.images.length : 0"
+                (moveItem)="moveImage($event)"
+              >
               </app-order-scroll>
             </div>
 
             <div class="col border p-2 bg-info bg-gradient">
-              <app-image-edit [imageNumber]="image.order" [tileNumber]="Tile.order">
+              <app-image-edit
+                [imageNumber]="image.order"
+                [tileNumber]="Tile.order"
+              >
               </app-image-edit>
             </div>
           </div>
@@ -69,14 +110,18 @@
           </div>
         </ng-container>
       </div>
-
     </ng-container>
   </div>
 
   <div class="row mt-3">
     <div class="col">
-      <button *ngFor="let field of TileFieldOptions" type="btn" class="btn btn-outline-success me-4" (click)="addField(field[0], field[1])">
-        + {{field[0]}}
+      <button
+        *ngFor="let field of TileFieldOptions"
+        type="btn"
+        class="btn btn-outline-success me-4"
+        (click)="addField(field[0], field[1])"
+      >
+        + {{ field[0] }}
       </button>
     </div>
   </div>

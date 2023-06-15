@@ -1,11 +1,11 @@
-import { TileType, Width } from "./enums.const";
-import { iImage, iPage, iTile } from "./interfaces.const";
+import { TileType, Width } from './enums.const';
+import { iImage, iPage, iTile } from './interfaces.const';
 
 export class PageDefault implements iPage {
   route = '';
   type = '';
   tiles = [];
-};
+}
 
 export class TileDefault implements iTile {
   order = 0;
@@ -18,7 +18,8 @@ export class TileDefault implements iTile {
   hasFilters = false;
   videoId = '';
   shadow = false;
-};
+  mb = 0;
+}
 
 export class ImageDefault implements iImage {
   order = 0;
@@ -31,4 +32,4 @@ export class ImageDefault implements iImage {
   icon = false;
   tags = [];
   scale = false;
-};
+}

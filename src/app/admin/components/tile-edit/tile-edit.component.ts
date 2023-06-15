@@ -10,7 +10,6 @@ import { PageEditService } from '../../services/page-edit.service';
   styleUrls: ['./tile-edit.component.scss'],
 })
 export class TileEditComponent {
-
   @Input() tileNumber: number = -1;
 
   get Images(): iImage[] {
@@ -59,23 +58,6 @@ export class TileEditComponent {
     this.pageEdit.changeTile(this.tileNumber, key, event.target.value);
   }
 
-  changeObject(key: string, event: any) {
-    try {
-      const tileData = JSON.parse(event.target.value);
-      this.pageEdit.changeTile(this.tileNumber, key, tileData);
-
-      this.styleTextarea(event.target, '3px solid lime');
-    } catch (err) {
-      this.styleTextarea(event.target, '3px solid red');
-    }
-  }
-
-  styleTextarea(element: any, borderStyle: string) {
-    element.style.border = borderStyle;
-    element.style.height = '0px';
-    element.style.height = element.scrollHeight + 5 + 'px';
-  }
-
   addImage() {
     this.pageEdit.addImage(this.tileNumber);
   }
@@ -90,7 +72,7 @@ export class TileEditComponent {
     if (currentImg && targetImg) {
       currentImg.order = targetPos;
       targetImg.order = currentPos;
-  
+
       this.pageEdit.update();
     }
   }

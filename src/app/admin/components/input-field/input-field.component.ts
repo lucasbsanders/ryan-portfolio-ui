@@ -1,4 +1,11 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { PageEditService } from '../../services/page-edit.service';
 
 @Component({
@@ -6,17 +13,22 @@ import { PageEditService } from '../../services/page-edit.service';
   templateUrl: './input-field.component.html',
   styleUrls: ['./input-field.component.scss'],
 })
-export class InputFieldComponent {
-  
+export class InputFieldComponent implements OnChanges {
   @Input() tileNumber: number = -1;
   @Input() imageNumber: number = -1;
   @Input() key: string = '';
   @Input() obj: any = {};
+  @Input() type: string = '';
+  public jsonObj = '';
+
+  @ViewChild('inputRef', { read: ElementRef }) inputRef!: ElementRef;
 
   constructor(private pageEdit: PageEditService) {}
 
-  typeOf(obj: any): string {
-    return typeof obj;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['obj'].currentValue && this.type === 'object') {
+      this.jsonObj = this.json(changes['obj'].currentValue);
+    }
   }
 
   json(obj: any): string {
@@ -24,38 +36,43 @@ export class InputFieldComponent {
   }
 
   changeText(key: string, event: any) {
-    if (this.imageNumber > -1) this.changeImage(key, event.target.value);
-    else this.pageEdit.changeTile(this.tileNumber, key, event.target.value);
-
-    this.styleTextarea(event.target, '');
+    if (this.imageNumber > -1) this.changeImage(key, event.target.value ?? '');
+    else
+      this.pageEdit.changeTile(this.tileNumber, key, event.target.value ?? '');
   }
 
   changeNumber(key: string, event: any) {
+    console.log(event.target.value);
     if (this.imageNumber > -1)
-      this.changeImage(key, parseInt(event.target.value));
+      this.changeImage(key, parseInt(event.target.value) || 0);
     else
       this.pageEdit.changeTile(
         this.tileNumber,
         key,
-        parseInt(event.target.value)
+        parseInt(event.target.value) || 0
       );
   }
 
   changeCheckbox(key: string, event: any) {
-    if (this.imageNumber > -1) this.changeImage(key, event.target.checked);
-    else this.pageEdit.changeTile(this.tileNumber, key, event.target.checked);
+    if (this.imageNumber > -1)
+      this.changeImage(key, Boolean(event.target.checked));
+    else
+      this.pageEdit.changeTile(
+        this.tileNumber,
+        key,
+        Boolean(event.target.checked)
+      );
   }
 
   changeObject(key: string, event: any) {
+    var tileData = {};
     try {
-      const tileData = JSON.parse(event.target.value);
+      tileData = JSON.parse(event.target.value) ?? {};
 
       if (this.imageNumber > -1) this.changeImage(key, tileData);
       else this.pageEdit.changeTile(this.tileNumber, key, tileData);
-
-      this.styleTextarea(event.target, '3px solid lime');
     } catch (err) {
-      this.styleTextarea(event.target, '3px solid red');
+      this.styleTextarea('2px solid red');
     }
   }
 
@@ -63,9 +80,7 @@ export class InputFieldComponent {
     this.pageEdit.changeImage(this.tileNumber, this.imageNumber, key, value);
   }
 
-  styleTextarea(element: any, borderStyle: string) {
-    element.style.border = borderStyle;
-    element.style.height = '0px';
-    element.style.height = element.scrollHeight + 5 + 'px';
+  styleTextarea(borderStyle?: string) {
+    if (borderStyle) this.inputRef.nativeElement.style.border = borderStyle;
   }
 }

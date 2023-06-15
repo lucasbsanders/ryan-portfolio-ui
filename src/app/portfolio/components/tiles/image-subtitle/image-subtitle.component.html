@@ -1,16 +1,31 @@
-<div class="spaceBelow" [ngClass]="{'container': !tile.width || tile.width!==Width.FULL}">
-  <app-row-width-adjust [width]="tile.width" [ngClass]="{'mx-4': tile.width===Width.FULL && !isMediumScreen, 'mx-0': tile.width===Width.FULL && isMediumScreen}">
-
+<div
+  [ngClass]="{ container: !tile.width || tile.width !== Width.FULL }"
+  [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }"
+>
+  <app-row-width-adjust
+    [width]="tile.width"
+    [ngClass]="{
+      'mx-4': tile.width === Width.FULL && !isMediumScreen,
+      'mx-0': tile.width === Width.FULL && isMediumScreen
+    }"
+  >
     <div *ngIf="!isMediumScreen" class="col-12 position-relative">
-      <app-image class="float-end w-50 ms-2 mb-2" [image]="Image" [overlayVisible]="Image.overlay!"></app-image>
+      <app-image
+        class="float-end w-50 ms-2 mb-2"
+        [image]="Image"
+        [overlayVisible]="Image.overlay!"
+      ></app-image>
       <p [innerText]="tile.text"></p>
     </div>
 
     <ng-container *ngIf="isMediumScreen">
       <div class="col-12 mb-4 position-relative">
-        <app-image [image]="Image" [overlayVisible]="Image.overlay!"></app-image>
+        <app-image
+          [image]="Image"
+          [overlayVisible]="Image.overlay!"
+        ></app-image>
       </div>
-  
+
       <div class="col-12">
         <p [innerText]="tile.text"></p>
       </div>
@@ -19,6 +34,5 @@
     <ng-template #noImages>
       <h2>No image</h2>
     </ng-template>
-
   </app-row-width-adjust>
 </div>

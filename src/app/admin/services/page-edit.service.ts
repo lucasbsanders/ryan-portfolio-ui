@@ -8,7 +8,6 @@ import { iImage, iPage, iTile } from 'src/app/shared/interfaces.const';
   providedIn: 'root',
 })
 export class PageEditService {
-
   page: iPage = new PageDefault();
   pageSubject: Subject<iPage> = new Subject<iPage>();
   pageObs: Observable<iPage> = this.pageSubject.asObservable();
@@ -20,6 +19,10 @@ export class PageEditService {
   }
 
   update() {
+    this.page = {
+      ...this.page,
+      tiles: [...this.page.tiles],
+    };
     this.pageSubject.next(this.page);
   }
 
@@ -39,8 +42,7 @@ export class PageEditService {
   addTile() {
     const tiles = this.getTiles();
 
-    const nextNumber =
-      tiles.length > 0 ? tiles[tiles.length - 1].order + 1 : 0;
+    const nextNumber = tiles.length > 0 ? tiles[tiles.length - 1].order + 1 : 0;
 
     tiles.push({
       order: nextNumber,
@@ -59,7 +61,7 @@ export class PageEditService {
     if (tile) {
       if (value === null) delete tile[key];
       else tile[key] = value;
-  
+
       this.page.tiles[tileNum] = JSON.parse(JSON.stringify(tile));
     }
 
@@ -90,7 +92,7 @@ export class PageEditService {
   }
 
   getImage(tileNum: number, imageNum: number): iImage | undefined {
-    const images = this.getImages(tileNum); 
+    const images = this.getImages(tileNum);
     return images.find((img: iImage) => img.order === imageNum);
   }
 
@@ -110,7 +112,7 @@ export class PageEditService {
     if (image) {
       if (value === null) delete image[key];
       else image[key] = value;
-      
+
       const images = this.page.tiles[tileNum].images;
       if (images) {
         images[imageNum] = JSON.parse(JSON.stringify(image));
