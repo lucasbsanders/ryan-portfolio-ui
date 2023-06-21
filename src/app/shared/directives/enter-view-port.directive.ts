@@ -21,11 +21,20 @@ export class EnterViewPortDirective implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     const options: IntersectionObserverInit = {
       root: null,
-      rootMargin: '25px',
+      rootMargin: '0px',
       threshold: 0,
     };
 
-    this._observer = new IntersectionObserver(this._callback, options);
+    const callback: IntersectionObserverCallback = (
+      entries: IntersectionObserverEntry[],
+      observer: IntersectionObserver
+    ) => {
+      entries.forEach((entry) => {
+        this.isAtTop.emit(entry.isIntersecting);
+      });
+    };
+
+    this._observer = new IntersectionObserver(callback, options);
 
     this._observer.observe(this._elementRef.nativeElement);
   }
@@ -33,13 +42,4 @@ export class EnterViewPortDirective implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this._observer?.disconnect();
   }
-
-  private _callback: IntersectionObserverCallback = (
-    entries: IntersectionObserverEntry[],
-    observer: IntersectionObserver
-  ) => {
-    entries.forEach((entry) => {
-      this.isAtTop.emit(entry.isIntersecting);
-    });
-  };
 }

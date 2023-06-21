@@ -7,7 +7,6 @@ img {
 }
 
 .overlayBox {
-  justify-content: center;
   background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -47,7 +46,7 @@ $overlay-hover-transition-time: .25s;
   transition: opacity $overlay-hover-transition-time ease-in-out;
 }
 
-a.imgBox:hover + .overlayContainer,
+div.imgBox:hover + .overlayContainer,
 .overlayContainer:hover {
   opacity: 1;
 }

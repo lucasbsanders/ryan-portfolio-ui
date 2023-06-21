@@ -1,21 +1,9 @@
-<a
-  *ngIf="image.link"
-  class="w-100 imgBox"
-  [routerLink]="'/' + image.link"
-  [ngClass]="{ padBox: image.shadow }"
->
-  <ng-container *ngTemplateOutlet="imageFromS3"></ng-container>
-</a>
-
 <div
-  *ngIf="!image.link"
-  class="w-100 text-center"
-  [ngClass]="{ padBox: image.shadow }"
+  class="w-100 text-center position-relative"
+  [ngClass]="{ padBox: image.shadow, imgBox: image.link }"
+  appTrackViewPort
+  (isAtTop)="loadImageOnScroll($event)"
 >
-  <ng-container *ngTemplateOutlet="imageFromS3"></ng-container>
-</div>
-
-<ng-template #imageFromS3>
   <img
     [src]="image.s3Key | keyToS3"
     [alt]="image.s3Key | filename"
@@ -23,32 +11,22 @@
     [ngClass]="{
       customShadow: image.shadow,
       invisible: loading,
-      scaleImg: scaleImageHover
+      scaleImg: scaleImageOnHover
     }"
     [ngStyle]="{
       width: image.icon && !isSmallScreen ? '12rem' : '100%',
       cursor: image.link ? 'pointer' : 'auto'
     }"
-    appTrackViewPort
-    (isAtTop)="loadImageOnScroll($event)"
   />
-</ng-template>
 
-<div *ngIf="image.subtitle" class="w-100 text-center mt-4">
-  <p [innerText]="image.subtitle"></p>
-</div>
-
-<!-- Link/URL overlay: -->
-<div
-  class="position-absolute w-100 h-100 top-0 left-0 pe-2 overlayContainer"
-  *ngIf="showOverlay"
->
-  <div class="w-100 h-100 p-3 align-items-center d-flex overlayBox text-center">
-    <a
-      *ngIf="image.link && !image.url"
-      class="montserrat-bold p-4 navLink"
-      [routerLink]="'/' + image.link"
-    >
+  <!-- Link/URL overlay: -->
+  <div
+    class="position-absolute w-100 h-100 top-0 left-0 right-0 bottom-0 p-3 align-items-center justify-content-center d-flex overlayContainer overlayBox border border-primary"
+    style="cursor: pointer"
+    *ngIf="showOverlay"
+    (click)="goToImageRoute(image.link!)"
+  >
+    <a *ngIf="image.link && !image.url" class="montserrat-bold p-4 navLink">
       {{ image.link }}
     </a>
 
@@ -62,15 +40,19 @@
       {{ image.link ? image.link : image.url }}
     </a>
   </div>
-</div>
 
-<!-- Loading overlay: -->
-<div class="position-absolute bottom-0 left-0 pe-2 w-100" [hidden]="!loading">
-  <div class="row w-100 h-100 text-center align-items-center">
-    <div class="col-12">
-      <div class="spinner-border text-secondary" role="status">
-        <span class="visually-hidden">Loading Image...</span>
+  <!-- Loading overlay: -->
+  <div class="position-absolute bottom-0 left-0 pe-2 w-100" [hidden]="!loading">
+    <div class="row w-100 h-100 text-center align-items-center">
+      <div class="col-12">
+        <div class="spinner-border text-secondary" role="status">
+          <span class="visually-hidden">Loading Image...</span>
+        </div>
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="image.subtitle" class="w-100 text-center mt-4">
+  <p [innerText]="image.subtitle"></p>
 </div>
