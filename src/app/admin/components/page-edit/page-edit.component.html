@@ -3,29 +3,50 @@
 <div class="container sticky-top py-3">
   <div class="row mb-2">
     <div class="col-auto">
-      <button type="btn" class="btn btn-primary" (click)="savePage()">
+      <button
+        type="btn"
+        class="btn btn-primary"
+        (click)="savePage()"
+        [disabled]="buttonDisable"
+      >
         Save Page
       </button>
     </div>
 
     <div class="col-auto">
-      <button type="btn" class="btn btn-success" (click)="addTile()">
+      <button
+        type="btn"
+        class="btn btn-success"
+        (click)="addTile()"
+        [disabled]="buttonDisable"
+      >
         Add Tile
       </button>
     </div>
 
     <div class="col-auto">
-      <button type="btn" class="btn btn-secondary" [routerLink]="'/' + route">
+      <button
+        type="btn"
+        class="btn btn-secondary"
+        [routerLink]="'/' + route"
+        [disabled]="buttonDisable"
+      >
         Go to /{{ route }}
       </button>
     </div>
+
+    <!-- <div class="col-auto">
+      <button type="btn" class="btn btn-secondary" (click)="scrollToPreview()">
+        Preview page
+      </button>
+    </div> -->
 
     <div class="col">
       <button
         type="btn"
         class="btn btn-danger float-end"
         (click)="deletePage()"
-        disabled
+        [disabled]="buttonDisable || true"
       >
         Delete Page
       </button>
@@ -63,25 +84,63 @@
   </div>
 </div>
 
-<hr />
+<ng-container *ngFor="let tile of Tiles">
+  <div class="bg-gray">
+    <div class="container py-2">
+      <div class="row">
+        <div class="col-auto" *ngIf="!editPanelOpenMap.get(tile.order)">
+          <button
+            class="btn btn-primary"
+            (click)="editComponent(tile.order)"
+            [disabled]="buttonDisable"
+          >
+            Edit tile
+          </button>
+        </div>
 
-<ng-container *ngFor="let tile of Tiles; index as i">
-  <div class="container overflow-visible">
+        <div class="col-auto" *ngIf="editPanelOpenMap.get(tile.order)">
+          <button
+            class="btn btn-primary"
+            (click)="saveTile(tile.order)"
+            [disabled]="buttonDisable"
+          >
+            Save
+          </button>
+        </div>
+
+        <div class="col">
+          <app-order-scroll
+            orientation="horizontal"
+            [index]="tile.order"
+            [maxIndex]="Tiles.length"
+            (moveItem)="moveTile($event)"
+          >
+          </app-order-scroll>
+        </div>
+
+        <div class="col">
+          <button
+            class="btn btn-outline-danger float-end"
+            (click)="deleteTile(tile.order)"
+            [disabled]="buttonDisable"
+          >
+            Delete Tile
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="container overflow-visible"
+    *ngIf="editPanelOpenMap.get(tile.order)"
+  >
     <div class="row position-relative">
       <div
-        [id]="'EditTile' + tile.order"
+        [id]="'tile-scroll-id-' + tile.order"
         class="position-absolute"
         style="top: -150px"
       ></div>
-
-      <div class="col-auto">
-        <app-order-scroll
-          [index]="i"
-          [maxIndex]="Tiles.length"
-          (moveItem)="moveTile($event)"
-        >
-        </app-order-scroll>
-      </div>
 
       <!-- EDIT TILE -->
 
@@ -91,73 +150,42 @@
     </div>
 
     <!-- BUTTON ROW TILE OPTIONS -->
-
-    <div class="row my-2">
-      <div class="col">
-        <button
-          class="btn btn-primary"
-          (click)="
-            tilePreviewMap.set(tile.order, !tilePreviewMap.get(tile.order))
-          "
-        >
-          Tile Preview
-          {{ !tilePreviewMap.get(tile.order) ? "(close)" : "(open)" }}
-        </button>
-      </div>
-
-      <div class="col">
-        <button
-          class="btn btn-outline-danger float-end"
-          (click)="deleteTile(tile.order)"
-        >
-          Delete Tile
-        </button>
-      </div>
-    </div>
   </div>
 
   <!-- TILE PREVIEW -->
 
-  <ng-container *ngIf="!tilePreviewMap.get(tile.order)">
-    <div class="container">
-      <hr />
+  <ng-container [ngSwitch]="tile.type">
+    <app-homepage-grid-image *ngSwitchCase="TileType.HomepageGrid">
+    </app-homepage-grid-image>
+
+    <app-title *ngSwitchCase="TileType.Title" [tile]="tile"> </app-title>
+
+    <app-title
+      *ngSwitchCase="TileType.Subtitle"
+      [isSubtitle]="true"
+      [tile]="tile"
+    >
+    </app-title>
+
+    <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
+    </app-text-display>
+
+    <app-image-grid *ngSwitchCase="TileType.ImageGrid" [tile]="tile">
+    </app-image-grid>
+
+    <app-slideshow *ngSwitchCase="TileType.Slideshow" [tile]="tile">
+    </app-slideshow>
+
+    <app-vimeo-video *ngSwitchCase="TileType.VimeoVid" [tile]="tile">
+    </app-vimeo-video>
+
+    <app-image-subtitle *ngSwitchCase="TileType.ImageSubtitle" [tile]="tile">
+    </app-image-subtitle>
+
+    <div *ngSwitchDefault class="container my-2">
+      <ng-container *ngIf="true; then spinner"> </ng-container>
     </div>
-
-    <ng-container [ngSwitch]="tile.type">
-      <app-homepage-grid-image *ngSwitchCase="TileType.HomepageGrid">
-      </app-homepage-grid-image>
-
-      <app-title *ngSwitchCase="TileType.Title" [tile]="tile"> </app-title>
-
-      <app-title
-        *ngSwitchCase="TileType.Subtitle"
-        [isSubtitle]="true"
-        [tile]="tile"
-      >
-      </app-title>
-
-      <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
-      </app-text-display>
-
-      <app-image-grid *ngSwitchCase="TileType.ImageGrid" [tile]="tile">
-      </app-image-grid>
-
-      <app-slideshow *ngSwitchCase="TileType.Slideshow" [tile]="tile">
-      </app-slideshow>
-
-      <app-vimeo-video *ngSwitchCase="TileType.VimeoVid" [tile]="tile">
-      </app-vimeo-video>
-
-      <app-image-subtitle *ngSwitchCase="TileType.ImageSubtitle" [tile]="tile">
-      </app-image-subtitle>
-
-      <div *ngSwitchDefault class="container my-2">
-        <ng-container *ngIf="true; then spinner"> </ng-container>
-      </div>
-    </ng-container>
   </ng-container>
-
-  <hr />
 </ng-container>
 
 <ng-template #spinner>
@@ -170,7 +198,7 @@
   </div>
 </ng-template>
 
-<!-- PAGE PREVIEW -->
+<!-- FULL PAGE PREVIEW -->
 <!-- 
 <div class="container position-relative">
   <h4>Page Preview:</h4>
@@ -178,7 +206,6 @@
   <div id="preview" class="position-absolute" style="top: -150px"></div>
 </div>
 
-<hr>
+<hr />
 
-<app-page-display [pageObs]="pageObs" [isPreview]="true"></app-page-display>
--->
+<app-page-display [page]="page" [isPreview]="true"></app-page-display> -->

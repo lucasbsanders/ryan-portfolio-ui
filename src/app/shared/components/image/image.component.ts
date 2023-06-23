@@ -11,9 +11,12 @@ import { Router } from '@angular/router';
 })
 export class ImageComponent {
   @Input() image: iImage = new ImageDefault();
-  @Input() className: string = '';
   @Input() enableOverlay: boolean = false;
   @Input() scaleImageOnHover: boolean = false;
+
+  // Temporary, get rid of these asap
+  @Input() className: string = '';
+  @Input() containerClass: string = '';
 
   get showOverlay(): boolean {
     return Boolean(this.image?.link) && this.enableOverlay;

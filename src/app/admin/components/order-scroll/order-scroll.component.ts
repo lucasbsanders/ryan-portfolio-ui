@@ -6,9 +6,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./order-scroll.component.scss'],
 })
 export class OrderScrollComponent {
-
   @Input() index: number = -1;
   @Input() maxIndex: number = -1;
+  @Input() orientation: 'horizontal' | 'vertical' = 'vertical';
 
   @Output() moveItem = new EventEmitter<number[]>();
 
@@ -16,11 +16,8 @@ export class OrderScrollComponent {
 
   moveTile(currentIndex: number, adjust: number) {
     var targetIndex = currentIndex + adjust;
-    
-    if (targetIndex < 0 || targetIndex >= this.maxIndex)
-      targetIndex = currentIndex;
 
-    this.moveItem.emit([currentIndex, targetIndex]);
+    if (targetIndex >= 0 && targetIndex < this.maxIndex)
+      this.moveItem.emit([currentIndex, targetIndex]);
   }
-  
 }

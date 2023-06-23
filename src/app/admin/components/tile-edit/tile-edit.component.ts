@@ -13,7 +13,7 @@ export class TileEditComponent {
   @Input() tileNumber: number = -1;
 
   get Images(): iImage[] {
-    return this.pageEdit.getImages(this.tileNumber);
+    return this.pageEditService.getImages(this.tileNumber);
   }
 
   get Keys(): string[] {
@@ -22,7 +22,7 @@ export class TileEditComponent {
   }
 
   get Tile(): iTile {
-    const tile = this.pageEdit.getTile(this.tileNumber);
+    const tile = this.pageEditService.getTile(this.tileNumber);
     return tile ? tile : <iTile>{};
   }
 
@@ -40,40 +40,47 @@ export class TileEditComponent {
     );
   }
 
-  constructor(private pageEdit: PageEditService) {}
+  constructor(private pageEditService: PageEditService) {}
 
   typeOf(obj: any): string {
     return typeof obj;
   }
 
   addField(key: string, obj: any) {
-    this.pageEdit.changeTile(this.tileNumber, key, obj);
+    this.pageEditService.updateTileField(this.tileNumber, key, obj);
   }
 
   removeTileKey(key: string) {
-    this.pageEdit.changeTile(this.tileNumber, key, null);
+    this.pageEditService.updateTileField(this.tileNumber, key, null);
   }
 
   changeText(key: string, event: any) {
-    this.pageEdit.changeTile(this.tileNumber, key, event.target.value);
+    this.pageEditService.updateTileField(
+      this.tileNumber,
+      key,
+      event.target.value
+    );
   }
 
   addImage() {
-    this.pageEdit.addImage(this.tileNumber);
+    this.pageEditService.addImage(this.tileNumber);
   }
 
   moveImage(event: any) {
     const currentPos = event[0];
     const targetPos = event[1];
 
-    const currentImg = this.pageEdit.getImage(this.tileNumber, currentPos);
-    const targetImg = this.pageEdit.getImage(this.tileNumber, targetPos);
+    const currentImg = this.pageEditService.getImage(
+      this.tileNumber,
+      currentPos
+    );
+    const targetImg = this.pageEditService.getImage(this.tileNumber, targetPos);
 
     if (currentImg && targetImg) {
       currentImg.order = targetPos;
       targetImg.order = currentPos;
 
-      this.pageEdit.update();
+      this.pageEditService.update();
     }
   }
 }

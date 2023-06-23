@@ -15,7 +15,6 @@ import { PageEditService } from '../../services/page-edit.service';
   styleUrls: ['./page-edit.component.scss'],
 })
 export class PageEditComponent implements OnInit {
-
   TileType = TileType;
   Width = Width;
   PageType = PageType;
@@ -24,105 +23,128 @@ export class PageEditComponent implements OnInit {
   successMessage = '';
   errorMessage = '';
   pageNotFound = false;
-  tilePreviewMap = new Map();
+  editPanelOpenMap = new Map();
+  buttonDisable = false;
 
   get page(): iPage {
-    return this.pageEdit.page;
+    return this.pageEditService.page;
   }
 
   get pageObs(): Observable<iPage> {
-    return this.pageEdit.pageObs;
+    return this.pageEditService.pageObs;
   }
 
   get Tiles(): iTile[] {
-    return this.pageEdit.getTiles();
+    return this.pageEditService.page.tiles;
   }
 
   constructor(
     private navbarService: NavbarService,
-    private pageService: PageReadService,
+    private pageReadService: PageReadService,
     private activatedRoute: ActivatedRoute,
     private awsService: AdminAPIService,
-    private pageEdit: PageEditService,
-    private router: Router,
+    private pageEditService: PageEditService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    if (environment.disableEdit)
-      this.router.navigate(['/']);
+    if (environment.disableEdit) this.router.navigate(['/']);
     this.activatedRoute.paramMap
       .pipe(
         switchMap((paramMap: any) => {
-          this.pageEdit.setPageToDefault();
+          this.pageEditService.setPageToDefault();
           this.pageNotFound = false;
           this.route = paramMap.get('path');
           this.navbarService.setRoute(this.route);
 
-          return this.pageService.getPageFromRoute(this.route);
+          return this.pageReadService.getPageFromRoute(this.route);
         })
       )
       .subscribe((page: iPage | null) => {
         if (!page) this.pageNotFound = true;
-        else this.pageEdit.page = page;
+        else this.pageEditService.page = page;
       });
   }
 
   deleteTile(tileNum: number) {
-    this.pageEdit.deleteTile(tileNum);
-    this.tilePreviewMap.clear();
+    this.buttonDisable = true;
+    this.pageEditService.deleteTile(tileNum);
+    this.editPanelOpenMap.clear();
+    this.buttonDisable = false;
   }
 
   moveTile(event: number[]) {
-    const currentPos = event[0];
-    const targetPos = event[1];
+    this.buttonDisable = true;
 
-    const currentTile = this.pageEdit.getTile(currentPos);
-    const targetTile = this.pageEdit.getTile(targetPos);
+    const [currentPos, targetPos] = event;
+
+    const currentTile = this.pageEditService.getTile(currentPos);
+    const targetTile = this.pageEditService.getTile(targetPos);
 
     if (currentTile && targetTile) {
       currentTile.order = targetPos;
       targetTile.order = currentPos;
-  
-      this.tilePreviewMap.clear();
-  
-      this.scroll('EditTile' + targetPos);
-  
-      this.pageEdit.update();
+
+      this.editPanelOpenMap.clear();
+
+      this.scroll('tile-scroll-id-' + targetPos);
+
+      this.pageEditService.update();
     }
+    this.buttonDisable = false;
   }
 
   addTile() {
-    this.pageEdit.addTile();
-    this.scroll('EditTile' + (this.Tiles.length - 1));
+    this.buttonDisable = true;
+
+    this.pageEditService.addTile();
+    this.scroll('tile-scroll-id-' + (this.Tiles.length - 1));
+  }
+
+  saveTile(order: number) {
+    this.savePage();
+    this.editPanelOpenMap.delete(order);
+  }
+
+  scrollToPreview() {
+    this.scroll('preview');
   }
 
   scroll(id: string) {
-    setTimeout(
-      () =>
-        document
-          .getElementById(id)
-          ?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
-      300
-    );
+    this.buttonDisable = true;
+
+    setTimeout(() => {
+      document
+        .getElementById(id)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      this.buttonDisable = false;
+    }, 300);
+  }
+
+  editComponent(order: number) {
+    this.editPanelOpenMap.set(order, this.pageEditService.getTile(order));
   }
 
   savePage() {
-    this.awsService.createOrEditPage(this.page)
-    .subscribe((data) => {
+    this.buttonDisable = true;
+    this.awsService.createOrEditPage(this.page).subscribe((data) => {
       if (!data) this.setErrorMessage('ERROR: Request did not succeed');
       else this.setSuccessMessage('Successfully saved page');
+      this.buttonDisable = false;
     });
   }
 
   deletePage() {
+    this.buttonDisable = true;
     try {
-      this.awsService.deletePage(this.page)
-      .subscribe((data) => this.setSuccessMessage(JSON.stringify(data)));
-    }
-    catch (err: string | any) {
+      this.awsService.deletePage(this.page).subscribe((data) => {
+        this.setSuccessMessage(JSON.stringify(data));
+        this.buttonDisable = false;
+      });
+    } catch (err: string | any) {
       this.setErrorMessage(err);
+      this.buttonDisable = false;
     }
-    
   }
 
   private setSuccessMessage(msg: string) {

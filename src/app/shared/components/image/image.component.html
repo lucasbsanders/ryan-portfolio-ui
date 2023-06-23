@@ -1,5 +1,5 @@
 <div
-  class="w-100 text-center position-relative"
+  [class]="containerClass || 'w-100 text-center position-relative'"
   [ngClass]="{ padBox: image.shadow, imgBox: image.link }"
   appTrackViewPort
   (isAtTop)="loadImageOnScroll($event)"

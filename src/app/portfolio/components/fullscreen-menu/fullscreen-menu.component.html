@@ -4,23 +4,22 @@
   (window:resize)="onResize()"
 >
   <div class="container">
-    <div *ngFor="let option of menuData" class="text-center mb-3 row">
-      <a
-        *ngIf="option.route"
-        class="montserrat-bold px-3 py-1 menuLink"
-        [routerLink]="'/' + option.route"
-        (click)="closeMenu($event)"
-        >{{ option.title }}</a
+    <ng-container *ngFor="let option of menuData">
+      <div
+        *ngIf="option.route || option.url"
+        class="row justify-content-center mx-auto mb-2"
       >
-      <a
-        *ngIf="option.url"
-        [href]="option.url"
-        class="montserrat-bold px-3 py-1 menuLink"
-        target="_blank"
-        rel="noopener noreferrer"
-        >{{ option.title }}</a
-      >
-    </div>
+        <div
+          class="col-auto px-auto hover-box-shadow-white"
+          style="padding: 0 7rem"
+          (click)="clickOption(option)"
+        >
+          <button type="button" class="montserrat-bold menuLink" tabindex="0">
+            {{ option.title }}
+          </button>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>
 
@@ -54,6 +53,7 @@
           'border-color': isMenuOpen ? 'white' : 'black'
         }"
         (click)="setMenuOpen(false)"
+        tabindex="0"
       >
         Back
       </a>
@@ -63,9 +63,10 @@
           *ngIf="!isMenuOpen"
           routerLink="/"
           type="button"
-          class="btn-close w-100"
+          class="btn btn-close w-100"
           aria-label="Close"
           (click)="setMenuOpen(false)"
+          tabindex="0"
         ></button>
       </ng-template>
     </div>
@@ -81,6 +82,7 @@
       class="p-1"
       [ngStyle]="{ 'background-color': isMenuOpen ? '' : 'white' }"
       (mousedown)="clickMenuButton()"
+      tabindex="0"
     >
       <span></span>
       <span></span>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { map, Observable, of, pipe, switchMap } from 'rxjs';
 import { iPage } from 'src/app/shared/interfaces.const';
 import { environment } from 'src/environments/environment';
 import { PageType } from '../../shared/enums.const';
@@ -20,7 +20,7 @@ export class PageReadService {
    * Returns an iPage web page (within an observable) for a particular route input
    * @param route the unique name for a particular route in the site
    * @param type optional page type parameter that filters page list before searching for the route
-   * @returns the iPage representation of a particular page, or null if not found 
+   * @returns the iPage representation of a particular page, or null if not found
    */
   getPageFromRoute(
     route: string | null,
@@ -29,23 +29,15 @@ export class PageReadService {
     if (!route) return of(null);
 
     return this.getPagesFromClosestSource().pipe(
-      map((pages: iPage[]) =>
-        type
-          ? pages.filter((page: iPage) => page.type === type)
-          : pages
-      ),
+      this.filterPagesByType(type),
       switchMap((pages: iPage[]) => {
         const page = pages.find((page: any) => page.route === route);
 
         if (!page)
           // if page not found in session storage, try the API one more time
           return this.getAllPagesAPICall().pipe(
-            map((pages: any[]) =>
-              type ? pages.filter((page: any) => page.type === type) : pages
-            ),
-            map((pages) => {
-              return pages.find((page: any) => page.route === route);
-            })
+            this.filterPagesByType(type),
+            this.findPageByRoute(route)
           );
         else return of(page);
       }),
@@ -57,6 +49,20 @@ export class PageReadService {
         }
         return foundPage;
       })
+    );
+  }
+
+  filterPagesByType(type: PageType | undefined) {
+    return pipe(
+      map((pages: any) =>
+        type ? pages.filter((page: any) => page.type === type) : pages
+      )
+    );
+  }
+
+  findPageByRoute(route: string | null) {
+    return pipe(
+      map((pages: any) => pages.find((page: any) => page.route === route))
     );
   }
 

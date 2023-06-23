@@ -4,7 +4,7 @@
   class="w-100 montserrat"
   type="number"
   [defaultValue]="obj"
-  (blur)="changeNumber(key, $event)"
+  (change)="changeNumber(key, $event)"
 />
 
 <input
@@ -20,13 +20,13 @@
   *ngIf="type === 'string'"
   class="w-100 montserrat"
   [defaultValue]="obj"
-  (blur)="changeText(key, $event)"
+  (change)="changeText(key, $event)"
 ></textarea>
 
 <textarea
   #inputRef
   *ngIf="type === 'object'"
   class="w-100 montserrat"
-  [defaultValue]="jsonObj"
-  (blur)="changeObject(key, $event)"
+  [defaultValue]="obj | json"
+  (change)="changeObject(key, $event)"
 ></textarea>

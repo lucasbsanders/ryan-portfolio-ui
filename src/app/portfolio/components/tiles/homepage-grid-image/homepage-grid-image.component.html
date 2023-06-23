@@ -11,8 +11,11 @@
   ></app-image>
 
   <app-image
-    className="homepage-logo"
-    [image]="{ s3Key: 'static/Homepage Visual/Homepage_Logo-03.svg', order: 1 }"
+    containerClass="homepage-logo d-flex align-items-center"
+    [image]="{
+      s3Key: 'static/Homepage Visual/Homepage_Logo-03.svg',
+      order: 1
+    }"
   ></app-image>
 
   <div class="shapes">
@@ -58,9 +61,8 @@
   </div>
 </div>
 
-<div
+<!-- <div
   class="grid-image-container"
-  *ngIf="false"
   [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }"
 >
   <app-image
@@ -74,4 +76,4 @@
     className="homepage-logo"
     [image]="{ s3Key: 'static/Homepage Visual/Homepage_Logo-03.svg', order: 1 }"
   ></app-image>
-</div>
+</div> -->

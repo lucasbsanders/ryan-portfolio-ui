@@ -60,6 +60,24 @@ export class FullscreenMenuComponent implements OnInit, AfterViewInit {
     this.router.navigate([decodeURI(this.router.url), 'edit']);
   }
 
+  openWindow(url: string) {
+    window.open(url);
+  }
+
+  clickOption(option: any) {
+    if (option.route) {
+      this.goToRoute(option.route);
+    }
+    if (option.url) {
+      this.openWindow(option.url);
+    }
+  }
+
+  goToRoute(route: string) {
+    this.setMenuOpen(false);
+    this.router.navigate([route]);
+  }
+
   onResize() {
     this.navbarService.onResize(window.outerWidth);
   }

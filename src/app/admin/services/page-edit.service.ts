@@ -21,26 +21,34 @@ export class PageEditService {
   update() {
     this.page = {
       ...this.page,
-      tiles: [...this.page.tiles],
+      tiles: [
+        ...this.page.tiles.map((tile: iTile) =>
+          tile.images
+            ? {
+                ...tile,
+                images: [...tile.images],
+              }
+            : { ...tile }
+        ),
+      ],
     };
+
+    this.page.tiles.sort((a: iTile, b: iTile) => a.order - b.order);
+    this.page.tiles.forEach((tile: iTile) =>
+      tile.images?.sort((a: iImage, b: iImage) => a.order - b.order)
+    );
+
     this.pageSubject.next(this.page);
   }
 
   // CRUD TILES
 
-  getTiles(): iTile[] {
-    return this.page.tiles
-      ? this.page.tiles.sort((a: iTile, b: iTile) => a.order - b.order)
-      : [];
-  }
-
   getTile(tileNum: number): iTile | undefined {
-    const tiles = this.getTiles();
-    return tiles.find((tile: iTile) => tile.order === tileNum);
+    return this.page.tiles.find((tile: iTile) => tile.order === tileNum);
   }
 
   addTile() {
-    const tiles = this.getTiles();
+    const tiles = this.page.tiles;
 
     const nextNumber = tiles.length > 0 ? tiles[tiles.length - 1].order + 1 : 0;
 
@@ -55,21 +63,21 @@ export class PageEditService {
     this.update();
   }
 
-  changeTile(tileNum: number, key: string, value: any) {
+  updateTileField(tileNum: number, key: string, value: any) {
     const tile = this.getTile(tileNum);
 
     if (tile) {
       if (value === null) delete tile[key];
-      else tile[key] = value;
+      else tile[key] = JSON.parse(JSON.stringify(value));
 
-      this.page.tiles[tileNum] = JSON.parse(JSON.stringify(tile));
+      this.page.tiles[tileNum] = tile;
     }
 
     this.update();
   }
 
   deleteTile(tileNum: number) {
-    const tiles = this.getTiles();
+    const tiles = this.page.tiles;
 
     tiles.splice(
       tiles.findIndex((tile: iTile) => tile.order === tileNum),
@@ -84,11 +92,8 @@ export class PageEditService {
   // CRUD IMAGES
 
   getImages(tileNum: number): iImage[] {
-    const tile = this.page.tiles.find((tile: iTile) => tile.order === tileNum);
-
-    return tile && tile.images
-      ? tile.images.sort((a: iImage, b: iImage) => a.order - b.order)
-      : [];
+    const tile = this.getTile(tileNum);
+    return tile ? tile.images ?? [] : [];
   }
 
   getImage(tileNum: number, imageNum: number): iImage | undefined {
@@ -106,16 +111,16 @@ export class PageEditService {
     this.update();
   }
 
-  changeImage(tileNum: number, imageNum: number, key: string, value: any) {
+  updateImageField(tileNum: number, imageNum: number, key: string, value: any) {
     const image = this.getImage(tileNum, imageNum);
 
     if (image) {
       if (value === null) delete image[key];
-      else image[key] = value;
+      else image[key] = JSON.parse(JSON.stringify(value));
 
-      const images = this.page.tiles[tileNum].images;
-      if (images) {
-        images[imageNum] = JSON.parse(JSON.stringify(image));
+      const images = this.getImages(tileNum);
+      if (images && images.length > imageNum) {
+        images[imageNum] = image;
       }
     }
 

@@ -31,10 +31,10 @@ $menu-swoop-transition-time: .3s;
 
 // MENU LINK HOVER ANIMATION
 
-$menulink-hover-transform-size: 1.3;
+$menu-link-text-hover-transform-size: 1.3;
 $hover-transition-time: .3s;
 
-a.menuLink {
+button.menuLink {
   color: lightgray;
   text-decoration: none;
   font-size: xx-large;
@@ -46,11 +46,15 @@ a.menuLink {
   transition: color $hover-transition-time ease-in-out, transform $hover-transition-time ease-in-out;
 }
 
-a.menuLink:hover {
-  -webkit-transform: scale($menulink-hover-transform-size);
-  -moz-transform: scale($menulink-hover-transform-size);
-  -o-transform: scale($menulink-hover-transform-size);
-  transform: scale($menulink-hover-transform-size);
+.hover-box-shadow-white {
+  cursor: pointer;
+}
+
+.hover-box-shadow-white:hover button.menuLink {
+  -webkit-transform: scale($menu-link-text-hover-transform-size);
+  -moz-transform: scale($menu-link-text-hover-transform-size);
+  -o-transform: scale($menu-link-text-hover-transform-size);
+  transform: scale($menu-link-text-hover-transform-size);
 
   color: white;
   text-shadow: 0px 0px 50px lightgray;
@@ -187,4 +191,17 @@ $translate-up: -1 * $translate-down;
   -moz-transition: $menu-click-transition-time ease-in-out;
   -o-transition: $menu-click-transition-time ease-in-out;
   transition: $menu-click-transition-time ease-in-out;
+}
+
+.hover-box-shadow-white:hover {
+  box-shadow:  .25em .25em 5em  white;
+}
+
+button:not(.btn) {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: .5em 0 !important;
+
 }

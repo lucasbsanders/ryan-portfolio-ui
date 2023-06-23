@@ -34,18 +34,23 @@ export class ImageEditComponent {
   }
 
   addField(key: string, obj: any) {
-    this.changeImage(key, obj);
+    this.updateImageField(key, obj);
   }
 
   removeField(key: string) {
-    this.changeImage(key, null);
+    this.updateImageField(key, null);
   }
 
   deleteImage() {
     this.pageEdit.deleteImage(this.tileNumber, this.Image.order);
   }
 
-  private changeImage(key: string, value: iImage | null) {
-    this.pageEdit.changeImage(this.tileNumber, this.Image.order, key, value);
+  private updateImageField(key: string, value: iImage | null) {
+    this.pageEdit.updateImageField(
+      this.tileNumber,
+      this.Image.order,
+      key,
+      value
+    );
   }
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
 import { PageDefault } from 'src/app/shared/classes.const';
 import { iPage } from 'src/app/shared/interfaces.const';
 import { PageType, TileType, Width } from '../../../shared/enums.const';
@@ -13,15 +13,13 @@ import { PageReadService } from '../../services/page-read.service';
   styleUrls: ['./page-display.component.scss'],
 })
 export class PageDisplayComponent implements OnInit {
-
   TileType = TileType;
   Width = Width;
   PageType = PageType;
 
-  @Input() pageObs = new Observable<iPage>();
+  @Input() page: iPage = new PageDefault();
   @Input() isPreview = false;
 
-  page: iPage = new PageDefault();
   pageNotFound = false;
 
   get isHomepage(): boolean {
@@ -51,15 +49,12 @@ export class PageDisplayComponent implements OnInit {
         })
       )
       .subscribe((page: iPage | null) => this.setPage(page));
-
-    this.pageObs.subscribe((page: iPage) => this.setPage(page));
   }
 
   setPage(page: iPage | null) {
     if (!page) this.pageNotFound = true;
     else this.page = page;
-    
+
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 300);
   }
-
 }

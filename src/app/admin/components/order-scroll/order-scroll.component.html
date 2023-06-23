@@ -1,9 +1,20 @@
-<div class="text-center">
-  <button [disabled]="index===0" class="btn btn-outline-secondary" (click)="moveTile(index, -1)">
+<div
+  class="text-center"
+  [ngClass]="{ 'd-flex flex-row gap-3 mx-4': orientation === 'horizontal' }"
+>
+  <button
+    [disabled]="index === 0"
+    class="btn btn-outline-secondary"
+    (click)="moveTile(index, -1)"
+  >
     ▲
   </button>
-  <p class="my-auto primary">{{index + 1}}</p>
-  <button [disabled]="index===maxIndex-1" class="btn btn-outline-secondary" (click)="moveTile(index, 1)">
+  <p class="my-auto primary">{{ index + 1 }}</p>
+  <button
+    [disabled]="index === maxIndex - 1"
+    class="btn btn-outline-secondary"
+    (click)="moveTile(index, 1)"
+  >
     ▼
   </button>
 </div>
