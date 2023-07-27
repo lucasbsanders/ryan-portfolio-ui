@@ -6,7 +6,7 @@
       (click)="filterItems(option)"
     >
       <a
-        class="filterLink"
+        class="filterLink {{ tile.textClass }}"
         [ngStyle]="{
           'border-bottom': option === selectedFilter ? '3px solid black' : ''
         }"
@@ -47,7 +47,7 @@
     class="container"
     [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }"
   >
-    <h2>No images</h2>
+    <h2 [class]="tile.textClass">No images</h2>
   </div>
 
   <div
@@ -55,6 +55,6 @@
     class="container"
     [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }"
   >
-    <h2>No images in category {{ selectedFilter }}</h2>
+    <h2 [class]="tile.textClass">No images in category {{ selectedFilter }}</h2>
   </div>
 </ng-template>

@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { NavbarService } from '../../services/navbar.service';
 import { environment } from 'src/environments/environment';
-import { Brand } from 'src/app/shared/enums.const';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,18 +10,13 @@ import { Router } from '@angular/router';
 })
 export class FullscreenMenuComponent implements OnInit, AfterViewInit {
   menuData: any[] = [];
-  icons = environment.icons;
 
   get brandSelection(): string {
-    return this.icons
-      ? !this.isMenuOpen
-        ? environment.icons.primary
-        : environment.icons.secondary
-      : '';
+    return environment.icons.primary;
   }
 
-  get isMenuOpen(): boolean {
-    return this.navbarService.isMenuOpen;
+  get menuOpen(): boolean {
+    return this.navbarService.menuOpen;
   }
 
   get isAtTop(): boolean {
@@ -88,21 +82,21 @@ export class FullscreenMenuComponent implements OnInit, AfterViewInit {
 
   clickBrand(): void {
     this.setMenuOpen(false);
-    this.navbarService.isMenuOpen = false;
+    this.navbarService.menuOpen = false;
   }
 
   clickMenuButton(): void {
-    this.setMenuOpen(!this.navbarService.isMenuOpen);
+    this.setMenuOpen(!this.navbarService.menuOpen);
   }
 
-  setMenuOpen(isMenuOpen: boolean): void {
-    this.navbarService.isMenuOpen = isMenuOpen;
+  setMenuOpen(menuOpen: boolean): void {
+    this.navbarService.menuOpen = menuOpen;
   }
 
   @HostListener('document:keydown', ['$event'])
   onKeydownHandler(event: KeyboardEvent) {
     if (
-      this.navbarService.isMenuOpen &&
+      this.navbarService.menuOpen &&
       (event.key === 'Escape' || event.key === 'Esc')
     ) {
       this.setMenuOpen(false);

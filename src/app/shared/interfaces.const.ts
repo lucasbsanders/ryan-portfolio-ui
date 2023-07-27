@@ -20,6 +20,7 @@ export interface iTile extends Map {
   videoId?: string;
   shadow?: boolean;
   mb?: number;
+  textClass?: string;
 }
 
 export interface iImage extends Map {

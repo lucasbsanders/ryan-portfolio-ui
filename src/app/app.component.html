@@ -1,2 +1,8 @@
-<router-outlet appTrackViewPort (isAtTop)="scrolledAtTop($event)"></router-outlet>
-<app-footer class="mt-auto"></app-footer>
+<div class="d-flex flex-column min-vh-100">
+  <router-outlet
+    appTrackViewPort
+    (isAtTop)="scrolledAtTop($event)"
+  ></router-outlet>
+
+  <app-footer class="mt-auto"></app-footer>
+</div>

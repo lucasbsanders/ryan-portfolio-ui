@@ -12,15 +12,12 @@ a.navLink:hover {
   font-family: "Montserrat-Bold", Arial, sans-serif;
 }
 
-
 // MENU SWOOP UP ANIMATION
 
-$menu-swoop-transition-time: .3s;
+$menu-swoop-transition-time: 0.3s;
 
 .fullscreenMenu {
   z-index: 9000;
-  padding-top: 140px;
-  margin-top: 100vh;
 
   -webkit-transition: margin-top $menu-swoop-transition-time ease-in-out;
   -moz-transition: margin-top $menu-swoop-transition-time ease-in-out;
@@ -28,50 +25,56 @@ $menu-swoop-transition-time: .3s;
   transition: margin-top $menu-swoop-transition-time ease-in-out;
 }
 
-
 // MENU LINK HOVER ANIMATION
 
-$menu-link-text-hover-transform-size: 1.3;
-$hover-transition-time: .3s;
+$menu-link-text-hover-transform-size: 1.1;
+$hover-transition-time: 0.3s;
 
 button.menuLink {
   color: lightgray;
   text-decoration: none;
-  font-size: xx-large;
+  font-size: 2.6rem;
   cursor: pointer;
+  border-radius: 66px;
 
-  -webkit-transition: color $hover-transition-time ease-in-out, transform $hover-transition-time ease-in-out;
-  -moz-transition: color $hover-transition-time ease-in-out, transform $hover-transition-time ease-in-out;
-  -o-transition: color $hover-transition-time ease-in-out, transform $hover-transition-time ease-in-out;
-  transition: color $hover-transition-time ease-in-out, transform $hover-transition-time ease-in-out;
+  -webkit-transition: color $hover-transition-time ease-in-out,
+    transform $hover-transition-time ease-in-out;
+  -moz-transition: color $hover-transition-time ease-in-out,
+    transform $hover-transition-time ease-in-out;
+  -o-transition: color $hover-transition-time ease-in-out,
+    transform $hover-transition-time ease-in-out;
+  transition: color $hover-transition-time ease-in-out,
+    transform $hover-transition-time ease-in-out;
+
+  &:hover {
+    -webkit-transform: scale($menu-link-text-hover-transform-size);
+    -moz-transform: scale($menu-link-text-hover-transform-size);
+    -o-transform: scale($menu-link-text-hover-transform-size);
+    transform: scale($menu-link-text-hover-transform-size);
+
+    color: white;
+    box-shadow: 0px 0px 50px lightgray;
+  }
 }
-
-.hover-box-shadow-white {
-  cursor: pointer;
-}
-
-.hover-box-shadow-white:hover button.menuLink {
-  -webkit-transform: scale($menu-link-text-hover-transform-size);
-  -moz-transform: scale($menu-link-text-hover-transform-size);
-  -o-transform: scale($menu-link-text-hover-transform-size);
-  transform: scale($menu-link-text-hover-transform-size);
-
-  color: white;
-  text-shadow: 0px 0px 50px lightgray;
-}
-
 
 // SCALE MENU BUTTON HOVER ANIMATION
 
-.menuButtons {
+.menuButton {
   position: fixed;
   right: 7vw;
   top: 25px;
   z-index: 10000;
 }
 
+.editButton {
+  position: fixed;
+  right: 7vw;
+  top: 65px;
+  z-index: 10000;
+}
+
 $menu-transform-size: 1.3;
-$menu-scale-transition-time: .3s;
+$menu-scale-transition-time: 0.3s;
 
 .menuIcon {
   -webkit-transition: transform $menu-scale-transition-time ease-in-out;
@@ -87,13 +90,12 @@ $menu-scale-transition-time: .3s;
   transform: scale($menu-transform-size);
 }
 
-
 // SCALE IMAGE ON HOVER/SCROLL ANIMATION
 
 $img-hover-transform-size: 1.2;
-$img-scroll-transition-time: .25s;
-$img-scale-transition-time: .3s;
-$img-display-transition-time: .4s;
+$img-scroll-transition-time: 0.25s;
+$img-scale-transition-time: 0.3s;
+$img-display-transition-time: 0.4s;
 
 .scaleImage:hover {
   -webkit-transform: scale($img-hover-transform-size);
@@ -107,12 +109,19 @@ $img-display-transition-time: .4s;
   border-radius: 8px;
   cursor: pointer;
 
-  -webkit-transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out, opacity $img-display-transition-time ease;
-  -moz-transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out, opacity $img-display-transition-time ease;
-  -o-transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out, opacity $img-display-transition-time ease;
-  transition: height $img-scroll-transition-time ease-in-out, transform $img-scale-transition-time ease-in-out, opacity $img-display-transition-time ease;
+  -webkit-transition: height $img-scroll-transition-time ease-in-out,
+    transform $img-scale-transition-time ease-in-out,
+    opacity $img-display-transition-time ease;
+  -moz-transition: height $img-scroll-transition-time ease-in-out,
+    transform $img-scale-transition-time ease-in-out,
+    opacity $img-display-transition-time ease;
+  -o-transition: height $img-scroll-transition-time ease-in-out,
+    transform $img-scale-transition-time ease-in-out,
+    opacity $img-display-transition-time ease;
+  transition: height $img-scroll-transition-time ease-in-out,
+    transform $img-scale-transition-time ease-in-out,
+    opacity $img-display-transition-time ease;
 }
-
 
 // CENTER BRAND ICON - ANIMATION ON SMALL SCREENS ONLY
 
@@ -128,11 +137,10 @@ $img-display-transition-time: .4s;
   transition: right $img-scroll-transition-time ease-in-out;
 }
 
-
 // CREATE AND ANIMATE HAMBURGER MENU
 // https://w3codepen.com/howto-html-css-hamburger-menu-icon/
 
-$menu-click-transition-time: .3s;
+$menu-click-transition-time: 0.3s;
 
 input[type="checkbox"]#navbar-menu {
   display: none;
@@ -164,7 +172,7 @@ input[type="checkbox"]#navbar-menu {
 $translate-down: 8px;
 $translate-up: -1 * $translate-down;
 
-#navbar-menu:checked~#navbar-menu-icon span:nth-child(1) {
+#navbar-menu:checked ~ #navbar-menu-icon span:nth-child(1) {
   background: white;
   -webkit-transform: translate(0px, $translate-down) rotate(135deg);
   -moz-transform: translate(0px, $translate-down) rotate(135deg);
@@ -172,13 +180,13 @@ $translate-up: -1 * $translate-down;
   transform: translate(0px, $translate-down) rotate(135deg);
 }
 
-#navbar-menu:checked~#navbar-menu-icon span:nth-child(2) {
+#navbar-menu:checked ~ #navbar-menu-icon span:nth-child(2) {
   background: white;
   opacity: 0;
   left: -25px;
 }
 
-#navbar-menu:checked~#navbar-menu-icon span:nth-child(3) {
+#navbar-menu:checked ~ #navbar-menu-icon span:nth-child(3) {
   background: white;
   -webkit-transform: translate(0px, $translate-up) rotate(-135deg);
   -moz-transform: translate(0px, $translate-up) rotate(-135deg);
@@ -194,7 +202,7 @@ $translate-up: -1 * $translate-down;
 }
 
 .hover-box-shadow-white:hover {
-  box-shadow:  .25em .25em 5em  white;
+  box-shadow: 0.25em 0.25em 5em white;
 }
 
 button:not(.btn) {
@@ -202,6 +210,5 @@ button:not(.btn) {
   border: none;
   box-shadow: none;
   margin: 0;
-  padding: .5em 0 !important;
-
+  padding: 0.5em 0 !important;
 }

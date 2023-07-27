@@ -1,5 +1,14 @@
 button.slideButton {
-  margin-top: 10px;
+  margin-top: 1.5rem;
   border: none !important;
+  height: 5px;
   border-radius: 3px;
+}
+
+button.slideButton:not(.active) {
+  background-color: var(--gray);
+}
+
+button.slideButton.active {
+  background-color: var(--pink);
 }

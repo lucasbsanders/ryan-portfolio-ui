@@ -19,6 +19,7 @@ export class TileDefault implements iTile {
   videoId = '';
   shadow = false;
   mb = 0;
+  textClass = '';
 }
 
 export class ImageDefault implements iImage {

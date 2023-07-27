@@ -30,6 +30,10 @@ export class PageDisplayComponent implements OnInit {
     return this.navbarService.isSmallScreen;
   }
 
+  get menuOpen(): boolean {
+    return this.navbarService.menuOpen;
+  }
+
   constructor(
     private navbarService: NavbarService,
     private pageService: PageReadService,

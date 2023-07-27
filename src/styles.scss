@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
-@import '../node_modules/bootstrap/scss/bootstrap';
+@import "../node_modules/bootstrap/scss/bootstrap";
 
 /* Custom styles */
 @import "assets/scss/index.scss";
@@ -16,22 +16,26 @@
 
 @font-face {
   font-family: "Fugaz";
-  src: local("Fugaz"), url(./assets/fonts/Fugaz_One/FugazOne-Regular.ttf) format("truetype");
+  src: local("Fugaz"),
+    url(./assets/fonts/Fugaz_One/FugazOne-Regular.ttf) format("truetype");
 }
 
 @font-face {
   font-family: "Montserrat";
-  src: local("Montserrat"), url(./assets/fonts/Montserrat/Montserrat-Regular.ttf) format("truetype");
+  src: local("Montserrat"),
+    url(./assets/fonts/Montserrat/Montserrat-Regular.ttf) format("truetype");
 }
 
 @font-face {
   font-family: "Montserrat-Bold";
-  src: local("Montserrat"), url(./assets/fonts/Montserrat/Montserrat-Bold.ttf) format("truetype");
+  src: local("Montserrat"),
+    url(./assets/fonts/Montserrat/Montserrat-Bold.ttf) format("truetype");
 }
 
 .fugaz,
 h1 {
   font-family: "Fugaz", Arial, sans-serif;
+  font-size: xx-large;
 }
 
 .montserrat,
@@ -79,7 +83,9 @@ div.homepage-logo {
 }
 
 img.homepage-logo-bg {
-  max-height: 50vh;
+  @media (min-width: 800px) {
+    max-height: 65vh;
+  }
   max-width: 100%;
 }
 
@@ -143,72 +149,74 @@ img.homepage-icon-round {
   }
 
   84% {
-    transform: translateY(-.5rem);
+    transform: translateY(-0.5rem);
   }
 }
 
 @keyframes spinAnimation {
   0% {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
 
   50% {
-    transform: rotate(180deg)
+    transform: rotate(180deg);
   }
 
   100% {
-    transform: rotate(359deg)
+    transform: rotate(359deg);
   }
 }
 
 @keyframes spinAnimationBackwards {
   from {
-    transform: rotate(359deg)
+    transform: rotate(359deg);
   }
 
   to {
-    transform: rotate(180deg)
+    transform: rotate(180deg);
   }
 
   100% {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
 }
 
 @keyframes pulseAnimation {
   0% {
-    transform: scale(1)
+    transform: scale(1);
   }
 
   30% {
-    transform: scale(1.5)
+    transform: scale(1.5);
   }
 
   100% {
-    transform: scale(1)
+    transform: scale(1);
   }
 }
 
 @keyframes roundAnimationContainer {
   0% {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
 
-  50% {}
+  50% {
+  }
 
   100% {
-    transform: rotate(-359deg)
+    transform: rotate(-359deg);
   }
 }
 
 @keyframes roundAnimationImage {
   0% {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
 
-  50% {}
+  50% {
+  }
 
   100% {
-    transform: rotate(359deg)
+    transform: rotate(359deg);
   }
 }

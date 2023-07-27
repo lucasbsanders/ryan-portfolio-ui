@@ -13,8 +13,6 @@ export class ImageComponent {
   @Input() image: iImage = new ImageDefault();
   @Input() enableOverlay: boolean = false;
   @Input() scaleImageOnHover: boolean = false;
-
-  // Temporary, get rid of these asap
   @Input() className: string = '';
   @Input() containerClass: string = '';
 

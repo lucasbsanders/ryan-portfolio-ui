@@ -7,11 +7,9 @@ import { NavbarService } from './portfolio/services/navbar.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-
   constructor(private navbarService: NavbarService) {}
 
   scrolledAtTop(isAtTop: boolean): void {
     this.navbarService.isAtTop = isAtTop;
   }
-
 }

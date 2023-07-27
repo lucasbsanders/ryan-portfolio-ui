@@ -7,11 +7,24 @@ import { PageReadService } from './page-read.service';
   providedIn: 'root',
 })
 export class NavbarService {
-  isMenuOpen: boolean = false;
   isAtTop: boolean = true;
   isHomepage: boolean = false;
   isSmallScreen: boolean = false;
   isMediumScreen: boolean = false;
+
+  set menuOpen(value: boolean) {
+    this._menuOpen = value;
+    if (this._menuOpen) {
+      document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+    } else {
+      document.getElementsByTagName('body')[0].style.overflow = 'auto';
+    }
+  }
+
+  get menuOpen(): boolean {
+    return this._menuOpen;
+  }
+  private _menuOpen: boolean = false;
 
   constructor(private pageService: PageReadService) {}
 

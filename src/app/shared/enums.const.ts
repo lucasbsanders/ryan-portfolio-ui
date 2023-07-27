@@ -7,7 +7,7 @@ export enum TileType {
   Text = 'Text',
   Title = 'Title',
   VimeoVid = 'VimeoVid',
-};
+}
 
 export enum Width {
   XS = 'XS',
@@ -16,15 +16,10 @@ export enum Width {
   L = 'L',
   XL = 'XL',
   FULL = 'FULL',
-};
+}
 
 export enum PageType {
   Project = 'Project',
   Static = 'Static',
   Layout = 'Layout',
-};
-
-export enum Brand {
-  primary = 'primary',
-  secondary = 'secondary'
-};
+}

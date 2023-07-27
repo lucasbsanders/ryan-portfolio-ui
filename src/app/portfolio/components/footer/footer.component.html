@@ -2,28 +2,32 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-sm-4 text-center text-sm-start">
-        <div class="row">
+        <div class="row my-1">
           <div class="col">
             <a [href]="links.resume">Resume</a>
           </div>
         </div>
-        <div class="row">
+        <div class="row my-1">
           <div class="col">
-            <a [href]="links.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a [href]="links.linkedin" target="_blank" rel="noopener noreferrer"
+              >LinkedIn</a
+            >
           </div>
         </div>
-        <div class="row">
+        <div class="row my-1">
           <div class="col">
             <a [href]="links.email">xfennessey@gmail.com</a>
           </div>
         </div>
       </div>
-      <div class="col-12 col-sm-4 text-center">
-        <img [src]="smallIcon" alt="[Ryan Fennessey]" height="64">
+      <div
+        class="col-12 col-sm-4 d-flex align-items-center justify-content-center"
+      >
+        <img [src]="smallIcon" alt="[Ryan Fennessey]" height="64" />
       </div>
       <div class="col-12 col-sm-4 align-self-center text-center text-sm-end">
         <p class="my-0">©2022</p>
-        <p *ngIf="envString.length>0" class="my-0">{{envString}}</p>
+        <p *ngIf="envString.length > 0" class="my-0">{{ envString }}</p>
       </div>
     </div>
   </div>

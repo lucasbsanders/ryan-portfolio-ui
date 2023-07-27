@@ -5,7 +5,7 @@
       class="col-12 col-md"
       [ngClass]="{ 'text-center': tile.center }"
     >
-      <p [innerText]="piece"></p>
+      <p [class]="tile.textClass" [innerText]="piece"></p>
     </div>
   </app-row-width-adjust>
 </div>

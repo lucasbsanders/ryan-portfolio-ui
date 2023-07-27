@@ -15,7 +15,7 @@
         [image]="Image"
         [enableOverlay]="Image.overlay!"
       ></app-image>
-      <p [innerText]="tile.text"></p>
+      <p [class]="tile.textClass" [innerText]="tile.text"></p>
     </div>
 
     <ng-container *ngIf="isMediumScreen">
@@ -24,12 +24,12 @@
       </div>
 
       <div class="col-12">
-        <p [innerText]="tile.text"></p>
+        <p [class]="tile.textClass" [innerText]="tile.text"></p>
       </div>
     </ng-container>
 
     <ng-template #noImages>
-      <h2>No image</h2>
+      <h2 [class]="tile.textClass">No image</h2>
     </ng-template>
   </app-row-width-adjust>
 </div>
