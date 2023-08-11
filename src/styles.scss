@@ -220,3 +220,35 @@ img.homepage-icon-round {
     transform: rotate(359deg);
   }
 }
+
+// text modifications
+
+p {
+  &.xx-large {
+    font-size: xx-large;
+  }
+
+  &.x-large {
+    font-size: x-large;
+  }
+
+  &.larger {
+    font-size: larger;
+  }
+
+  &.large {
+    font-size: large;
+  }
+
+  &.medium {
+    font-size: medium;
+  }
+
+  &.small {
+    font-size: small;
+  }
+
+  &.smaller {
+    font-size: smaller;
+  }
+}

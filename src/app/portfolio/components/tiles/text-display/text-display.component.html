@@ -1,11 +1,11 @@
-<div class="container" [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }">
+<app-container-with-margins [width]="tile.width" [mt]="tile.mt" [mb]="tile.mb">
   <app-row-width-adjust [width]="tile.width">
     <div
-      *ngFor="let piece of tile.text | splitText : adjustedColumns"
+      *ngFor="let piece of tile.text | splitText"
       class="col-12 col-md"
       [ngClass]="{ 'text-center': tile.center }"
     >
-      <p [class]="tile.textClass" [innerText]="piece"></p>
+      <p [class]="tile.textClass" [innerHtml]="piece"></p>
     </div>
   </app-row-width-adjust>
-</div>
+</app-container-with-margins>

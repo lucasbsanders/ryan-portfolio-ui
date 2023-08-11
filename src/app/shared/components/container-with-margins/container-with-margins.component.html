@@ -1,0 +1,8 @@
+<div
+  [class]="className"
+  [ngClass]="{ container: width !== Width.FULL }"
+  [style.margin-top.rem]="mt ?? 0"
+  [style.margin-bottom.rem]="mb ?? 0"
+>
+  <ng-content></ng-content>
+</div>

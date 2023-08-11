@@ -1,16 +1,16 @@
 <div
   class="fullscreenMenu h-100 w-100 position-fixed background-fade"
   [ngStyle]="{ 'margin-top.vh': menuOpen ? 0 : 100 }"
-  (window:resize)="onResize()"
 >
   <div
     [ngStyle]="{
-      'margin-top': isSmallScreen ? '8rem' : '5rem',
-      'overflow-y': menuData.length > 6 ? 'scroll' : 'hidden',
+      'margin-top': '8rem',
+      'overflow-y': 'scroll',
+      'overflow-x': 'hidden',
       height: isSmallScreen ? 'calc(100vh - 9rem)' : 'calc(100vh - 6rem)',
-      padding: isSmallScreen ? ' 0' : '2rem 0px'
+      padding: '3rem 25px'
     }"
-    class="d-flex flex-column align-items-center gap-2 overflow-x-hidden"
+    class="d-flex flex-column align-items-center gap-2"
   >
     <button
       *ngFor="let option of menuData"
@@ -20,7 +20,6 @@
       (click)="clickOption(option)"
     >
       {{ option.title }}
-      <span *ngIf="option.url" class="ml-2">➪</span>
     </button>
   </div>
 </div>

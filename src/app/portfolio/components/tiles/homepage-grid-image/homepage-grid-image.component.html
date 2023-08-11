@@ -1,6 +1,7 @@
 <div
   class="grid-image-container"
-  [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }"
+  [style.margin-top.rem]="tile.mt ?? 0"
+  [style.margin-bottom.rem]="tile.mb ?? 0"
 >
   <app-image
     className="homepage-logo-bg"

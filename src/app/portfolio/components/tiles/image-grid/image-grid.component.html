@@ -1,26 +1,32 @@
-<div *ngIf="tile.hasFilters" class="container">
+<app-container-with-margins
+  *ngIf="tile.filters && tile.filters.length"
+  [width]="tile.width"
+  [mt]="tile.mt"
+>
   <div class="row justify-content-center">
     <div
-      *ngFor="let option of filterOptions"
+      *ngFor="let filter of tile.filters"
       class="col-auto align-self-center text-center"
-      (click)="filterItems(option)"
+      (click)="filterItems(filter)"
     >
       <a
-        class="filterLink {{ tile.textClass }}"
+        class="filterLink"
         [ngStyle]="{
-          'border-bottom': option === selectedFilter ? '3px solid black' : ''
+          'border-bottom': filter === selectedFilter ? '3px solid black' : ''
         }"
       >
-        {{ option }}
+        {{ filter }}
       </a>
     </div>
   </div>
-</div>
+</app-container-with-margins>
 
 <ng-container *ngIf="sortedFilteredImages.length > 0; else noImages">
-  <div
-    [ngClass]="{ container: !tile.width || tile.width !== Width.FULL }"
-    [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }"
+  <app-container-with-margins
+    [className]="'overflow-hidden'"
+    [width]="tile.width"
+    [mt]="tile.filters && tile.filters.length ? 0.5 : tile.mt"
+    [mb]="tile.mb"
   >
     <app-row-width-adjust
       *ngFor="let imgRow of sortedFilteredImages | rowSplit : adjustedColumns"
@@ -38,23 +44,18 @@
         ></app-image>
       </div>
     </app-row-width-adjust>
-  </div>
+  </app-container-with-margins>
 </ng-container>
 
 <ng-template #noImages>
-  <div
-    *ngIf="selectedFilter === 'All'"
-    class="container"
-    [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }"
+  <app-container-with-margins
+    [width]="tile.width"
+    [mt]="tile.filters && tile.filters.length ? 3 : tile.mt"
+    [mb]="tile.mb"
   >
-    <h2 [class]="tile.textClass">No images</h2>
-  </div>
-
-  <div
-    *ngIf="selectedFilter !== 'All'"
-    class="container"
-    [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }"
-  >
-    <h2 [class]="tile.textClass">No images in category {{ selectedFilter }}</h2>
-  </div>
+    <h3 class="text-center {{ tile.textClass }}">
+      {{selectedFilter === 'All' ? 'No results' : 'No results for category \'{{selectedFilter
+      }}\''}}
+    </h3>
+  </app-container-with-margins>
 </ng-template>

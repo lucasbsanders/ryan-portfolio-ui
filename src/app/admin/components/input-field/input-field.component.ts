@@ -36,7 +36,6 @@ export class InputFieldComponent {
   }
 
   changeNumber(key: string, event: any) {
-    console.log(event.target.value);
     if (this.imageNumber > -1)
       this.updateImageField(key, parseInt(event.target.value) || 0);
     else

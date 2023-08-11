@@ -1,13 +1,13 @@
-<div [ngStyle]="{ 'margin-bottom.rem': tile.mb ?? 0 }">
-  <div
-    *ngIf="images.length > 0; else noImages"
-    [id]="'book' + tile.order"
-    class="carousel carousel-dark slide position-relative"
-    data-bs-interval="false"
-    data-ride="carousel"
-  >
-    <div class="container">
-      <app-row-width-adjust [width]="tile.width">
+<app-container-with-margins [width]="tile.width" [mt]="tile.mt" [mb]="tile.mb">
+  <app-row-width-adjust [width]="tile.width">
+    <div
+      *ngIf="images.length > 0; else noImages"
+      [id]="'book' + tile.order"
+      class="carousel carousel-dark slide position-relative col-12"
+      data-bs-interval="false"
+      data-ride="carousel"
+    >
+      <div class="row">
         <div class="col g-0 text-center">
           <button
             class="btn btn-white carousel-control-prev position-relative w-100 h-100"
@@ -70,22 +70,19 @@
             </button>
           </div>
         </div>
-      </app-row-width-adjust>
-    </div>
-  </div>
-
-  <!-- Subtitle -->
-  <div class="container">
-    <app-row-width-adjust [width]="tile.width">
-      <div *ngIf="tile.text" class="col-12 mt-3 text-center">
-        <p [class]="tile.textClass" [innerText]="tile.text"></p>
       </div>
-    </app-row-width-adjust>
-  </div>
-
-  <ng-template #noImages>
-    <div class="container">
-      <h2 [class]="tile.textClass">No images</h2>
     </div>
-  </ng-template>
-</div>
+
+    <!-- Subtitle -->
+    <div *ngIf="tile.text" class="col-12 mt-3">
+      <p
+        class="text-center mb-0 {{ tile.textClass }}"
+        [innerText]="tile.text"
+      ></p>
+    </div>
+
+    <ng-template #noImages>
+      <h2 class="text-center {{ tile.textClass }}">No images</h2>
+    </ng-template>
+  </app-row-width-adjust>
+</app-container-with-margins>

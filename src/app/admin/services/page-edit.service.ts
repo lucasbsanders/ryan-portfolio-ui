@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { PageDefault } from 'src/app/shared/classes.const';
-import { TileType } from 'src/app/shared/enums.const';
+import { TileType, Width } from 'src/app/shared/enums.const';
 import { iImage, iPage, iTile } from 'src/app/shared/interfaces.const';
 
 @Injectable({
@@ -57,7 +57,7 @@ export class PageEditService {
       type: TileType.Subtitle,
       text: '',
       images: [],
-      width: 'XL',
+      width: Width.XL,
     });
 
     this.update();

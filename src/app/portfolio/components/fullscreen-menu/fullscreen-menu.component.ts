@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavbarService } from '../../services/navbar.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './fullscreen-menu.component.html',
   styleUrls: ['./fullscreen-menu.component.scss'],
 })
-export class FullscreenMenuComponent implements OnInit, AfterViewInit {
+export class FullscreenMenuComponent implements OnInit {
   menuData: any[] = [];
 
   get brandSelection(): string {
@@ -46,10 +46,6 @@ export class FullscreenMenuComponent implements OnInit, AfterViewInit {
       );
   }
 
-  ngAfterViewInit(): void {
-    this.onResize();
-  }
-
   openEditPage(): void {
     this.router.navigate([decodeURI(this.router.url), 'edit']);
   }
@@ -70,10 +66,6 @@ export class FullscreenMenuComponent implements OnInit, AfterViewInit {
   goToRoute(route: string) {
     this.setMenuOpen(false);
     this.router.navigate([route]);
-  }
-
-  onResize() {
-    this.navbarService.onResize(window.outerWidth);
   }
 
   closeMenu(event: any) {

@@ -15,10 +15,11 @@ export class TileDefault implements iTile {
   width = Width.XL;
   images = [];
   columns = 1;
-  hasFilters = false;
+  filters = [];
   videoId = '';
   shadow = false;
   mb = 0;
+  mt = 0;
   textClass = '';
 }
 

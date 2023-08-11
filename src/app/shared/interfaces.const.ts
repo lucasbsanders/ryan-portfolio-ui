@@ -1,3 +1,5 @@
+import { Width } from './enums.const';
+
 interface Map {
   [key: string]: any;
 }
@@ -12,14 +14,15 @@ export interface iTile extends Map {
   order: number;
   type: string;
   text: string;
-  width: string;
+  width?: Width;
   center?: boolean;
   images?: iImage[];
   columns?: number;
-  hasFilters?: boolean;
+  filters?: string[];
   videoId?: string;
   shadow?: boolean;
   mb?: number;
+  mt?: number;
   textClass?: string;
 }
 
