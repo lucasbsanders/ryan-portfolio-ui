@@ -11,9 +11,14 @@ export class RowWidthAdjustComponent {
   Width = Width;
 
   @Input() width?: Width;
+  @Input() class: string = '';
 
   get isMediumScreen(): boolean {
     return this.navbarService.isMediumScreen;
+  }
+
+  get isSmallScreen(): boolean {
+    return this.navbarService.isSmallScreen;
   }
 
   constructor(private navbarService: NavbarService) {}

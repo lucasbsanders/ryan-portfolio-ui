@@ -1,84 +1,61 @@
 <app-container-with-margins [width]="tile.width" [mt]="tile.mt" [mb]="tile.mb">
   <app-row-width-adjust [width]="tile.width">
-    <div
-      *ngIf="images.length > 0; else noImages"
-      [id]="'book' + tile.order"
-      class="carousel carousel-dark slide position-relative col-12"
-      data-bs-interval="false"
-      data-ride="carousel"
-    >
-      <div class="row">
-        <div class="col g-0 text-center">
-          <button
-            class="btn btn-white carousel-control-prev position-relative w-100 h-100"
-            type="button"
-            [attr.data-bs-target]="'#book' + tile.order"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <div *ngIf="images.length > 0; else noImages" [id]="'book' + tile.order" class="carousel carousel-dark slide position-relative col-12"
+      data-bs-interval="false" data-ride="carousel">
+      <div class="row" style="flex-wrap: nowrap;">
+        <div class="col-auto text-center">
+          <button class="btn btn-white carousel-control carousel-control-prev position-relative w-100 h-100" type="button"
+            [attr.data-bs-target]="'#book' + tile.order" data-bs-slide="prev">
+            <span style="height: 40px; width: 40px">
+              <svg id="chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
+                  clip-rule="evenodd" />
+              </svg>
+            </span>
+
             <span class="visually-hidden">Previous</span>
           </button>
         </div>
 
         <!-- Slideshow -->
-        <div class="col-9 g-0">
-          <div
-            class="carousel-inner"
-            [ngClass]="{ customShadow: tile.shadow, border: !tile.shadow }"
-          >
-            <div
-              *ngFor="let image of images; let pg = index"
-              class="carousel-item position-relative"
-              [id]="'book' + tile.order + 'page' + pg"
-            >
+        <div class="col">
+          <div class="carousel-inner" [ngClass]="{ customShadow: tile.shadow, border: !tile.shadow }">
+            <div *ngFor="let image of images; let pg = index" class="carousel-item position-relative" [id]="'book' + tile.order + 'page' + pg">
               <app-image class="d-block w-100" [image]="image"> </app-image>
             </div>
           </div>
         </div>
 
-        <div class="col g-0 text-center">
-          <button
-            class="btn btn-white carousel-control-next position-relative w-100 h-100"
-            type="button"
-            [attr.data-bs-target]="'#book' + tile.order"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <div class="col-auto text-center">
+          <button class="btn btn-white carousel-control carousel-control-next position-relative w-100 h-100" type="button"
+            [attr.data-bs-target]="'#book' + tile.order" data-bs-slide="next">
+            <span style="height: 40px; width: 40px">
+              <svg id="chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
+                  clip-rule="evenodd" />
+              </svg>
+            </span>
+
             <span class="visually-hidden">Next</span>
           </button>
         </div>
+      </div>
 
-        <!-- Page buttons -->
-        <div
-          class="col-10 offset-1 px-4 text-center"
-          [ngClass]="{ 'mt-4': tile.shadow }"
-        >
-          <div
-            class="carousel-indicators position-relative m-0 text-center w-100 d-inline"
-          >
-            <button
-              *ngFor="let image of images; let pg = index"
-              class="slideButton px-1 mb-4"
-              style="text-indent: 0"
-              type="btn"
-              [id]="'book' + tile.order + 'btn' + pg"
-              [attr.data-bs-target]="'#book' + tile.order"
-              [attr.data-bs-slide-to]="pg"
-              [attr.aria-label]="'Slide ' + (pg + 1)"
-            >
-              <p class="my-1">&nbsp;</p>
-            </button>
-          </div>
+      <!-- Page buttons -->
+      <div class="px-4 text-center" [ngClass]="{ 'mt-4': tile.shadow }">
+        <div class="carousel-indicators position-relative m-0 text-center w-100 d-inline">
+          <button *ngFor="let image of images; let pg = index" class="slideButton px-1 mb-4" style="text-indent: 0" type="btn"
+            [id]="'book' + tile.order + 'btn' + pg" [attr.data-bs-target]="'#book' + tile.order" [attr.data-bs-slide-to]="pg"
+            [attr.aria-label]="'Slide ' + (pg + 1)">
+            <p class="my-1">&nbsp;</p>
+          </button>
         </div>
       </div>
     </div>
 
     <!-- Subtitle -->
     <div *ngIf="tile.text" class="col-12 mt-3">
-      <p
-        class="text-center mb-0 {{ tile.textClass }}"
-        [innerText]="tile.text"
-      ></p>
+      <p class="text-center mb-0 {{ tile.textClass }}" [innerText]="tile.text"></p>
     </div>
 
     <ng-template #noImages>

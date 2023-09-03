@@ -40,9 +40,10 @@ export class ImageGridComponent
   }
 
   lastRowColOffset(rowLen: number, index: number): string {
-    if (rowLen === this.adjustedColumns) return 'col';
+    const colWidth = Math.ceil(12 / this.adjustedColumns);
+
+    if (rowLen === this.adjustedColumns) return `col-${colWidth}`;
     else {
-      const colWidth = Math.ceil(12 / this.adjustedColumns);
       const offsetWidth =
         index === 0 ? Math.floor(6 - (colWidth * rowLen) / 2) : 0;
       return `col-${colWidth} offset-${offsetWidth}`;

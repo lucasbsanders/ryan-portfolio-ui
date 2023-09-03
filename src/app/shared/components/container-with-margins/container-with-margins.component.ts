@@ -9,8 +9,8 @@ import { Width } from '../../enums.const';
 export class ContainerWithMarginsComponent {
   Width = Width;
 
-  @Input() className: string = '';
+  @Input() width?: Width;
+  @Input() containerClass: string = '';
   @Input() mt?: number = 0;
   @Input() mb?: number = 0;
-  @Input() width?: Width;
 }

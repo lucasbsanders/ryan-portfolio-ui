@@ -9,17 +9,17 @@ export class PageDefault implements iPage {
 
 export class TileDefault implements iTile {
   order = 0;
-  type = TileType.Subtitle;
+  type = TileType.Text;
   text = '';
-  center = false;
-  width = Width.XL;
-  images = [];
+  center = true;
+  width = Width.M;
+  images = [<iImage>{ order: 0, s3Key: '' }];
   columns = 1;
   filters = [];
   videoId = '';
-  shadow = false;
-  mb = 0;
-  mt = 0;
+  shadow = true;
+  mb = 4;
+  mt = 4;
   textClass = '';
 }
 
@@ -34,4 +34,5 @@ export class ImageDefault implements iImage {
   icon = false;
   tags = [];
   scale = false;
+  hoverS3Key = '';
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { PageDefault } from 'src/app/shared/classes.const';
@@ -17,8 +17,7 @@ export class PageDisplayComponent implements OnInit {
   Width = Width;
   PageType = PageType;
 
-  @Input() page: iPage = new PageDefault();
-  @Input() isPreview = false;
+  page: iPage = new PageDefault();
 
   pageNotFound = false;
 

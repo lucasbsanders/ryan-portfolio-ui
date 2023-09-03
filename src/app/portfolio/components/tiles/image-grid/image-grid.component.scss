@@ -1,13 +1,12 @@
 a.filterLink {
   font-family: "Montserrat", Arial, sans-serif;
   color: black;
-  display: inline-block;
   font-size: large;
   text-decoration: none;
   cursor: pointer;
-}
 
-a.filterLink:hover {
-  border-bottom: 3px solid black;
-  font-family: "Montserrat-Bold", Arial, sans-serif;
+  &:hover {
+    border-bottom: 3px solid black;
+    font-family: "Montserrat-Bold", Arial, sans-serif;
+  }
 }

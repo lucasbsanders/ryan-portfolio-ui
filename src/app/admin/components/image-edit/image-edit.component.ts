@@ -12,18 +12,18 @@ export class ImageEditComponent {
   @Input() imageNumber: number = -1;
   @Input() tileNumber: number = -1;
 
-  get Image(): iImage {
+  get image(): iImage {
     const image = this.pageEdit.getImage(this.tileNumber, this.imageNumber);
     return image ? image : <iImage>{};
   }
 
-  get Keys(): string[] {
-    return this.Image ? Object.keys(this.Image) : [];
+  get imageKeys(): string[] {
+    return Object.keys(this.image);
   }
 
   get ImageFieldOptions(): [string, any][] {
     return Object.entries(new ImageDefault()).filter(
-      (entry) => this.Keys.findIndex((key) => key === entry[0]) === -1
+      (entry) => this.imageKeys.findIndex((key) => key === entry[0]) === -1
     );
   }
 
@@ -42,13 +42,13 @@ export class ImageEditComponent {
   }
 
   deleteImage() {
-    this.pageEdit.deleteImage(this.tileNumber, this.Image.order);
+    this.pageEdit.deleteImage(this.tileNumber, this.image.order);
   }
 
   private updateImageField(key: string, value: iImage | null) {
     this.pageEdit.updateImageField(
       this.tileNumber,
-      this.Image.order,
+      this.image.order,
       key,
       value
     );

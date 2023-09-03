@@ -30,10 +30,6 @@ export class PageEditComponent implements OnInit {
     return this.pageEditService.page;
   }
 
-  get pageObs(): Observable<iPage> {
-    return this.pageEditService.pageObs;
-  }
-
   get Tiles(): iTile[] {
     return this.pageEditService.page.tiles;
   }
@@ -94,11 +90,20 @@ export class PageEditComponent implements OnInit {
     this.buttonDisable = false;
   }
 
-  addTile() {
+  addTxtTile() {
     this.buttonDisable = true;
 
-    this.pageEditService.addTile();
+    this.pageEditService.addTxtTile();
     this.scroll('tile-scroll-id-' + (this.Tiles.length - 1));
+    this.editPanelOpenMap.set(this.Tiles.length - 1, true);
+  }
+
+  addImgTile() {
+    this.buttonDisable = true;
+
+    this.pageEditService.addImgTile();
+    this.scroll('tile-scroll-id-' + (this.Tiles.length - 1));
+    this.editPanelOpenMap.set(this.Tiles.length - 1, true);
   }
 
   saveTile(order: number) {
@@ -122,7 +127,7 @@ export class PageEditComponent implements OnInit {
   }
 
   editComponent(order: number) {
-    this.editPanelOpenMap.set(order, this.pageEditService.getTile(order));
+    this.editPanelOpenMap.set(order, true);
   }
 
   savePage() {

@@ -11,20 +11,16 @@ import { Router } from '@angular/router';
 })
 export class ImageComponent {
   @Input() image: iImage = new ImageDefault();
-  @Input() enableOverlay: boolean = false;
-  @Input() scaleImageOnHover: boolean = false;
+  @Input() hasShadow: boolean = false;
   @Input() className: string = '';
   @Input() containerClass: string = '';
 
-  get showOverlay(): boolean {
-    return Boolean(this.image?.link) && this.enableOverlay;
-  }
+  loading: boolean = true;
+  mouseIn: boolean = false;
 
   get isSmallScreen(): boolean {
     return this.navbarService.isSmallScreen;
   }
-
-  loading: boolean = true;
 
   constructor(private navbarService: NavbarService, private router: Router) {}
 

@@ -3,34 +3,25 @@
 <div class="container sticky-top py-3">
   <div class="row mb-2">
     <div class="col-auto">
-      <button
-        type="btn"
-        class="btn btn-primary"
-        (click)="savePage()"
-        [disabled]="buttonDisable"
-      >
+      <button type="btn" class="btn btn-primary" (click)="savePage()" [disabled]="buttonDisable">
         Save Page
       </button>
     </div>
 
     <div class="col-auto">
-      <button
-        type="btn"
-        class="btn btn-success"
-        (click)="addTile()"
-        [disabled]="buttonDisable"
-      >
-        Add Tile
+      <button type="btn" class="btn btn-success" (click)="addTxtTile()" [disabled]="buttonDisable">
+        + Add Text Tile
       </button>
     </div>
 
     <div class="col-auto">
-      <button
-        type="btn"
-        class="btn btn-secondary"
-        [routerLink]="'/' + route"
-        [disabled]="buttonDisable"
-      >
+      <button type="btn" class="btn btn-success" (click)="addImgTile()" [disabled]="buttonDisable">
+        + Add Image Tile
+      </button>
+    </div>
+
+    <div class="col-auto ms-auto">
+      <button type="btn" class="btn btn-secondary" [routerLink]="'/' + route" [disabled]="buttonDisable">
         Go to /{{ route }}
       </button>
     </div>
@@ -41,45 +32,22 @@
       </button>
     </div> -->
 
-    <div class="col">
-      <button
-        type="btn"
-        class="btn btn-danger float-end"
-        (click)="deletePage()"
-        [disabled]="buttonDisable || true"
-      >
+    <div class="col-auto">
+      <button type="btn" class="btn btn-danger" (click)="deletePage()" [disabled]="buttonDisable || true">
         Delete Page
       </button>
     </div>
   </div>
 
   <div class="row">
-    <div
-      *ngIf="successMessage !== ''"
-      class="alert alert-success alert-dismissible fade show"
-      role="alert"
-    >
+    <div *ngIf="successMessage !== ''" class="alert alert-success alert-dismissible fade show" role="alert">
       {{ successMessage }}
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="alert"
-        aria-label="Close"
-      ></button>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
-    <div
-      *ngIf="errorMessage !== ''"
-      class="alert alert-danger alert-dismissible fade show"
-      role="alert"
-    >
+    <div *ngIf="errorMessage !== ''" class="alert alert-danger alert-dismissible fade show" role="alert">
       {{ errorMessage }}
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="alert"
-        aria-label="Close"
-      ></button>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   </div>
 </div>
@@ -89,41 +57,24 @@
     <div class="container py-2">
       <div class="row">
         <div class="col-auto" *ngIf="!editPanelOpenMap.get(tile.order)">
-          <button
-            class="btn btn-primary"
-            (click)="editComponent(tile.order)"
-            [disabled]="buttonDisable"
-          >
+          <button class="btn btn-primary" (click)="editComponent(tile.order)" [disabled]="buttonDisable">
             Edit tile
           </button>
         </div>
 
         <div class="col-auto" *ngIf="editPanelOpenMap.get(tile.order)">
-          <button
-            class="btn btn-primary"
-            (click)="saveTile(tile.order)"
-            [disabled]="buttonDisable"
-          >
+          <button class="btn btn-primary" (click)="saveTile(tile.order)" [disabled]="buttonDisable">
             Save
           </button>
         </div>
 
         <div class="col">
-          <app-order-scroll
-            orientation="horizontal"
-            [index]="tile.order"
-            [maxIndex]="Tiles.length"
-            (moveItem)="moveTile($event)"
-          >
+          <app-order-scroll orientation="horizontal" [index]="tile.order" [maxIndex]="Tiles.length" (moveItem)="moveTile($event)">
           </app-order-scroll>
         </div>
 
         <div class="col">
-          <button
-            class="btn btn-outline-danger float-end"
-            (click)="deleteTile(tile.order)"
-            [disabled]="buttonDisable"
-          >
+          <button class="btn btn-outline-danger float-end" (click)="deleteTile(tile.order)" [disabled]="buttonDisable">
             Delete Tile
           </button>
         </div>
@@ -131,16 +82,9 @@
     </div>
   </div>
 
-  <div
-    class="container overflow-visible"
-    *ngIf="editPanelOpenMap.get(tile.order)"
-  >
+  <div class="container overflow-visible" *ngIf="editPanelOpenMap.get(tile.order)">
     <div class="row position-relative">
-      <div
-        [id]="'tile-scroll-id-' + tile.order"
-        class="position-absolute"
-        style="top: -150px"
-      ></div>
+      <div [id]="'tile-scroll-id-' + tile.order" class="position-absolute" style="top: -150px"></div>
 
       <!-- EDIT TILE -->
 
@@ -160,11 +104,7 @@
 
     <app-title *ngSwitchCase="TileType.Title" [tile]="tile"> </app-title>
 
-    <app-title
-      *ngSwitchCase="TileType.Subtitle"
-      [isSubtitle]="true"
-      [tile]="tile"
-    >
+    <app-title *ngSwitchCase="TileType.Subtitle" [isSubtitle]="true" [tile]="tile">
     </app-title>
 
     <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
@@ -197,15 +137,3 @@
     </div>
   </div>
 </ng-template>
-
-<!-- FULL PAGE PREVIEW -->
-<!-- 
-<div class="container position-relative">
-  <h4>Page Preview:</h4>
-
-  <div id="preview" class="position-absolute" style="top: -150px"></div>
-</div>
-
-<hr />
-
-<app-page-display [page]="page" [isPreview]="true"></app-page-display> -->

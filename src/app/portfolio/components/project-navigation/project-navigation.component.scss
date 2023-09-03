@@ -1,17 +1,5 @@
-p.med {
-  font-size: large;
-}
-
-p.big {
-  font-size: xx-large;
-}
-
-p.projectText {
-  font-size: large;
-}
-
-button:hover p.projectText,
-p.projectText:hover {
+button:hover p,
+p:hover {
   border-bottom: 3px solid black;
   font-family: "Montserrat-Bold", Arial, sans-serif;
 }

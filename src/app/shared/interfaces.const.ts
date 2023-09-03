@@ -13,7 +13,7 @@ export interface iPage extends Map {
 export interface iTile extends Map {
   order: number;
   type: string;
-  text: string;
+  text?: string;
   width?: Width;
   center?: boolean;
   images?: iImage[];
@@ -37,4 +37,5 @@ export interface iImage extends Map {
   icon?: boolean;
   tags?: string[];
   scale?: boolean;
+  hoverS3Key?: string;
 }

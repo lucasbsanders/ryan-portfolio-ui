@@ -3,12 +3,27 @@ button.slideButton {
   border: none !important;
   height: 5px;
   border-radius: 3px;
-}
-
-button.slideButton:not(.active) {
   background-color: var(--gray);
+
+  &.active {
+    background-color: var(--pink);
+  }
+
+  &:not(.active) {
+    transition-property: background-color;
+    transition-duration: 0.5s;
+  }
 }
 
-button.slideButton.active {
-  background-color: var(--pink);
+button.carousel-control {
+  opacity: 1;
+  color: var(--gray);
+
+  &:hover {
+    color: var(--black);
+  }
+
+  &:active {
+    color: var(--pink);
+  }
 }

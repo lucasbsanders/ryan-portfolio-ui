@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
 import { PageDefault } from 'src/app/shared/classes.const';
 import { TileType, Width } from 'src/app/shared/enums.const';
 import { iImage, iPage, iTile } from 'src/app/shared/interfaces.const';
@@ -9,8 +8,6 @@ import { iImage, iPage, iTile } from 'src/app/shared/interfaces.const';
 })
 export class PageEditService {
   page: iPage = new PageDefault();
-  pageSubject: Subject<iPage> = new Subject<iPage>();
-  pageObs: Observable<iPage> = this.pageSubject.asObservable();
 
   constructor() {}
 
@@ -37,8 +34,6 @@ export class PageEditService {
     this.page.tiles.forEach((tile: iTile) =>
       tile.images?.sort((a: iImage, b: iImage) => a.order - b.order)
     );
-
-    this.pageSubject.next(this.page);
   }
 
   // CRUD TILES
@@ -47,17 +42,37 @@ export class PageEditService {
     return this.page.tiles.find((tile: iTile) => tile.order === tileNum);
   }
 
-  addTile() {
+  addTxtTile() {
     const tiles = this.page.tiles;
 
     const nextNumber = tiles.length > 0 ? tiles[tiles.length - 1].order + 1 : 0;
 
     tiles.push({
       order: nextNumber,
-      type: TileType.Subtitle,
-      text: '',
-      images: [],
-      width: Width.XL,
+      type: TileType.Text,
+      text: `<p class="x-large">Skills</p>
+<col>
+<p>Brand strategy</p>
+<p>Art direction</p>
+<p>Illustration</p>
+<p>Graphic design</p>
+<p>2D Animation</p>`,
+      width: Width.M,
+    });
+
+    this.update();
+  }
+
+  addImgTile() {
+    const tiles = this.page.tiles;
+
+    const nextNumber = tiles.length > 0 ? tiles[tiles.length - 1].order + 1 : 0;
+
+    tiles.push({
+      order: nextNumber,
+      type: TileType.ImageGrid,
+      images: [<iImage>{ order: 0, s3Key: '' }],
+      width: Width.M,
     });
 
     this.update();

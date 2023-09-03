@@ -1,6 +1,4 @@
-<div
-  class="row"
-  [ngStyle]="{
+<div class="row {{class}}" [ngStyle]="{
     margin:
       isMediumScreen || !width || width === Width.XL || width === Width.FULL
         ? ''
@@ -11,8 +9,6 @@
         : width === Width.S
         ? '0 12vw'
         : '0 16vw'
-  }"
-  [ngClass]="{ 'mx-1': width === Width.FULL }"
->
+  }" [ngClass]="{ 'mx-1': width === Width.FULL }">
   <ng-content></ng-content>
 </div>

@@ -10,13 +10,11 @@ import { TileBaseComponent } from '../tile-base.component';
   styleUrls: ['./image-subtitle.component.scss'],
 })
 export class ImageSubtitleComponent extends TileBaseComponent {
-
-  get Image(): iImage {
+  get image(): iImage {
     return this.images[0] ? this.images[0] : <iImage>{};
   }
 
   constructor(navbarService: NavbarService, router: Router) {
     super(navbarService, router);
   }
-
 }

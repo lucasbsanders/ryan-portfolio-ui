@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'splitText',
 })
 export class SplitTextPipe implements PipeTransform {
-  transform(text: string): string[] {
+  transform(text: string | undefined): string[] {
+    if (!text) return [''];
     const parts: string[] = [];
     let startIdx = 0;
     let endIdx = text.indexOf('<col>');
