@@ -1,12 +1,12 @@
-<app-container-with-margins [width]="tile.width" [mt]="tile.mt" [mb]="tile.mb">
-  <app-row-width-adjust [width]="tile.width">
-    <div *ngIf="images.length > 0; else noImages" [id]="'book' + tile.order" class="carousel carousel-dark slide position-relative col-12"
+<div class="overflow-hidden">
+  <app-container-with-margins [width]="tile.width" [mt]="tile.mt" [mb]="tile.mb">
+    <div *ngIf="images.length > 0; else noImages" [id]="'book' + tile.order" class="carousel carousel-dark slide position-relative w-full col-12"
       data-bs-interval="false" data-ride="carousel">
-      <div class="row" style="flex-wrap: nowrap;">
-        <div class="col-auto text-center">
+      <app-row-width-adjust [width]="tile.width">
+        <div class="" [ngClass]="{'col-6 mt-3 order-2': isMediumScreen}" [style]="isMediumScreen ? '' : 'position: absolute; height: 100%; top: 0; left: -50%'">
           <button class="btn btn-white carousel-control carousel-control-prev position-relative w-100 h-100" type="button"
-            [attr.data-bs-target]="'#book' + tile.order" data-bs-slide="prev">
-            <span style="height: 40px; width: 40px">
+            [attr.data-bs-target]="'#book' + tile.order" style="z-index: 99" data-bs-slide="prev">
+            <span class="me-4" style="height: 40px; width: 40px">
               <svg id="chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
                   clip-rule="evenodd" />
@@ -17,8 +17,9 @@
           </button>
         </div>
 
+
         <!-- Slideshow -->
-        <div class="col">
+        <div class="col-12 order-1" style="z-index: 9">
           <div class="carousel-inner" [ngClass]="{ customShadow: tile.shadow, border: !tile.shadow }">
             <div *ngFor="let image of images; let pg = index" class="carousel-item position-relative" [id]="'book' + tile.order + 'page' + pg">
               <app-image class="d-block w-100" [image]="image"> </app-image>
@@ -26,10 +27,12 @@
           </div>
         </div>
 
-        <div class="col-auto text-center">
+
+        <div class="" [ngClass]="{'col-6 mt-3 order-2': isMediumScreen}"
+          [style]="isMediumScreen ? '' : 'position: absolute; height: 100%; top: 0; right: -50%'">
           <button class="btn btn-white carousel-control carousel-control-next position-relative w-100 h-100" type="button"
-            [attr.data-bs-target]="'#book' + tile.order" data-bs-slide="next">
-            <span style="height: 40px; width: 40px">
+            [attr.data-bs-target]="'#book' + tile.order" style="z-index: 99" data-bs-slide="next">
+            <span class="ms-4" style="height: 40px; width: 40px">
               <svg id="chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
                   clip-rule="evenodd" />
@@ -39,7 +42,7 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-      </div>
+      </app-row-width-adjust>
 
       <!-- Page buttons -->
       <div class="px-4 text-center" [ngClass]="{ 'mt-4': tile.shadow }">
@@ -61,5 +64,5 @@
     <ng-template #noImages>
       <h2 class="text-center {{ tile.textClass }}">No images</h2>
     </ng-template>
-  </app-row-width-adjust>
-</app-container-with-margins>
+  </app-container-with-margins>
+</div>

@@ -13,7 +13,7 @@ export class ProjectNavigationService {
       .subscribe(
         (pageData: any) =>
           (this.orderedProjectLinks = pageData.tiles[2].images.map(
-            (imgData: any) => imgData.link
+            (imgData: any) => imgData.url || imgData.link
           ))
       );
   }

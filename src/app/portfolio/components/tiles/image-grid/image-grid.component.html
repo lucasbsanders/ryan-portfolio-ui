@@ -1,5 +1,5 @@
 <app-container-with-margins *ngIf="tile.filters && tile.filters.length" [width]="tile.width" [mt]="tile.mt">
-  <app-row-width-adjust [width]="tile.width" class="gap-2 justify-content-center">
+  <app-row-width-adjust [width]="tile.width" className="gap-2 justify-content-center">
     <div *ngFor="let filter of tile.filters" class="col-auto" (click)="filterItems(filter)">
       <a class="filterLink" [ngStyle]="{
             'border-bottom': filter === selectedFilter ? '3px solid black' : ''

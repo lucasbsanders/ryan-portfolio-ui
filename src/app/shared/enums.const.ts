@@ -7,6 +7,7 @@ export enum TileType {
   Text = 'Text',
   Title = 'Title',
   VimeoVid = 'VimeoVid',
+  YoutubeVid = 'YoutubeVid',
 }
 
 export enum Width {

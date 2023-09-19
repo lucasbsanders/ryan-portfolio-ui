@@ -13,6 +13,7 @@ import { TextDisplayComponent } from './components/tiles/text-display/text-displ
 import { TitleComponent } from './components/tiles/title/title.component';
 import { VimeoVideoComponent } from './components/tiles/vimeo-video/vimeo-video.component';
 import { HomepageGridImageComponent } from './components/tiles/homepage-grid-image/homepage-grid-image.component';
+import { YoutubeVideoComponent } from './components/tiles/youtube-video/youtube-video.component';
 
 @NgModule({
   declarations: [
@@ -23,16 +24,13 @@ import { HomepageGridImageComponent } from './components/tiles/homepage-grid-ima
     ImageGridComponent,
     TextDisplayComponent,
     VimeoVideoComponent,
+    YoutubeVideoComponent,
     ImageSubtitleComponent,
     TitleComponent,
     ProjectNavigationComponent,
     HomepageGridImageComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    SharedModule
-  ],
+  imports: [CommonModule, RouterModule, SharedModule],
   exports: [
     FooterComponent,
     FullscreenMenuComponent,
@@ -41,10 +39,11 @@ import { HomepageGridImageComponent } from './components/tiles/homepage-grid-ima
     ImageGridComponent,
     TextDisplayComponent,
     VimeoVideoComponent,
+    YoutubeVideoComponent,
     ImageSubtitleComponent,
     TitleComponent,
     ProjectNavigationComponent,
     HomepageGridImageComponent,
-  ]
+  ],
 })
-export class PortfolioModule { }
+export class PortfolioModule {}
