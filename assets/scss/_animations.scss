@@ -1,0 +1,26 @@
+$scale-link-transform-amount: 1.1;
+$scale-link-transition-time: 0.15s;
+$scale-link-color-initial: rgb(225, 225, 225);
+$scale-link-color-hover: white;
+$scale-link-text-shadow: 0px 0px 50px lightgray;
+$scale-link-animation: $scale-link-transition-time ease-in-out,
+  color $scale-link-transition-time ease-in-out;
+
+.hover-link-light {
+  color: $scale-link-color-initial;
+
+  -webkit-transition: $scale-link-animation;
+  -moz-transition: $scale-link-animation;
+  -o-transition: $scale-link-animation;
+  transition: $scale-link-animation;
+}
+
+.hover-link-light:hover {
+  color: $scale-link-color-hover;
+  text-shadow: $scale-link-text-shadow;
+
+  -webkit-transform: scale($scale-link-transform-amount);
+  -moz-transform: scale($scale-link-transform-amount);
+  -o-transform: scale($scale-link-transform-amount);
+  transform: scale($scale-link-transform-amount);
+}
