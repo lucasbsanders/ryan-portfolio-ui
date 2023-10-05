@@ -2,6 +2,7 @@ export enum TileType {
   HomepageGrid = 'HomepageGrid',
   ImageGrid = 'ImageGrid',
   ImageSubtitle = 'ImageSubtitle',
+  Link = 'Link',
   Slideshow = 'Slideshow',
   Subtitle = 'Subtitle',
   Text = 'Text',

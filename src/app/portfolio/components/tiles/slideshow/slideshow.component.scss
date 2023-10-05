@@ -1,12 +1,12 @@
 button.slideButton {
   margin-top: 1.5rem;
   border: none !important;
-  height: 5px;
+  height: 6px;
   border-radius: 3px;
   background-color: var(--gray);
 
   &.active {
-    background-color: var(--pink);
+    background-color: var(--blue);
   }
 
   &:not(.active) {
@@ -24,6 +24,14 @@ button.carousel-control {
   }
 
   &:active {
-    color: var(--pink);
+    color: var(--blue);
   }
+}
+
+.move-left {
+  transform: translateX(-3rem);
+}
+
+.move-right {
+  transform: translateX(3rem);
 }

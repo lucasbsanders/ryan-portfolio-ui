@@ -1,10 +1,6 @@
-<app-container-with-margins [width]="tile.width" [mt]="tile.mt" [mb]="tile.mb">
+<app-container-with-margins [width]="tile.width" [mt]="tile.mt" [mb]="tile.mb" [containerClass]="tile.containerClass">
   <app-row-width-adjust [width]="tile.width">
-    <div
-      *ngFor="let piece of tile.text | splitText"
-      class="col-12 col-md"
-      [ngClass]="{ 'text-center': tile.center }"
-    >
+    <div *ngFor="let piece of tile.text | splitText" class="col-12 col-md" [ngClass]="{ 'text-center': tile.center }">
       <p [class]="tile.textClass" [innerHtml]="piece"></p>
     </div>
   </app-row-width-adjust>

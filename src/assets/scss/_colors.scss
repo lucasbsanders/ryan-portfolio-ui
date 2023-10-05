@@ -1,9 +1,10 @@
-$pink: #FF00D8;
-$blue: #0082FE;
-$green: #00FFC3;
+$pink: #ff00d8;
+$blue: #0082fe;
+$green: #00ffc3;
 $black: #000000;
 $gray: #888888;
-$white: #FFFFFF;
+$lightgray: rgb(221, 221, 221, 0.5);
+$white: #ffffff;
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
@@ -13,12 +14,18 @@ $theme-colors: map-merge(
     "green": $green,
     "black": $black,
     "gray": $gray,
-    "white": $white
+    "lightgray": $lightgray,
+    "white": $white,
   ),
   $theme-colors
 );
 
-@mixin deprecate($name, $deprecate-version, $remove-version, $ignore-warning: false) {
+@mixin deprecate(
+  $name,
+  $deprecate-version,
+  $remove-version,
+  $ignore-warning: false
+) {
   @if ($enable-deprecation-messages != false and $ignore-warning != true) {
     @warn "#{$name} has been deprecated as of #{$deprecate-version}. It will be removed entirely in #{$remove-version}.";
   }
@@ -29,13 +36,20 @@ $theme-colors: map-merge(
     color: $color !important;
   }
 
-  a#{$parent}, button#{$parent} {
-    &:hover, &:focus {
+  a#{$parent},
+  button#{$parent} {
+    &:hover,
+    &:focus {
       color: darken($color, 10%) !important;
     }
   }
 
-  @include deprecate("The `text-variant` mixin", "v4.4.0", "v5", $ignore-warning);
+  @include deprecate(
+    "The `text-variant` mixin",
+    "v4.4.0",
+    "v5",
+    $ignore-warning
+  );
 }
 
 @mixin bg-variant($parent, $color, $ignore-warning: false) {
@@ -43,8 +57,10 @@ $theme-colors: map-merge(
     background-color: $color !important;
   }
 
-  a#{$parent}, button#{$parent} {
-    &:hover, &:focus {
+  a#{$parent},
+  button#{$parent} {
+    &:hover,
+    &:focus {
       background-color: darken($color, 10%) !important;
     }
   }

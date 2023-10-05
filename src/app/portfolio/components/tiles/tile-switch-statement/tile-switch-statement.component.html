@@ -1,0 +1,32 @@
+<ng-container *ngIf="tile">
+  <ng-container [ngSwitch]="tile.type">
+    <app-homepage-grid-image *ngSwitchCase="TileType.HomepageGrid" [tile]="tile">
+    </app-homepage-grid-image>
+
+    <app-title *ngSwitchCase="TileType.Title" [tile]="tile"> </app-title>
+
+    <app-title *ngSwitchCase="TileType.Subtitle" [isSubtitle]="true" [tile]="tile">
+    </app-title>
+
+    <app-text-display *ngSwitchCase="TileType.Text" [tile]="tile">
+    </app-text-display>
+
+    <app-image-grid *ngSwitchCase="TileType.ImageGrid" [tile]="tile">
+    </app-image-grid>
+
+    <app-slideshow *ngSwitchCase="TileType.Slideshow" [tile]="tile">
+    </app-slideshow>
+
+    <app-vimeo-video *ngSwitchCase="TileType.VimeoVid" [tile]="tile">
+    </app-vimeo-video>
+
+    <app-youtube-video *ngSwitchCase="TileType.YoutubeVid" [tile]="tile">
+    </app-youtube-video>
+
+    <app-image-subtitle *ngSwitchCase="TileType.ImageSubtitle" [tile]="tile">
+    </app-image-subtitle>
+
+    <div *ngSwitchDefault>
+    </div>
+  </ng-container>
+</ng-container>

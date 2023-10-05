@@ -21,6 +21,7 @@ export class TileDefault implements iTile {
   mb = 4;
   mt = 4;
   textClass = '';
+  containerClass = '';
 }
 
 export class ImageDefault implements iImage {

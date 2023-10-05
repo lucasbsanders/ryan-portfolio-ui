@@ -6,7 +6,11 @@ a.filterLink {
   cursor: pointer;
 
   &:hover {
-    border-bottom: 3px solid black;
+    color: var(--blue);
+    font-family: "Montserrat-Bold", Arial, sans-serif;
+  }
+
+  &.active {
     font-family: "Montserrat-Bold", Arial, sans-serif;
   }
 }

@@ -1,33 +1,28 @@
-<div class="container my-5">
-  <div class="row">
-    <div class="col-6">
-      <button *ngIf="previousIndex > -1" class="btn btn-white w-100 d-flex" [routerLink]="'/' + orderedProjectLinks[previousIndex]">
-        <span style="height: 30px; width: 30px">
-          <svg id="chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
-              clip-rule="evenodd" />
-          </svg>
-        </span>
+<app-container-with-margins [width]="Width.M" containerClass="my-5">
+  <app-row-width-adjust [width]="Width.M" className="d-flex">
+    <button *ngIf="previousIndex > -1" [ngStyle]="{'flex-basis': nextIndex === -1 ? '100%' : '50%'}"
+      class="montserrat fs-5 bg-transparent border-0 d-flex flex-row align-items-center gap-1 md:gap-3" [routerLink]="'/' + orderedProjectLinks[previousIndex]">
+      <span style="display: block; height: 34px; width: 30px">
+        <svg id="chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
+            clip-rule="evenodd" />
+        </svg>
+      </span>
 
-        <p class="large my-0 ms-3 align-self-center">
-          {{ orderedProjectLinks[previousIndex] }}
-        </p>
-      </button>
-    </div>
+      <span class="mb-0">{{ orderedProjectLinks[previousIndex] }}</span>
+    </button>
 
-    <div class="col-6">
-      <button *ngIf="nextIndex > -1" class="btn btn-white w-100 d-flex" [routerLink]="'/' + orderedProjectLinks[nextIndex]">
-        <p class="large ms-auto me-3 my-0 align-self-center">
-          {{ orderedProjectLinks[nextIndex] }}
-        </p>
+    <button *ngIf="nextIndex > -1" [ngStyle]="{'flex-basis': previousIndex === -1 ? '100%' : '50%'}"
+      class="montserrat fs-5 bg-transparent border-0 d-flex flex-row align-items-center gap-1 md:gap-3 justify-content-end"
+      [routerLink]="'/' + orderedProjectLinks[nextIndex]">
+      <span>{{ orderedProjectLinks[nextIndex] }}</span>
 
-        <span style="height: 30px; width: 30px">
-          <svg id="chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
-              clip-rule="evenodd" />
-          </svg>
-        </span>
-      </button>
-    </div>
-  </div>
-</div>
+      <span style="display: block; height: 34px; width: 30px">
+        <svg id="chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
+            clip-rule="evenodd" />
+        </svg>
+      </span>
+    </button>
+  </app-row-width-adjust>
+</app-container-with-margins>

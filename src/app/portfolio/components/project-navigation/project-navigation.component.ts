@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { ProjectNavigationService } from '../../services/project-navigation.service';
 import { NavbarService } from '../../services/navbar.service';
+import { Width } from 'src/app/shared/enums.const';
 
 @Component({
   selector: 'app-project-navigation',
@@ -8,9 +9,9 @@ import { NavbarService } from '../../services/navbar.service';
   styleUrls: ['./project-navigation.component.scss'],
 })
 export class ProjectNavigationComponent implements OnChanges {
-
   @Input() currentProjectLink: string = '';
 
+  Width = Width;
   previousIndex: number = -1;
   nextIndex: number = -1;
 
@@ -22,8 +23,10 @@ export class ProjectNavigationComponent implements OnChanges {
     return this.navbarService.isSmallScreen;
   }
 
-  constructor(private navbarService: NavbarService,
-    private projectNavService: ProjectNavigationService) {}
+  constructor(
+    private navbarService: NavbarService,
+    private projectNavService: ProjectNavigationService
+  ) {}
 
   ngOnChanges(): void {
     this.previousIndex = -1;
@@ -39,5 +42,4 @@ export class ProjectNavigationComponent implements OnChanges {
         this.nextIndex = currentIndex + 1;
     }
   }
-
 }

@@ -32,7 +32,10 @@
     url(./assets/fonts/Montserrat/Montserrat-Bold.ttf) format("truetype");
 }
 
-.fugaz,
+.fugaz * {
+  font-family: "Fugaz", Arial, sans-serif !important;
+}
+
 h1 {
   font-family: "Fugaz", Arial, sans-serif;
   font-size: xx-large;
@@ -41,6 +44,7 @@ h1 {
 .montserrat,
 p,
 a,
+button,
 img,
 h2,
 h3,
@@ -62,7 +66,7 @@ h6 {
 
 $shadow-length: 10;
 $shadow-blur: 25px;
-$shadow-color: gray;
+$shadow-color: rgba(gray, 0.2);
 $shadow-background-color: lightgray;
 
 .customShadow {
@@ -85,7 +89,7 @@ div.homepage-logo {
 
 img.homepage-logo-bg {
   @media (min-width: 800px) {
-    max-height: 65vh;
+    max-height: 75vh;
   }
   max-width: 100%;
 }
@@ -224,7 +228,8 @@ img.homepage-icon-round {
 
 // text modifications
 
-p {
+p,
+a {
   &.xx-large {
     font-size: xx-large;
   }

@@ -1,14 +1,9 @@
 <app-container-with-margins [width]="tile.width" [mt]="tile.mt" [mb]="tile.mb">
-  <app-row-width-adjust
-    [width]="tile.width"
-    [ngClass]="{ 'text-center': tile.center }"
-  >
+  <app-row-width-adjust [width]="tile.width" [ngClass]="{ 'text-center': tile.center }">
     <div class="col">
-      <h1 *ngIf="!isSubtitle" [class]="tile.textClass" class="mb-0">
-        {{ tile.text }}
+      <h1 *ngIf="!isSubtitle" [class]="tile.textClass" class="mb-0" [innerHtml]="tile.text">
       </h1>
-      <h2 *ngIf="isSubtitle" [class]="tile.textClass" class="mb-0">
-        {{ tile.text }}
+      <h2 *ngIf="isSubtitle" [class]="tile.textClass" class="mb-0" [innerHtml]="tile.text">
       </h2>
     </div>
   </app-row-width-adjust>

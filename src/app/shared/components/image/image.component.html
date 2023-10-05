@@ -20,15 +20,17 @@
 
   <!-- Link/URL overlay -->
   <div class="position-absolute w-100 h-100 top-0 left-0 right-0 bottom-0 align-items-center justify-content-center d-flex p-3 overlayContainer"
-    style="cursor: pointer" *ngIf="image.link || image.url" (click)="goToImageRoute(image.link!)">
-    <a *ngIf="image.link && !image.url" class="montserrat-bold p-4 navLink" [ngStyle]="{ 'font-size': isSmallScreen ? 'x-large' : 'xx-large' }">
+    style="cursor: pointer" *ngIf="image.link || image.url" (click)="goToImageRoute(image.url ?? image.link ?? '')">
+    <p class="montserrat-bold fs-2 p-4 hover-link-light">{{ image.link ?? image.url ?? '' }}</p>
+
+    <!-- <a *ngIf="image.link && !image.url" class="montserrat-bold p-4 navLink" [ngStyle]="{ 'font-size': isSmallScreen ? 'x-large' : 'xx-large' }">
       {{ image.link }}
     </a>
 
     <a *ngIf="image.url" class="montserrat-bold p-4 navLink" [ngStyle]="{ 'font-size': isSmallScreen ? 'x-large' : 'xx-large' }" [href]="image.url"
       target="_blank" rel="noopener noreferrer">
-      {{ image.link ? image.link : image.url }}
-    </a>
+      {{ image.link ?? image.url ?? '' }}
+    </a> -->
   </div>
 
   <!-- Loading overlay -->
@@ -43,6 +45,6 @@
   </div>
 </div>
 
-<div *ngIf="image.subtitle" class="w-100 text-center mt-4">
+<div *ngIf="image.subtitle" class="w-100 text-center mt-3">
   <p [innerText]="image.subtitle"></p>
 </div>

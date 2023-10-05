@@ -10,7 +10,7 @@ export class ContainerWithMarginsComponent {
   Width = Width;
 
   @Input() width?: Width;
-  @Input() containerClass: string = '';
+  @Input() containerClass?: string = '';
   @Input() mt?: number = 0;
   @Input() mb?: number = 0;
 }

@@ -1,8 +1,8 @@
 <app-container-with-margins *ngIf="tile.filters && tile.filters.length" [width]="tile.width" [mt]="tile.mt">
   <app-row-width-adjust [width]="tile.width" className="gap-2 justify-content-center">
     <div *ngFor="let filter of tile.filters" class="col-auto" (click)="filterItems(filter)">
-      <a class="filterLink" [ngStyle]="{
-            'border-bottom': filter === selectedFilter ? '3px solid black' : ''
+      <a class="filterLink" [ngClass]="{
+            'active': filter === selectedFilter
           }">
         {{ filter }}
       </a>
@@ -11,15 +11,15 @@
 </app-container-with-margins>
 
 <ng-container *ngIf="sortedFilteredImages.length > 0; else noImages">
-  <app-container-with-margins containerClass="overflow-visible" [width]="tile.width" [mt]="tile.filters && tile.filters.length ? 0.5 : tile.mt" [mb]="tile.mb">
+  <app-container-with-margins containerClass="overflow-visible" [width]="tile.width" [mt]="tile.filters && tile.filters.length ? 1 : tile.mt" [mb]="tile.mb">
     <app-row-width-adjust *ngFor="let imgRow of sortedFilteredImages | rowSplit : adjustedColumns" [width]="tile.width">
       <div *ngFor="let image of imgRow; index as i" class="g-2 position-relative" [ngClass]="lastRowColOffset(imgRow.length, i)">
         <app-image [image]="image" [hasShadow]="!!tile.shadow"></app-image>
       </div>
     </app-row-width-adjust>
 
-    <app-row-width-adjust *ngIf="tile.text" [width]="tile.width" class="mt-4">
-      <div class="col-12">
+    <app-row-width-adjust *ngIf="tile.text" [width]="tile.width">
+      <div class="col-12 mt-3">
         <p [class]="tile.textClass" [innerHtml]="tile.text"></p>
       </div>
     </app-row-width-adjust>

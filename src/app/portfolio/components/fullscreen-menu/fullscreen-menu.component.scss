@@ -4,11 +4,9 @@
 
 a.navLink {
   text-decoration: none;
-  font-size: large;
 }
 
 a.navLink:hover {
-  border-bottom: 3px solid black;
   font-family: "Montserrat-Bold", Arial, sans-serif;
 }
 
@@ -23,38 +21,6 @@ $menu-swoop-transition-time: 0.3s;
   -moz-transition: margin-top $menu-swoop-transition-time ease-in-out;
   -o-transition: margin-top $menu-swoop-transition-time ease-in-out;
   transition: margin-top $menu-swoop-transition-time ease-in-out;
-}
-
-// MENU LINK HOVER ANIMATION
-
-$menu-link-text-hover-transform-size: 1.1;
-$hover-transition-time: 0.3s;
-
-button.menuLink {
-  color: lightgray;
-  text-decoration: none;
-  font-size: 2.6rem;
-  cursor: pointer;
-  border-radius: 66px;
-
-  -webkit-transition: color $hover-transition-time ease-in-out,
-    transform $hover-transition-time ease-in-out;
-  -moz-transition: color $hover-transition-time ease-in-out,
-    transform $hover-transition-time ease-in-out;
-  -o-transition: color $hover-transition-time ease-in-out,
-    transform $hover-transition-time ease-in-out;
-  transition: color $hover-transition-time ease-in-out,
-    transform $hover-transition-time ease-in-out;
-
-  &:hover {
-    -webkit-transform: scale($menu-link-text-hover-transform-size);
-    -moz-transform: scale($menu-link-text-hover-transform-size);
-    -o-transform: scale($menu-link-text-hover-transform-size);
-    transform: scale($menu-link-text-hover-transform-size);
-
-    color: white;
-    box-shadow: 0px 0px 50px lightgray;
-  }
 }
 
 // SCALE MENU BUTTON HOVER ANIMATION
@@ -73,8 +39,8 @@ button.menuLink {
   z-index: 10000;
 }
 
-$menu-transform-size: 1.3;
-$menu-scale-transition-time: 0.3s;
+$menu-transform-size: 1.2;
+$menu-scale-transition-time: 0.15s;
 
 .menuIcon {
   -webkit-transition: transform $menu-scale-transition-time ease-in-out;
@@ -92,9 +58,9 @@ $menu-scale-transition-time: 0.3s;
 
 // SCALE IMAGE ON HOVER/SCROLL ANIMATION
 
-$img-hover-transform-size: 1.2;
+$img-hover-transform-size: 1.1;
 $img-scroll-transition-time: 0.25s;
-$img-scale-transition-time: 0.3s;
+$img-scale-transition-time: 0.15s;
 $img-display-transition-time: 0.4s;
 
 .scaleImage:hover {
@@ -151,12 +117,12 @@ input[type="checkbox"]#navbar-menu {
   cursor: pointer;
 }
 
-#navbar-menu-icon {
-  -webkit-transition: background-color $menu-click-transition-time ease-in-out;
-  -moz-transition: background-color $menu-click-transition-time ease-in-out;
-  -o-transition: background-color $menu-click-transition-time ease-in-out;
-  transition: background-color $menu-click-transition-time ease-in-out;
-}
+// #navbar-menu-icon {
+//   -webkit-transition: background-color $menu-click-transition-time ease-in-out;
+//   -moz-transition: background-color $menu-click-transition-time ease-in-out;
+//   -o-transition: background-color $menu-click-transition-time ease-in-out;
+//   transition: background-color $menu-click-transition-time ease-in-out;
+// }
 
 #navbar-menu-icon span {
   display: block;
@@ -166,14 +132,24 @@ input[type="checkbox"]#navbar-menu {
   width: 30px;
   border-radius: 2px;
   margin: 4px;
+}
+
+#navbar-menu ~ #navbar-menu-icon span {
   background: black;
+}
+
+#navbar-menu:checked ~ #navbar-menu-icon span {
+  background: white;
+}
+
+.menuIcon:hover #navbar-menu-icon span {
+  background: var(--blue) !important;
 }
 
 $translate-down: 8px;
 $translate-up: -1 * $translate-down;
 
 #navbar-menu:checked ~ #navbar-menu-icon span:nth-child(1) {
-  background: white;
   -webkit-transform: translate(0px, $translate-down) rotate(135deg);
   -moz-transform: translate(0px, $translate-down) rotate(135deg);
   -o-transform: translate(0px, $translate-down) rotate(135deg);
@@ -181,13 +157,11 @@ $translate-up: -1 * $translate-down;
 }
 
 #navbar-menu:checked ~ #navbar-menu-icon span:nth-child(2) {
-  background: white;
   opacity: 0;
   left: -25px;
 }
 
 #navbar-menu:checked ~ #navbar-menu-icon span:nth-child(3) {
-  background: white;
   -webkit-transform: translate(0px, $translate-up) rotate(-135deg);
   -moz-transform: translate(0px, $translate-up) rotate(-135deg);
   -o-transform: translate(0px, $translate-up) rotate(-135deg);
@@ -195,10 +169,10 @@ $translate-up: -1 * $translate-down;
 }
 
 #navbar-menu-icon span {
-  -webkit-transition: $menu-click-transition-time ease-in-out;
-  -moz-transition: $menu-click-transition-time ease-in-out;
-  -o-transition: $menu-click-transition-time ease-in-out;
-  transition: $menu-click-transition-time ease-in-out;
+  -webkit-transition: transform $menu-click-transition-time ease-in-out;
+  -moz-transition: transform $menu-click-transition-time ease-in-out;
+  -o-transition: transform $menu-click-transition-time ease-in-out;
+  transition: transform $menu-click-transition-time ease-in-out;
 }
 
 .hover-box-shadow-white:hover {
@@ -210,5 +184,4 @@ button:not(.btn) {
   border: none;
   box-shadow: none;
   margin: 0;
-  padding: 0.5em 0 !important;
 }

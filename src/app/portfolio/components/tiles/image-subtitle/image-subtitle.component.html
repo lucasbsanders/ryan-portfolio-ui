@@ -3,12 +3,12 @@
       (tile.width === Width.FULL && !isMediumScreen ? 'mx-4 ' : '') +
       (tile.width !== Width.FULL || isMediumScreen ? 'mx-0 ' : '')
     ">
-    <div *ngIf="!isMediumScreen" class="col-12 position-relative">
-      <app-image class="float-end w-50 ms-4 mb-2" [image]="image"></app-image>
+    <div *ngIf="!isSmallScreen" class="col-12 position-relative">
+      <app-image class="float-end w-50 ms-4 mb-2" style="max-width: 500px" [image]="image"></app-image>
       <p *ngIf="tile.text" [class]="tile.textClass" [innerHtml]="tile.text"></p>
     </div>
 
-    <ng-container *ngIf="isMediumScreen">
+    <ng-container *ngIf="isSmallScreen">
       <div class="col-12 mb-4 position-relative">
         <app-image [image]="image"></app-image>
       </div>

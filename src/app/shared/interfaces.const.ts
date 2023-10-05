@@ -24,6 +24,7 @@ export interface iTile extends Map {
   mb?: number;
   mt?: number;
   textClass?: string;
+  containerClass?: string;
 }
 
 export interface iImage extends Map {

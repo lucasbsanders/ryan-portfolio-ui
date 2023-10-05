@@ -2,22 +2,13 @@
   <app-row-width-adjust [width]="tile.width">
     <div class="col-12 position-relative">
       <div style="padding: 56.25% 0 0 0; position: relative">
-        <iframe
-          [src]="
+        <iframe [src]="
             'https://player.vimeo.com/video/' + tile.videoId + '?h=8b913dd3b5'
               | urlSanitize
-          "
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%"
-          frameborder="1"
-          allow="fullscreen"
-          (load)="loading = false"
-        ></iframe>
+          " style="position: absolute; top: 0; left: 0; width: 100%; height: 100%" frameborder="1" allow="fullscreen" (load)="loading = false"></iframe>
       </div>
 
-      <div
-        class="position-absolute bottom-0 left-0 pe-2 w-100 h-100"
-        [hidden]="!loading"
-      >
+      <div class="position-absolute bottom-0 left-0 pe-2 w-100 h-100" [hidden]="!loading">
         <div class="row w-100 h-100 text-center align-items-center">
           <div class="col-12">
             <div class="spinner-border text-secondary" role="status">
@@ -28,7 +19,7 @@
       </div>
     </div>
 
-    <div *ngIf="tile.text" class="col-12 mt-2 text-center">
+    <div *ngIf="tile.text" class="col-12 mt-3 text-center">
       <p [class]="tile.textClass" [innerText]="tile.text"></p>
     </div>
   </app-row-width-adjust>

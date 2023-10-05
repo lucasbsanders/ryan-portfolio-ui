@@ -14,6 +14,8 @@ import { TitleComponent } from './components/tiles/title/title.component';
 import { VimeoVideoComponent } from './components/tiles/vimeo-video/vimeo-video.component';
 import { HomepageGridImageComponent } from './components/tiles/homepage-grid-image/homepage-grid-image.component';
 import { YoutubeVideoComponent } from './components/tiles/youtube-video/youtube-video.component';
+import { ContactMeComponent } from './components/contact-me/contact-me.component';
+import { TileSwitchStatementComponent } from './components/tiles/tile-switch-statement/tile-switch-statement.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { YoutubeVideoComponent } from './components/tiles/youtube-video/youtube-
     TitleComponent,
     ProjectNavigationComponent,
     HomepageGridImageComponent,
+    ContactMeComponent,
+    TileSwitchStatementComponent,
   ],
   imports: [CommonModule, RouterModule, SharedModule],
   exports: [
