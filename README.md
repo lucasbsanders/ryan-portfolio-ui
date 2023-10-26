@@ -25,3 +25,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Sync build output to prod s3 bucket
+`aws s3 rm s3://ryanfennessey.com --recursive`
+`aws s3 sync dist/ryan-portfolio-ui s3://ryanfennessey.com`
