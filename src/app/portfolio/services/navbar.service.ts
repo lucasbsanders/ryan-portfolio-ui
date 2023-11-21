@@ -29,7 +29,6 @@ export class NavbarService {
   constructor(private pageService: PageReadService) {}
 
   onResize(width: number) {
-    console.log(width);
     this.isSmallScreen = width < 576;
     this.isMediumScreen = width < 768;
   }

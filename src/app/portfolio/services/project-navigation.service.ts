@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PageReadService } from './page-read.service';
+import { iImage } from 'src/app/shared/interfaces.const';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +13,9 @@ export class ProjectNavigationService {
       .getPageFromRoute('portfolio')
       .subscribe(
         (pageData: any) =>
-          (this.orderedProjectLinks = pageData.tiles[2].images.map(
-            (imgData: any) => imgData.url || imgData.link
-          ))
+          (this.orderedProjectLinks = pageData.tiles[2].images
+            .filter((image: iImage) => !image.hidden)
+            .map((imgData: any) => imgData.url || imgData.link))
       );
   }
 }

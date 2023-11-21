@@ -52,7 +52,9 @@ export class ImageGridComponent
 
   private sortFilterImages(filter: string): any[] {
     return this.getSortedImages().filter(
-      (img: any) => filter === 'All' || (img.tags && img.tags.includes(filter))
+      (img: any) =>
+        !img.hidden &&
+        (filter === 'All' || (img.tags && img.tags.includes(filter)))
     );
   }
 }

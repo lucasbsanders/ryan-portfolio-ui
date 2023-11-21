@@ -8,6 +8,7 @@ export interface iPage extends Map {
   route: string;
   type: string;
   tiles: iTile[];
+  hidden?: boolean;
 }
 
 export interface iTile extends Map {
@@ -25,6 +26,7 @@ export interface iTile extends Map {
   mt?: number;
   textClass?: string;
   containerClass?: string;
+  hidden?: boolean;
 }
 
 export interface iImage extends Map {
@@ -39,4 +41,5 @@ export interface iImage extends Map {
   tags?: string[];
   scale?: boolean;
   hoverS3Key?: string;
+  hidden?: boolean;
 }

@@ -42,7 +42,8 @@ export class FullscreenMenuComponent implements OnInit {
       .getMenuData()
       .subscribe(
         (menuData: any) =>
-          (this.menuData = menuData.sort((a: any, b: any) => a.order - b.order))
+          (this.menuData =
+            menuData?.sort((a: any, b: any) => a.order - b.order) ?? [])
       );
   }
 

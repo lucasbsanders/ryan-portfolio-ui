@@ -10,14 +10,14 @@ import { environment } from 'src/environments/environment';
 export class AdminAPIService {
   private pageKeys = ['route', 'type'];
 
-  constructor(private http: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
   ////
   //// API methods
   ////
 
   createOrEditPage(pageData: iPage): Observable<any> {
-    return this.http
+    return this.httpClient
       .put(
         environment.apiBaseUrl + 'pages',
         this.convertPageToDynamoExpression(pageData, 'PUT')
@@ -39,7 +39,7 @@ export class AdminAPIService {
   }
 
   deletePage(pageData: iPage): Observable<any> {
-    return this.http
+    return this.httpClient
       .delete(environment.apiBaseUrl + 'pages', {
         body: this.convertPageToDynamoExpression(pageData, 'DELETE'),
       })

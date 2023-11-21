@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of, pipe, switchMap } from 'rxjs';
+import {
+  isCacheExpired,
+  PAGE_SESSION_KEY,
+  updateCacheExpiration,
+} from 'src/app/shared/functions/cache-functions';
 import { iPage } from 'src/app/shared/interfaces.const';
 import { environment } from 'src/environments/environment';
 import { PageType } from '../../shared/enums.const';
@@ -10,11 +15,8 @@ import { PageType } from '../../shared/enums.const';
 })
 export class PageReadService {
   private _pages: iPage[] = [];
-  private _pageSessionKey: string = 'RYAN_PORTFOLIO_PAGES';
 
-  constructor(private http: HttpClient) {
-    this.getPagesFromClosestSource().subscribe();
-  }
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Returns an iPage web page (within an observable) for a particular route input
@@ -28,19 +30,59 @@ export class PageReadService {
   ): Observable<iPage | null> {
     if (!route) return of(null);
 
-    return this.getPagesFromClosestSource().pipe(
-      this.filterPagesByType(type),
-      switchMap((pages: iPage[]) => {
-        const page = pages.find((page: any) => page.route === route);
+    if (isCacheExpired()) {
+      return this.getAllPagesAPICall().pipe(
+        this.filterPagesByType(type),
+        this.findPageByRoute(route),
+        this.sortPageTiles()
+      );
+    } else {
+      return of(this._pages).pipe(
+        this.filterPagesByType(type),
+        this.findPageByRoute(route),
+        switchMap((page: iPage | undefined) => {
+          if (!page) {
+            if (environment.useCache)
+              return this.getPagesFromCache().pipe(
+                this.filterPagesByType(type),
+                this.findPageByRoute(route),
+                switchMap((page: iPage | undefined) => {
+                  if (!page)
+                    return this.getAllPagesAPICall().pipe(
+                      this.filterPagesByType(type),
+                      this.findPageByRoute(route)
+                    );
+                  else return of(page);
+                })
+              );
+            else
+              return this.getAllPagesAPICall().pipe(
+                this.filterPagesByType(type),
+                this.findPageByRoute(route)
+              );
+          } else return of(page);
+        }),
+        this.sortPageTiles()
+      );
+    }
+  }
 
-        if (!page)
-          // if page not found in session storage, try the API one more time
-          return this.getAllPagesAPICall().pipe(
-            this.filterPagesByType(type),
-            this.findPageByRoute(route)
-          );
-        else return of(page);
-      }),
+  private filterPagesByType(type: PageType | undefined) {
+    return pipe(
+      map((pages: any) =>
+        type ? pages.filter((page: any) => page.type === type) : pages
+      )
+    );
+  }
+
+  private findPageByRoute(route: string | null) {
+    return pipe(
+      map((pages: any) => pages.find((page: any) => page.route === route))
+    );
+  }
+
+  private sortPageTiles() {
+    return pipe(
       map((foundPage: iPage | null) => {
         if (foundPage && foundPage.type !== PageType.Static) {
           if (foundPage.tiles)
@@ -52,40 +94,21 @@ export class PageReadService {
     );
   }
 
-  filterPagesByType(type: PageType | undefined) {
-    return pipe(
-      map((pages: any) =>
-        type ? pages.filter((page: any) => page.type === type) : pages
-      )
-    );
-  }
-
-  findPageByRoute(route: string | null) {
-    return pipe(
-      map((pages: any) => pages.find((page: any) => page.route === route))
-    );
-  }
-
-  private getPagesFromClosestSource(): Observable<iPage[]> {
-    if (environment.useCache) {
-      // todo: check for cache recency
-      this._pages = JSON.parse(
-        <string>sessionStorage.getItem(this._pageSessionKey)
-      );
-    }
-
-    if (!this._pages) return this.getAllPagesAPICall();
-    else return of(<iPage[]>this._pages);
+  private getPagesFromCache(): Observable<iPage[]> {
+    this._pages = JSON.parse(<string>sessionStorage.getItem(PAGE_SESSION_KEY));
+    return of(this._pages);
   }
 
   private getAllPagesAPICall(): Observable<iPage[]> {
-    return this.http.get(environment.apiBaseUrl + 'pages').pipe(
+    return this.httpClient.get(environment.apiBaseUrl + 'pages').pipe(
       map((response: any) => {
         this._pages = this.parsePagesFromString(response.body);
-        sessionStorage.setItem(
-          this._pageSessionKey,
-          JSON.stringify(this._pages)
-        );
+
+        if (this._pages.length) {
+          sessionStorage.setItem(PAGE_SESSION_KEY, JSON.stringify(this._pages));
+          updateCacheExpiration();
+        }
+
         return this._pages;
       })
     );

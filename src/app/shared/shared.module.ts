@@ -12,6 +12,7 @@ import { RowSplitPipe } from './pipes/row-double.pipe';
 import { SplitTextPipe } from './pipes/split-text.pipe';
 import { UrlSanitizePipe } from './pipes/url-sanitize.pipe';
 import { ContainerWithMarginsComponent } from './components/container-with-margins/container-with-margins.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { ContainerWithMarginsComponent } from './components/container-with-margi
     UrlSanitizePipe,
     ContainerWithMarginsComponent,
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   providers: [
     RowSplitPipe,
     HtmlSanitizePipe,
@@ -37,6 +38,8 @@ import { ContainerWithMarginsComponent } from './components/container-with-margi
     UrlSanitizePipe,
   ],
   exports: [
+    FormsModule,
+    ReactiveFormsModule,
     PageNotFoundComponent,
     RowWidthAdjustComponent,
     ImageComponent,

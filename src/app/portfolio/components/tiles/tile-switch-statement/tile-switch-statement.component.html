@@ -1,4 +1,4 @@
-<ng-container *ngIf="tile">
+<ng-container *ngIf="tile && !tile.hidden">
   <ng-container [ngSwitch]="tile.type">
     <app-homepage-grid-image *ngSwitchCase="TileType.HomepageGrid" [tile]="tile">
     </app-homepage-grid-image>

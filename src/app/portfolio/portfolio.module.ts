@@ -16,6 +16,7 @@ import { HomepageGridImageComponent } from './components/tiles/homepage-grid-ima
 import { YoutubeVideoComponent } from './components/tiles/youtube-video/youtube-video.component';
 import { ContactMeComponent } from './components/contact-me/contact-me.component';
 import { TileSwitchStatementComponent } from './components/tiles/tile-switch-statement/tile-switch-statement.component';
+import { PasswordPageComponent } from './components/password-page/password-page.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { TileSwitchStatementComponent } from './components/tiles/tile-switch-sta
     HomepageGridImageComponent,
     ContactMeComponent,
     TileSwitchStatementComponent,
+    PasswordPageComponent,
   ],
   imports: [CommonModule, RouterModule, SharedModule],
   exports: [

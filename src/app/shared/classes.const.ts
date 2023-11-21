@@ -5,6 +5,7 @@ export class PageDefault implements iPage {
   route = '';
   type = '';
   tiles = [];
+  hidden = false;
 }
 
 export class TileDefault implements iTile {
@@ -22,6 +23,7 @@ export class TileDefault implements iTile {
   mt = 4;
   textClass = '';
   containerClass = '';
+  hidden = false;
 }
 
 export class ImageDefault implements iImage {
@@ -36,4 +38,5 @@ export class ImageDefault implements iImage {
   tags = [];
   scale = false;
   hoverS3Key = '';
+  hidden = false;
 }
