@@ -1,15 +1,35 @@
 import { inject } from '@angular/core';
 import { CanActivateChildFn, CanActivateFn, Router } from '@angular/router';
-import { of, switchMap } from 'rxjs';
-import { isCacheExpired } from './shared/functions/cache-functions';
+import { of } from 'rxjs';
+import {
+  AUTHORIZED_KEY,
+  isCacheExpired,
+} from './shared/functions/cache-functions';
 
-export const AUTHORIZED_KEY = 'portfolio-access-authorized';
-
-export const AuthGuard: CanActivateFn | CanActivateChildFn = (route, state) => {
+export const PasswordPage: CanActivateFn | CanActivateChildFn = (
+  route,
+  state
+) => {
   const router: Router = inject(Router);
-  const authorized =
-    sessionStorage.getItem(AUTHORIZED_KEY) === 't' && !isCacheExpired();
+  const userIsAuth = sessionStorage.getItem(AUTHORIZED_KEY) === 't';
 
-  if (!authorized) router.navigate(['/']);
-  return of(!!authorized);
+  if (!userIsAuth) {
+    return router.parseUrl('/');
+  }
+
+  return true;
+};
+
+export const NoPasswordPage: CanActivateFn | CanActivateChildFn = (
+  route,
+  state
+) => {
+  const router: Router = inject(Router);
+  const userIsActuallyAuth = sessionStorage.getItem(AUTHORIZED_KEY) === 't';
+
+  if (userIsActuallyAuth) {
+    return router.parseUrl('/portfolio');
+  }
+
+  return true;
 };

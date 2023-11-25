@@ -57,10 +57,9 @@ export const environment = {
 
 // appends data into the target file(s)
 writeFileUsingFS('./src/environments/environment.ts', environmentFileContent);
-if (isProduction)
-  writeFileUsingFS(
-    './src/environments/environment.prod.ts',
-    environmentFileContent
-  );
+writeFileUsingFS(
+  './src/environments/environment.prod.ts',
+  environmentFileContent
+);
 
 /* tslint:enable */

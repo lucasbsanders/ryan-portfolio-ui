@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { PageDefault } from 'src/app/shared/classes.const';
 import { iPage } from 'src/app/shared/interfaces.const';
 import { PageType, TileType, Width } from '../../../shared/enums.const';
 import { NavbarService } from '../../services/navbar.service';
 import { PageReadService } from '../../services/page-read.service';
+import { AUTHORIZED_KEY } from 'src/app/shared/functions/cache-functions';
 
 @Component({
   selector: 'app-page-display',
@@ -36,22 +37,29 @@ export class PageDisplayComponent implements OnInit {
   constructor(
     private navbarService: NavbarService,
     private pageService: PageReadService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap
-      .pipe(
-        switchMap((paramMap: any) => {
-          this.page = new PageDefault();
-          this.pageNotFound = false;
-          const path = paramMap.get('path');
+    const userIsAuth = sessionStorage.getItem(AUTHORIZED_KEY) === 't';
 
-          this.navbarService.setRoute(path);
-          return this.pageService.getPageFromRoute(path);
-        })
-      )
-      .subscribe((page: iPage | null) => this.setPage(page));
+    if (!userIsAuth) {
+      this.router.navigate(['/']);
+    } else {
+      this.activatedRoute.paramMap
+        .pipe(
+          switchMap((paramMap: any) => {
+            this.page = new PageDefault();
+            this.pageNotFound = false;
+            const path = paramMap.get('route');
+
+            this.navbarService.setRoute(path);
+            return this.pageService.getPageFromRoute(path);
+          })
+        )
+        .subscribe((page: iPage | null) => this.setPage(page));
+    }
   }
 
   setPage(page: iPage | null) {

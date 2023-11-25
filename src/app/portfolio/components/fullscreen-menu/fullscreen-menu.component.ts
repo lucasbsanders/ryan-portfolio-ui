@@ -66,7 +66,7 @@ export class FullscreenMenuComponent implements OnInit {
 
   goToRoute(route: string) {
     this.setMenuOpen(false);
-    this.router.navigate([route]);
+    this.router.navigate(['/' + route]);
   }
 
   closeMenu(event: any) {

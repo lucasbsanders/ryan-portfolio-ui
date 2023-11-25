@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AUTHORIZED_KEY } from 'src/app/auth-guards';
+import { AUTHORIZED_KEY } from 'src/app/shared/functions/cache-functions';
 import { hashString } from 'src/app/shared/functions/hash-functions';
 import { AuthService } from '../../services/auth.service';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-password-page',
@@ -27,22 +27,26 @@ export class PasswordPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    sessionStorage.removeItem(AUTHORIZED_KEY);
     this.passwordControl = new FormControl('');
+    const userIsAuth = sessionStorage.getItem(AUTHORIZED_KEY) === 't';
 
-    this.pwdSubscription = this.activatedRoute.queryParamMap.subscribe(
-      (query: ParamMap) => {
-        const password = query?.get('p');
-        const hash = query?.get('h');
+    if (userIsAuth) {
+      this.router.navigate(['/portfolio']);
+    } else {
+      this.pwdSubscription = this.activatedRoute.queryParamMap.subscribe(
+        (query: ParamMap) => {
+          const password = query?.get('p');
+          const hash = query?.get('h');
 
-        if (password) {
-          const passwordHash = hashString(password);
-          this.checkPasswordAndRedirect(passwordHash);
-        } else if (hash) {
-          this.checkPasswordAndRedirect(hash);
+          if (password) {
+            const passwordHash = hashString(password);
+            this.checkPasswordAndRedirect(passwordHash);
+          } else if (hash) {
+            this.checkPasswordAndRedirect(hash);
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   public submitPassword() {
@@ -56,13 +60,14 @@ export class PasswordPageComponent implements OnInit, OnDestroy {
   private checkPasswordAndRedirect(passwordHash: string) {
     this.passwordLoading = true;
     this.authService.submitPassword(passwordHash).subscribe((r: any) => {
-      console.log(r);
       const isAuth = r.body;
-      console.log(isAuth);
-      sessionStorage.setItem(AUTHORIZED_KEY, isAuth ? 't' : 'f');
+      if (isAuth) sessionStorage.setItem(AUTHORIZED_KEY, 't');
+      else sessionStorage.removeItem(AUTHORIZED_KEY);
 
-      if (isAuth) setTimeout(() => this.router.navigate(['/portfolio']));
-      else {
+      if (isAuth) {
+        this.router.navigate(['/portfolio']);
+        // location.reload();
+      } else {
         setTimeout(() => {
           this.passwordLoading = false;
           this.router.navigate(['/']);

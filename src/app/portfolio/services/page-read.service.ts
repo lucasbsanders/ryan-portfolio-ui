@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, of, pipe, switchMap } from 'rxjs';
 import {
   isCacheExpired,
+  PAGE_EXPIRE_KEY,
   PAGE_SESSION_KEY,
   updateCacheExpiration,
 } from 'src/app/shared/functions/cache-functions';
@@ -100,6 +101,9 @@ export class PageReadService {
   }
 
   private getAllPagesAPICall(): Observable<iPage[]> {
+    sessionStorage.removeItem(PAGE_SESSION_KEY);
+    sessionStorage.removeItem(PAGE_EXPIRE_KEY);
+
     return this.httpClient.get(environment.apiBaseUrl + 'pages').pipe(
       map((response: any) => {
         this._pages = this.parsePagesFromString(response.body);

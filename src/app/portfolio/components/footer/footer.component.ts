@@ -19,6 +19,6 @@ export class FooterComponent {
   }
 
   constructor(private navbarService: NavbarService) {
-    this.navbarService.getFooterData().subscribe((data) => (this.links = data));
+    // this.navbarService.getFooterData().subscribe((data) => (this.links = data));
   }
 }

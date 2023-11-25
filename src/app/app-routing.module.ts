@@ -5,18 +5,31 @@ import { PageDisplayComponent } from './portfolio/components/page-display/page-d
 import { PageNotFoundComponent } from './shared/PageNotFound';
 import { ContactMeComponent } from './portfolio/components/contact-me/contact-me.component';
 import { PasswordPageComponent } from './portfolio/components/password-page/password-page.component';
-import { AuthGuard } from './auth-guards';
+import { NoPasswordPage, PasswordPage } from './auth-guards';
 
 const routes: Routes = [
-  { path: '', component: PasswordPageComponent },
-  { path: 'contact', component: ContactMeComponent, canActivate: [AuthGuard] },
-  { path: ':path', component: PageDisplayComponent, canActivate: [AuthGuard] },
   {
-    path: ':path/edit',
-    component: PageEditComponent,
-    canActivate: [AuthGuard],
+    path: '',
+    component: PasswordPageComponent,
+    canActivate: [NoPasswordPage],
+  },
+  {
+    path: 'contact',
+    component: ContactMeComponent,
+    canActivate: [PasswordPage],
   },
   { path: 'error', component: PageNotFoundComponent },
+  {
+    path: ':route',
+    component: PageDisplayComponent,
+    canActivate: [PasswordPage],
+  },
+  {
+    path: ':route/edit',
+    component: PageEditComponent,
+    canActivate: [PasswordPage],
+  },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

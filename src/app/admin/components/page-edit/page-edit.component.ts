@@ -50,7 +50,7 @@ export class PageEditComponent implements OnInit {
         switchMap((paramMap: any) => {
           this.pageEditService.setPageToDefault();
           this.pageNotFound = false;
-          this.route = paramMap.get('path');
+          this.route = paramMap.get('route');
           this.navbarService.setRoute(this.route);
 
           return this.pageReadService.getPageFromRoute(this.route);
