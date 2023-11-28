@@ -78,7 +78,9 @@ export class PageReadService {
 
   private findPageByRoute(route: string | null) {
     return pipe(
-      map((pages: any) => pages.find((page: any) => page.route === route))
+      map((pages: any) =>
+        pages.find((page: any) => page.route === route && !page.hidden)
+      )
     );
   }
 
