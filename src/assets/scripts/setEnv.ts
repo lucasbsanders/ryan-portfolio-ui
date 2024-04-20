@@ -47,10 +47,7 @@ export const environment = {
     small: 'assets/siteLogos/RyanFennessey_logo_footer_initials_V2.svg',
   },
   apiBaseUrl: '${process.env.API_BASE_URL}',
-  s3: {
-    baseUrl: '${process.env.S3_BASE_URL}',
-    bucketName: '${process.env.S3_BUCKET_NAME}',
-  },
+  s3baseUrl: '${process.env.S3_BASE_URL}',
   useCache: ${isProduction},
   disableEdit: ${isProduction},
 };`;

@@ -28,7 +28,7 @@ export class PasswordPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.passwordControl = new FormControl('');
-    const userIsAuth = sessionStorage.getItem(AUTHORIZED_KEY) === 't';
+    const userIsAuth = localStorage.getItem(AUTHORIZED_KEY) === 't';
 
     if (userIsAuth) {
       this.router.navigate(['/portfolio']);
@@ -61,8 +61,8 @@ export class PasswordPageComponent implements OnInit, OnDestroy {
     this.passwordLoading = true;
     this.authService.submitPassword(passwordHash).subscribe((r: any) => {
       const isAuth = r.body;
-      if (isAuth) sessionStorage.setItem(AUTHORIZED_KEY, 't');
-      else sessionStorage.removeItem(AUTHORIZED_KEY);
+      if (isAuth) localStorage.setItem(AUTHORIZED_KEY, 't');
+      else localStorage.removeItem(AUTHORIZED_KEY);
 
       if (isAuth) {
         this.router.navigate(['/portfolio']);

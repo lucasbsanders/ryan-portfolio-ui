@@ -98,20 +98,20 @@ export class PageReadService {
   }
 
   private getPagesFromCache(): Observable<iPage[]> {
-    this._pages = JSON.parse(<string>sessionStorage.getItem(PAGE_SESSION_KEY));
+    this._pages = JSON.parse(<string>localStorage.getItem(PAGE_SESSION_KEY));
     return of(this._pages);
   }
 
   private getAllPagesAPICall(): Observable<iPage[]> {
-    sessionStorage.removeItem(PAGE_SESSION_KEY);
-    sessionStorage.removeItem(PAGE_EXPIRE_KEY);
+    localStorage.removeItem(PAGE_SESSION_KEY);
+    localStorage.removeItem(PAGE_EXPIRE_KEY);
 
     return this.httpClient.get(environment.apiBaseUrl + 'pages').pipe(
       map((response: any) => {
         this._pages = this.parsePagesFromString(response.body);
 
         if (this._pages.length) {
-          sessionStorage.setItem(PAGE_SESSION_KEY, JSON.stringify(this._pages));
+          localStorage.setItem(PAGE_SESSION_KEY, JSON.stringify(this._pages));
           updateCacheExpiration();
         }
 

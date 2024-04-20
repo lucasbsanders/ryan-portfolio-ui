@@ -28,7 +28,9 @@ export class ImageComponent {
     if (isInView && this.loading) this.loading = false;
   }
 
-  goToImageRoute(route: string) {
-    this.router.navigate(['/' + route]);
+  conditionalGoToImageRoute() {
+    this.mouseIn = true;
+    if (this.image.url || this.image.link)
+      this.router.navigate(['/' + (this.image.url ?? this.image.link)]);
   }
 }

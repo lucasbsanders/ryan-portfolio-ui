@@ -8,6 +8,6 @@ export class KeyToS3Pipe implements PipeTransform {
   transform(s3Key: string): string {
     return !s3Key || s3Key === ''
       ? environment.icons.primary
-      : [environment.s3.baseUrl, s3Key].join('/');
+      : [environment.s3baseUrl, s3Key].join('/');
   }
 }

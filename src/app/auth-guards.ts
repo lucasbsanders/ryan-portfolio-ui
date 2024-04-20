@@ -11,7 +11,7 @@ export const PasswordPage: CanActivateFn | CanActivateChildFn = (
   state
 ) => {
   const router: Router = inject(Router);
-  const userIsAuth = sessionStorage.getItem(AUTHORIZED_KEY) === 't';
+  const userIsAuth = localStorage.getItem(AUTHORIZED_KEY) === 't';
 
   if (!userIsAuth) {
     return router.parseUrl('/');
@@ -25,7 +25,7 @@ export const NoPasswordPage: CanActivateFn | CanActivateChildFn = (
   state
 ) => {
   const router: Router = inject(Router);
-  const userIsActuallyAuth = sessionStorage.getItem(AUTHORIZED_KEY) === 't';
+  const userIsActuallyAuth = localStorage.getItem(AUTHORIZED_KEY) === 't';
 
   if (userIsActuallyAuth) {
     return router.parseUrl('/portfolio');

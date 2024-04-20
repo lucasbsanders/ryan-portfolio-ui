@@ -42,7 +42,7 @@ export class PageDisplayComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const userIsAuth = sessionStorage.getItem(AUTHORIZED_KEY) === 't';
+    const userIsAuth = localStorage.getItem(AUTHORIZED_KEY) === 't';
 
     if (!userIsAuth) {
       this.router.navigate(['/']);

@@ -9,7 +9,7 @@
     "build-dev": "npm run config -- --environment=development && ng build",
     "build-prod": "npm run config -- --environment=prod && ng build --configuration=production --output-hashing=all",
     "deploy-dev": "npm run config -- --environment=prod && ng deploy --base-href=/ryan-portfolio-ui/",
-    "deploy-prod": "npm run build-prod && aws s3 sync ./dist/ryan-portfolio-ui s3://ryanfennessey.com --delete --cache-control max-age=600",
+    "deploy-prod": "npm run build-prod && aws s3 sync ./dist/ryan-portfolio-ui s3://ryanfennessey.com --delete --cache-control max-age=60",
     "watch": "ng build --watch --configuration development",
     "test": "npm run config -- --environment=dev && ng test",
     "lint": "ng lint"

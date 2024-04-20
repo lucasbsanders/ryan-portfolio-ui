@@ -5,19 +5,19 @@ export const AUTHORIZED_KEY = 'portfolio-access-authorized';
 export const updateCacheExpiration = (): void => {
   const now = new Date();
   now.setHours(now.getHours() + 1);
-  sessionStorage.setItem(PAGE_EXPIRE_KEY, now.toUTCString());
+  localStorage.setItem(PAGE_EXPIRE_KEY, now.toUTCString());
 };
 
 export const isCacheExpired = (): boolean => {
   const cacheExpireDate = Date.parse(
-    sessionStorage.getItem(PAGE_EXPIRE_KEY) ?? ''
+    localStorage.getItem(PAGE_EXPIRE_KEY) ?? ''
   );
 
   const cacheExpired =
-    !sessionStorage.getItem(PAGE_EXPIRE_KEY) || cacheExpireDate < Date.now();
+    !localStorage.getItem(PAGE_EXPIRE_KEY) || cacheExpireDate < Date.now();
   if (cacheExpired) {
   }
   return (
-    !sessionStorage.getItem(PAGE_EXPIRE_KEY) || cacheExpireDate < Date.now()
+    !localStorage.getItem(PAGE_EXPIRE_KEY) || cacheExpireDate < Date.now()
   );
 };

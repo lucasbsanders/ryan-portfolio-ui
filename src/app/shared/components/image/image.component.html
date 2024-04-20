@@ -1,5 +1,5 @@
 <div [class]="containerClass || 'w-100 text-center position-relative'" [ngClass]="{ padBox: hasShadow, imgBox: image.link }" appTrackViewPort
-  (isAtTop)="loadImageOnScroll($event)" (mouseenter)="mouseIn = true" (mouseleave)="mouseIn = false">
+  (isAtTop)="loadImageOnScroll($event)" (mouseenter)="mouseIn = true" (mouseleave)="mouseIn = false" (click)="conditionalGoToImageRoute()">
   <img [src]="image.s3Key | keyToS3" [alt]="image.s3Key | filename" [class]="className" [ngClass]="{
       customShadow: hasShadow,
       invisible: loading,
@@ -7,7 +7,7 @@
     }" [ngStyle]="{
       width: image.icon && !isSmallScreen ? '12rem' : '100%',
       cursor: image.link ? 'pointer' : 'auto'
-    }" (click)="mouseIn = true" />
+    }" />
 
   <!-- Image/gif overlay -->
   <div class="position-absolute w-100 h-100 top-0 left-0 right-0 bottom-0" *ngIf="image.hoverS3Key && mouseIn">
@@ -20,7 +20,7 @@
 
   <!-- Link/URL overlay -->
   <div class="position-absolute w-100 h-100 top-0 left-0 right-0 bottom-0 align-items-center justify-content-center d-flex p-3 overlayContainer"
-    style="cursor: pointer" *ngIf="image.link || image.url" (click)="goToImageRoute(image.url ?? image.link ?? '')">
+    style="cursor: pointer" *ngIf="image.link || image.url">
     <p class="montserrat-bold fs-2 p-4 hover-link-light">{{ image.link ?? image.url ?? '' }}</p>
 
     <!-- <a *ngIf="image.link && !image.url" class="montserrat-bold p-4 navLink" [ngStyle]="{ 'font-size': isSmallScreen ? 'x-large' : 'xx-large' }">

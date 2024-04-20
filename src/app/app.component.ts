@@ -15,7 +15,9 @@ export class AppComponent implements AfterViewInit {
   }
 
   constructor(private navbarService: NavbarService) {}
+
   ngAfterViewInit(): void {
+    sessionStorage.clear();
     this.navbarService.onResize(window.innerWidth);
   }
 
