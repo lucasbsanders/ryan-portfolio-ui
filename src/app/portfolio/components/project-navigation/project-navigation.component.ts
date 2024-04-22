@@ -28,7 +28,10 @@ export class ProjectNavigationComponent implements OnChanges, OnInit {
   ngOnInit(): void {
     this.projectNavService
       .getOrderedProjectLinks()
-      .subscribe((links: string[]) => (this.orderedProjectLinks = links));
+      .subscribe((links: string[]) => {
+        this.orderedProjectLinks = links;
+        this.ngOnChanges();
+      });
   }
 
   ngOnChanges(): void {
