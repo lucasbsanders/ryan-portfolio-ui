@@ -15,7 +15,7 @@ import {
   PAGES_LIST_UPDATED_LS_KEY,
   setPagesListCache,
 } from 'src/app/shared/functions/cache-functions';
-import { iPage } from 'src/app/shared/interfaces.const';
+import { iPage, iTile } from 'src/app/shared/interfaces.const';
 import { environment } from 'src/environments/environment';
 import { PageType } from '../../shared/enums.const';
 
@@ -76,7 +76,7 @@ export class PageReadService {
 
   private sortPageTiles(page?: iPage): iPage | undefined {
     if (page && page.type !== PageType.Static) {
-      if (page.tiles) page.tiles.sort((a: any, b: any) => a.order - b.order);
+      if (page.tiles) page.tiles.sort((a: iTile, b: iTile) => a.order - b.order);
       else page.tiles = [];
     }
     return page;
@@ -87,7 +87,7 @@ export class PageReadService {
     type: PageType | undefined
   ): iPage[] {
     return (
-      (type ? pages?.filter((page: any) => page.type === type) : pages) ?? []
+      (type ? pages?.filter((page: iPage) => page.type === type) : pages) ?? []
     );
   }
 

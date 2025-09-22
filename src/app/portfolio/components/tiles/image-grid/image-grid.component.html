@@ -12,7 +12,7 @@
     [mt]="tile.filters && tile.filters.length ? 1 : tile.mt" [mb]="tile.mb">
     <app-row-width-adjust *ngFor="let imgRow of sortedFilteredImages | rowSplit : adjustedColumns" [width]="tile.width">
       <div *ngFor="let image of imgRow; index as i" class="g-2 position-relative" [ngClass]="lastRowColOffset(imgRow.length, i)">
-        <app-image [image]="image" [hasShadow]="!!tile.shadow"></app-image>
+        <app-image [image]="image" [hasShadow]="!!tile.shadow" [className]="tile.elementClass"></app-image>
       </div>
     </app-row-width-adjust>
 

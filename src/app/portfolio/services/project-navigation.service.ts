@@ -9,9 +9,9 @@ import { PageReadService } from './page-read.service';
 export class ProjectNavigationService {
   constructor(private pageService: PageReadService) {}
 
-  public getOrderedProjectLinks(): Observable<string[]> {
+  public getOrderedProjectLinks(): Observable<(string | undefined)[]> {
     return this.getOrderedProjectImages().pipe(
-      map((images) => images.map((imgData: any) => imgData.url || imgData.link))
+      map((images) => images.map((imgData: iImage) => imgData.url || imgData.link))
     );
   }
 

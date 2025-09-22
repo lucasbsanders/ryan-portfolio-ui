@@ -39,7 +39,7 @@ $overlay-hover-transition-time: 0.25s;
   transition: opacity $overlay-hover-transition-time ease-in-out;
 }
 
-div.imgBox:hover + .overlayContainer,
+div.image-container:hover + .overlayContainer,
 .overlayContainer:hover {
   opacity: 1;
 }

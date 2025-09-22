@@ -65,11 +65,11 @@ button {
 
 // global shadow effect
 
-$shadow-length: 10;
+$shadow-length: 15;
 $shadow-blur: 25px;
-$shadow-background-color: var(--shadow-gray);
+$shadow-background-color: var(--page-element-shadow-gray);
 
-.customShadow {
+.page-element-shadow {
   box-shadow: 0px 0px $shadow-blur $shadow-background-color;
   border-radius: 12px;
   //background-color: $shadow-background-color;

@@ -3,28 +3,31 @@ $blue: #0082fe;
 $green: #00ffc3;
 
 //DARK MODE
-$black: #eeefef;
-$true-black: #000101;
-$white: #000101;
-$true-white: #eeefef;
+$black: #fefefe;
+$true-black: #010101;
+$white: #010101;
+$true-white: #fefefe;
 $gray: #777777;
-$lightgray: rgb(45, 45, 45, 0.9); //skills section bg
-$shadow-gray: rgb(45, 45, 45, 0.5);
 
-$hover-link-default-gray: #333333;
-$hover-link-background: rgba(225, 225, 225, 0.5);
+$lightgray: rgb(45, 45, 45, 0.9); //skills section bg
+$page-element-shadow-gray: rgb(225, 225, 225, 0.75);
+
+$hover-link-default-gray: #555555;
+$hover-link-shadow-gray: rgb(45, 45, 45, 0.5);
+$hover-link-background: rgba(225, 225, 225, 0.6);
 $menu-background: rgba(225, 225, 225, 0.75);
 
 // //LIGHT MODE
-// $black: #000101;
-// $true-black: #000101;
-// $white: #eeefef;
-// $true-white: #eeefef;
+// $black: #010101;
+// $true-black: #010101;
+// $white: #fefefe;
+// $true-white: #fefefe;
 // $gray: #777777;
 // $lightgray: rgb(225, 225, 225, 0.9); //skills section bg
-// $shadow-gray: rgb(225, 225, 225, 0.75);
+// $page-element-shadow-gray: rgb(45, 45, 45, 0.5);
 
 // $hover-link-default-gray: #DDDDDD;
+// $hover-link-shadow-gray: rgb(225, 225, 225, 0.75);
 // $hover-link-background: rgba(45, 45, 45, 0.3);
 // $menu-background: rgba(45, 45, 45, 0.9);
 
@@ -40,8 +43,9 @@ $theme-colors: map-merge(
     "true-white": $true-white,
     "gray": $gray,
     "lightgray": $lightgray,
+    "page-element-shadow-gray": $page-element-shadow-gray,
     "hover-link-default-gray": $hover-link-default-gray,
-    "shadow-gray": $shadow-gray,
+    "hover-link-shadow-gray": $hover-link-shadow-gray,
     "hover-link-background": $hover-link-background,
     "menu-background": $menu-background,
   ),

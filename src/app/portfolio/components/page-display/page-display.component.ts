@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { iPage, PageDefault } from 'src/app/shared/interfaces.const';
 import { PageType, TileType, Width } from '../../../shared/enums.const';
@@ -48,12 +48,12 @@ export class PageDisplayComponent implements OnInit {
     
     this.activatedRoute.paramMap
       .pipe(
-        switchMap((paramMap: any) => {
+        switchMap((paramMap: ParamMap) => {
           this.page = new PageDefault();
           this.activeStep = PageDisplayStep.Loading;
           const path = paramMap.get('route');
 
-          this.navbarService.setRoute(path);
+          this.navbarService.setRoute(path ?? '');
           return this.pageService.getPageFromRoute(path);
         })
       )

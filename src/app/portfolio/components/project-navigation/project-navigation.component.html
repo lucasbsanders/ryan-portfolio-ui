@@ -1,7 +1,7 @@
 <app-container-with-margins [width]="Width.M" containerClass="my-5">
   <app-row-width-adjust [width]="Width.M" className="d-flex">
     <a *ngIf="previousIndex > -1" [ngStyle]="{'flex-basis': nextIndex === -1 ? '100%' : '50%'}"
-      class="montserrat fs-5 bg-transparent border-0 d-flex flex-row align-items-center gap-1 md:gap-3" [routerLink]="'/' + orderedProjectLinks[previousIndex]">
+      class="montserrat fs-5 bg-transparent border-0 d-flex flex-row align-items-center gap-1 gap-md-3" [routerLink]="'/' + orderedProjectLinks[previousIndex]">
       <span style="display: block; height: 34px; width: 30px">
         <svg id="chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
@@ -13,7 +13,7 @@
     </a>
 
     <a *ngIf="nextIndex > -1" [ngStyle]="{'flex-basis': previousIndex === -1 ? '100%' : '50%'}"
-      class="montserrat fs-5 bg-transparent border-0 d-flex flex-row align-items-center gap-1 md:gap-3 justify-content-end"
+      class="montserrat fs-5 bg-transparent border-0 d-flex flex-row align-items-center gap-1 gap-md-3 justify-content-end text-end"
       [routerLink]="'/' + orderedProjectLinks[nextIndex]">
       <span>{{ orderedProjectLinks[nextIndex] }}</span>
 

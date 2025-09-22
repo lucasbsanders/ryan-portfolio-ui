@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/portfolio/services/navbar.service';
 import { TileBaseComponent } from '../tile-base.component';
+import { iImage } from 'src/app/shared/interfaces.const';
 
 @Component({
   selector: 'app-image-grid',
@@ -16,7 +17,7 @@ export class ImageGridComponent
     this.tile.filters && this.tile.filters.length > 0
       ? this.tile.filters[0]
       : 'All';
-  sortedFilteredImages: any[] = [];
+  sortedFilteredImages: iImage[] = [];
 
   get adjustedColumns(): number {
     return this.tile.columns ? this.tile.columns + this.colAdjSm : 1;
@@ -51,9 +52,9 @@ export class ImageGridComponent
     }
   }
 
-  private sortFilterImages(filter: string): any[] {
+  private sortFilterImages(filter: string): iImage[] {
     return this.getSortedImages().filter(
-      (img: any) =>
+      (img: iImage) =>
         !img.hidden &&
         (filter === 'All' || (img.tags && img.tags.includes(filter)))
     );

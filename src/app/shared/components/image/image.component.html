@@ -1,9 +1,10 @@
-<div class="h-auto w-100 text-center position-relative" [ngClass]="{'padBox': hasShadow, 'imgBox': image.link}" appTrackViewPort
-  (isAtTop)="loadImageOnScroll($event)" (mousemove)="mouseMove()" (mouseleave)="mouseIn = false">
-  <img [src]="image.s3Key | keyToS3" [alt]="image.s3Key | filename" [class]="className" [ngClass]="{
-      customShadow: hasShadow,
-      invisible: loading,
-      scaleImg: image.scale
+<button type="button" class="p-0 bg-transparent border-0 w-100 text-center position-relative"
+  [ngClass]="{'p-2': hasShadow, 'image-container': image.link || image.url}" [ngStyle]="{'border-radius': hasShadow ? '12px' : '0'}" appTrackViewPort
+  (isAtTop)="loadImageOnScroll($event)" (mousemove)="mouseIn = true" (mouseleave)="mouseIn = false" (click)="conditionalGoToImageRoute()">
+  <img [src]="image.s3Key | keyToS3" [alt]="image.s3Key | filename" [class]="className ?? ''" [ngClass]="{
+      'page-element-shadow': hasShadow,
+      'invisible': loading && animateImageAppearance,
+      'scaleImg': image.scale
     }" [ngStyle]="{
       width: image.icon && !isSmallScreen ? '12rem' : '100%',
       cursor: image.link ? 'pointer' : 'auto'
@@ -11,15 +12,14 @@
 
   <!-- Image/gif overlay -->
   <div class="position-absolute w-100 h-100 top-0 left-0 right-0 bottom-0" *ngIf="image.hoverS3Key && mouseIn && !loading">
-    <img [src]="image.hoverS3Key | keyToS3" [alt]="image.hoverS3Key | filename" [ngClass]="{
-      customShadow: hasShadow,
-      scaleImg: image.scale
-    }" [class]="className" (click)="mouseIn = false" />
+    <img [src]="image.hoverS3Key | keyToS3" [alt]="image.hoverS3Key | filename" [ngClass]="{'scaleImg': image.scale}"
+      [ngStyle]="{'border-radius': hasShadow ? '12px' : '0'}" [class]="className ?? ''" (click)="mouseIn = false" />
   </div>
 
   <!-- Link/URL overlay -->
-  <a class="position-absolute w-100 h-100 top-0 left-0 right-0 bottom-0 align-items-center justify-content-center d-flex p-3 overlayContainer bg-hover-link-background"
-    *ngIf="image.link || image.url" [routerLink]="image.url || image.link ? '/' + (image.url ?? image.link) : null">
+  <a class="position-absolute w-100 h-100 top-0 left-0 align-items-center justify-content-center d-flex p-3 overlayContainer bg-hover-link-background"
+    *ngIf="(image.link || image.url) && !loading" [routerLink]="image.url || image.link ? '/' + (image.url ?? image.link) : null"
+    [ngStyle]="{'border-radius': hasShadow ? '12px' : '0'}">
     <span class="montserrat-bold fs-2 p-4 hover-link-light">
       {{image.link ?? image.url ?? ''}}
     </span>
@@ -35,7 +35,7 @@
       </div>
     </div>
   </div>
-</div>
+</button>
 
 <div *ngIf="image.subtitle" class="w-100 text-center mt-3">
   <p [innerText]="image.subtitle"></p>

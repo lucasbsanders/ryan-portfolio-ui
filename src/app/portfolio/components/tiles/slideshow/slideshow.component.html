@@ -18,9 +18,10 @@
 
       <!-- Slideshow -->
       <div class="col-12 order-1" style="z-index: 9">
-        <div class="carousel-inner" [ngClass]="{ customShadow: tile.shadow, border: !tile.shadow }">
+        <div class="carousel-inner" [ngClass]="{ 'page-element-shadow': tile.shadow, border: !tile.shadow }">
           <div *ngFor="let image of images; let pg = index" class="carousel-item position-relative" [id]="'book' + tile.order + 'page' + pg">
-            <app-image class="d-block w-100" [image]="image"> </app-image>
+            <app-image class="d-block w-100" [image]="image" [animateImageAppearance]="pg === 0">
+            </app-image>
           </div>
         </div>
       </div>
