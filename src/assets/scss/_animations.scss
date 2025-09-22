@@ -1,8 +1,8 @@
 $scale-link-transform-amount: 1.1;
 $scale-link-transition-time: 0.15s;
-$scale-link-color-initial: rgb(225, 225, 225);
-$scale-link-color-hover: white;
-$scale-link-text-shadow: 0px 0px 50px lightgray;
+$scale-link-color-initial: var(--hover-link-default-gray);
+$scale-link-color-hover: var(--white);
+$scale-link-text-shadow: 0px 0px 50px var(--shadow-gray);
 $scale-link-animation: $scale-link-transition-time ease-in-out,
   color $scale-link-transition-time ease-in-out;
 

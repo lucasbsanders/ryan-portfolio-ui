@@ -5,24 +5,23 @@
       ? (isSmallScreen ? 60 : 0)
       : (isSmallScreen ? 150 : 160)
   }">
-  <ng-container *ngIf="page.tiles.length > 0; else spinner">
+
+  <ng-container *ngIf="activeStep === PageDisplayStep.PageContent">
     <app-tile-switch-statement *ngFor="let tile of page.tiles" [tile]="tile"></app-tile-switch-statement>
 
     <app-project-navigation *ngIf="page.type === PageType.Project" [currentProjectLink]="page.route">
     </app-project-navigation>
   </ng-container>
 
-  <ng-template #spinner>
-    <div *ngIf="!pageNotFound; else pnf" [style.margin-top]="'5rem'">
-      <div class="text-center">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading Portfolio...</span>
-        </div>
+  <div *ngIf="activeStep === PageDisplayStep.Loading" [style.margin-top]="'5rem'">
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading Portfolio...</span>
       </div>
     </div>
-  </ng-template>
+  </div>
 
-  <ng-template #pnf>
-    <app-page-not-found></app-page-not-found>
-  </ng-template>
+  <app-page-not-found *ngIf="activeStep === PageDisplayStep.NotFound">
+  </app-page-not-found>
+
 </div>

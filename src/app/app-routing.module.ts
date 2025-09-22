@@ -2,14 +2,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageEditComponent } from './admin/components/page-edit/page-edit.component';
 import { PageDisplayComponent } from './portfolio/components/page-display/page-display.component';
-import { PageNotFoundComponent } from './shared/PageNotFound';
+import { PageNotFoundComponent } from './portfolio/components/page-not-found.component';
 import { ContactMeComponent } from './portfolio/components/contact-me/contact-me.component';
 import { PasswordPageComponent } from './portfolio/components/password-page/password-page.component';
 import { NoPasswordPage, PasswordPage } from './auth-guards';
+import { BasePageComponent } from 'src/app/portfolio/components/base-page.component';
 
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    component: BasePageComponent,
+  },
+  {
+    path: 'enter-password',
     component: PasswordPageComponent,
     canActivate: [NoPasswordPage],
   },

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ImageDefault } from 'src/app/shared/classes.const';
-import { iImage } from 'src/app/shared/interfaces.const';
+import { iImage, ImageDefault } from 'src/app/shared/interfaces.const';
 import { PageEditService } from '../../services/page-edit.service';
 
 @Component({
@@ -18,13 +17,13 @@ export class ImageEditComponent {
   }
 
   get imageKeys(): string[] {
-    return Object.keys(this.image);
+    return Object.keys(this.image).sort();
   }
 
-  get ImageFieldOptions(): [string, any][] {
-    return Object.entries(new ImageDefault()).filter(
-      (entry) => this.imageKeys.findIndex((key) => key === entry[0]) === -1
-    );
+  get unusedImageFields(): [string, any][] {
+    return Object.entries(new ImageDefault())
+      .filter((entry) => !this.imageKeys.some((key) => key === entry[0]))
+      .sort((a, b) => a[0].localeCompare(b[0]));
   }
 
   constructor(private pageEdit: PageEditService) {}

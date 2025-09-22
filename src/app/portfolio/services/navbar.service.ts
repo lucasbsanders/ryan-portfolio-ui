@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { PageType } from 'src/app/shared/enums.const';
 import { PageReadService } from './page-read.service';
+import { iPage } from 'src/app/shared/interfaces.const';
 
 @Injectable({
   providedIn: 'root',
@@ -40,12 +41,12 @@ export class NavbarService {
   getMenuData(): Observable<any[]> {
     return this.pageService
       .getPageFromRoute('__menu', PageType.Static)
-      .pipe(map((response) => response?.['data']));
+      .pipe(map((page: iPage | undefined) => page ? page['data'] : []));
   }
 
   getFooterData(): Observable<any> {
     return this.pageService
       .getPageFromRoute('__footer')
-      .pipe(map((response) => response?.['data']));
+      .pipe(map((page: iPage | undefined) => page ? page['data'] : null));
   }
 }

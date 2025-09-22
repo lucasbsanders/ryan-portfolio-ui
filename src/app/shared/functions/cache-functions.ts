@@ -1,23 +1,30 @@
-export const PAGE_SESSION_KEY = 'portfolio-page-cache';
-export const PAGE_EXPIRE_KEY = 'portfolio-page-cache-expiration';
+import { environment } from "src/environments/environment";
+
+export const PAGES_LIST_LS_KEY = 'portfolio-pages-cache';
+export const PAGES_LIST_UPDATED_LS_KEY = 'portfolio-pages-cache-updated';
 export const AUTHORIZED_KEY = 'portfolio-access-authorized';
 
-export const updateCacheExpiration = (): void => {
+export const setPagesListCache = (serializedPages: string): void => {
   const now = new Date();
-  now.setHours(now.getHours() + 1);
-  localStorage.setItem(PAGE_EXPIRE_KEY, now.toUTCString());
+  localStorage.setItem(PAGES_LIST_UPDATED_LS_KEY, now.toUTCString());
+  localStorage.setItem(PAGES_LIST_LS_KEY, serializedPages);
 };
 
-export const isCacheExpired = (): boolean => {
-  const cacheExpireDate = Date.parse(
-    localStorage.getItem(PAGE_EXPIRE_KEY) ?? ''
-  );
+export const isPagesListCacheExpired = (): boolean => {
+  let cacheIsExpired = false;
 
-  const cacheExpired =
-    !localStorage.getItem(PAGE_EXPIRE_KEY) || cacheExpireDate < Date.now();
-  if (cacheExpired) {
+  if (localStorage.getItem(PAGES_LIST_UPDATED_LS_KEY)) {
+    const cacheExpirationDate = new Date(
+      Date.parse(localStorage.getItem(PAGES_LIST_UPDATED_LS_KEY) ?? '')
+    );
+    cacheExpirationDate.setMilliseconds(
+      cacheExpirationDate.getUTCMilliseconds() + environment.cacheExpirationTimeMs
+    );
+
+    cacheIsExpired = cacheExpirationDate.valueOf() < Date.now();
   }
-  return (
-    !localStorage.getItem(PAGE_EXPIRE_KEY) || cacheExpireDate < Date.now()
-  );
+
+  //console.log('cacheIsExpired result: ' + cacheIsExpired);
+
+  return cacheIsExpired;
 };

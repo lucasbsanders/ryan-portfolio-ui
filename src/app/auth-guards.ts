@@ -1,19 +1,17 @@
 import { inject } from '@angular/core';
 import { CanActivateChildFn, CanActivateFn, Router } from '@angular/router';
-import { of } from 'rxjs';
-import {
-  AUTHORIZED_KEY,
-  isCacheExpired,
-} from './shared/functions/cache-functions';
+import { AUTHORIZED_KEY } from './shared/functions/cache-functions';
+import { ENABLE_PASSWORD_PROTECTION_FLAG } from 'src/app/shared/flags.const';
 
 export const PasswordPage: CanActivateFn | CanActivateChildFn = (
   route,
   state
 ) => {
+  
   const router: Router = inject(Router);
   const userIsAuth = localStorage.getItem(AUTHORIZED_KEY) === 't';
 
-  if (!userIsAuth) {
+  if (!userIsAuth && ENABLE_PASSWORD_PROTECTION_FLAG) {
     return router.parseUrl('/');
   }
 
@@ -24,10 +22,11 @@ export const NoPasswordPage: CanActivateFn | CanActivateChildFn = (
   route,
   state
 ) => {
+  
   const router: Router = inject(Router);
-  const userIsActuallyAuth = localStorage.getItem(AUTHORIZED_KEY) === 't';
+  const userIsAuth = localStorage.getItem(AUTHORIZED_KEY) === 't';
 
-  if (userIsActuallyAuth) {
+  if (userIsAuth || !ENABLE_PASSWORD_PROTECTION_FLAG) {
     return router.parseUrl('/portfolio');
   }
 

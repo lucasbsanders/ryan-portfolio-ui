@@ -1,0 +1,3 @@
+export const ENABLE_PASSWORD_PROTECTION_FLAG = false;
+
+export const PASSWORD_FAILURE_DELAY_TIME_MS = 2 * 1000;

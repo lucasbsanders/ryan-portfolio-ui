@@ -1,10 +1,18 @@
 $pink: #ff00d8;
 $blue: #0082fe;
 $green: #00ffc3;
-$black: #000000;
-$gray: #888888;
-$lightgray: rgb(221, 221, 221, 0.5);
-$white: #ffffff;
+
+$black: #000101;
+$true-black: #000101;
+$white: #eeefef;
+$true-white: #eeefef;
+$gray: #777777;
+$lightgray: rgb(225, 225, 225, 0.9); //skills section bg
+$shadow-gray: rgb(225, 225, 225, 0.75);
+
+$hover-link-default-gray: #DDDDDD;
+$hover-link-background: rgba(45, 45, 45, 0.3);
+$menu-background: rgba(45, 45, 45, 0.9);
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
@@ -13,9 +21,15 @@ $theme-colors: map-merge(
     "blue": $blue,
     "green": $green,
     "black": $black,
+    "true-black": $true-black,
+    "white": $white,
+    "true-white": $true-white,
     "gray": $gray,
     "lightgray": $lightgray,
-    "white": $white,
+    "hover-link-default-gray": $hover-link-default-gray,
+    "shadow-gray": $shadow-gray,
+    "hover-link-background": $hover-link-background,
+    "menu-background": $menu-background,
   ),
   $theme-colors
 );

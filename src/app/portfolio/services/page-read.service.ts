@@ -1,21 +1,60 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of, pipe, switchMap } from 'rxjs';
 import {
-  isCacheExpired,
-  PAGE_EXPIRE_KEY,
-  PAGE_SESSION_KEY,
-  updateCacheExpiration,
+  BehaviorSubject,
+  catchError,
+  filter,
+  map,
+  Observable,
+  of,
+  tap,
+} from 'rxjs';
+import {
+  isPagesListCacheExpired,
+  PAGES_LIST_LS_KEY,
+  PAGES_LIST_UPDATED_LS_KEY,
+  setPagesListCache,
 } from 'src/app/shared/functions/cache-functions';
 import { iPage } from 'src/app/shared/interfaces.const';
 import { environment } from 'src/environments/environment';
 import { PageType } from '../../shared/enums.const';
 
+interface PageState {
+  pages: iPage[];
+  page?: iPage;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class PageReadService {
-  private _pages: iPage[] = [];
+  private _pagesSubject: BehaviorSubject<iPage[] | null> = new BehaviorSubject<
+    iPage[] | null
+  >(null);
+  private _pagesInitStarted = false;
+  private _pagesApiLoading = false;
+
+  public get pages$(): Observable<iPage[] | null> {
+    const cacheIsExpired = isPagesListCacheExpired();
+
+    if (cacheIsExpired) {
+      this.removePagesCache();
+    }
+
+    if (!this._pagesSubject.value && environment.useCache && !cacheIsExpired) {
+      const cachePages = this.getPagesFromCache();
+      if (cachePages != null) this._pagesSubject.next(cachePages);
+    }
+
+    if (!this._pagesSubject.value || cacheIsExpired) {
+      this._pagesSubject.next(null);
+      this.getAllPagesAndUpdateCache().subscribe((pages) =>
+        this._pagesSubject.next(pages)
+      );
+    }
+
+    return this._pagesSubject.asObservable();
+  }
 
   constructor(private httpClient: HttpClient) {}
 
@@ -28,94 +67,91 @@ export class PageReadService {
   getPageFromRoute(
     route: string | null,
     type?: PageType
-  ): Observable<iPage | null> {
-    if (!route) return of(null);
+  ): Observable<iPage | undefined> {
+    return this.pages$.pipe(
+      filter((pages) => pages != null),
+      map((pages) => this.findPage(pages ?? [], type, route))
+    );
+  }
 
-    if (isCacheExpired()) {
-      return this.getAllPagesAPICall().pipe(
-        this.filterPagesByType(type),
-        this.findPageByRoute(route),
-        this.sortPageTiles()
-      );
-    } else {
-      return of(this._pages).pipe(
-        this.filterPagesByType(type),
-        this.findPageByRoute(route),
-        switchMap((page: iPage | undefined) => {
-          if (!page) {
-            if (environment.useCache)
-              return this.getPagesFromCache().pipe(
-                this.filterPagesByType(type),
-                this.findPageByRoute(route),
-                switchMap((page: iPage | undefined) => {
-                  if (!page)
-                    return this.getAllPagesAPICall().pipe(
-                      this.filterPagesByType(type),
-                      this.findPageByRoute(route)
-                    );
-                  else return of(page);
-                })
-              );
-            else
-              return this.getAllPagesAPICall().pipe(
-                this.filterPagesByType(type),
-                this.findPageByRoute(route)
-              );
-          } else return of(page);
-        }),
-        this.sortPageTiles()
-      );
+  private sortPageTiles(page?: iPage): iPage | undefined {
+    if (page && page.type !== PageType.Static) {
+      if (page.tiles) page.tiles.sort((a: any, b: any) => a.order - b.order);
+      else page.tiles = [];
     }
+    return page;
   }
 
-  private filterPagesByType(type: PageType | undefined) {
-    return pipe(
-      map((pages: any) =>
-        type ? pages.filter((page: any) => page.type === type) : pages
+  private filterPagesByType(
+    pages: iPage[] | null | undefined,
+    type: PageType | undefined
+  ): iPage[] {
+    return (
+      (type ? pages?.filter((page: any) => page.type === type) : pages) ?? []
+    );
+  }
+
+  private findPage(
+    pages: iPage[],
+    type: PageType | undefined,
+    route: string | null
+  ): iPage | undefined {
+    return this.sortPageTiles(
+      this.filterPagesByType(pages, type).find(
+        (page: iPage) => page.route === route && !page.hidden
       )
     );
   }
 
-  private findPageByRoute(route: string | null) {
-    return pipe(
-      map((pages: any) =>
-        pages.find((page: any) => page.route === route && !page.hidden)
-      )
-    );
+  private setPagesInCache(pages: iPage[]) {
+    setPagesListCache(JSON.stringify(pages));
   }
 
-  private sortPageTiles() {
-    return pipe(
-      map((foundPage: iPage | null) => {
-        if (foundPage && foundPage.type !== PageType.Static) {
-          if (foundPage.tiles)
-            foundPage.tiles.sort((a: any, b: any) => a.order - b.order);
-          else foundPage.tiles = [];
-        }
-        return foundPage;
+  private removePagesCache() {
+    localStorage.removeItem(PAGES_LIST_LS_KEY);
+    localStorage.removeItem(PAGES_LIST_UPDATED_LS_KEY);
+  }
+
+  private getPagesFromCache(): iPage[] | null {
+    try {
+      const pagesString = <string>localStorage.getItem(PAGES_LIST_LS_KEY);
+      if (pagesString) {
+        const pages = JSON.parse(pagesString);
+        return pages;
+      }
+    } catch {}
+
+    return null;
+  }
+
+  private getAllPagesAndUpdateCache(): Observable<iPage[]> {
+    this._pagesSubject.next(null);
+    localStorage.removeItem(PAGES_LIST_UPDATED_LS_KEY);
+
+    return this.getAllPagesAPICall().pipe(
+      tap((pages: iPage[]) => {
+        //console.log('api pages: ' + pages.length);
+        this._pagesSubject.next(pages);
+        this.setPagesInCache(pages);
+      }),
+      catchError(() => {
+        this._pagesSubject.next(null);
+        return of([]);
       })
     );
   }
 
-  private getPagesFromCache(): Observable<iPage[]> {
-    this._pages = JSON.parse(<string>localStorage.getItem(PAGE_SESSION_KEY));
-    return of(this._pages);
-  }
-
   private getAllPagesAPICall(): Observable<iPage[]> {
-    localStorage.removeItem(PAGE_SESSION_KEY);
-    localStorage.removeItem(PAGE_EXPIRE_KEY);
-
+    this._pagesApiLoading = true;
     return this.httpClient.get(environment.apiBaseUrl + 'pages').pipe(
       map((response: any) => {
-        this._pages = this.parsePagesFromString(response.body);
-
-        if (this._pages.length) {
-          localStorage.setItem(PAGE_SESSION_KEY, JSON.stringify(this._pages));
-          updateCacheExpiration();
-        }
-
-        return this._pages;
+        const pages = this.parsePagesFromString(response.body);
+        return pages;
+      }),
+      tap(() => (this._pagesApiLoading = false)),
+      catchError((err, errObs) => {
+        console.error(err);
+        return errObs;
       })
     );
   }

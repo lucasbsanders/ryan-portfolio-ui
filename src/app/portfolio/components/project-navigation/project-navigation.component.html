@@ -1,6 +1,6 @@
 <app-container-with-margins [width]="Width.M" containerClass="my-5">
   <app-row-width-adjust [width]="Width.M" className="d-flex">
-    <button *ngIf="previousIndex > -1" [ngStyle]="{'flex-basis': nextIndex === -1 ? '100%' : '50%'}"
+    <a *ngIf="previousIndex > -1" [ngStyle]="{'flex-basis': nextIndex === -1 ? '100%' : '50%'}"
       class="montserrat fs-5 bg-transparent border-0 d-flex flex-row align-items-center gap-1 md:gap-3" [routerLink]="'/' + orderedProjectLinks[previousIndex]">
       <span style="display: block; height: 34px; width: 30px">
         <svg id="chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -10,9 +10,9 @@
       </span>
 
       <span class="mb-0">{{ orderedProjectLinks[previousIndex] }}</span>
-    </button>
+    </a>
 
-    <button *ngIf="nextIndex > -1" [ngStyle]="{'flex-basis': previousIndex === -1 ? '100%' : '50%'}"
+    <a *ngIf="nextIndex > -1" [ngStyle]="{'flex-basis': previousIndex === -1 ? '100%' : '50%'}"
       class="montserrat fs-5 bg-transparent border-0 d-flex flex-row align-items-center gap-1 md:gap-3 justify-content-end"
       [routerLink]="'/' + orderedProjectLinks[nextIndex]">
       <span>{{ orderedProjectLinks[nextIndex] }}</span>
@@ -23,6 +23,6 @@
             clip-rule="evenodd" />
         </svg>
       </span>
-    </button>
+    </a>
   </app-row-width-adjust>
 </app-container-with-margins>

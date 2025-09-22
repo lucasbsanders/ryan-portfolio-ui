@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TileDefault } from 'src/app/shared/classes.const';
+import { TileDefault } from 'src/app/shared/interfaces.const';
 import { TileType, Width } from 'src/app/shared/enums.const';
 import { iImage, iTile } from 'src/app/shared/interfaces.const';
 import { PageEditService } from '../../services/page-edit.service';
@@ -18,7 +18,7 @@ export class TileEditComponent {
 
   get Keys(): string[] {
     const keys = Object.keys(this.Tile);
-    return keys ? keys : [];
+    return keys ? keys.sort() : [];
   }
 
   get Tile(): iTile {
@@ -35,9 +35,9 @@ export class TileEditComponent {
   }
 
   get TileFieldOptions(): [string, any][] {
-    return Object.entries(new TileDefault()).filter(
-      (entry) => this.Keys.findIndex((key) => key === entry[0]) === -1
-    );
+    return Object.entries(new TileDefault())
+      .filter((entry) => this.Keys.findIndex((key) => key === entry[0]) === -1)
+      .sort((a, b) => a[0].localeCompare(b[0]));
   }
 
   constructor(private pageEditService: PageEditService) {}

@@ -1,12 +1,8 @@
-.fitContentWidth {
-  width: fit-content;
-}
-
-a.navLink {
+a {
   text-decoration: none;
 }
 
-a.navLink:hover {
+a:hover {
   font-family: "Montserrat-Bold", Arial, sans-serif;
 }
 
@@ -56,7 +52,7 @@ $menu-scale-transition-time: 0.15s;
   transform: scale($menu-transform-size);
 }
 
-// SCALE IMAGE ON HOVER/SCROLL ANIMATION
+// SCALE ICON ON HOVER/SCROLL ANIMATION
 
 $img-hover-transform-size: 1.1;
 $img-scroll-transition-time: 0.25s;
@@ -135,11 +131,11 @@ input[type="checkbox"]#navbar-menu {
 }
 
 #navbar-menu ~ #navbar-menu-icon span {
-  background: black;
+  background: var(--black);
 }
 
 #navbar-menu:checked ~ #navbar-menu-icon span {
-  background: white;
+  background: var(--white);
 }
 
 .menuIcon:hover #navbar-menu-icon span {
@@ -176,7 +172,7 @@ $translate-up: -1 * $translate-down;
 }
 
 .hover-box-shadow-white:hover {
-  box-shadow: 0.25em 0.25em 5em white;
+  box-shadow: 0.25em 0.25em 5em var(--white);
 }
 
 button:not(.btn) {

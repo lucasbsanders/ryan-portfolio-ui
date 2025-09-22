@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ImageComponent } from './components/image/image.component';
 import { RowWidthAdjustComponent } from './components/row-width-adjust/row-width-adjust.component';
 import { EnterViewPortDirective } from './directives/enter-view-port.directive';
-import { PageNotFoundComponent } from './PageNotFound';
+import { PageNotFoundComponent } from 'src/app/portfolio/components/page-not-found.component';
 import { FilenamePipe } from './pipes/filename.pipe';
 import { HtmlSanitizePipe } from './pipes/html-sanitize.pipe';
 import { KeyToS3Pipe } from './pipes/key-to-s3.pipe';
@@ -13,9 +13,11 @@ import { SplitTextPipe } from './pipes/split-text.pipe';
 import { UrlSanitizePipe } from './pipes/url-sanitize.pipe';
 import { ContainerWithMarginsComponent } from './components/container-with-margins/container-with-margins.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BasePageComponent } from 'src/app/portfolio/components/base-page.component';
 
 @NgModule({
   declarations: [
+    BasePageComponent,
     PageNotFoundComponent,
     RowWidthAdjustComponent,
     ImageComponent,
@@ -40,6 +42,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    BasePageComponent,
     PageNotFoundComponent,
     RowWidthAdjustComponent,
     ImageComponent,

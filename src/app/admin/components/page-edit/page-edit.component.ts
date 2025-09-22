@@ -26,25 +26,32 @@ export class PageEditComponent implements OnInit {
   editPanelOpenMap = new Map();
   buttonDisable = false;
 
-  get page(): iPage {
+  get page(): iPage | undefined {
     return this.pageEditService.page;
   }
 
   get Tiles(): iTile[] {
-    return this.pageEditService.page.tiles;
+    return this.pageEditService.page?.tiles ?? [];
   }
 
   constructor(
     private navbarService: NavbarService,
     private pageReadService: PageReadService,
     private activatedRoute: ActivatedRoute,
-    private awsService: AdminAPIService,
+    private adminAPIService: AdminAPIService,
     private pageEditService: PageEditService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     if (environment.disableEdit) this.router.navigate(['/']);
+
+    // this.adminAPIService.getAvailableImages().subscribe({
+    //   next: (response: any) => {
+    //     console.log(response);
+    //   }
+    // });
+
     this.activatedRoute.paramMap
       .pipe(
         switchMap((paramMap: any) => {
@@ -56,7 +63,7 @@ export class PageEditComponent implements OnInit {
           return this.pageReadService.getPageFromRoute(this.route);
         })
       )
-      .subscribe((page: iPage | null) => {
+      .subscribe((page: iPage | undefined) => {
         if (!page) this.pageNotFound = true;
         else this.pageEditService.page = page;
       });
@@ -131,8 +138,9 @@ export class PageEditComponent implements OnInit {
   }
 
   savePage() {
+    if (!this.page) return;
     this.buttonDisable = true;
-    this.awsService.createOrEditPage(this.page).subscribe((data) => {
+    this.adminAPIService.createOrEditPage(this.page).subscribe((data) => {
       if (!data) this.setErrorMessage('ERROR: Request did not succeed');
       else this.setSuccessMessage('Successfully saved page');
       this.buttonDisable = false;
@@ -140,9 +148,10 @@ export class PageEditComponent implements OnInit {
   }
 
   deletePage() {
+    if (!this.page) return;
     this.buttonDisable = true;
     try {
-      this.awsService.deletePage(this.page).subscribe((data) => {
+      this.adminAPIService.deletePage(this.page).subscribe((data) => {
         this.setSuccessMessage(JSON.stringify(data));
         this.buttonDisable = false;
       });

@@ -10,10 +10,6 @@
   color: $primary;
 }
 
-.background-white {
-  background-color: $white;
-}
-
 @font-face {
   font-family: "Fugaz";
   src: local("Fugaz"),
@@ -58,19 +54,23 @@ h6 {
   font-family: "Montserrat-Bold", Arial, sans-serif;
 }
 
-.background-fade {
-  background-color: rgba(0, 0, 0, 0.85);
+body {
+  background-color: var(--white) !important;
+  color: var(--black) !important;
+}
+
+button {
+  color: var(--black);
 }
 
 // global shadow effect
 
 $shadow-length: 10;
 $shadow-blur: 25px;
-$shadow-color: rgba(gray, 0.2);
-$shadow-background-color: lightgray;
+$shadow-background-color: var(--shadow-gray);
 
 .customShadow {
-  box-shadow: 0px 0px $shadow-blur $shadow-color;
+  box-shadow: 0px 0px $shadow-blur $shadow-background-color;
   border-radius: 12px;
   //background-color: $shadow-background-color;
 }

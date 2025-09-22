@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { PageDefault } from 'src/app/shared/classes.const';
-import { iPage } from 'src/app/shared/interfaces.const';
+import { iPage, PageDefault } from 'src/app/shared/interfaces.const';
 import { PageType, TileType, Width } from '../../../shared/enums.const';
 import { NavbarService } from '../../services/navbar.service';
 import { PageReadService } from '../../services/page-read.service';
-import { AUTHORIZED_KEY } from 'src/app/shared/functions/cache-functions';
+
+enum PageDisplayStep {
+  Loading,
+  PageContent,
+  NotFound,
+}
 
 @Component({
   selector: 'app-page-display',
@@ -17,10 +21,10 @@ export class PageDisplayComponent implements OnInit {
   TileType = TileType;
   Width = Width;
   PageType = PageType;
+  PageDisplayStep = PageDisplayStep;
 
+  activeStep: PageDisplayStep = PageDisplayStep.Loading;
   page: iPage = new PageDefault();
-
-  pageNotFound = false;
 
   get isHomepage(): boolean {
     return this.navbarService.isHomepage;
@@ -37,35 +41,33 @@ export class PageDisplayComponent implements OnInit {
   constructor(
     private navbarService: NavbarService,
     private pageService: PageReadService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    const userIsAuth = localStorage.getItem(AUTHORIZED_KEY) === 't';
+    
+    this.activatedRoute.paramMap
+      .pipe(
+        switchMap((paramMap: any) => {
+          this.page = new PageDefault();
+          this.activeStep = PageDisplayStep.Loading;
+          const path = paramMap.get('route');
 
-    if (!userIsAuth) {
-      this.router.navigate(['/']);
-    } else {
-      this.activatedRoute.paramMap
-        .pipe(
-          switchMap((paramMap: any) => {
-            this.page = new PageDefault();
-            this.pageNotFound = false;
-            const path = paramMap.get('route');
-
-            this.navbarService.setRoute(path);
-            return this.pageService.getPageFromRoute(path);
-          })
-        )
-        .subscribe((page: iPage | null) => this.setPage(page));
-    }
-  }
-
-  setPage(page: iPage | null) {
-    if (!page) this.pageNotFound = true;
-    else this.page = page;
-
-    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 300);
+          this.navbarService.setRoute(path);
+          return this.pageService.getPageFromRoute(path);
+        })
+      )
+      .subscribe((page: iPage | undefined) => {
+        if (page) {
+          this.page = page;
+          this.activeStep = PageDisplayStep.PageContent;
+          setTimeout(
+            () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+            300
+          );
+        } else {
+          this.activeStep = PageDisplayStep.NotFound;
+        }
+      });
   }
 }

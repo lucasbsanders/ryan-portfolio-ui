@@ -1,12 +1,8 @@
-.footer {
-  background-color: black;
-}
-
 a,
 button,
 p,
 div {
-  color: lightgray;
+  color: var(--hover-link-default-gray);
   text-decoration: none;
   font-family: "Montserrat", Arial, sans-serif;
 }

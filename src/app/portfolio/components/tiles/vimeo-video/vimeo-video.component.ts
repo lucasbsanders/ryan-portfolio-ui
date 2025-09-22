@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/portfolio/services/navbar.service';
 import { TileBaseComponent } from '../tile-base.component';
@@ -9,11 +10,12 @@ import { TileBaseComponent } from '../tile-base.component';
   styleUrls: ['./vimeo-video.component.scss'],
 })
 export class VimeoVideoComponent extends TileBaseComponent {
-
   loading: boolean = true;
 
-  constructor(navbarService: NavbarService, router: Router) {
+  constructor(
+    navbarService: NavbarService,
+    router: Router
+  ) {
     super(navbarService, router);
   }
-
 }

@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { NavbarService } from '../../services/navbar.service';
-import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { NavbarService } from '../../services/navbar.service';
 
 @Component({
   selector: 'app-fullscreen-menu',
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./fullscreen-menu.component.scss'],
 })
 export class FullscreenMenuComponent implements OnInit {
-  menuData: any[] = [];
+  public menuData: any[] = [];
 
   get brandSelection(): string {
     return environment.icons.primary;
@@ -38,13 +38,10 @@ export class FullscreenMenuComponent implements OnInit {
   constructor(private router: Router, private navbarService: NavbarService) {}
 
   ngOnInit(): void {
-    this.navbarService
-      .getMenuData()
-      .subscribe(
-        (menuData: any) =>
-          (this.menuData =
-            menuData?.sort((a: any, b: any) => a.order - b.order) ?? [])
-      );
+    this.navbarService.getMenuData().subscribe((menuData) => {
+      this.menuData =
+        menuData?.sort((a: any, b: any) => a.order - b.order) ?? [];
+    });
   }
 
   openEditPage(): void {
@@ -56,12 +53,7 @@ export class FullscreenMenuComponent implements OnInit {
   }
 
   clickOption(option: any) {
-    if (option.route) {
-      this.goToRoute(option.route);
-    }
-    if (option.url) {
-      this.openWindow(option.url);
-    }
+    if (option.route) this.setMenuOpen(false);
   }
 
   goToRoute(route: string) {

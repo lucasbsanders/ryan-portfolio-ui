@@ -31,6 +31,7 @@ export class ImageGridComponent
   }
 
   override ngOnChanges(changes: SimpleChanges): void {
+    
     this.sortedFilteredImages = this.sortFilterImages(this.selectedFilter);
   }
 

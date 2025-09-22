@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AUTHORIZED_KEY } from 'src/app/shared/functions/cache-functions';
-import { hashString } from 'src/app/shared/functions/hash-functions';
 import { AuthService } from '../../services/auth.service';
+import { PASSWORD_FAILURE_DELAY_TIME_MS } from 'src/app/shared/flags.const';
 
 @Component({
   selector: 'app-password-page',
@@ -39,10 +39,9 @@ export class PasswordPageComponent implements OnInit, OnDestroy {
           const hash = query?.get('h');
 
           if (password) {
-            const passwordHash = hashString(password);
-            this.checkPasswordAndRedirect(passwordHash);
+            this.checkPasswordAndRedirect(password, true);
           } else if (hash) {
-            this.checkPasswordAndRedirect(hash);
+            this.checkPasswordAndRedirect(hash, false);
           }
         }
       );
@@ -51,28 +50,28 @@ export class PasswordPageComponent implements OnInit, OnDestroy {
 
   public submitPassword() {
     if (this.passwordControl.value) {
-      const passwordHash = hashString(this.passwordControl.value);
-      this.checkPasswordAndRedirect(passwordHash);
+      this.checkPasswordAndRedirect(this.passwordControl.value, true);
       this.passwordControl.setValue('');
     }
   }
 
-  private checkPasswordAndRedirect(passwordHash: string) {
+  private checkPasswordAndRedirect(
+    password: string,
+    applyHashToPassword: boolean
+  ) {
     this.passwordLoading = true;
-    this.authService.submitPassword(passwordHash).subscribe((r: any) => {
-      const isAuth = r.body;
-      if (isAuth) localStorage.setItem(AUTHORIZED_KEY, 't');
-      else localStorage.removeItem(AUTHORIZED_KEY);
 
-      if (isAuth) {
-        this.router.navigate(['/portfolio']);
-        // location.reload();
-      } else {
-        setTimeout(() => {
-          this.passwordLoading = false;
-          this.router.navigate(['/']);
-        }, 5 * 1000);
-      }
-    });
+    this.authService
+      .submitPasswordAndSetAuthKey(password, applyHashToPassword)
+      .subscribe((isAuth) => {
+        if (isAuth) {
+          this.router.navigate(['/portfolio']);
+        } else {
+          setTimeout(() => {
+            this.router.navigate(['/']);
+            this.passwordLoading = false;
+          }, PASSWORD_FAILURE_DELAY_TIME_MS);
+        }
+      });
   }
 }

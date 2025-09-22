@@ -12,9 +12,7 @@ export class AdminAPIService {
 
   constructor(private httpClient: HttpClient) {}
 
-  ////
-  //// API methods
-  ////
+  // API methods
 
   createOrEditPage(pageData: iPage): Observable<any> {
     return this.httpClient
@@ -52,6 +50,10 @@ export class AdminAPIService {
           return parsedResponse;
         })
       );
+  }
+
+  getAvailableImages(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'images');
   }
 
   //

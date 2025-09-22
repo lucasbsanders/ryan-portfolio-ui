@@ -3,7 +3,11 @@ button.slideButton {
   border: none !important;
   height: 6px;
   border-radius: 3px;
-  background-color: var(--gray);
+  background-color: var(--gray) !important;
+
+  &:hover {
+    background-color: var(--black) !important;
+  }
 
   &.active {
     background-color: var(--blue);

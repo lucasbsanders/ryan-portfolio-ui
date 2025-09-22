@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NavbarService } from 'src/app/portfolio/services/navbar.service';
-import { ImageDefault } from '../../classes.const';
+import { ImageDefault } from '../../interfaces.const';
 import { iImage } from '../../interfaces.const';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,6 @@ export class ImageComponent {
   @Input() image: iImage = new ImageDefault();
   @Input() hasShadow: boolean = false;
   @Input() className: string = '';
-  @Input() containerClass: string = '';
 
   loading: boolean = true;
   mouseIn: boolean = false;
@@ -24,13 +23,11 @@ export class ImageComponent {
 
   constructor(private navbarService: NavbarService, private router: Router) {}
 
-  loadImageOnScroll(isInView: boolean) {
-    if (isInView && this.loading) this.loading = false;
+  mouseMove() {
+    this.mouseIn = true;
   }
 
-  conditionalGoToImageRoute() {
-    this.mouseIn = true;
-    if (this.image.url || this.image.link)
-      this.router.navigate(['/' + (this.image.url ?? this.image.link)]);
+  loadImageOnScroll(isInView: boolean) {
+    if (isInView && this.loading) this.loading = false;
   }
 }

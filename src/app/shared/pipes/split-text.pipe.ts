@@ -17,26 +17,6 @@ export class SplitTextPipe implements PipeTransform {
       startIdx = endIdx + 5;
     } while (endIdx < text.length && startIdx < text.length);
 
-    // for (var curr = 0; numPieces > 0; numPieces--) {
-    //   const nextSpace = text.indexOf('<col>', curr);
-    //   const splitEnd = nextSpace > -1 ? nextSpace : text.length;
-    //   parts.push(text.substring(curr, splitEnd).trim());
-    //   curr = splitEnd + 5;
-    // }
-
     return parts;
-
-    // split by space appox in center
-
-    // const approxLength = text.length / numPieces;
-
-    // for (var curr = 0; numPieces > 0; numPieces--) {
-    //   const nextSpace = text.indexOf(' ', curr + approxLength);
-    //   const splitEnd = nextSpace > 0 ? nextSpace : text.length;
-    //   parts.push(text.substring(curr, splitEnd).trim());
-    //   curr = splitEnd;
-    // }
-
-    // return parts;
   }
 }

@@ -6,8 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { TileDefault } from 'src/app/shared/classes.const';
-import { iImage, iTile } from 'src/app/shared/interfaces.const';
+import { iImage, iTile, TileDefault } from 'src/app/shared/interfaces.const';
 import { Width } from '../../../shared/enums.const';
 import { NavbarService } from '../../services/navbar.service';
 

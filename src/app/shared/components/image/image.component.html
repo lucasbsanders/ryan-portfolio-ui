@@ -1,5 +1,5 @@
-<div [class]="containerClass || 'w-100 text-center position-relative'" [ngClass]="{ padBox: hasShadow, imgBox: image.link }" appTrackViewPort
-  (isAtTop)="loadImageOnScroll($event)" (mouseenter)="mouseIn = true" (mouseleave)="mouseIn = false" (click)="conditionalGoToImageRoute()">
+<div class="h-auto w-100 text-center position-relative" [ngClass]="{'padBox': hasShadow, 'imgBox': image.link}" appTrackViewPort
+  (isAtTop)="loadImageOnScroll($event)" (mousemove)="mouseMove()" (mouseleave)="mouseIn = false">
   <img [src]="image.s3Key | keyToS3" [alt]="image.s3Key | filename" [class]="className" [ngClass]="{
       customShadow: hasShadow,
       invisible: loading,
@@ -10,28 +10,20 @@
     }" />
 
   <!-- Image/gif overlay -->
-  <div class="position-absolute w-100 h-100 top-0 left-0 right-0 bottom-0" *ngIf="image.hoverS3Key && mouseIn">
+  <div class="position-absolute w-100 h-100 top-0 left-0 right-0 bottom-0" *ngIf="image.hoverS3Key && mouseIn && !loading">
     <img [src]="image.hoverS3Key | keyToS3" [alt]="image.hoverS3Key | filename" [ngClass]="{
       customShadow: hasShadow,
-      invisible: loading,
       scaleImg: image.scale
     }" [class]="className" (click)="mouseIn = false" />
   </div>
 
   <!-- Link/URL overlay -->
-  <div class="position-absolute w-100 h-100 top-0 left-0 right-0 bottom-0 align-items-center justify-content-center d-flex p-3 overlayContainer"
-    style="cursor: pointer" *ngIf="image.link || image.url">
-    <p class="montserrat-bold fs-2 p-4 hover-link-light">{{ image.link ?? image.url ?? '' }}</p>
-
-    <!-- <a *ngIf="image.link && !image.url" class="montserrat-bold p-4 navLink" [ngStyle]="{ 'font-size': isSmallScreen ? 'x-large' : 'xx-large' }">
-      {{ image.link }}
-    </a>
-
-    <a *ngIf="image.url" class="montserrat-bold p-4 navLink" [ngStyle]="{ 'font-size': isSmallScreen ? 'x-large' : 'xx-large' }" [href]="image.url"
-      target="_blank" rel="noopener noreferrer">
-      {{ image.link ?? image.url ?? '' }}
-    </a> -->
-  </div>
+  <a class="position-absolute w-100 h-100 top-0 left-0 right-0 bottom-0 align-items-center justify-content-center d-flex p-3 overlayContainer bg-hover-link-background"
+    *ngIf="image.link || image.url" [routerLink]="image.url || image.link ? '/' + (image.url ?? image.link) : null">
+    <span class="montserrat-bold fs-2 p-4 hover-link-light">
+      {{image.link ?? image.url ?? ''}}
+    </span>
+  </a>
 
   <!-- Loading overlay -->
   <div class="position-absolute bottom-0 left-0 pe-2 w-100" [hidden]="!loading">

@@ -1,17 +1,15 @@
-<app-container-with-margins *ngIf="tile.filters && tile.filters.length" [width]="tile.width" [mt]="tile.mt">
+<app-container-with-margins *ngIf="tile.filters && tile.filters.length" [containerClass]="tile.containerClass" [width]="tile.width" [mt]="tile.mt">
   <app-row-width-adjust [width]="tile.width" className="gap-2 justify-content-center">
-    <div *ngFor="let filter of tile.filters" class="col-auto" (click)="filterItems(filter)">
-      <a class="filterLink" [ngClass]="{
-            'active': filter === selectedFilter
-          }">
-        {{ filter }}
-      </a>
-    </div>
+    <button type="button" *ngFor="let filter of tile.filters" class="filterLink col-auto" (click)="filterItems(filter)"
+      [ngClass]="{'active': filter === selectedFilter}">
+      {{ filter }}
+    </button>
   </app-row-width-adjust>
 </app-container-with-margins>
 
 <ng-container *ngIf="sortedFilteredImages.length > 0; else noImages">
-  <app-container-with-margins containerClass="overflow-visible" [width]="tile.width" [mt]="tile.filters && tile.filters.length ? 1 : tile.mt" [mb]="tile.mb">
+  <app-container-with-margins [containerClass]="'overflow-visible ' + tile.containerClass" [width]="tile.width"
+    [mt]="tile.filters && tile.filters.length ? 1 : tile.mt" [mb]="tile.mb">
     <app-row-width-adjust *ngFor="let imgRow of sortedFilteredImages | rowSplit : adjustedColumns" [width]="tile.width">
       <div *ngFor="let image of imgRow; index as i" class="g-2 position-relative" [ngClass]="lastRowColOffset(imgRow.length, i)">
         <app-image [image]="image" [hasShadow]="!!tile.shadow"></app-image>
@@ -19,7 +17,7 @@
     </app-row-width-adjust>
 
     <app-row-width-adjust *ngIf="tile.text" [width]="tile.width">
-      <div class="col-12 mt-3">
+      <div class="col-12 mt-4">
         <p [class]="tile.textClass" [innerHtml]="tile.text"></p>
       </div>
     </app-row-width-adjust>
@@ -27,7 +25,8 @@
 </ng-container>
 
 <ng-template #noImages>
-  <app-container-with-margins [width]="tile.width" [mt]="tile.filters && tile.filters.length ? 3 : tile.mt" [mb]="tile.mb">
+  <app-container-with-margins [containerClass]="tile.containerClass" [width]="tile.width" [mt]="tile.filters && tile.filters.length ? 3 : tile.mt"
+    [mb]="tile.mb">
     <h3 class="text-center {{ tile.textClass }}">
       {{selectedFilter === 'All' ? 'No results' : 'No results for category \'{{selectedFilter
       }}\''}}

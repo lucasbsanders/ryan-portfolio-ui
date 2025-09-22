@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PageDefault } from 'src/app/shared/classes.const';
+import { PageDefault } from 'src/app/shared/interfaces.const';
 import { TileType, Width } from 'src/app/shared/enums.const';
 import { iImage, iPage, iTile } from 'src/app/shared/interfaces.const';
 
@@ -7,7 +7,7 @@ import { iImage, iPage, iTile } from 'src/app/shared/interfaces.const';
   providedIn: 'root',
 })
 export class PageEditService {
-  page: iPage = new PageDefault();
+  public page?: iPage = new PageDefault();
 
   constructor() {}
 
@@ -17,21 +17,22 @@ export class PageEditService {
 
   update() {
     this.page = {
+      ...new PageDefault(),
       ...this.page,
       tiles: [
-        ...this.page.tiles.map((tile: iTile) =>
+        ...(this.page?.tiles.map((tile: iTile) =>
           tile.images
             ? {
                 ...tile,
                 images: [...tile.images],
               }
             : { ...tile }
-        ),
+        ) ?? []),
       ],
     };
 
-    this.page.tiles.sort((a: iTile, b: iTile) => a.order - b.order);
-    this.page.tiles.forEach((tile: iTile) =>
+    this.page?.tiles.sort((a: iTile, b: iTile) => a.order - b.order);
+    this.page?.tiles.forEach((tile: iTile) =>
       tile.images?.sort((a: iImage, b: iImage) => a.order - b.order)
     );
   }
@@ -39,11 +40,11 @@ export class PageEditService {
   // CRUD TILES
 
   getTile(tileNum: number): iTile | undefined {
-    return this.page.tiles.find((tile: iTile) => tile.order === tileNum);
+    return this.page?.tiles.find((tile: iTile) => tile.order === tileNum);
   }
 
   addTxtTile() {
-    const tiles = this.page.tiles;
+    const tiles = this.page?.tiles ?? [];
 
     const nextNumber = tiles.length > 0 ? tiles[tiles.length - 1].order + 1 : 0;
 
@@ -64,7 +65,7 @@ export class PageEditService {
   }
 
   addImgTile() {
-    const tiles = this.page.tiles;
+    const tiles = this.page?.tiles ?? [];
 
     const nextNumber = tiles.length > 0 ? tiles[tiles.length - 1].order + 1 : 0;
 
@@ -85,14 +86,14 @@ export class PageEditService {
       if (value === null) delete tile[key];
       else tile[key] = JSON.parse(JSON.stringify(value));
 
-      this.page.tiles[tileNum] = tile;
+      if (this.page) this.page.tiles[tileNum] = tile;
     }
 
     this.update();
   }
 
   deleteTile(tileNum: number) {
-    const tiles = this.page.tiles;
+    const tiles = this.page?.tiles ?? [];
 
     tiles.splice(
       tiles.findIndex((tile: iTile) => tile.order === tileNum),
