@@ -2,17 +2,31 @@ $pink: #ff00d8;
 $blue: #0082fe;
 $green: #00ffc3;
 
-$black: #000101;
+//DARK MODE
+$black: #eeefef;
 $true-black: #000101;
-$white: #eeefef;
+$white: #000101;
 $true-white: #eeefef;
 $gray: #777777;
-$lightgray: rgb(225, 225, 225, 0.9); //skills section bg
-$shadow-gray: rgb(225, 225, 225, 0.75);
+$lightgray: rgb(45, 45, 45, 0.9); //skills section bg
+$shadow-gray: rgb(45, 45, 45, 0.5);
 
-$hover-link-default-gray: #DDDDDD;
-$hover-link-background: rgba(45, 45, 45, 0.3);
-$menu-background: rgba(45, 45, 45, 0.9);
+$hover-link-default-gray: #333333;
+$hover-link-background: rgba(225, 225, 225, 0.5);
+$menu-background: rgba(225, 225, 225, 0.75);
+
+// //LIGHT MODE
+// $black: #000101;
+// $true-black: #000101;
+// $white: #eeefef;
+// $true-white: #eeefef;
+// $gray: #777777;
+// $lightgray: rgb(225, 225, 225, 0.9); //skills section bg
+// $shadow-gray: rgb(225, 225, 225, 0.75);
+
+// $hover-link-default-gray: #DDDDDD;
+// $hover-link-background: rgba(45, 45, 45, 0.3);
+// $menu-background: rgba(45, 45, 45, 0.9);
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
